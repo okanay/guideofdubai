@@ -188,10 +188,16 @@
                   class="flex flex-col items-start gap-x-6 gap-y-4 sm:flex-row"
                 >
                   <!-- Captcha Image -->
-                  <div class="order-2 flex items-center gap-2 sm:order-none">
+                  <div
+                    class="order-2 flex w-full items-center gap-2 sm:order-none sm:w-auto"
+                  >
                     <div
-                      class="h-11 w-40 animate-pulse overflow-hidden rounded-sm border border-gray-200 bg-gray-200"
-                    ></div>
+                      class="flex h-11 flex-1 overflow-hidden rounded-sm border border-gray-200 sm:w-40 sm:flex-none"
+                    >
+                      <div
+                        class="h-full w-full animate-pulse bg-gray-200"
+                      ></div>
+                    </div>
                     <div class="flex flex-col gap-1">
                       <button
                         type="button"
@@ -222,8 +228,9 @@
                       type="text"
                       id="captcha-code"
                       name="captcha-code"
+                      maxlength="6"
                       required
-                      class="peer w-full rounded-none border-b border-gray-200 py-2.5 text-gray-900 placeholder-transparent transition-colors duration-500 hover:border-gray-400 focus:border-primary-500 focus:outline-none"
+                      class="peer h-11 w-full rounded-none border-b border-gray-200 text-start text-xl tracking-[0.25em] text-gray-900 placeholder-transparent transition-colors duration-500 hover:border-gray-400 focus:border-primary-500 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                       placeholder="Güvenlik Kodu"
                     />
                     <label
@@ -242,7 +249,7 @@
                 id="visa-ship-modal-open-button"
                 class="block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
               >
-                Vize Durumunu Sorgula
+                Gönderi Bilgileri
               </button>
             </div>
           </form>
@@ -263,16 +270,18 @@
         <div
           id="visa-ship-modal"
           data-state="closed"
-          class="fixed left-0 top-0 z-[8001] flex h-full w-full justify-center overflow-y-auto bg-gray-500/40 py-12 data-[state=closed]:pointer-events-none data-[state=closed]:hidden"
+          class="fixed left-0 top-0 z-[8001] flex h-full w-full justify-center overflow-y-auto bg-gray-500/40 data-[state=closed]:pointer-events-none data-[state=closed]:hidden sm:py-12"
         >
           <section
             id="visa-ship-modal-container"
-            class="relative flex h-fit w-full max-w-2xl flex-col gap-7 rounded-sm bg-white p-4 py-8 text-gray-950"
+            class="relative flex h-full min-h-fit w-full max-w-2xl flex-col gap-8 rounded-sm bg-white text-gray-950 sm:h-fit sm:border sm:border-gray-300"
           >
-            <!-- Close Button -->
-            <div class="flex justify-between px-1">
-              <h4 class="text-lg font-semibold text-primary-600">
-                Visa Takip Sistemi
+            <!-- Header -->
+            <div
+              class="flex items-center justify-between border-b border-gray-200 bg-gray-100 px-4 py-4 sm:px-8"
+            >
+              <h4 class="text-lg font-semibold text-primary-500">
+                Vize Takip Sistemi
               </h4>
               <button
                 id="visa-ship-modal-closed-button"
@@ -280,6 +289,176 @@
               >
                 <i data-lucide="x" class="size-6"></i>
               </button>
+            </div>
+
+            <!-- Tracking Number -->
+            <div class="-mt-4 space-y-1 px-4 sm:px-8">
+              <div class="text-sm text-gray-500">Başvuru Numarası</div>
+              <div class="text-lg font-medium">5152623906245</div>
+            </div>
+
+            <!-- Progress Bar Container -->
+            <div
+              class="relative overflow-x-auto px-4 sm:overflow-x-visible sm:px-8"
+            >
+              <div class="min-w-[640px] sm:min-w-0">
+                <!-- Progress Bar -->
+                <div class="relative flex items-center justify-between">
+                  <!-- Step 1: Başvuru Alındı -->
+                  <div class="flex shrink-0 items-center gap-2">
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                    >
+                      <i data-lucide="check" class="size-4 text-white"></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium lg:text-base"
+                      >Başvuru Alındı</span
+                    >
+                  </div>
+
+                  <!-- Progress Line 1 -->
+                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-primary-500"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 2: İşlemde -->
+                  <div class="flex shrink-0 items-center gap-2">
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                    >
+                      <i data-lucide="check" class="size-4 text-white"></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium lg:text-base"
+                      >İşlemde</span
+                    >
+                  </div>
+
+                  <!-- Progress Line 2 -->
+                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-primary-500"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 3: Kontrol -->
+                  <div class="flex shrink-0 items-center gap-2">
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                    >
+                      <i data-lucide="check" class="size-4 text-white"></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium lg:text-base"
+                      >Kontrol</span
+                    >
+                  </div>
+
+                  <!-- Progress Line 3 -->
+                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-gray-200"
+                      style="width: 50%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 4: Sonuç -->
+                  <div class="flex shrink-0 items-center gap-2">
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200"
+                    >
+                      <span class="text-sm font-medium text-gray-600">4</span>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium lg:text-base"
+                      >Sonuç</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subtle Scroll Indicator for Mobile -->
+              <div
+                class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent sm:hidden"
+              ></div>
+            </div>
+
+            <!-- Detay Grid -->
+            <div class="grid grid-cols-2 gap-6 px-4 sm:px-8">
+              <!-- Sol Kolon -->
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                    <i data-lucide="user" class="size-5"></i>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="text-sm text-gray-500">Başvuru Sahibi</div>
+                    <div class="font-medium">Mehmet Emin YILMAZ</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                    <i data-lucide="ticket-check" class="size-5"></i>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="text-sm text-gray-500">Vize Türü</div>
+                    <div class="font-medium">Dubai 30 Gün Turist Vizesi</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sağ Kolon -->
+              <div class="space-y-4">
+                <div class="flex items-start justify-end gap-3 text-end">
+                  <div class="space-y-1">
+                    <div class="text-sm text-gray-500">
+                      İşleme Alınma Tarihi
+                    </div>
+                    <div class="font-medium">13.01.2025 11:56:02</div>
+                  </div>
+                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                    <i data-lucide="calendar" class="size-5"></i>
+                  </div>
+                </div>
+                <div class="flex items-start justify-end gap-3 text-end">
+                  <div class="space-y-1">
+                    <div class="text-sm text-gray-500">
+                      Planlanan Sonuçlanma Tarihi
+                    </div>
+                    <div class="font-medium">15.01.2025</div>
+                  </div>
+                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                    <i data-lucide="timer" class="size-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Note -->
+            <div class="space-y-2 px-4 pb-6 sm:px-8">
+              <p class="text-xs text-gray-500">
+                Bu sayfa gönderinin teslimi halinde hizmet sunumunu ispatlayan
+                dijital belge yerine geçer. Hizmet sunumuna ilişkin hak ve
+                yükümlülüklerinize aşağıdaki bağlantılardan erişebilirsiniz:
+              </p>
+
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="square-arrow-out-up-right"
+                  class="size-4 text-primary-500"
+                ></i>
+                <a href="/" class="text-sm text-primary-500">
+                  Hizmet Sözleşmemiz
+                </a>
+              </div>
             </div>
           </section>
         </div>
