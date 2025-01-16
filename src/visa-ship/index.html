@@ -65,24 +65,53 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Vize Takip Sistemi</title>
     </head>
-    <body class="relative h-full bg-gradient-to-br from-gray-50 to-gray-100">
-      <!-- Background Pattern -->
-      <div class="pointer-events-none absolute inset-0 -z-10">
+    <body class="relative min-h-dvh bg-[#fafafa]">
+      <!-- Dekoratif Arkaplan Elementleri -->
+      <div class="fixed inset-0 -z-10 overflow-hidden">
+        <!-- Gradient Overlay -->
         <div
-          class="absolute right-0 top-0 -z-10 h-[400px] w-[400px] -translate-y-1/4 translate-x-1/3 rounded-full bg-primary-100/40 blur-3xl"
+          class="absolute inset-0 bg-gradient-to-br from-gray-50/90 via-white/50 to-gray-100/90"
+        ></div>
+
+        <!-- Ana Dekoratif Şekiller -->
+        <div
+          class="absolute right-0 top-0 -z-10 h-[500px] w-[500px] -translate-y-1/4 translate-x-1/4 rounded-full bg-primary-100/30 blur-3xl"
         ></div>
         <div
-          class="absolute left-0 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-primary-100/30 blur-3xl"
+          class="absolute left-0 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/4 -translate-y-1/2 rounded-full bg-primary-50/20 blur-3xl"
         ></div>
+
+        <!-- İnce Çizgiler -->
+        <svg
+          class="absolute inset-0 h-full w-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="rgba(81, 101, 235, 0.05)"
+                stroke-width="0.5"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
 
-      <!-- Main Content -->
+      <!-- Ana İçerik -->
       <main
-        class="mx-auto flex min-h-full max-w-7xl flex-col items-center justify-center px-4 py-12"
+        class="mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden py-12"
       >
-        <div class="w-full max-w-xl space-y-6 text-center">
+        <div class="flex w-full max-w-xl flex-col gap-6 text-center">
           <!-- Header Content -->
-          <div class="space-y-4">
+          <div class="flex flex-col gap-3">
             <h1
               class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl"
             >
@@ -98,12 +127,12 @@
 
           <!-- Tracking Form -->
           <form
-            class="relative mx-auto w-full max-w-2xl rounded-sm border border-gray-100 bg-white p-8 shadow-sm backdrop-blur-sm"
+            class="relative mx-auto w-full max-w-2xl rounded-sm border border-gray-100 bg-white p-4 shadow-sm backdrop-blur-sm sm:p-8"
           >
-            <div class="space-y-6">
-              <div class="space-y-4">
+            <div class="flex w-full flex-col gap-6">
+              <div class="flex w-full flex-col gap-4">
                 <!-- Kargo Takip Kodu -->
-                <div class="relative flex items-center gap-2">
+                <div class="relative flex w-full items-center gap-2">
                   <i
                     data-lucide="barcode"
                     class="mt-1 size-5 flex-shrink-0 text-gray-400"
@@ -156,14 +185,14 @@
                 </div>
 
                 <!-- Captcha Alanı -->
-                <div class="flex items-start gap-6">
+                <div
+                  class="flex flex-col items-start gap-x-6 gap-y-4 sm:flex-row"
+                >
                   <!-- Captcha Image -->
-                  <div class="flex items-center gap-2">
+                  <div class="order-2 flex items-center gap-2 sm:order-none">
                     <div
-                      class="overflow-hidden rounded-sm border border-gray-200"
-                    >
-                      <div class="h-12 w-32 animate-pulse bg-gray-100"></div>
-                    </div>
+                      class="h-11 w-40 animate-pulse overflow-hidden rounded-sm border border-gray-200 bg-gray-200"
+                    ></div>
                     <div class="flex flex-col gap-1">
                       <button
                         type="button"
@@ -189,7 +218,7 @@
                   </div>
 
                   <!-- Captcha Input -->
-                  <div class="relative w-full">
+                  <div class="relative order-1 w-full sm:order-none">
                     <input
                       type="text"
                       id="captcha-code"
