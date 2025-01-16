@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Örnek Visa Ship Sayfası</title>
+
+    <!-- Project Fonts -->
+    <link rel="stylesheet" href="/assets/fonts/custom/font.css" />
+
+    <!-- Important Preload Fonts -->
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/extra-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/semibold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
+    <script type="module" src="/assets/scripts/layout.js"></script>
+
+    <script type="module" src="/assets/scripts/visa-ship.js"></script>
+    <link rel="stylesheet" href="/assets/styles/globals-out.css" />
+  </head>
+  <!doctype html>
+  <html lang="tr" class="h-full">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Vize Takip Sistemi</title>
+    </head>
+    <body class="relative h-full bg-gradient-to-br from-gray-50 to-gray-100">
+      <!-- Background Pattern -->
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div
+          class="absolute right-0 top-0 -z-10 h-[400px] w-[400px] -translate-y-1/4 translate-x-1/3 rounded-full bg-primary-100/40 blur-3xl"
+        ></div>
+        <div
+          class="absolute left-0 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-primary-100/30 blur-3xl"
+        ></div>
+      </div>
+
+      <!-- Main Content -->
+      <main
+        class="mx-auto flex min-h-full max-w-7xl flex-col items-center justify-center px-4 py-12"
+      >
+        <div class="w-full max-w-xl space-y-6 text-center">
+          <!-- Header Content -->
+          <div class="space-y-4">
+            <h1
+              class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl"
+            >
+              Vize Takip Sistemi
+            </h1>
+            <p
+              class="mx-auto max-w-lg text-balance text-base text-gray-600 lg:text-lg"
+            >
+              Vize başvurunuzun durumunu öğrenmek için aşağıdaki formu
+              kullanabilirsiniz.
+            </p>
+          </div>
+
+          <!-- Tracking Form -->
+          <form
+            class="relative mx-auto w-full max-w-2xl rounded-sm border border-gray-100 bg-white p-8 shadow-sm backdrop-blur-sm"
+          >
+            <div class="space-y-6">
+              <div class="space-y-4">
+                <!-- Kargo Takip Kodu -->
+                <div class="relative flex items-center gap-2">
+                  <i
+                    data-lucide="barcode"
+                    class="mt-1 size-5 flex-shrink-0 text-gray-400"
+                  ></i>
+                  <div class="relative flex w-full items-center">
+                    <div class="relative flex-1">
+                      <input
+                        type="text"
+                        id="tracking-code"
+                        name="tracking-code"
+                        required
+                        class="peer w-full border-b border-gray-300 py-2.5 text-gray-900 placeholder-transparent focus:border-primary-500 focus:outline-none"
+                        placeholder="Vize Takip Kodunuz"
+                      />
+                      <label
+                        for="tracking-code"
+                        class="pointer-events-none absolute -top-3.5 left-0 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-primary-500"
+                      >
+                        Vize Takip Kodunuz
+                      </label>
+                    </div>
+
+                    <!-- Info Button & Tooltip -->
+                    <div class="absolute right-0">
+                      <div class="relative">
+                        <input
+                          type="checkbox"
+                          id="info-toggle"
+                          class="peer hidden"
+                        />
+                        <label
+                          for="info-toggle"
+                          class="ml-2 flex size-5 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-colors hover:border-primary-500 hover:text-primary-500 peer-checked:border-primary-500 peer-checked:text-primary-500"
+                        >
+                          <i data-lucide="help-circle" class="size-4"></i>
+                        </label>
+                        <!-- Tooltip -->
+                        <div
+                          class="absolute right-0 top-8 z-50 hidden min-w-64 rounded-sm border border-gray-200 bg-white p-3 text-xs text-gray-600 shadow-lg before:absolute before:right-0.5 before:top-0 before:h-0 before:w-0 before:-translate-y-full before:border-8 before:border-transparent before:border-b-gray-200 before:content-[''] peer-checked:block"
+                        >
+                          <p class="text-pretty">
+                            Takip kodunuza, kargo paketi üzerindeki etiket veya
+                            size gönderilen bilgilendirme SMS'i üzerinden
+                            ulaşabilirsiniz.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Captcha Alanı -->
+                <div class="flex items-start gap-6">
+                  <!-- Captcha Image -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="overflow-hidden rounded-sm border border-gray-200"
+                    >
+                      <div class="h-12 w-32 animate-pulse bg-gray-100"></div>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <button
+                        type="button"
+                        aria-label="Yeni kod"
+                        class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
+                      >
+                        <i
+                          data-lucide="refresh-cw"
+                          class="duration*300 size-full text-primary-500"
+                        ></i>
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Sesli dinle"
+                        class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
+                      >
+                        <i
+                          data-lucide="volume-2"
+                          class="duration*300 size-full text-primary-500"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Captcha Input -->
+                  <div class="relative w-full">
+                    <input
+                      type="text"
+                      id="captcha-code"
+                      name="captcha-code"
+                      required
+                      class="peer w-full border-b border-gray-300 py-2.5 text-gray-900 placeholder-transparent focus:border-primary-500 focus:outline-none"
+                      placeholder="Güvenlik Kodu"
+                    />
+                    <label
+                      for="captcha-code"
+                      class="pointer-events-none absolute -top-2.5 left-0 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-primary-500"
+                    >
+                      Güvenlik Kodu
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
+              >
+                Vize Durumunu Sorgula
+              </button>
+            </div>
+          </form>
+
+          <!-- Footer Info -->
+          <p class="text-sm text-gray-500">
+            Teknik destek için
+            <a
+              href="mailto:visa@mbdtravel.com"
+              class="text-primary-500 hover:underline"
+              >visa@mbdtravel.com</a
+            >
+            adresine mail atabilirsiniz.
+          </p>
+        </div>
+      </main>
+    </body>
+  </html>
+</html>

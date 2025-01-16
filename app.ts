@@ -120,6 +120,11 @@ app.get('/payment', c => {
   return c.html(html.text())
 })
 
+app.get('/visa-ship', c => {
+  const html = Bun.file('./dist/visa-ship/index.html')
+  return c.html(html.text())
+})
+
 const secret = 'LHOUwjBFGyori7tltMnRQ2YtanvObPZOenCowk/Cq8c='
 
 app.post('/github-push-event', async c => {
