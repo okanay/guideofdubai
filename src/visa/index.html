@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Örnek Visa Sayfası</title>
+
+    <!-- Project Fonts -->
+    <link rel="stylesheet" href="/assets/fonts/custom/font.css" />
+
+    <!-- Important Preload Fonts -->
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/extra-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/semibold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/assets/styles/globals-out.css" />
+    <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
+    <script type="module" src="/assets/scripts/layout.js"></script>
+    <script type="module" src="/assets/scripts/visa.js"></script>
+  </head>
+  <body class="bg-white">
+    <main class="mx-auto max-w-3xl px-3.5 pb-[32px] pt-[72px] lg:px-4 lg:py-12">
+      <div class="w-full space-y-8">
+        <!-- Başlıklar -->
+        <div class="space-y-2 text-center">
+          <h1 class="text-4xl font-semibold text-primary-500">Dubai Vizesi</h1>
+          <h2 class="text-2xl">Online Başvuru Sistemi</h2>
+          <p class="text-lg text-gray-600">
+            Birleşik Arap Emirlikleri Turist Vizesi
+          </p>
+        </div>
+
+        <!-- Vize Ücretleri -->
+        <div class="rounded-lg bg-white py-6 shadow-sm">
+          <h3 class="mb-8 text-center text-2xl text-primary-500">
+            Vize Ücretleri
+          </h3>
+
+          <div class="w-full overflow-x-auto">
+            <table class="w-full">
+              <thead class="border-b border-gray-200">
+                <tr>
+                  <th class="py-4 text-left font-semibold">VİZE TİPİ</th>
+                  <th class="py-4 pr-2 text-right font-semibold sm:pr-0">
+                    YETİŞKİN
+                  </th>
+                  <th class="py-4 text-right font-semibold">ÇOCUK</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="py-4">30 GÜNLÜK TEK GİRİŞLİ DUBAİ VİZESİ</td>
+                  <td class="py-4 text-right text-primary-500">$125</td>
+                  <td class="py-4 text-right text-primary-500">$80</td>
+                </tr>
+                <tr>
+                  <td class="py-4">30 GÜNLÜK ÇOK GİRİŞLİ DUBAİ VİZESİ</td>
+                  <td class="py-4 text-right text-primary-500">$210</td>
+                  <td class="py-4 text-right text-primary-500">$160</td>
+                </tr>
+                <tr>
+                  <td class="py-4">VİZE UZATMA</td>
+                  <td class="py-4 text-right text-primary-500">$330</td>
+                  <td class="py-4 text-right text-primary-500">$330</td>
+                </tr>
+                <tr>
+                  <td class="py-4">60 GÜNLÜK TEK GİRİŞLİ DUBAİ VİZESİ</td>
+                  <td class="py-4 text-right text-primary-500">$190</td>
+                  <td class="py-4 text-right text-primary-500">$140</td>
+                </tr>
+                <tr>
+                  <td class="py-4">60 GÜNLÜK ÇOK GİRİŞLİ DUBAİ VİZESİ</td>
+                  <td class="py-4 text-right text-primary-500">$300</td>
+                  <td class="py-4 text-right text-primary-500">$280</td>
+                </tr>
+                <tr>
+                  <td class="py-4">VİZE İPTALİ</td>
+                  <td class="py-4 text-right text-primary-500">$75</td>
+                  <td class="py-4 text-right text-primary-500">$75</td>
+                </tr>
+                <tr>
+                  <td class="py-4">EXPRESS VİZE</td>
+                  <td class="py-4 text-right text-primary-500">$50</td>
+                  <td class="py-4 text-right text-primary-500">$50</td>
+                </tr>
+                <tr>
+                  <td class="py-4">SİGORTA</td>
+                  <td class="py-4 text-right text-primary-500">$20</td>
+                  <td class="py-4 text-right text-primary-500">$20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <form
+        class="relative z-20 flex w-full flex-col gap-4 bg-white [&>*]:flex-shrink-0"
+      >
+        <!-- Başlık ve Yeni Kişi Ekle -->
+        <div class="flex items-start justify-between sm:items-center">
+          <h2 class="text-lg font-medium">Lütfen formu eksiksiz doldurunuz.</h2>
+          <button
+            type="button"
+            id="add-person"
+            class="flex flex-shrink-0 items-center gap-2 font-medium text-primary-500 hover:text-primary-600"
+          >
+            <span class="text-2xl">+</span>
+            Yeni Kişi Ekle
+          </button>
+        </div>
+
+        <!-- Kişiler -->
+        <ul
+          id="persons"
+          class="flex flex-col [&>*:first-child_.delete-btn]:hidden"
+        >
+          <!-- 1. Kişi -->
+          <li id="person-1" class="group relative flex flex-col gap-4 py-8">
+            <!-- Delete Person :: 1. Kişi İçin Kullanılmaz (auto) -->
+            <div class="delete-btn absolute -top-2 right-0">
+              <button
+                id="delete"
+                type="button"
+                class="rounded-full bg-primary-500 px-5 py-1 text-xs text-white transition-colors duration-300 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              >
+                Kişiyi Sil
+              </button>
+            </div>
+
+            <!-- Fotoğraf Upload Alanları -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Pasaport Fotoğrafı</span>
+                  <div class="group/info relative">
+                    <i
+                      data-lucide="info"
+                      class="size-4 text-gray-400 hover:text-gray-600"
+                    ></i>
+                    <!-- Tooltip -->
+                    <div
+                      class="absolute left-1/2 top-6 z-50 hidden min-w-[220px] -translate-x-1/2 text-pretty rounded bg-gray-900 px-2 py-1 text-xs text-white before:absolute before:left-1/2 before:top-0 before:h-0 before:w-0 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent before:border-b-gray-900 before:content-[''] group-hover/info:block"
+                    >
+                      Pasaport fotoğrafı son 6 ay içinde çekilmiş olmalıdır
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="image-input relative flex h-44 cursor-pointer items-center justify-center rounded border border-gray-200 bg-gray-50 transition-colors duration-300 hover:bg-gray-100"
+                >
+                  <input
+                    type="file"
+                    id="passport-photo"
+                    class="absolute inset-0 cursor-pointer opacity-0"
+                    accept="image/*,.pdf"
+                  />
+                  <div
+                    id="passport-preview"
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <div class="pointer-events-none opacity-50">
+                      <img
+                        src="/assets/images/visa/2.svg"
+                        alt="id-card-icon"
+                        class="size-12 rounded-full border border-gray-200 bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Biyometrik Fotoğraf -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Biyometrik Fotoğraf</span>
+                  <div class="group/info relative">
+                    <i
+                      data-lucide="info"
+                      class="size-4 text-gray-400 hover:text-gray-600"
+                    ></i>
+                    <!-- Tooltip -->
+                    <div
+                      class="absolute left-1/2 top-6 z-50 hidden min-w-[220px] -translate-x-1/2 text-pretty rounded bg-gray-900 px-2 py-1 text-xs text-white before:absolute before:left-1/2 before:top-0 before:h-0 before:w-0 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent before:border-b-gray-900 before:content-[''] group-hover/info:block"
+                    >
+                      Beyaz fonda, 35x45mm ölçülerinde biyometrik fotoğraf
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="image-input relative flex h-44 cursor-pointer items-center justify-center rounded border border-gray-200 bg-gray-50 transition-colors duration-300 hover:bg-gray-100"
+                >
+                  <input
+                    type="file"
+                    id="biometric-photo"
+                    class="absolute inset-0 cursor-pointer opacity-0"
+                    accept="image/*,.pdf"
+                  />
+                  <div
+                    id="biometric-preview"
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <div class="pointer-events-none opacity-50">
+                      <img
+                        src="/assets/images/visa/1.svg"
+                        alt="camera-icon"
+                        class="size-12 rounded-full border border-gray-200 bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Otel Rezervasyonu -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Otel Rezervasyonu</span>
+                  <div class="group/info relative">
+                    <i
+                      data-lucide="info"
+                      class="size-4 text-gray-400 hover:text-gray-600"
+                    ></i>
+                    <!-- Tooltip -->
+                    <div
+                      class="absolute left-1/2 top-6 z-50 hidden min-w-[220px] -translate-x-1/2 text-pretty rounded bg-gray-900 px-2 py-1 text-xs text-white before:absolute before:left-1/2 before:top-0 before:h-0 before:w-0 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent before:border-b-gray-900 before:content-[''] group-hover/info:block"
+                    >
+                      Otel rezervasyonu, Dubai vizesi başvurusu için gereklidir.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="image-input relative flex h-44 cursor-pointer items-center justify-center rounded border border-gray-200 bg-gray-50 transition-colors duration-300 hover:bg-gray-100"
+                >
+                  <input
+                    type="file"
+                    id="hotel-reservation"
+                    class="absolute inset-0 cursor-pointer opacity-0"
+                    accept="image/*,.pdf"
+                  />
+                  <div
+                    id="hotel-preview"
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <div class="pointer-events-none opacity-50">
+                      <img
+                        src="/assets/images/visa/3.svg"
+                        alt="otel-ticket-icon"
+                        class="size-12 rounded-full border border-gray-200 bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Uçak Bileti -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium">Uçak Bileti</span>
+                  <div class="group/info relative">
+                    <i
+                      data-lucide="info"
+                      class="size-4 text-gray-400 hover:text-gray-600"
+                    ></i>
+                    <!-- Tooltip -->
+                    <div
+                      class="absolute left-1/2 top-6 z-50 hidden min-w-[220px] -translate-x-1/2 text-pretty rounded bg-gray-900 px-2 py-1 text-xs text-white before:absolute before:left-1/2 before:top-0 before:h-0 before:w-0 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent before:border-b-gray-900 before:content-[''] group-hover/info:block"
+                    >
+                      Uçak bileti, Dubai'ye giriş ve çıkış tarihlerinizi
+                      gösteren bir belgedir.
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="image-input relative flex h-44 cursor-pointer items-center justify-center rounded border border-gray-200 bg-gray-50 transition-colors duration-300 hover:bg-gray-100"
+                >
+                  <input
+                    type="file"
+                    id="flight-ticket"
+                    class="absolute inset-0 cursor-pointer opacity-0"
+                    accept="image/*,.pdf"
+                  />
+                  <div
+                    id="flight-preview"
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <div class="pointer-events-none opacity-50">
+                      <img
+                        src="/assets/images/visa/4.svg"
+                        alt="fly-ticket-icon"
+                        class="size-12 rounded-full border border-gray-200 bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Alanları -->
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <!-- İsim Soyisim -->
+              <div class="space-y-2">
+                <label for="name" class="text-sm font-medium text-gray-700"
+                  >İsim Soyisim</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                  placeholder="İsim Soyisim"
+                  style="-webkit-border-radius: 0; border-radius: 0"
+                />
+              </div>
+
+              <!-- Başvuru Tipi -->
+              <div class="space-y-2">
+                <label
+                  for="application-type"
+                  class="text-sm font-medium text-gray-700"
+                  >Başvuru Tipi</label
+                >
+                <div class="relative flex w-full items-center">
+                  <select
+                    id="application-type"
+                    class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 outline-none focus:border-primary-200"
+                    style="-webkit-border-radius: 0; border-radius: 0"
+                  >
+                    <option value="">Yetişkin</option>
+                    <option value="child">Çocuk</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 size-4 text-gray-400 rtl:left-2 rtl:right-auto"
+                  ></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- İletişim Bilgileri -->
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <!-- E-Posta -->
+              <div class="space-y-2">
+                <label for="email" class="text-sm font-medium text-gray-700"
+                  >E-Posta Adresi</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                  placeholder="E-Posta Adresi"
+                  style="-webkit-border-radius: 0; border-radius: 0"
+                />
+              </div>
+
+              <!-- Telefon -->
+              <div class="space-y-2">
+                <label for="phone" class="text-sm font-medium text-gray-700"
+                  >Telefon Numarası</label
+                >
+                <div class="flex">
+                  <div class="relative">
+                    <div
+                      class="flex h-12 cursor-pointer items-center gap-1 rounded-l border border-r-0 border-gray-200 bg-white px-3 text-xs hover:bg-gray-50 rtl:rounded-l-none rtl:rounded-r rtl:border-l-0 rtl:border-r"
+                    >
+                      <img
+                        id="country-flag"
+                        src="https://flagcdn.com/us.svg"
+                        alt="flag"
+                        class="h-4 w-5 !rounded object-cover"
+                      />
+                      <span id="country-prefix">+1</span>
+                    </div>
+                    <select
+                      id="country-code"
+                      style="-webkit-border-radius: 0; border-radius: 0"
+                      class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                    >
+                      <option value="US" data-prefix="+1" data-flag="us">
+                        United States (+1)
+                      </option>
+                    </select>
+                  </div>
+                  <input
+                    type="tel"
+                    style="-webkit-border-radius: 0; border-radius: 0"
+                    class="h-12 flex-1 !rounded-r border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 rtl:!rounded-l rtl:!rounded-r-none rtl:text-end"
+                    placeholder="Telefon numarası giriniz"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Vize Bilgileri -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <!-- Vize Tipi -->
+              <div
+                class="order-3 col-span-2 space-y-2 sm:order-1 sm:col-span-2"
+              >
+                <label for="visa-type" class="text-sm font-medium text-gray-700"
+                  >Vize Tipi</label
+                >
+                <div class="relative flex w-full items-center">
+                  <select
+                    id="visa-type"
+                    class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 outline-none focus:border-primary-200"
+                    style="-webkit-border-radius: 0; border-radius: 0"
+                  >
+                    <option value="30-days">30 gün tek giriş ($125)</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 size-4 text-gray-400 rtl:left-2 rtl:right-auto"
+                  ></i>
+                </div>
+              </div>
+
+              <!-- Express İşlem -->
+              <div class="order-2 space-y-2 sm:order-2">
+                <label
+                  for="express-service"
+                  class="text-sm font-medium text-gray-700"
+                  >Express İşlem</label
+                >
+                <div class="relative flex w-full items-center">
+                  <select
+                    id="express-service"
+                    class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 outline-none focus:border-primary-200"
+                    style="-webkit-border-radius: 0; border-radius: 0"
+                  >
+                    <option value="no">Hayır</option>
+                    <option value="yes">Evet</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 size-4 text-gray-400 rtl:left-2 rtl:right-auto"
+                  ></i>
+                </div>
+              </div>
+
+              <!-- Sigorta -->
+              <div class="order-1 space-y-2 sm:order-3">
+                <label for="insurance" class="text-sm font-medium text-gray-700"
+                  >Sigorta</label
+                >
+                <div class="relative flex w-full items-center">
+                  <select
+                    id="insurance"
+                    class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 outline-none focus:border-primary-200"
+                    style="-webkit-border-radius: 0; border-radius: 0"
+                  >
+                    <option value="no">Hayır</option>
+                    <option value="yes">Evet</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 size-4 text-gray-400 rtl:left-2 rtl:right-auto"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Sözleşme -->
+        <label class="group relative flex cursor-pointer items-start gap-2">
+          <input
+            type="checkbox"
+            class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+          />
+          <span class="text-pretty text-xs">
+            <a href="#" class="text-primary-500 hover:underline"
+              >Satış sözleşmesini</a
+            >
+            okudum ve onaylıyorum.
+          </span>
+        </label>
+
+        <!-- Submit Butonu -->
+        <button
+          type="submit"
+          class="group h-[52px] w-full rounded border border-primary-200 bg-primary-500 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-75"
+        >
+          <span class="block group-disabled:hidden">Başvur ($125)</span>
+          <span
+            class="hidden items-center justify-center gap-2 group-disabled:flex"
+          >
+            <span>İşlem Devam Ediyor</span>
+            <img
+              src="/assets/images/icons/loading-spinner.svg"
+              alt="Loading"
+              class="size-6 animate-spin brightness-0 invert !duration-[2500ms]"
+            />
+          </span>
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

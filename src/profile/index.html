@@ -1,0 +1,2718 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Örnek Profile Sayfası</title>
+
+    <!-- Project Fonts -->
+    <link rel="stylesheet" href="/assets/fonts/custom/font.css" />
+
+    <!-- Important Preload Fonts -->
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/extra-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/semibold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="preload"
+      href="/assets/fonts/custom/regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <!-- Images -->
+    <link
+      rel="preload"
+      href="/assets/images/brand-images/logo.svg"
+      as="image"
+    />
+    <link rel="stylesheet" href="/assets/styles/globals-out.css" />
+
+    <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
+    <script type="module" src="/assets/scripts/layout.js"></script>
+    <script type="module" src="/assets/scripts/profile.js"></script>
+    <script type="module" src="/assets/scripts/ui/password-visible.js"></script>
+    <script
+      type="module"
+      src="/assets/scripts/ui/country-select-input.js"
+    ></script>
+
+    <script>
+      ;(function () {
+        const urlParams = new URLSearchParams(window.location.search)
+        const modalParam = urlParams.get('view')
+
+        if (modalParam) {
+          document.documentElement.classList.add('group/query')
+          document.documentElement.setAttribute('data-query', modalParam)
+        } else {
+          document.documentElement.classList.add('group/query')
+          document.documentElement.setAttribute('data-query', 'reservation')
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          document.documentElement.removeAttribute('data-query')
+        })
+      })()
+    </script>
+  </head>
+  <body class="bg-white">
+    <header class="h-fit w-full">
+      <!-- Desktop Navigation -->
+      <nav class="relative z-[5000] hidden gap-2 lg:flex lg:flex-col">
+        <div class="w-full border-b border-white bg-primary-500">
+          <div
+            class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 font-medium text-white"
+          >
+            <ul
+              class="flex w-full items-start justify-start gap-4 text-[0.65rem]"
+            >
+              <li>
+                <a
+                  href="/visit-dubai"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  VISIT DUBAI
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/invest-dubai"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  INVEST IN DUBAI
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/travel-trade"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  TRAVEL TRADE
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/study-dubai"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  STUDY DUBAI
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/mice"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  MICE
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/retire-dubai"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  RETIRE IN DUBAI
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/dubai-det"
+                  class="transition-opacity duration-300 hover:opacity-75"
+                >
+                  DUBAI DET
+                </a>
+              </li>
+            </ul>
+            <div class="flex items-center gap-4 text-white">
+              <!-- Search Button with Tooltip -->
+              <div class="group relative">
+                <button
+                  id="search-button"
+                  class="relative z-20 size-[24px] rounded-full border border-white bg-white p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75"
+                >
+                  <i
+                    data-lucide="search"
+                    class="size-full rounded-full object-cover text-black"
+                  ></i>
+                </button>
+                <!-- Search Tooltip -->
+                <div
+                  class="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[125%] transform opacity-0 transition-all duration-300 group-hover:opacity-100"
+                >
+                  <div
+                    class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
+                  >
+                    Arama yap
+                  </div>
+                </div>
+              </div>
+
+              <!-- Language and Currency Selector with Tooltip -->
+              <div class="group relative mb-1">
+                <button
+                  id="language-currency-selector-button"
+                  class="flex items-center gap-2 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75"
+                  aria-label="Select Language and Currency"
+                >
+                  <img
+                    src="/assets/images/flags/tr.svg"
+                    alt="Turkey Flag"
+                    class="size-[24px] rounded-full border border-white object-cover"
+                  />
+                  <span class="text-sm">TL</span>
+                </button>
+                <!-- Language Tooltip -->
+                <div
+                  class="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:opacity-100"
+                >
+                  <div
+                    class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
+                  >
+                    Dil ve para birimi seç
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full border-b border-gray-200 pb-2">
+          <div class="mx-auto flex max-w-7xl justify-between px-6">
+            <div class="flex w-full items-center gap-8">
+              <!-- Logo Section -->
+              <div class="flex-shrink-0">
+                <a href="/">
+                  <img
+                    src="/assets/images/brand-images/logo.svg"
+                    alt="MBD Travel"
+                    width="128"
+                    height="64"
+                    class="object-cover"
+                    loading="eager"
+                  />
+                </a>
+              </div>
+              <!-- Navigation Links -->
+              <div class="hidden text-wrap lg:block">
+                <ul class="flex gap-6 text-sm font-medium">
+                  <li>
+                    <a
+                      href="#"
+                      class="transition-colors duration-300 hover:text-primary-500"
+                      aria-label="Abu Dhabi Şehir Turu"
+                      >Çöl Safari</a
+                    >
+                  </li>
+                  <li class="group relative" id="desktop-nav-1">
+                    <!-- Ana link -->
+                    <a
+                      href="/sehir-turlari"
+                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
+                      aria-label="Şehir Turları"
+                    >
+                      <span>Şehir Turları</span>
+                      <i
+                        data-lucide="chevron-down"
+                        class="size-[16px] object-cover transition-transform duration-300 group-hover:rotate-180"
+                      ></i>
+                    </a>
+
+                    <!-- Görünmez köprü -->
+                    <div
+                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
+                    ></div>
+
+                    <!-- Dropdown menü -->
+                    <ul
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                    >
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/sehir-turlari/dubai" class="text-nowrap"
+                          >Dubai Şehir Turu</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/sehir-turlari/abu-dhabi" class="text-nowrap"
+                          >Abu Dhabi Şehir Turu</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="group relative" id="desktop-nav-2">
+                    <!-- Ana link -->
+                    <a
+                      href="/activities"
+                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
+                      aria-label="Dubai Aktiviteleri"
+                    >
+                      <span>Aktiviteler</span>
+                      <i
+                        data-lucide="chevron-down"
+                        class="size-[16px] object-cover transition-transform duration-300 group-hover:rotate-180"
+                      ></i>
+                    </a>
+
+                    <!-- Görünmez köprü -->
+                    <div
+                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
+                    ></div>
+
+                    <!-- Dropdown menü -->
+                    <ul
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                    >
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/aktiviteler/burj-khalifa" class="text-nowrap"
+                          >Burj Khalifa</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a
+                          href="/aktiviteler/museum-of-future"
+                          class="text-nowrap"
+                          >Museum of the Future</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a
+                          href="/aktiviteler/miracle-garden"
+                          class="text-nowrap"
+                          >Miracle Garden</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="transition-colors duration-300 hover:text-primary-500"
+                      aria-label="Dubai Atlı Safari"
+                      >Dubai Vizesi</a
+                    >
+                  </li>
+                  <li class="group relative" id="desktop-nav-3">
+                    <!-- Ana link -->
+                    <a
+                      href="/corporate"
+                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
+                      aria-label="Corporate"
+                    >
+                      <span>Corporate</span>
+                      <i
+                        data-lucide="chevron-down"
+                        class="size-[16px] object-cover transition-transform duration-300 group-hover:rotate-180"
+                      ></i>
+                    </a>
+
+                    <!-- Görünmez köprü -->
+                    <div
+                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
+                    ></div>
+
+                    <!-- Dropdown menü -->
+                    <ul
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                    >
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/corporate/about-us" class="text-nowrap"
+                          >About Us</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/corporate/contact" class="text-nowrap"
+                          >Contact</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/corporate/career" class="text-nowrap"
+                          >Career</a
+                        >
+                      </li>
+                      <li
+                        class="transition-opacity duration-300 hover:opacity-75"
+                      >
+                        <a href="/corporate/faq" class="text-nowrap">F.A.Q</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex flex-shrink-0 items-center gap-10 text-nowrap">
+              <div class="flex items-center gap-4">
+                <!-- Sign Up Button -->
+                <a
+                  href="/profile"
+                  class="flex h-[40px] items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-5 text-center text-sm font-semibold transition-opacity duration-300 hover:opacity-75"
+                >
+                  <i data-lucide="circle-user" class="size-5"></i>
+                  <span id="user-name" class="w-[48px] truncate">
+                    John Michael Andrew Richardson
+                  </span>
+                </a>
+                <!-- Logout Link -->
+                <a
+                  href="/logout"
+                  class="text-sm font-semibold transition-opacity duration-300 hover:opacity-75"
+                  aria-label="Giriş Yap"
+                >
+                  Çıkış Yap
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!--  Mobile Navigation -->
+      <nav
+        data-state="closed"
+        class="group absolute left-0 top-0 z-[1001] mx-auto flex h-fit w-full items-start justify-between bg-transparent px-3.5 py-4 lg:hidden"
+        id="mobile-navigation"
+      >
+        <!-- Hamburger Button -->
+        <div class="flex flex-col gap-4">
+          <button
+            id="mobile-menu-button"
+            class="relative z-[1001] w-fit"
+            aria-expanded="false"
+            aria-controls="mobile-navigation-content"
+            aria-label="Toggle navigation menu"
+          >
+            <span
+              class="size-[28px] rounded-full border border-gray-200 bg-white p-1 group-data-[state=closed]:block group-data-[state=open]:hidden"
+            >
+              <img
+                src="/assets/images/icons/hamburger.svg"
+                alt="Menu Icon"
+                class="size-full brightness-0"
+              />
+            </span>
+            <span
+              class="flex size-[28px] items-center justify-center rounded-full border border-gray-200 bg-white p-1 group-data-[state=open]:block group-data-[state=closed]:hidden"
+            >
+              <i data-lucide="x" class="size-full"></i>
+            </span>
+          </button>
+        </div>
+
+        <!-- Logo -->
+        <a href="/" class="" aria-label="MBD Travel Home">
+          <img
+            src="/assets/images/brand-images/logo.svg?v=c"
+            alt="MBD Travel"
+            class="h-auto w-[96px] object-scale-down brightness-0 invert"
+          />
+        </a>
+
+        <!-- Buttons -->
+        <div
+          class="flex flex-col gap-4 group-data-[state=closed]:visible group-data-[state=open]:invisible"
+        >
+          <button
+            class="relative z-20 size-[28px] rounded-full border border-gray-200 bg-white"
+          >
+            <i data-lucide="user" class="size-full"></i>
+          </button>
+          <button
+            id="search-button-mobile"
+            class="pointer-events-auto relative z-20 size-[28px] rounded-full border border-gray-200 bg-white p-1 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75"
+          >
+            <i data-lucide="search" class="size-full brightness-0"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div
+          class="fixed left-0 top-0 z-[1000] h-full w-full overflow-y-auto bg-gray-500/40 group-data-[state=closed]:hidden"
+          aria-hidden="true"
+          role="dialog"
+        >
+          <!-- Mobile Options -->
+          <div
+            style="padding-top: 12px"
+            class="pointer-events-none absolute left-0 top-0 flex w-full max-w-[28rem] justify-between rtl:left-auto rtl:right-0"
+          >
+            <div
+              class="pointer-events-auto pl-[52px] pt-[5px] rtl:pl-0 rtl:pr-[52px]"
+            >
+              <button
+                id="language-currency-selector-button-mobile"
+                class="flex size-[25px] items-center gap-2 bg-white text-gray-700 transition hover:text-gray-900"
+              >
+                <img
+                  src="/assets/images/flags/tr.svg"
+                  alt="Phone Icon"
+                  class="size-full rounded-full"
+                />
+                <span class="text-sm"> USD </span>
+              </button>
+            </div>
+            <a
+              href="/"
+              class="pointer-events-auto"
+              aria-label="MBD Travel Home"
+            >
+              <img
+                src="/assets/images/brand-images/logo.svg"
+                alt="MBD Travel"
+                class="h-auto w-[96px] translate-x-[15%] object-scale-down"
+              />
+            </a>
+            <div
+              class="pointer-events-auto flex items-start justify-center gap-2 pr-6 pt-1.5 text-sm font-semibold rtl:pl-4 rtl:pr-0"
+            >
+              <a href="/login" class=""> Kayıt </a>
+              <span> / </span>
+              <a href="/register" class=""> Giriş </a>
+            </div>
+          </div>
+          <aside
+            id="mobile-navigation-content"
+            class="pointer-events-auto flex h-full max-h-[100vh] min-h-fit w-full max-w-[28rem] flex-col justify-start overflow-y-auto border-r border-neutral-200 bg-slate-100 shadow-lg"
+            style="scrollbar-width: none"
+          >
+            <!-- Header Section -->
+            <section
+              class="flex w-full flex-col items-start justify-between gap-4 bg-white px-4 pt-16"
+            ></section>
+
+            <!-- Navigation Section -->
+            <nav
+              class="flex h-fit w-full flex-1 flex-col justify-start bg-white px-4 py-8"
+            >
+              <h4 class="mb-4 font-semibold text-primary-500">
+                Dubai Aktiviteleri
+              </h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/1.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Burj Khalifa
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/2.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Museum of the Future
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/3.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Miracle Garden
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Sen Nasıl İstersen Section -->
+              <h4 class="mb-4 mt-8 font-semibold text-primary-500">Biletler</h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/4.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Çöl Safari Turu
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/5.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Dubai Şehir Turu
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/6.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Abu Dabi Şehir Turu
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+              </ul>
+
+              <h4 class="mb-4 mt-8 font-semibold text-primary-500">
+                Hizmetler
+              </h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/7.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Dubai Vizesi
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+              </ul>
+
+              <h4 class="mb-4 mt-8 font-semibold text-primary-500">
+                Guide of Dubai Hakkında
+              </h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/8.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Sıkça Sorulan Sorular
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        </div>
+      </nav>
+
+      <!-- Language Options -->
+      <div
+        id="language-currency-selector-options"
+        data-state="closed"
+        class="fixed inset-0 z-[8001] flex items-start justify-center overflow-y-auto bg-gray-500/40 p-4 data-[state=closed]:pointer-events-none data-[state=closed]:hidden"
+      >
+        <div class="flex min-h-full w-full items-center justify-center py-4">
+          <section
+            id="language-currency-selector-options-content"
+            class="modal-container relative my-auto flex w-full max-w-[360px] flex-col gap-7 rounded-lg bg-white p-4 py-8 text-gray-950"
+          >
+            <!-- Close Button -->
+            <div class="flex justify-between px-1">
+              <h4 class="text-lg font-semibold text-primary-600">
+                Dil Seçenekleri
+              </h4>
+              <button
+                id="language-selector-closed-button"
+                class="transition-all duration-300 hover:opacity-75 active:scale-95"
+              >
+                <i data-lucide="x" class="size-6"></i>
+              </button>
+            </div>
+            <!-- Language and Currency Selector Form -->
+            <form class="flex h-fit flex-col gap-7">
+              <h2 id="language-currency-selector-title" class="sr-only">
+                Language and Currency Selector
+              </h2>
+              <!-- Country Selector -->
+              <div class="relative">
+                <label
+                  id="country-selector-label"
+                  for="country-selector"
+                  class="absolute ml-4 -translate-y-1/2 bg-white text-xs rtl:mr-4"
+                >
+                  Ülke
+                </label>
+                <select
+                  id="country-selector"
+                  name="country"
+                  class="h-[50px] w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white px-3.5 text-sm font-semibold hover:border-gray-600 focus:border-gray-600"
+                >
+                  <option value="tr">Türkiye</option>
+                  <option value="qa">Qatar</option>
+                  <option value="sa">Suudi Arabistan</option>
+                  <option value="om">Umman</option>
+                </select>
+                <i
+                  data-lucide="chevron-down"
+                  class="absolute right-2 top-1/2 size-[24px] -translate-y-1/2 transform object-cover rtl:left-2 rtl:right-auto"
+                ></i>
+              </div>
+              <!-- Language Selector -->
+              <div class="relative">
+                <label
+                  id="language-selector-label"
+                  for="language-selector"
+                  class="absolute ml-4 -translate-y-1/2 bg-white text-xs rtl:mr-4"
+                >
+                  Dil
+                </label>
+                <select
+                  id="language-selector"
+                  name="language"
+                  class="h-[50px] w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white px-3.5 text-sm font-semibold hover:border-gray-600 focus:border-gray-600"
+                >
+                  <option value="tr">Türkçe</option>
+                  <option value="en">İngilizce</option>
+                </select>
+                <i
+                  data-lucide="chevron-down"
+                  class="absolute right-2 top-1/2 size-[24px] -translate-y-1/2 transform object-cover rtl:left-2 rtl:right-auto"
+                ></i>
+              </div>
+              <!-- Currency Selector -->
+              <div class="relative" aria-labelledby="currency-selector-label">
+                <label
+                  id="currency-selector-label"
+                  for="currency-selector"
+                  class="absolute ml-4 -translate-y-1/2 bg-white text-xs rtl:mr-4"
+                >
+                  Para Birimi
+                </label>
+                <select
+                  id="currency-selector"
+                  name="currency"
+                  class="h-[50px] w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white px-3.5 text-sm font-semibold hover:border-gray-600 focus:border-gray-600"
+                >
+                  <option value="lira">TL</option>
+                  <option value="euro">EURO</option>
+                  <option value="usd">USD</option>
+                </select>
+                <i
+                  data-lucide="chevron-down"
+                  class="absolute right-2 top-1/2 size-[24px] -translate-y-1/2 transform object-cover rtl:left-2 rtl:right-auto"
+                ></i>
+              </div>
+              <!-- Apply Button -->
+              <button
+                type="submit"
+                id="apply-language-currency-selector-button"
+                class="h-[52px] w-full cursor-pointer rounded-lg border border-primary-950/10 bg-primary-500 font-semibold text-white hover:opacity-90"
+              >
+                Uygula
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
+
+      <!--  Search Modal -->
+      <div
+        id="search-modal"
+        data-state="closed"
+        class="fixed inset-0 z-[8001] flex bg-gray-500/40 data-[state=closed]:pointer-events-none data-[state=closed]:hidden"
+      >
+        <div
+          class="flex h-full w-full flex-col sm:items-center sm:overflow-y-auto sm:p-4"
+        >
+          <section
+            id="search-modal-content"
+            class="modal-container flex h-full w-full flex-col bg-white pb-4 transition-transform duration-300 data-[state=closed]:translate-y-full sm:h-auto sm:max-w-[500px] sm:rounded-xl"
+          >
+            <!-- Static Header -->
+            <div class="flex-shrink-0 border-b border-gray-100 p-4">
+              <!-- Header with Close Button -->
+              <div class="flex items-center justify-between px-1">
+                <h4 class="text-lg font-semibold text-primary-600">Arama</h4>
+                <button
+                  id="search-modal-close-button"
+                  class="transition-all duration-300 hover:opacity-75 active:scale-95"
+                >
+                  <i data-lucide="x" class="size-6"></i>
+                </button>
+              </div>
+
+              <!-- Search Input -->
+              <div class="relative mt-4">
+                <div class="relative">
+                  <i
+                    data-lucide="search"
+                    class="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400"
+                  ></i>
+                  <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Aramak istediğiniz kelimeyi yazın..."
+                    class="h-[50px] w-full rounded-lg border border-gray-200 bg-white pl-11 pr-4 text-sm focus:border-primary-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable Content Area -->
+            <div class="flex-1 overflow-y-auto">
+              <!-- Initial State -->
+              <div id="initial-state" class="flex flex-col gap-4 p-4">
+                <!-- Örnek Aramalar Bölümü -->
+                <div class="flex flex-col gap-2">
+                  <h3 class="px-1 text-xs font-medium text-gray-500">
+                    Örnek Aramalar
+                  </h3>
+                  <div class="flex flex-wrap gap-2">
+                    <button
+                      class="rounded-full border border-gray-200 px-4 py-2 text-xs transition-colors hover:border-primary-500 hover:text-primary-600"
+                    >
+                      Dubai Araç Kiralama
+                    </button>
+                    <button
+                      class="rounded-full border border-gray-200 px-4 py-2 text-xs transition-colors hover:border-primary-500 hover:text-primary-600"
+                    >
+                      Vize İşlemleri
+                    </button>
+                    <button
+                      class="rounded-full border border-gray-200 px-4 py-2 text-xs transition-colors hover:border-primary-500 hover:text-primary-600"
+                    >
+                      Otel Rezervasyon
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Son Aramalar Bölümü -->
+                <div class="flex flex-col gap-0">
+                  <h3 class="px-1 text-xs font-medium text-gray-500">
+                    Son Aramalar
+                  </h3>
+                  <div class="flex flex-col divide-y divide-gray-100">
+                    <button
+                      class="flex items-center gap-3 px-1 py-3 transition-colors hover:text-primary-600"
+                    >
+                      <i data-lucide="clock" class="size-4 text-gray-400"></i>
+                      <span class="text-sm">Luxury Villa Dubai</span>
+                      <i
+                        data-lucide="x"
+                        class="ml-auto size-4 text-gray-400 hover:text-gray-600"
+                      ></i>
+                    </button>
+                    <button
+                      class="flex items-center gap-3 px-1 py-3 transition-colors hover:text-primary-600"
+                    >
+                      <i data-lucide="clock" class="size-4 text-gray-400"></i>
+                      <span class="text-sm">Vip Transfer</span>
+                      <i
+                        data-lucide="x"
+                        class="ml-auto size-4 text-gray-400 hover:text-gray-600"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Popüler Aramalar Bölümü -->
+                <div class="flex flex-col gap-2">
+                  <h3 class="px-1 text-xs font-medium text-gray-500">
+                    Popüler Aramalar
+                  </h3>
+                  <div class="flex flex-col gap-2">
+                    <button
+                      class="flex items-center gap-3 px-1 py-2 transition-colors hover:text-primary-600"
+                    >
+                      <i
+                        data-lucide="trending-up"
+                        class="size-4 text-primary-500 rtl:scale-x-[-1]"
+                      ></i>
+                      <span class="text-sm">Dubai Mall Alışveriş Turu</span>
+                    </button>
+                    <button
+                      class="flex items-center gap-3 px-1 py-2 transition-colors hover:text-primary-600"
+                    >
+                      <i
+                        data-lucide="trending-up"
+                        class="size-4 text-primary-500 rtl:scale-x-[-1]"
+                      ></i>
+                      <span class="text-sm">Desert Safari Dubai</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading State -->
+              <div id="loading-state" class="animate-pulse flex-col gap-4">
+                <div class="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                  <div
+                    class="size-[52px] flex-shrink-0 rounded-lg bg-gray-200"
+                  ></div>
+                  <div class="flex flex-1 flex-col gap-2">
+                    <div class="h-4 w-1/2 rounded bg-gray-200"></div>
+                    <div class="h-3 w-1/3 rounded bg-gray-200"></div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                  <div
+                    class="size-[52px] flex-shrink-0 rounded-full bg-gray-200"
+                  ></div>
+                  <div class="flex flex-1 flex-col gap-2">
+                    <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+                    <div class="h-3 w-1/4 rounded bg-gray-200"></div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
+                  <div
+                    class="size-[52px] flex-shrink-0 rounded-lg bg-gray-300"
+                  ></div>
+                  <div class="flex flex-1 flex-col gap-2">
+                    <div class="h-4 w-2/3 rounded bg-gray-300"></div>
+                    <div class="h-3 w-1/2 rounded bg-gray-300"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search Results -->
+              <div id="search-results" class="flex flex-col gap-4 px-4">
+                <!-- Kategori Etiketli Sonuç -->
+                <div
+                  class="cursor-pointer rounded-lg px-2 py-3 transition-colors hover:bg-gray-100"
+                >
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <i data-lucide="tag" class="size-5 text-gray-400"></i>
+                      <div class="flex flex-col">
+                        <span class="text-sm font-medium"
+                          >Etiketli sonuç örneği</span
+                        >
+                        <span class="text-xs text-gray-500"
+                          >Kategori: Hizmetler</span
+                        >
+                      </div>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 text-gray-400 rtl:scale-x-[-1]"
+                    ></i>
+                  </div>
+                </div>
+
+                <!-- Resimli Kart Sonucu -->
+                <a href="#" class="group w-full cursor-pointer">
+                  <div
+                    class="flex items-center gap-3 rounded-lg bg-gray-50 px-2 py-3 hover:bg-gray-100"
+                  >
+                    <div
+                      class="size-[52px] flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+                    >
+                      <img
+                        src="https://images.project-test.info/13.webp"
+                        alt="Dubai Araç Kiralama"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div class="flex flex-col">
+                      <h4 class="text-sm font-semibold">Dubai Araç Kiralama</h4>
+                      <p class="text-xs text-gray-500">
+                        Araç Kataloğu ve Fiyatlar
+                      </p>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="ml-auto size-5 text-gray-400 rtl:scale-x-[-1]"
+                    ></i>
+                  </div>
+                </a>
+
+                <!-- Detaylı Bilgi Sonucu -->
+                <div
+                  class="cursor-pointer rounded-lg border border-gray-100 px-2 py-4 transition-all hover:border-primary-500"
+                >
+                  <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="info" class="size-5 text-primary-500"></i>
+                      <span class="text-sm font-medium"
+                        >Detaylı sonuç başlığı</span
+                      >
+                    </div>
+                    <p class="text-xs text-gray-600">
+                      Sonuç ile ilgili daha detaylı açıklama metni buraya
+                      gelecek. İki satıra kadar uzayabilir.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                      <i
+                        data-lucide="clock"
+                        class="size-4 rtl:scale-x-[-1]"
+                      ></i>
+                      <span>Son güncelleme: 2 saat önce</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tek Satır Sonucu -->
+                <div
+                  class="cursor-pointer rounded-lg px-2 py-3 transition-colors hover:bg-gray-100"
+                >
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <i data-lucide="search" class="size-5 text-gray-400"></i>
+                      <span class="text-sm font-medium">Tek Satır Sonuç</span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 text-gray-400 rtl:scale-x-[-1]"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+              <!-- No Results State -->
+              <div
+                id="no-results-state"
+                class="flex-col items-center justify-center gap-4 p-4"
+              >
+                <div class="pt-4 text-center">
+                  <h4 class="font-medium">Sonuç Bulunamadı</h4>
+                  <p class="text-balance text-sm text-gray-500">
+                    Aramanızla eşleşen bir sonuç bulamadık. Farklı anahtar
+                    kelimeler deneyebilirsiniz.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white pb-8 pt-[64px] lg:pb-0 lg:pt-0">
+      <div
+        class="flex min-h-fit border-t lg:mb-0 lg:border-b-0 lg:border-t-0 lg:pl-3.5 xl:pl-7"
+      >
+        <div class="mx-auto flex w-full max-w-7xl">
+          <!-- Navigation -->
+          <aside
+            id="profile-navigation"
+            data-state="closed"
+            class="group/nav w-[240px] flex-shrink-0 overflow-hidden border-b border-r bg-gray-100 transition-all data-[state=closed]:w-[54px] data-[state=open]:translate-x-0 sm:translate-x-0 md:static md:!w-fit md:!translate-x-0 lg:w-[260px] lg:min-w-[260px] lg:max-w-[260px]"
+          >
+            <div
+              id="profile-navigation-content"
+              class="flex h-fit w-full flex-col border-b border-gray-200"
+            >
+              <!-- Mobile Navigation Extra -->
+              <ul
+                class="flex h-fit flex-grow flex-col space-y-[5px] overflow-hidden overflow-y-auto border-b border-gray-200 px-2 pb-2.5 pr-0 pt-4 font-medium md:space-y-2.5 md:pl-2 md:pr-12 md:pt-5 lg:hidden lg:pb-3 lg:pl-3.5 lg:pr-12 lg:pt-0"
+              >
+                <a
+                  href="#"
+                  class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 lg:hidden"
+                >
+                  <span class="size-[22px] flex-shrink-0">
+                    <i
+                      data-lucide="home"
+                      class="size-full group-data-[state=open]:hidden"
+                    ></i>
+                  </span>
+                  <span
+                    class="ms-3 text-nowrap group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                    >Anasayfa</span
+                  >
+                </a>
+                <button
+                  id="profile-menu-button"
+                  data-state="closed"
+                  class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 md:hidden"
+                >
+                  <span class="size-[22px] flex-shrink-0">
+                    <i
+                      data-lucide="panel-right-close"
+                      class="size-full group-data-[state=open]:scale-x-[1] rtl:scale-x-[-1]"
+                    ></i>
+                  </span>
+                  <span
+                    class="ms-3 text-nowrap group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                    >Gizle</span
+                  >
+                </button>
+              </ul>
+              <ul
+                class="flex h-fit flex-grow flex-col overflow-hidden overflow-y-auto px-2 pb-2.5 pr-0 pt-4 font-medium md:space-y-2.5 md:pl-2 md:pr-12 md:pt-5 lg:pb-3 lg:pl-3.5 lg:pr-12 lg:pt-3.5"
+              >
+                <li class="group">
+                  <button
+                    id="profile-view-control-1"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="calendar" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Rezervasyonlarım</span
+                    >
+                  </button>
+                </li>
+                <!-- Otel Rezervasyon -->
+                <li class="group">
+                  <button
+                    id="profile-view-control-7"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="building" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Otel Paketlerim</span
+                    >
+                  </button>
+                </li>
+                <!-- Visa -->
+                <li class="group">
+                  <button
+                    id="profile-view-control-6"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="folder-kanban" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                    >
+                      Visa Başvurularım</span
+                    >
+                  </button>
+                </li>
+                <li class="group">
+                  <button
+                    id="profile-view-control-2"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="heart" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Favorilerim</span
+                    >
+                  </button>
+                </li>
+                <li class="group">
+                  <button
+                    id="profile-view-control-3"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="user" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Profil Detayları</span
+                    >
+                  </button>
+                </li>
+                <li class="group">
+                  <button
+                    id="profile-view-control-4"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="lock" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Şifre ve E-Posta</span
+                    >
+                  </button>
+                </li>
+                <li class="group">
+                  <button
+                    id="profile-view-control-5"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="settings" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Tercihler</span
+                    >
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </aside>
+
+          <!-- Views -->
+          <div
+            class="min-h-fit w-full max-w-[calc(100%-50px)] flex-shrink-0 pb-16 pt-5 md:max-w-full md:flex-shrink md:px-0 md:pb-32 md:pt-6 lg:pt-0"
+          >
+            <div
+              class="h-full min-h-fit w-full bg-white px-3.5 lg:px-8 lg:pt-4"
+            >
+              <!-- Reservations -->
+              <div
+                data-state="closed"
+                id="reservation"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=reservation]/query:!block"
+              >
+                <div class="flex h-full w-full flex-col justify-start">
+                  <h2 class="mb-4 pl-px text-2xl font-semibold text-gray-800">
+                    Rezervasyonlarım
+                  </h2>
+
+                  <!-- Tour Card Grid Container -->
+                  <div class="grid grid-cols-1 gap-4">
+                    <!-- Tour Card 1 -->
+                    <div class="reservation-card w-full">
+                      <div
+                        class="group overflow-hidden rounded border border-gray-200 bg-white"
+                      >
+                        <!-- Card Toggle Checkbox -->
+                        <input type="checkbox" checked class="peer hidden" />
+                        <label
+                          class="block cursor-n-resize gap-4 bg-gradient-to-r from-primary-600 to-primary-500 p-4 text-white peer-checked:cursor-s-resize peer-checked:[&_.icon-rotate]:rotate-180 peer-checked:[&_.title]:truncate"
+                        >
+                          <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                              <!-- min-w-0 ekledik -->
+                              <h2 class="title text-base font-bold lg:text-xl">
+                                Lüks Safari Platinium Heritage
+                              </h2>
+                              <p class="mt-1 text-xs lg:text-sm">Tur Paketi</p>
+                            </div>
+                            <div class="flex flex-shrink-0 items-center gap-2">
+                              <!-- flex-shrink-0 ekledik -->
+                              <span
+                                class="rounded-full bg-white/20 px-2 py-1 text-xs font-medium lg:px-3 lg:text-sm"
+                              >
+                                Premium
+                              </span>
+                              <i
+                                data-lucide="chevron-down"
+                                class="icon-rotate size-5 transition-transform duration-300"
+                              ></i>
+                            </div>
+                          </div>
+                        </label>
+
+                        <!-- Card Content Container -->
+                        <div
+                          class="grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr]"
+                        >
+                          <div
+                            class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+                          >
+                            <!-- Tour Information Section -->
+                            <div class="relative px-4 pt-4 sm:block">
+                              <!-- Section Toggle -->
+                              <input
+                                type="checkbox"
+                                class="peer hidden"
+                                checked
+                              />
+
+                              <!-- Section Header -->
+                              <label
+                                class="flex cursor-pointer items-start justify-between gap-4 text-gray-800 sm:cursor-default [&_.icon-rotate]:rotate-180 peer-checked:[&_.icon-rotate]:rotate-0 peer-checked:[&_.title]:truncate"
+                              >
+                                <h3 class="title text-lg font-semibold">
+                                  Tur Bilgileri
+                                </h3>
+                                <i
+                                  data-lucide="chevron-down"
+                                  class="icon-rotate size-5 transition-transform peer-checked:rotate-180 sm:hidden"
+                                ></i>
+                              </label>
+
+                              <!-- Section Content -->
+                              <div
+                                class="grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr] sm:!grid-rows-[1fr]"
+                              >
+                                <div
+                                  class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+                                >
+                                  <div
+                                    class="grid grid-cols-1 gap-1 pt-3 sm:grid-cols-2"
+                                  >
+                                    <!-- Departure Date -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <i
+                                          data-lucide="calendar-clock"
+                                          class="size-4 text-primary-500"
+                                        ></i>
+                                        <p
+                                          class="translate-y-[10%] text-xs text-gray-600"
+                                        >
+                                          Gidiş
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          dd.mm.yyyy
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Return Date -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2 sm:items-end"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <p
+                                          class="order-2 translate-y-[10%] text-xs text-gray-600 sm:order-1"
+                                        >
+                                          Dönüş
+                                        </p>
+                                        <i
+                                          data-lucide="calendar-check"
+                                          class="order-1 size-4 text-primary-500 sm:order-2"
+                                        ></i>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          dd.mm.yyyy
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Hotel Information -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <i
+                                          data-lucide="building"
+                                          class="size-4 text-primary-500"
+                                        ></i>
+                                        <p
+                                          class="translate-y-[10%] text-xs text-gray-600"
+                                        >
+                                          Otel
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          Lüks Otel
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Transfer Information -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2 sm:items-end"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <p
+                                          class="order-2 translate-y-[10%] text-xs text-gray-600 sm:order-1"
+                                        >
+                                          Transfer
+                                        </p>
+                                        <i
+                                          data-lucide="bus"
+                                          class="order-1 size-4 text-primary-500 sm:order-2"
+                                        ></i>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">Evet</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Contact Information Section -->
+                            <div
+                              class="accordion-section relative px-4 sm:block"
+                            >
+                              <!-- Section Toggle -->
+                              <input
+                                type="checkbox"
+                                class="peer hidden"
+                                checked
+                              />
+
+                              <!-- Section Header -->
+                              <label
+                                class="flex cursor-pointer items-start justify-between gap-4 text-gray-800 sm:cursor-default [&_.icon-rotate]:rotate-180 peer-checked:[&_.icon-rotate]:rotate-0 peer-checked:[&_.title]:truncate"
+                              >
+                                <h3 class="title text-lg font-semibold">
+                                  İletişim Bilgileri
+                                </h3>
+                                <i
+                                  data-lucide="chevron-down"
+                                  class="icon-rotate size-5 flex-shrink-0 transition-transform peer-checked:rotate-180 sm:hidden"
+                                ></i>
+                              </label>
+
+                              <!-- Section Content -->
+                              <div
+                                class="grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr] sm:!grid-rows-[1fr]"
+                              >
+                                <div
+                                  class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+                                >
+                                  <div
+                                    class="grid grid-cols-1 gap-1 pt-3 sm:grid-cols-2"
+                                  >
+                                    <!-- Full Name -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <i
+                                          data-lucide="user"
+                                          class="size-4 text-primary-500"
+                                        ></i>
+                                        <p
+                                          class="translate-y-[10%] text-xs text-gray-600"
+                                        >
+                                          İsim Soyisim
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          Okan Ay
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- ID/Passport -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2 sm:items-end"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <p
+                                          class="order-2 translate-y-[10%] text-xs text-gray-600 sm:order-1"
+                                        >
+                                          Kimlik/Pasaport
+                                        </p>
+                                        <i
+                                          data-lucide="id-card"
+                                          class="order-1 size-4 text-primary-500 sm:order-2"
+                                        ></i>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          1234567890
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <i
+                                          data-lucide="mail"
+                                          class="size-4 text-primary-500"
+                                        ></i>
+                                        <p
+                                          class="translate-y-[10%] text-xs text-gray-600"
+                                        >
+                                          E-posta
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          johndoe@example.com
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div
+                                      class="flex flex-col items-start gap-1.5 rounded p-2 sm:items-end"
+                                    >
+                                      <div
+                                        class="flex items-end justify-end gap-1.5"
+                                      >
+                                        <p
+                                          class="order-2 translate-y-[10%] text-xs text-gray-600 sm:order-1"
+                                        >
+                                          Telefon
+                                        </p>
+                                        <i
+                                          data-lucide="phone"
+                                          class="order-1 size-4 text-primary-500 sm:order-2"
+                                        ></i>
+                                      </div>
+                                      <div>
+                                        <p class="text-sm font-medium">
+                                          +90 555 123 4567
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Download Button  -->
+                                    <div
+                                      class="col-2 mt-4 flex w-full justify-start"
+                                    >
+                                      <button
+                                        class="flex h-[48px] items-center justify-center gap-2 rounded border border-primary-400 bg-primary-500 px-6 font-semibold text-white"
+                                      >
+                                        <span>Download</span>
+                                        <i
+                                          data-lucide="file-down"
+                                          class="size-4"
+                                        ></i>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Notes Section -->
+                            <div
+                              class="accordion-section relative border-gray-200 px-4 pb-4 sm:block sm:border-t sm:bg-gray-100 sm:pt-4"
+                            >
+                              <!-- Section Toggle -->
+                              <input
+                                type="checkbox"
+                                checked
+                                class="peer hidden"
+                              />
+
+                              <!-- Section Header -->
+                              <label
+                                class="flex cursor-pointer items-start justify-between gap-4 text-gray-800 sm:cursor-default [&_.icon-rotate]:rotate-180 peer-checked:[&_.icon-rotate]:rotate-0 peer-checked:[&_.title]:truncate"
+                              >
+                                <h3 class="title text-lg font-semibold">
+                                  Lorem ipsum dolor sit amet consectetur
+                                  adipisicing elit.
+                                </h3>
+                                <i
+                                  data-lucide="chevron-down"
+                                  class="icon-rotate size-5 flex-shrink-0 transition-transform peer-checked:rotate-180 sm:hidden"
+                                ></i>
+                              </label>
+
+                              <!-- Section Content -->
+                              <div
+                                class="grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr] sm:!grid-rows-[1fr]"
+                              >
+                                <div
+                                  class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+                                >
+                                  <div class="rounded pt-1.5">
+                                    <p class="text-sm text-gray-600">
+                                      Özel istekler veya ek bilgiler buraya
+                                      eklenebilir.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Hic Etkinlik Yok Durumu -->
+                  <div
+                    class="flex h-full flex-col items-center justify-start gap-2"
+                  >
+                    <img
+                      src="/assets/images/illustrations/empty-reservation.png"
+                      alt="Empty Reservation Illustration"
+                      class="h-[160px] w-[240px] object-contain"
+                    />
+
+                    <p class="text-center font-medium text-gray-600">
+                      Herhangi bir tatil rezervasyonunuz bulunmuyor.
+                    </p>
+
+                    <button
+                      class="h-[52px] rounded bg-primary-500 px-8 text-lg font-semibold text-white transition-colors duration-200 hover:bg-primary-600"
+                    >
+                      Şimdi Planla
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Favorites -->
+              <div
+                data-state="closed"
+                id="favorites"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=favorites]/query:!block"
+              >
+                <div class="h-full w-full">
+                  <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+                    Favorilerim
+                  </h2>
+
+                  <div
+                    class="flex h-full flex-col items-center justify-start gap-2"
+                  >
+                    <img
+                      src="/assets/images/illustrations/empty-favorites.png"
+                      alt="Empty Favorites Illustration"
+                      class="h-auto w-[240px] object-contain"
+                    />
+
+                    <p class="text-center font-medium text-gray-600">
+                      Favori listeniz boş
+                    </p>
+
+                    <button
+                      class="h-[52px] rounded bg-primary-500 px-8 text-lg font-semibold text-white transition-colors duration-200 hover:bg-primary-600"
+                    >
+                      Tatilinizi Planlayın
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Profile Details -->
+              <div
+                data-state="closed"
+                id="profile-details"
+                class="flex data-[state=closed]:hidden group-data-[query=profile-details]/query:!block"
+              >
+                <div class="flex h-full w-full flex-col gap-4">
+                  <!-- Kişisel Bilgiler -->
+                  <h2 class="text-2xl font-semibold text-gray-800">
+                    Kişisel Bilgiler
+                  </h2>
+
+                  <form class="flex max-w-[460px] flex-col gap-4">
+                    <div
+                      class="flex gap-6 !rounded border border-gray-200 px-3 py-2"
+                    >
+                      <label
+                        class="relative flex cursor-pointer items-center gap-2"
+                      >
+                        <input
+                          type="radio"
+                          name="gender"
+                          checked
+                          value="male"
+                          class="peer sr-only"
+                        />
+                        <span
+                          class="relative block h-4 w-4 rounded-full border-2 border-gray-300 after:absolute after:left-[-1px] after:top-[-2px] after:h-[15px] after:w-[15px] after:rounded-full after:bg-gray-200 after:content-[''] peer-checked:border-primary-500 peer-checked:after:bg-primary-500"
+                        >
+                        </span>
+                        <span class="text-gray-700">Erkek</span>
+                      </label>
+
+                      <label
+                        class="relative flex cursor-pointer items-center gap-2"
+                      >
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="female"
+                          class="peer sr-only"
+                        />
+                        <span
+                          class="relative block h-4 w-4 rounded-full border-2 border-gray-300 after:absolute after:left-[-1px] after:top-[-2px] after:h-[15px] after:w-[15px] after:rounded-full after:bg-gray-200 after:content-[''] peer-checked:border-primary-500 peer-checked:after:bg-primary-500"
+                        >
+                        </span>
+                        <span class="text-gray-700">Kadın</span>
+                      </label>
+                    </div>
+
+                    <div id="country-container">
+                      <div
+                        id="country-select"
+                        class="group relative flex items-center gap-2"
+                      >
+                        <!-- Hidden Observer Select Input -->
+                        <select
+                          id="country-select-input"
+                          class="hidden"
+                        ></select>
+
+                        <!-- Search Input -->
+                        <input
+                          type="text"
+                          id="country-search-input"
+                          name="country-search-input"
+                          aria-autocomplete="off"
+                          autocomplete="new-password"
+                          class="peer h-12 w-full rounded border border-gray-200 px-3 pe-9 outline-none transition-colors focus:border-primary-200"
+                          placeholder="Ülke"
+                        />
+
+                        <!--  Clear Button -->
+                        <button
+                          class="absolute right-4 top-[50%] flex h-full -translate-y-1/2 items-center justify-center peer-placeholder-shown:hidden peer-focus:visible"
+                          id="clear-button"
+                          type="button"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="size-3.5"
+                          >
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                          </svg>
+                        </button>
+
+                        <!-- Suggestion Dropdown -->
+                        <div
+                          id="country-suggestions"
+                          style="scrollbar-width: none"
+                          class="pointer-events-none absolute left-0 right-0 top-full z-[30] mt-1 flex max-h-64 flex-col overflow-y-auto rounded border border-gray-200 bg-white opacity-0 shadow-lg transition-all duration-300 peer-focus:pointer-events-auto peer-focus:opacity-100"
+                        >
+                          <!-- None Item -->
+                          <button
+                            type="button"
+                            class="none-item cursor-pointer bg-gray-200 px-3 py-2 text-start opacity-75 transition-opacity duration-300 hover:opacity-100 data-[hide=true]:hidden"
+                            data-value="not-selected"
+                            data-hide="false"
+                          >
+                            Seçim Yok
+                          </button>
+                          <!-- Template elements -->
+                          <button
+                            type="button"
+                            class="suggestion-item cursor-pointer px-3 py-2 text-start hover:bg-primary-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                            data-value="suggestion"
+                            data-selected="false"
+                          >
+                            Suggestion
+                          </button>
+                          <!-- No Results -->
+                          <div class="no-results px-3 py-2 text-gray-500">
+                            Sonuç bulunamadı
+                          </div>
+                        </div>
+                        <script>
+                          document.addEventListener('DOMContentLoaded', () => {
+                            window.SetCountryNameOptions(
+                              'country-select-input',
+                              'not-selected',
+                              'TR',
+                            )
+                          })
+                        </script>
+                      </div>
+                    </div>
+
+                    <input
+                      type="text"
+                      style="-webkit-border-radius: 0; border-radius: 0"
+                      id="name"
+                      class="h-12 !rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                      placeholder="Adınız"
+                    />
+
+                    <input
+                      type="text"
+                      style="-webkit-border-radius: 0; border-radius: 0"
+                      id="surname"
+                      class="h-12 !rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                      placeholder="Soyadınız"
+                    />
+
+                    <button
+                      type="submit"
+                      class="h-[52px] rounded bg-primary-500 px-8 text-lg font-semibold text-white"
+                    >
+                      Bilgileri Güncelle
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <!-- Password and Email -->
+              <div
+                data-state="closed"
+                id="password-email"
+                class="flex data-[state=closed]:hidden group-data-[query=password-email]/query:!block"
+              >
+                <div class="flex h-full w-full flex-col gap-4">
+                  <!-- Kişisel Bilgiler -->
+                  <h2 class="text-2xl font-semibold text-gray-800">
+                    Şifre ve E-Posta
+                  </h2>
+
+                  <form class="flex max-w-[460px] flex-col gap-4">
+                    <input
+                      type="email"
+                      style="-webkit-border-radius: 0; border-radius: 0"
+                      id="email"
+                      class="h-12 !rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                      placeholder="E-Posta Adresiniz"
+                    />
+
+                    <!-- Eski Şifre -->
+                    <div class="group relative" data-visible="false">
+                      <input
+                        type="password"
+                        style="-webkit-border-radius: 0; border-radius: 0"
+                        id="password-old"
+                        class="h-12 w-full !rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                        placeholder="Eski Şifreniz"
+                      />
+                      <button
+                        type="button"
+                        class="visible-control-btn absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 rtl:left-3 rtl:right-auto"
+                      >
+                        <!-- Kapalı göz ikonu -->
+                        <span class="group-data-[visible=true]:hidden">
+                          <img
+                            src="/assets/images/icons/eye.svg"
+                            class="size-4"
+                            alt="eye"
+                          />
+                        </span>
+                        <!-- Açık göz ikonu -->
+                        <span class="hidden group-data-[visible=true]:block">
+                          <img
+                            src="/assets/images/icons/eye-off.svg"
+                            class="size-4"
+                            alt="eye"
+                          />
+                        </span>
+                      </button>
+                    </div>
+
+                    <!-- Yeni Şifre -->
+                    <div class="group relative" data-visible="false">
+                      <input
+                        type="password"
+                        style="-webkit-border-radius: 0; border-radius: 0"
+                        id="password-new"
+                        class="h-12 w-full !rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200"
+                        placeholder="Yeni Şifreniz"
+                      />
+                      <button
+                        type="button"
+                        class="visible-control-btn absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 rtl:left-3 rtl:right-auto"
+                      >
+                        <!-- Kapalı göz ikonu -->
+                        <span class="group-data-[visible=true]:hidden">
+                          <img
+                            src="/assets/images/icons/eye.svg"
+                            class="size-4"
+                            alt="eye"
+                          />
+                        </span>
+                        <!-- Açık göz ikonu -->
+                        <span class="hidden group-data-[visible=true]:block">
+                          <img
+                            src="/assets/images/icons/eye-off.svg"
+                            class="size-4"
+                            alt="eye"
+                          />
+                        </span>
+                      </button>
+                    </div>
+
+                    <!--  Sifre Bilgilendirme -->
+                    <div class="-mt-1 flex items-start gap-2">
+                      <div
+                        class="flex size-4 items-center justify-center !rounded-full bg-primary-500 p-1"
+                      >
+                        <img
+                          src="/assets/images/icons/circle-alert.svg"
+                          class="size-4 brightness-0 invert"
+                          alt="eye"
+                        />
+                      </div>
+                      <p class="text-xs text-gray-500">
+                        Minimum 6 karakterden oluşmalı, en az 1 harf ve rakam
+                        içermelidir.
+                      </p>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="h-[52px] rounded bg-primary-500 px-8 text-lg font-semibold text-white"
+                    >
+                      Bilgileri Güncelle
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <!--  Preferences -->
+              <div
+                data-state="closed"
+                id="preferences"
+                class="flex data-[state=closed]:hidden group-data-[query=preferences]/query:!block"
+              >
+                <div class="flex h-full w-full flex-col gap-4">
+                  <!-- Kişisel Bilgiler -->
+                  <h2 class="text-2xl font-semibold text-gray-800">
+                    İletişim Tercihleri
+                  </h2>
+
+                  <form class="flex max-w-[460px] flex-col gap-4">
+                    <div class="flex flex-col gap-4">
+                      <!-- E-posta tercihi -->
+                      <div
+                        class="flex items-center justify-between !rounded border border-gray-200 px-3 py-2"
+                      >
+                        <div>
+                          <h3 class="text-base font-medium">E-posta</h3>
+                          <p class="text-sm text-gray-600">
+                            E-posta yoluyla iletilmesini istiyorum.
+                          </p>
+                        </div>
+                        <label
+                          class="relative inline-flex cursor-pointer items-center"
+                        >
+                          <input
+                            type="checkbox"
+                            checked
+                            class="peer sr-only"
+                            name="email_preference"
+                          />
+                          <div
+                            class="h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary-500 peer-checked:after:translate-x-full"
+                          ></div>
+                        </label>
+                      </div>
+
+                      <!-- SMS tercihi -->
+                      <div
+                        class="flex items-center justify-between !rounded border border-gray-200 px-3 py-2"
+                      >
+                        <div>
+                          <h3 class="text-base font-medium">SMS</h3>
+                          <p class="text-sm text-gray-600">
+                            Telefon ile iletişim kurulmasını istiyorum.
+                          </p>
+                        </div>
+                        <label
+                          class="relative inline-flex cursor-pointer items-center"
+                        >
+                          <input
+                            type="checkbox"
+                            class="peer sr-only"
+                            name="sms_preference"
+                          />
+                          <div
+                            class="h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary-500 peer-checked:after:translate-x-full"
+                          ></div>
+                        </label>
+                      </div>
+
+                      <!-- Çağrı Merkezi tercihi -->
+                      <div
+                        class="flex items-center justify-between !rounded border border-gray-200 px-3 py-2"
+                      >
+                        <div>
+                          <h3 class="text-base font-medium">Çağrı Merkezi</h3>
+                          <p class="text-sm text-gray-600">
+                            Telefon ile aranarak iletişim kurulmasını istiyorum.
+                          </p>
+                        </div>
+                        <label
+                          class="relative inline-flex cursor-pointer items-center"
+                        >
+                          <input
+                            type="checkbox"
+                            class="peer sr-only"
+                            name="call_preference"
+                          />
+                          <div
+                            class="h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary-500 peer-checked:after:translate-x-full"
+                          ></div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="h-[52px] rounded bg-primary-500 px-8 text-lg font-semibold text-white"
+                    >
+                      Bilgileri Güncelle
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <!-- Visa -->
+              <div
+                data-state="closed"
+                id="visa"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=visa]/query:!block"
+              >
+                <div class="h-full w-full">
+                  <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+                    Visa Başvurularım
+                  </h2>
+                </div>
+              </div>
+              <!-- Otel Rezervasyon -->
+              <div
+                data-state="closed"
+                id="otel-reservation"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=otel-reservation]/query:!block"
+              >
+                <div class="h-full w-full">
+                  <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+                    Otel Rezervasyonlarım
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="w-full">
+      <div class="hidden w-full lg:block">
+        <!-- Modals -->
+        <div class="mb-6">
+          <!-- Navigations -->
+          <nav
+            class="mx-auto grid max-w-7xl grid-cols-[260px,260px,260px] px-3.5"
+          >
+            <button
+              id="footer-nav-1-btn"
+              data-state="open"
+              class="flex h-[80px] items-center justify-center text-balance border border-gray-100 px-4 text-lg font-semibold leading-tight transition-opacity data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 data-[state=closed]:hover:opacity-75"
+            >
+              Keşfet
+            </button>
+            <button
+              id="footer-nav-2-btn"
+              data-state="closed"
+              class="flex h-[80px] items-center justify-center text-balance border border-gray-100 px-4 text-lg font-semibold leading-tight transition-opacity data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 data-[state=closed]:hover:opacity-75"
+            >
+              Dubai Popüler Aktiviteler, Turlar
+            </button>
+            <button
+              id="footer-nav-3-btn"
+              data-state="closed"
+              class="flex h-[80px] items-center justify-center text-balance border border-gray-100 px-4 text-lg font-semibold leading-tight transition-opacity data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 data-[state=closed]:hover:opacity-75"
+            >
+              Dubai Anakara, Mainland Şirket Kuruluşu
+            </button>
+          </nav>
+          <!-- Containers -->
+          <div class="h-fit w-full bg-gray-100 py-2">
+            <div
+              id="footer-nav-1"
+              data-state="hidden"
+              class="mx-auto flex h-fit max-w-7xl flex-col items-start justify-start data-[state=closed]:hidden"
+            >
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >İkonik Yerler Turu</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Dubai Helikopter Turu</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Sonsuzluk Havuzu</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                >
+                  Özel Limuzin</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Jetski Aktivite</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Ekonomik VIP Safari</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Dubai Müzeleri</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Abu Dhabi Şehir Turu</a
+                >
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Luxury Safari Tur</a
+                >
+              </div>
+            </div>
+
+            <div
+              id="footer-nav-2"
+              data-state="closed"
+              class="mx-auto flex h-fit max-w-7xl flex-col items-start justify-start data-[state=closed]:hidden"
+            >
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Content 1</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                >
+                  Content 1</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Content 1</a
+                >
+              </div>
+            </div>
+
+            <div
+              id="footer-nav-3"
+              data-state="closed"
+              class="mx-auto flex h-fit max-w-7xl flex-col items-start justify-start data-[state=closed]:hidden"
+            >
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Content 2</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                >
+                  Content 2</a
+                >
+              </div>
+
+              <div class="flex w-[780px] px-3.5 py-4">
+                <a
+                  href="#"
+                  class="w-[260px] flex-shrink-0 text-start text-sm font-medium text-gray-900 decoration-primary-500 underline-offset-4 transition-opacity hover:underline hover:opacity-75"
+                  >Content 2</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Buttons -->
+        <div
+          class="mx-auto flex max-w-7xl justify-between px-3.5 py-4 text-lg font-semibold text-gray-900"
+        >
+          <a
+            href="#"
+            class="group flex w-1/4 items-center gap-4 transition-opacity duration-300 hover:opacity-75"
+          >
+            <i data-lucide="mail" class="size-7 text-primary-500"></i>
+            <span class="">Bize Mesaj Gönderin</span>
+          </a>
+
+          <a
+            href="#"
+            class="group flex w-1/4 items-center gap-4 transition-opacity duration-300 hover:opacity-75"
+          >
+            <i data-lucide="concierge-bell" class="size-7 text-primary-500"></i>
+            <span class="">Rezervasyonlarım</span>
+          </a>
+
+          <a
+            href="#"
+            class="group flex w-1/4 items-center justify-center gap-4 transition-opacity duration-300 hover:opacity-75"
+          >
+            <i data-lucide="calendar-check" class="size-7 text-primary-500"></i>
+            <span class="">Anlaşmalı Oteller</span>
+          </a>
+
+          <a
+            href="#"
+            class="group flex w-1/4 items-center justify-center gap-4 transition-opacity duration-300 hover:opacity-75"
+          >
+            <i
+              data-lucide="message-square-text"
+              class="size-7 text-primary-500"
+            ></i>
+            <span class="">Müşteri Hizmetleri</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Footer Container -->
+      <ul
+        id="footer-container"
+        class="mb-4 flex flex-col gap-y-6 px-3.5 text-sm font-medium lg:hidden"
+      >
+        <li class="footer group border-b border-solid border-gray-200 pb-2">
+          <button
+            class="footer-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-primary-600"
+          >
+            <h5 class="text-start text-gray-950">Hızlı Menü</h5>
+            <i
+              data-lucide="chevron-down"
+              class="footer-icon size-[24px] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+            ></i>
+          </button>
+          <div
+            style="height: 0px"
+            class="footer-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Bize Mesaj Gönderin</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Rezervasyonlarım</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Anlaşmalı Oteller</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Müşteri Hizmetleri</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="footer group border-b border-solid border-gray-200 pb-2">
+          <button
+            class="footer-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-primary-600"
+          >
+            <h5 class="text-start text-gray-950">Keşfet</h5>
+            <i
+              data-lucide="chevron-down"
+              class="footer-icon size-[24px] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+            ></i>
+          </button>
+          <div
+            style="height: 0px"
+            class="footer-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >İkonik Yerler Turu</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Sonsuzluk Havuzu</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Dubai Müzeleri</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="footer group border-b border-solid border-gray-200 pb-2">
+          <button
+            class="footer-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-primary-600"
+          >
+            <h5 class="text-start text-gray-950">
+              Dubai Popüler Aktiviteler, Turlar
+            </h5>
+            <i
+              data-lucide="chevron-down"
+              class="footer-icon size-[24px] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+            ></i>
+          </button>
+          <div
+            style="height: 0px"
+            class="footer-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Dubai Helikopter Turu</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Jetski Aktivite</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Abu Dhabi Şehir Turu</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="footer group border-b border-solid border-gray-200 pb-2">
+          <button
+            class="footer-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-primary-600"
+          >
+            <h5 class="text-start text-gray-950">
+              Dubai Anakara, Mainland Şirket Kuruluşu
+            </h5>
+            <i
+              data-lucide="chevron-down"
+              class="footer-icon size-[24px] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+            ></i>
+          </button>
+          <div
+            style="height: 0px"
+            class="footer-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Dubai Helikopter Turu</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Jetski Aktivite</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Abu Dhabi Şehir Turu</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="footer group border-b border-solid border-gray-200 pb-2">
+          <button
+            class="footer-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-primary-600"
+          >
+            <h5 class="text-start text-gray-950">
+              Sözleşmeler ve Politikalarımız
+            </h5>
+            <i
+              data-lucide="chevron-down"
+              class="footer-icon size-[24px] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+            ></i>
+          </button>
+          <div
+            style="height: 0px"
+            class="footer-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >MBD Travel Sözleşmelerimiz</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >KVKK ve Gizlilik Politikası</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Paket Tatil Sözleşmesi</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Kullanım Koşulları</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Çerez Politikası</a
+              >
+              <a href="#" class="text-sm font-normal text-gray-600"
+                >Bilgi Güvenliği Politikası</a
+              >
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Footer Container -->
+      <div
+        class="order-4 mx-auto flex max-w-7xl flex-col items-center justify-between px-3.5 py-4 md:flex-row md:items-start md:px-3.5 lg:order-1 lg:items-start"
+      >
+        <!--  Desktop Footer Column 1 -->
+        <div
+          class="hidden w-1/4 flex-shrink-0 flex-col items-start justify-center lg:flex"
+        >
+          <h4 class="mb-2 text-base font-semibold text-gray-900">MBD Travel</h4>
+          <ul class="flex flex-col gap-1 text-sm font-medium">
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Hakkımızda</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Neden MBD Travel?</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >İletişim</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Kampanyalar</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Ödeme Seçenekleri</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Sık Sorulan Sorular</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Resmi Tatil Günleri</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Blog</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!--  Desktop Footer Column 2 -->
+        <div
+          class="order-3 hidden w-1/4 flex-shrink-0 flex-col items-start justify-center lg:order-2 lg:flex"
+        >
+          <h4 class="mb-2 text-base font-semibold text-gray-900">
+            Sözleşmeler ve Politikalarımız
+          </h4>
+          <ul class="flex flex-col gap-1 text-sm font-medium">
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >MBD Travel Sözleşmelerimiz</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >KVKK ve Gizlilik Politikası</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Paket Tatil Sözleşmesi</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Kullanım Koşulları</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Çerez Politikası</a
+              >
+            </li>
+            <li>
+              <a
+                class="decoration-primary-500 underline-offset-4 transition-opacity duration-300 hover:underline hover:opacity-75"
+                href="#"
+                >Bilgi Güvenliği Politikası</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!--  Site QR Kodu ve Sosyal Medya Bağlantıları -->
+        <div
+          class="order-1 mb-8 flex flex-shrink-0 flex-col items-center gap-2 md:order-2 md:mb-0 md:w-[50%] md:flex-row md:items-start md:justify-between lg:order-3 lg:w-1/4 lg:flex-col lg:items-center lg:justify-start rtl:translate-x-[6%]"
+        >
+          <img
+            src="https://images.project-test.info/footer-qr.webp"
+            alt="Site QR kodu, hızlı erişim için tarayın"
+            class="size-40 object-contain md:size-28"
+          />
+
+          <!-- Social Media Icons -->
+          <div class="flex justify-center gap-4">
+            <a
+              href="#"
+              aria-label="Instagram"
+              class="flex size-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+            >
+              <i data-lucide="instagram" class="size-6"></i>
+            </a>
+            <a
+              href="#"
+              aria-label="Facebook"
+              class="flex size-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+            >
+              <i data-lucide="facebook" class="size-6"></i>
+            </a>
+            <a
+              href="#"
+              aria-label="YouTube"
+              class="flex size-10 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+            >
+              <i data-lucide="youtube" class="size-6"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Help Section -->
+        <div
+          class="order-2 flex flex-shrink-0 flex-col md:order-1 md:w-[30%] lg:order-4 lg:w-1/4"
+        >
+          <div class="items-center text-center md:items-center md:text-center">
+            <h2 class="text-balance text-2xl font-bold text-primary-500">
+              Yardıma <br />İhtiyacınız var mı?
+            </h2>
+            <p class="mt-0 text-sm text-gray-600">Hemen Ara</p>
+            <div
+              class="mt-4 flex justify-center gap-4 md:justify-center lg:justify-center"
+            >
+              <a
+                href="tel:+97152521419"
+                aria-label="Telefon ile ara"
+                class="size-10"
+              >
+                <img
+                  src="/assets/images/icons/phone-call.svg"
+                  alt="Telefon arama ikonu"
+                  class="h-full w-full"
+                />
+              </a>
+              <a
+                href="https://wa.me/97152521419"
+                aria-label="WhatsApp ile mesaj gönder"
+                class="size-10"
+              >
+                <img
+                  src="/assets/images/icons/whatsapp.svg"
+                  alt="WhatsApp ikonu"
+                  class="h-full w-full"
+                />
+              </a>
+            </div>
+            <a
+              href="tel:+97152521419"
+              class="mt-4 inline-block text-2xl font-medium tracking-wide text-gray-800"
+              >+971 52 521 4198</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo Section with Background -->
+      <div class="relative mt-4 w-full overflow-hidden">
+        <!-- Logo Grid -->
+        <div
+          class="relative w-full space-y-2 bg-primary-500 px-3.5 pb-6 pt-8 lg:space-y-4 xl:scale-x-[105%] xl:rounded-t-[100%] xl:pb-4 xl:pt-12"
+        >
+          <div
+            class="mx-auto grid max-w-[720px] grid-cols-1 items-center justify-items-center gap-x-8 lg:gap-x-12"
+          >
+            <img
+              src="/assets/images/brand-images/logo.svg"
+              alt="HOI Health logosu"
+              class="h-12 w-auto object-scale-down brightness-0 invert"
+            />
+          </div>
+
+          <!-- Copyright -->
+          <div
+            class="text-center text-xs font-semibold text-white lg:text-base"
+          >
+            <p>MBD Travel. Her hakkı saklıdır. © 2025</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

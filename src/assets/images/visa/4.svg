@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53.333332 53.333332" height="53.333332" width="53.333332" xml:space="preserve" id="svg2" version="1.1">
+  <metadata id="metadata8">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs id="defs6">
+    <clipPath id="clipPath18" clipPathUnits="userSpaceOnUse">
+      <path id="path16" d="M 0,40 H 40 V 0 H 0 Z" />
+    </clipPath>
+  </defs>
+  <g transform="matrix(1.3333333,0,0,-1.3333333,0,53.333333)" id="g10">
+    <g id="g12">
+      <g clip-path="url(#clipPath18)" id="g14">
+        <g transform="translate(39.2575,20)" id="g20">
+          <path id="path22" style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 0,-10.636 -8.622,-19.257 -19.257,-19.257 -10.636,0 -19.258,8.621 -19.258,19.257 0,10.636 8.622,19.257 19.258,19.257 C -8.622,19.257 0,10.636 0,0" />
+        </g>
+        <g transform="translate(39.2575,20)" id="g24">
+          <path id="path26" style="fill:none;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" d="m 0,0 c 0,-10.636 -8.622,-19.257 -19.257,-19.257 -10.636,0 -19.258,8.621 -19.258,19.257 0,10.636 8.622,19.257 19.258,19.257 C -8.622,19.257 0,10.636 0,0 Z" />
+        </g>
+        <g transform="translate(28.3116,13.7663)" id="g28">
+          <path id="path30" style="fill:#bbb9ba;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 0,0 V 12.467 H -16.623 V 9.818 c 0.641,-0.381 1.147,-0.887 1.519,-1.519 0.373,-0.632 0.559,-1.321 0.559,-2.065 0,-0.745 -0.186,-1.433 -0.559,-2.065 -0.372,-0.632 -0.878,-1.139 -1.519,-1.52 V 0 Z m 0,-2.078 h -16.623 c -0.572,0 -1.061,0.204 -1.468,0.61 -0.407,0.407 -0.61,0.897 -0.61,1.468 v 4.156 c 0.571,0 1.061,0.203 1.468,0.61 0.406,0.407 0.61,0.896 0.61,1.468 0,0.571 -0.204,1.06 -0.61,1.467 -0.407,0.407 -0.897,0.611 -1.468,0.611 v 4.155 c 0,0.572 0.203,1.061 0.61,1.468 0.407,0.407 0.896,0.61 1.468,0.61 H 0 c 0.571,0 1.061,-0.203 1.467,-0.61 0.407,-0.407 0.611,-0.896 0.611,-1.468 L 2.078,0 C 2.078,-0.571 1.874,-1.061 1.467,-1.468 1.061,-1.874 0.571,-2.078 0,-2.078 m -11.584,4.52 9.246,2.441 c 0.26,0.069 0.455,0.229 0.585,0.481 0.13,0.251 0.16,0.506 0.091,0.766 -0.07,0.259 -0.221,0.454 -0.455,0.584 -0.234,0.13 -0.48,0.16 -0.74,0.091 l -2.546,-0.675 -4.155,3.896 -1.455,-0.364 2.494,-4.363 -2.494,-0.624 -1.298,0.987 -0.987,-0.26 z" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
