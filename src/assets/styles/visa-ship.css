@@ -165,9 +165,10 @@ figure,
 p,
 pre {
   margin: 0;
+  font-weight: inherit;
 }
 
-.preflight > ol,
+.preflight ol,
 ul {
   list-style: none;
   margin: 0;
@@ -223,48 +224,44 @@ object {
   vertical-align: middle;
 }
 
-.text-gray-50 {
-  color: rgb(var(--gray-50)) !important;
-}
-
 .text-gray-100 {
-  color: rgb(var(--gray-100)) !important;
+  color: rgb(var(--gray-100));
 }
 
 .text-gray-200 {
-  color: rgb(var(--gray-200)) !important;
+  color: rgb(var(--gray-200));
 }
 
 .text-gray-300 {
-  color: rgb(var(--gray-300)) !important;
+  color: rgb(var(--gray-300));
 }
 
 .text-gray-400 {
-  color: rgb(var(--gray-400)) !important;
+  color: rgb(var(--gray-400));
 }
 
 .text-gray-500 {
-  color: rgb(var(--gray-500)) !important;
+  color: rgb(var(--gray-500));
 }
 
 .text-gray-600 {
-  color: rgb(var(--gray-600)) !important;
+  color: rgb(var(--gray-600));
 }
 
 .text-gray-700 {
-  color: rgb(var(--gray-700)) !important;
+  color: rgb(var(--gray-700));
 }
 
 .text-gray-800 {
-  color: rgb(var(--gray-800)) !important;
+  color: rgb(var(--gray-800));
 }
 
 .text-gray-900 {
-  color: rgb(var(--gray-900)) !important;
+  color: rgb(var(--gray-900));
 }
 
 .text-gray-950 {
-  color: rgb(var(--gray-950)) !important;
+  color: rgb(var(--gray-950));
 }
 
 [hidden] {
@@ -939,6 +936,26 @@ object {
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-400 {
+  color: rgb(var(--gray-400));
+}
+
+.text-gray-500 {
+  color: rgb(var(--gray-500));
+}
+
+.text-gray-600 {
+  color: rgb(var(--gray-600));
+}
+
+.text-gray-900 {
+  color: rgb(var(--gray-900));
+}
+
+.text-gray-950 {
+  color: rgb(var(--gray-950));
 }
 
 .text-green-600 {
