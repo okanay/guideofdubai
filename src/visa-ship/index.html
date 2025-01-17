@@ -67,7 +67,7 @@
     <body>
       <!-- Contents -->
       <div
-        class="relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-gray-100 px-3.5 py-12"
+        class="preflight relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-gray-100"
       >
         <!-- Title, Form, Mail -->
         <div
@@ -170,7 +170,7 @@
                       >
                         <i
                           data-lucide="refresh-cw"
-                          class="duration*300 size-full text-primary-500"
+                          class="size-full text-primary-500"
                         ></i>
                       </button>
                       <button
@@ -180,7 +180,7 @@
                       >
                         <i
                           data-lucide="volume-2"
-                          class="duration*300 size-full text-primary-500"
+                          class="size-full text-primary-500"
                         ></i>
                       </button>
                     </div>
@@ -261,7 +261,7 @@
                 id="visa-ship-modal-closed-button"
                 class="transition-all duration-300 hover:opacity-75 active:scale-95"
               >
-                <i data-lucide="x" class="size-6"></i>
+                <i data-lucide="x" class="size-6 cursor-pointer"></i>
               </button>
             </div>
 
@@ -481,7 +481,10 @@
               </div>
             </div>
 
-            <hr class="border-t border-gray-200" />
+            <hr
+              style="margin-bottom: -0.5rem"
+              class="border-t border-gray-200"
+            />
 
             <!-- Footer Note -->
             <div class="space-y-2 px-4 pb-6 sm:px-8">
@@ -496,7 +499,7 @@
                   data-lucide="square-arrow-out-up-right"
                   class="size-4 text-primary-500"
                 ></i>
-                <a href="/" class="text-sm text-primary-500">
+                <a href="/" class="text-sm text-primary-500 hover:underline">
                   Hizmet Sözleşmemiz
                 </a>
               </div>
