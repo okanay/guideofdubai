@@ -65,499 +65,490 @@
       <title>Vize Takip Sistemi</title>
     </head>
     <body>
-      <!-- Tailwind Init -->
-      <div class="tw tw-preflight">
-        <!-- Contents -->
+      <!-- Contents -->
+      <div
+        class="relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-gray-100 px-3.5 py-12"
+      >
+        <!-- Title, Form, Mail -->
         <div
-          class="relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-gray-100 px-3.5 py-12"
+          class="z-[2] flex w-full max-w-xl flex-col gap-6 bg-transparent text-center"
         >
-          <!-- Title, Form, Mail -->
-          <div
-            class="z-[2] flex w-full max-w-xl flex-col gap-6 bg-transparent text-center"
-          >
-            <!-- Title Content -->
-            <div class="flex flex-col gap-3">
-              <h1
-                class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl"
-              >
-                Vize Takip Sistemi
-              </h1>
-              <p
-                class="mx-auto max-w-lg text-balance text-base text-gray-600 lg:text-lg"
-              >
-                Vize başvurunuzun durumunu öğrenmek için aşağıdaki formu
-                kullanabilirsiniz.
-              </p>
-            </div>
-
-            <!-- Form -->
-            <form
-              class="relative mx-auto w-full max-w-2xl rounded-sm border border-gray-200/75 bg-white p-6 shadow shadow-gray-200/10 sm:p-8"
+          <!-- Title Content -->
+          <div class="flex flex-col gap-3">
+            <h1
+              class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl"
             >
-              <div class="flex w-full flex-col gap-6">
-                <div class="flex w-full flex-col gap-4">
-                  <!-- Kargo Takip Kodu -->
-                  <div class="relative flex w-full items-center gap-2">
-                    <i
-                      data-lucide="barcode"
-                      class="absolute left-0 top-[50%] z-20 size-5 flex-shrink-0 translate-y-[-55%] text-gray-400"
-                    ></i>
-                    <div class="relative flex w-full items-center">
-                      <div class="relative flex-1">
-                        <input
-                          type="text"
-                          id="tracking-code"
-                          name="tracking-code"
-                          placeholder=" "
-                          class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-8 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
-                          aria-label="E-posta Adresi"
-                        />
-                        <label
-                          htmlFor="email"
-                          class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-7 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
-                        >
-                          Vize Takip Kodunuz
-                        </label>
-                      </div>
-                    </div>
-                    <div class="absolute right-0 w-fit">
-                      <div class="relative overflow-hidden">
-                        <button
-                          type="button"
-                          popovertarget="info-tooltip"
-                          style="anchor-name: --info-button"
-                          class="ml-2 flex size-5 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-colors hover:border-primary-500 hover:text-primary-500 focus:border-primary-500 focus:text-primary-500 focus:outline-none active:border-primary-500 active:text-primary-500"
-                        >
-                          <i data-lucide="help-circle" class="size-4"></i>
-                        </button>
-
-                        <dialog
-                          popover
-                          id="info-tooltip"
-                          style="position-anchor: --info-button"
-                          class="info-tooltip outline-none outline-offset-0 ring-0"
-                        >
-                          <p
-                            class="max-w-64 text-pretty rounded-sm border border-gray-200 p-3 text-xs text-gray-600"
-                          >
-                            Takip kodunuza, kargo paketi üzerindeki etiket veya
-                            size gönderilen bilgilendirme SMS'i üzerinden
-                            ulaşabilirsiniz.
-                          </p>
-                        </dialog>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Captcha Alanı -->
-                  <div
-                    class="flex flex-col items-start gap-x-6 gap-y-4 sm:flex-row"
-                  >
-                    <!-- Captcha Image -->
-                    <div
-                      class="order-2 flex w-full items-center gap-2 sm:order-none sm:w-auto"
-                    >
-                      <div
-                        class="flex h-11 flex-1 overflow-hidden rounded-sm border border-gray-200 sm:w-40 sm:flex-none"
-                      >
-                        <div
-                          class="h-full w-full animate-pulse bg-gray-200"
-                        ></div>
-                      </div>
-                      <div class="flex flex-col gap-1">
-                        <button
-                          type="button"
-                          aria-label="Yeni kod"
-                          class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
-                        >
-                          <i
-                            data-lucide="refresh-cw"
-                            class="duration*300 size-full text-primary-500"
-                          ></i>
-                        </button>
-                        <button
-                          type="button"
-                          aria-label="Sesli dinle"
-                          class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
-                        >
-                          <i
-                            data-lucide="volume-2"
-                            class="duration*300 size-full text-primary-500"
-                          ></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Captcha Input -->
-                    <div class="relative order-1 w-full sm:order-none">
-                      <div class="relative flex-1">
-                        <input
-                          type="text"
-                          id="captcha-code"
-                          name="captcha-code"
-                          placeholder=" "
-                          class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-0 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
-                          aria-label="E-posta Adresi"
-                        />
-                        <label
-                          htmlFor="captcha-code"
-                          class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-0 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
-                        >
-                          Güvenlik Kodu
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button
-                  type="button"
-                  id="visa-ship-modal-open-button"
-                  class="-mt-2 block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
-                >
-                  Gönderi Bilgileri
-                </button>
-
-                <!-- Form Message Area -->
-                <div
-                  class="relative -mt-2 flex items-start justify-center text-sm font-medium text-red-500"
-                >
-                  <span class="text-pretty"
-                    >Hata : Takip numarası bulunamadı.
-                  </span>
-                </div>
-              </div>
-            </form>
-
-            <!-- Mail Info -->
-            <p class="text-balance text-sm text-gray-500">
-              Teknik destek için
-              <a
-                href="mailto:visa@mbdtravel.com"
-                class="text-primary-500 hover:underline"
-                >visa@mbdtravel.com</a
-              >
-              adresine mail atabilirsiniz.
+              Vize Takip Sistemi
+            </h1>
+            <p
+              class="mx-auto max-w-lg text-balance text-base text-gray-600 lg:text-lg"
+            >
+              Vize başvurunuzun durumunu öğrenmek için aşağıdaki formu
+              kullanabilirsiniz.
             </p>
           </div>
 
-          <!-- Modal -->
-          <div
-            id="visa-ship-modal"
-            data-state="closed"
-            class="fixed left-0 top-0 z-[8001] flex h-full w-full justify-center overflow-y-auto bg-gray-500/40 data-[state=closed]:pointer-events-none data-[state=closed]:hidden sm:py-12"
+          <!-- Form -->
+          <form
+            class="relative mx-auto w-full max-w-2xl rounded-sm border border-gray-200/75 bg-white p-6 shadow shadow-gray-200/10 sm:p-8"
           >
-            <section
-              id="visa-ship-modal-container"
-              class="relative flex h-full min-h-fit w-full max-w-2xl flex-col gap-8 rounded-sm bg-white text-gray-950 sm:h-fit sm:border sm:border-gray-300"
-            >
-              <!-- Header -->
-              <div
-                class="flex items-center justify-between border-b border-gray-200 bg-gray-100 px-4 py-4 sm:px-8"
-              >
-                <h4 class="text-lg font-semibold text-primary-500">
-                  Vize Takip Sistemi
-                </h4>
-                <button
-                  id="visa-ship-modal-closed-button"
-                  class="transition-all duration-300 hover:opacity-75 active:scale-95"
-                >
-                  <i data-lucide="x" class="size-6"></i>
-                </button>
-              </div>
-
-              <!-- Tracking Number -->
-              <div class="-mt-4 space-y-1 px-4 sm:px-8">
-                <div class="text-sm text-gray-500">Başvuru Numarası</div>
-                <div class="text-lg font-medium">5152623906245</div>
-              </div>
-
-              <!-- Progress Bar Container -->
-              <div
-                class="relative overflow-x-auto px-4 sm:overflow-x-visible sm:px-8"
-              >
-                <div class="min-w-[640px] sm:min-w-0">
-                  <!-- Progress Bar -->
-                  <div class="relative flex items-center justify-between">
-                    <!-- Step 1 -->
-                    <div
-                      class="group flex shrink-0 items-center gap-2"
-                      data-check="true"
-                    >
-                      <div
-                        class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
-                      >
-                        <span
-                          class="text-sm font-medium group-data-[check=true]:hidden"
-                          >1</span
-                        >
-                        <i
-                          data-lucide="check"
-                          class="hidden size-4 text-white group-data-[check=true]:block"
-                        ></i>
-                      </div>
-                      <span
-                        class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
-                      >
-                        Başvuru Alındı
-                      </span>
-                    </div>
-
-                    <!-- Progress Line 1 -->
-                    <div
-                      class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
-                      data-check="true"
-                    >
-                      <div class="absolute inset-0 bg-gray-200"></div>
-                      <div
-                        class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
-                        style="width: 100%"
-                      ></div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div
-                      class="group flex shrink-0 items-center gap-2"
-                      data-check="true"
-                    >
-                      <div
-                        class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
-                      >
-                        <span
-                          class="text-sm font-medium group-data-[check=true]:hidden"
-                          >2</span
-                        >
-                        <i
-                          data-lucide="check"
-                          class="hidden size-4 text-white group-data-[check=true]:block"
-                        ></i>
-                      </div>
-                      <span
-                        class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
-                      >
-                        İşlemde
-                      </span>
-                    </div>
-
-                    <!-- Progress Line 2 -->
-                    <div
-                      class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
-                      data-check="true"
-                    >
-                      <div class="absolute inset-0 bg-gray-200"></div>
-                      <div
-                        class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
-                        style="width: 100%"
-                      ></div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div
-                      class="group flex shrink-0 items-center gap-2"
-                      data-check="false"
-                    >
-                      <div
-                        class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
-                      >
-                        <span
-                          class="text-sm font-medium group-data-[check=true]:hidden"
-                          >3</span
-                        >
-                        <i
-                          data-lucide="check"
-                          class="hidden size-4 text-white group-data-[check=true]:block"
-                        ></i>
-                      </div>
-                      <span
-                        class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
-                      >
-                        Kontrol
-                      </span>
-                    </div>
-
-                    <!-- Progress Line 3 -->
-                    <div
-                      class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
-                      data-check="false"
-                    >
-                      <div class="absolute inset-0 bg-gray-200"></div>
-                      <div
-                        class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
-                        style="width: 0%"
-                      ></div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div
-                      class="group flex shrink-0 items-center gap-2"
-                      data-check="false"
-                    >
-                      <div
-                        class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
-                      >
-                        <span
-                          class="text-sm font-medium group-data-[check=true]:hidden"
-                          >4</span
-                        >
-                        <i
-                          data-lucide="check"
-                          class="hidden size-4 text-white group-data-[check=true]:block"
-                        ></i>
-                      </div>
-                      <span
-                        class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
-                      >
-                        Sonuç
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Subtle Scroll Indicator for Mobile -->
-                <div
-                  class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent sm:hidden"
-                ></div>
-              </div>
-
-              <!-- Details Cards Container -->
-              <div class="grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-8">
-                <!-- Başvuru Sahibi Card -->
-                <div class="flex items-start gap-3 rounded-sm">
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-green-600">
-                    <i data-lucide="user" class="size-5"></i>
-                  </div>
-                  <div class="space-y-1">
-                    <div class="text-sm font-medium text-green-600">
-                      Başvuru Sahibi
-                    </div>
-                    <div class="font-medium text-gray-900">
-                      Mehmet Emin YILMAZ
-                    </div>
-                  </div>
-                </div>
-
-                <!-- İşleme Alınma Card -->
-                <div
-                  class="relative flex items-start rounded-sm sm:justify-end"
-                >
-                  <div class="flex justify-between gap-3 sm:text-end">
-                    <div class="order-2 space-y-1 sm:order-none sm:text-end">
-                      <div class="text-sm font-medium text-amber-600">
-                        İşleme Alınma Tarihi
-                      </div>
-                      <div class="font-medium text-gray-900">
-                        13.01.2025 11:56:02
-                      </div>
-                    </div>
-                    <div class="order-1 text-amber-600 sm:order-none">
-                      <i data-lucide="calendar" class="size-5"></i>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Vize Türü Card -->
-                <div class="flex items-start gap-3 rounded-sm">
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-blue-600">
-                    <i data-lucide="ticket-check" class="size-5"></i>
-                  </div>
-                  <div class="space-y-1">
-                    <div class="text-sm font-medium text-blue-600">
-                      Vize Türü
-                    </div>
-                    <div class="font-medium text-gray-900">
-                      Dubai 30 Gün Turist Vizesi
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Planlanan Tarih Card -->
-                <div
-                  class="relative flex items-start rounded-sm sm:justify-end"
-                >
-                  <div class="flex justify-between gap-3 sm:text-end">
-                    <div class="order-2 space-y-1 sm:order-none sm:text-end">
-                      <div class="text-sm font-medium text-violet-600">
-                        Planlanan Sonuçlanma Tarihi
-                      </div>
-                      <div class="font-medium text-gray-900">15.01.2025</div>
-                    </div>
-                    <div class="order-1 text-violet-600 sm:order-none">
-                      <i data-lucide="timer" class="size-5"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <hr class="border-t border-gray-200" />
-
-              <!-- Footer Note -->
-              <div class="space-y-2 px-4 pb-6 sm:px-8">
-                <p class="text-xs text-gray-500">
-                  Bu sayfa gönderinin teslimi halinde hizmet sunumunu ispatlayan
-                  dijital belge yerine geçer. Hizmet sunumuna ilişkin hak ve
-                  yükümlülüklerinize aşağıdaki bağlantılardan erişebilirsiniz:
-                </p>
-
-                <div class="flex items-center gap-2">
+            <div class="flex w-full flex-col gap-6">
+              <div class="flex w-full flex-col gap-4">
+                <!-- Kargo Takip Kodu -->
+                <div class="relative flex w-full items-center gap-2">
                   <i
-                    data-lucide="square-arrow-out-up-right"
-                    class="size-4 text-primary-500"
+                    data-lucide="barcode"
+                    class="absolute left-0 top-[50%] z-20 size-5 flex-shrink-0 translate-y-[-55%] text-gray-400"
                   ></i>
-                  <a href="/" class="text-sm text-primary-500">
-                    Hizmet Sözleşmemiz
-                  </a>
+                  <div class="relative flex w-full items-center">
+                    <div class="relative flex-1">
+                      <input
+                        type="text"
+                        id="tracking-code"
+                        name="tracking-code"
+                        placeholder=" "
+                        class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-8 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                        aria-label="E-posta Adresi"
+                      />
+                      <label
+                        htmlFor="email"
+                        class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-7 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
+                      >
+                        Vize Takip Kodunuz
+                      </label>
+                    </div>
+                  </div>
+                  <div class="absolute right-0 w-fit">
+                    <div class="relative overflow-hidden">
+                      <button
+                        type="button"
+                        popovertarget="info-tooltip"
+                        style="anchor-name: --info-button"
+                        class="ml-2 flex size-5 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-colors hover:border-primary-500 hover:text-primary-500 focus:border-primary-500 focus:text-primary-500 focus:outline-none active:border-primary-500 active:text-primary-500"
+                      >
+                        <i data-lucide="help-circle" class="size-4"></i>
+                      </button>
+
+                      <dialog
+                        popover
+                        id="info-tooltip"
+                        style="position-anchor: --info-button"
+                        class="info-tooltip outline-none outline-offset-0 ring-0"
+                      >
+                        <p
+                          class="max-w-64 text-pretty rounded-sm border border-gray-200 p-3 text-xs text-gray-600"
+                        >
+                          Takip kodunuza, kargo paketi üzerindeki etiket veya
+                          size gönderilen bilgilendirme SMS'i üzerinden
+                          ulaşabilirsiniz.
+                        </p>
+                      </dialog>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Captcha Alanı -->
+                <div
+                  class="flex flex-col items-start gap-x-6 gap-y-4 sm:flex-row"
+                >
+                  <!-- Captcha Image -->
+                  <div
+                    class="order-2 flex w-full items-center gap-2 sm:order-none sm:w-auto"
+                  >
+                    <div
+                      class="flex h-11 flex-1 overflow-hidden rounded-sm border border-gray-200 sm:w-40 sm:flex-none"
+                    >
+                      <div
+                        class="h-full w-full animate-pulse bg-gray-200"
+                      ></div>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <button
+                        type="button"
+                        aria-label="Yeni kod"
+                        class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
+                      >
+                        <i
+                          data-lucide="refresh-cw"
+                          class="duration*300 size-full text-primary-500"
+                        ></i>
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Sesli dinle"
+                        class="group size-5 rounded border p-0.5 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-75 active:scale-95"
+                      >
+                        <i
+                          data-lucide="volume-2"
+                          class="duration*300 size-full text-primary-500"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Captcha Input -->
+                  <div class="relative order-1 w-full sm:order-none">
+                    <div class="relative flex-1">
+                      <input
+                        type="text"
+                        id="captcha-code"
+                        name="captcha-code"
+                        placeholder=" "
+                        class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-0 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                        aria-label="E-posta Adresi"
+                      />
+                      <label
+                        htmlFor="captcha-code"
+                        class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-0 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
+                      >
+                        Güvenlik Kodu
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </section>
-          </div>
 
-          <!-- Dekoratif Arkaplan Elementleri -->
-          <div class="fixed inset-0 z-[1] overflow-hidden">
-            <!-- Gradient Overlay -->
-            <div
-              class="absolute inset-0 bg-gradient-to-br from-gray-50/90 via-white/50 to-gray-100/90"
-            ></div>
+              <!-- Submit Button -->
+              <button
+                type="button"
+                id="visa-ship-modal-open-button"
+                class="-mt-2 block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
+              >
+                Gönderi Bilgileri
+              </button>
 
-            <!-- Ana Dekoratif Şekiller -->
-            <div
-              class="absolute right-0 top-0 -z-10 h-[500px] w-[500px] -translate-y-1/4 translate-x-1/4 rounded-full bg-primary-100/30 blur-3xl"
-            ></div>
-            <div
-              class="absolute left-0 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/4 -translate-y-1/2 rounded-full bg-primary-50/20 blur-3xl"
-            ></div>
+              <!-- Form Message Area -->
+              <div
+                class="relative -mt-2 flex items-start justify-center text-sm font-medium text-red-500"
+              >
+                <span class="text-pretty"
+                  >Hata : Takip numarası bulunamadı.
+                </span>
+              </div>
+            </div>
+          </form>
 
-            <!-- İnce Çizgiler -->
-            <svg
-              class="absolute inset-0 z-20 h-full w-full"
-              xmlns="http://www.w3.org/2000/svg"
+          <!-- Mail Info -->
+          <p class="text-balance text-sm text-gray-500">
+            Teknik destek için
+            <a
+              href="mailto:visa@mbdtravel.com"
+              class="text-primary-500 hover:underline"
+              >visa@mbdtravel.com</a
             >
-              <defs>
-                <pattern
-                  id="grid"
-                  width="40"
-                  height="40"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path
-                    d="M 40 0 L 0 0 0 40"
-                    fill="none"
-                    stroke="rgba(81, 101, 235, 0.15)"
-                    stroke-width="0.5"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-          </div>
-
-          <!-- Popover API -->
-          <script type="module">
-            if (!('anchorName' in document.documentElement.style)) {
-              import('https://unpkg.com/@oddbird/css-anchor-positioning')
-            }
-          </script>
+            adresine mail atabilirsiniz.
+          </p>
         </div>
+
+        <!-- Modal -->
+        <div
+          id="visa-ship-modal"
+          data-state="closed"
+          class="fixed left-0 top-0 z-[8001] flex h-full w-full justify-center overflow-y-auto bg-gray-500/40 data-[state=closed]:pointer-events-none data-[state=closed]:hidden sm:py-12"
+        >
+          <section
+            id="visa-ship-modal-container"
+            class="relative flex h-full min-h-fit w-full max-w-2xl flex-col gap-8 rounded-sm bg-white text-gray-950 sm:h-fit sm:border sm:border-gray-300"
+          >
+            <!-- Header -->
+            <div
+              class="flex items-center justify-between border-b border-gray-200 bg-gray-100 px-4 py-4 sm:px-8"
+            >
+              <h4 class="text-lg font-semibold text-primary-500">
+                Vize Takip Sistemi
+              </h4>
+              <button
+                id="visa-ship-modal-closed-button"
+                class="transition-all duration-300 hover:opacity-75 active:scale-95"
+              >
+                <i data-lucide="x" class="size-6"></i>
+              </button>
+            </div>
+
+            <!-- Tracking Number -->
+            <div class="-mt-4 space-y-1 px-4 sm:px-8">
+              <div class="text-sm text-gray-500">Başvuru Numarası</div>
+              <div class="text-lg font-medium">5152623906245</div>
+            </div>
+
+            <!-- Progress Bar Container -->
+            <div
+              class="relative overflow-x-auto px-4 sm:overflow-x-visible sm:px-8"
+            >
+              <div class="min-w-[640px] sm:min-w-0">
+                <!-- Progress Bar -->
+                <div class="relative flex items-center justify-between">
+                  <!-- Step 1 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="true"
+                  >
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
+                    >
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >1</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
+                    >
+                      Başvuru Alındı
+                    </span>
+                  </div>
+
+                  <!-- Progress Line 1 -->
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="true"
+                  >
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 2 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="true"
+                  >
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
+                    >
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >2</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
+                    >
+                      İşlemde
+                    </span>
+                  </div>
+
+                  <!-- Progress Line 2 -->
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="true"
+                  >
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 3 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="false"
+                  >
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
+                    >
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >3</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
+                    >
+                      Kontrol
+                    </span>
+                  </div>
+
+                  <!-- Progress Line 3 -->
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="false"
+                  >
+                    <div class="absolute inset-0 bg-gray-200"></div>
+                    <div
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+
+                  <!-- Step 4 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="false"
+                  >
+                    <div
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
+                    >
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >4</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
+                    </div>
+                    <span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
+                    >
+                      Sonuç
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subtle Scroll Indicator for Mobile -->
+              <div
+                class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent sm:hidden"
+              ></div>
+            </div>
+
+            <!-- Details Cards Container -->
+            <div class="grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-8">
+              <!-- Başvuru Sahibi Card -->
+              <div class="flex items-start gap-3 rounded-sm">
+                <div class="mt-0.5 size-5 flex-shrink-0 text-green-600">
+                  <i data-lucide="user" class="size-5"></i>
+                </div>
+                <div class="space-y-1">
+                  <div class="text-sm font-medium text-green-600">
+                    Başvuru Sahibi
+                  </div>
+                  <div class="font-medium text-gray-900">
+                    Mehmet Emin YILMAZ
+                  </div>
+                </div>
+              </div>
+
+              <!-- İşleme Alınma Card -->
+              <div class="relative flex items-start rounded-sm sm:justify-end">
+                <div class="flex justify-between gap-3 sm:text-end">
+                  <div class="order-2 space-y-1 sm:order-none sm:text-end">
+                    <div class="text-sm font-medium text-amber-600">
+                      İşleme Alınma Tarihi
+                    </div>
+                    <div class="font-medium text-gray-900">
+                      13.01.2025 11:56:02
+                    </div>
+                  </div>
+                  <div class="order-1 text-amber-600 sm:order-none">
+                    <i data-lucide="calendar" class="size-5"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vize Türü Card -->
+              <div class="flex items-start gap-3 rounded-sm">
+                <div class="mt-0.5 size-5 flex-shrink-0 text-blue-600">
+                  <i data-lucide="ticket-check" class="size-5"></i>
+                </div>
+                <div class="space-y-1">
+                  <div class="text-sm font-medium text-blue-600">Vize Türü</div>
+                  <div class="font-medium text-gray-900">
+                    Dubai 30 Gün Turist Vizesi
+                  </div>
+                </div>
+              </div>
+
+              <!-- Planlanan Tarih Card -->
+              <div class="relative flex items-start rounded-sm sm:justify-end">
+                <div class="flex justify-between gap-3 sm:text-end">
+                  <div class="order-2 space-y-1 sm:order-none sm:text-end">
+                    <div class="text-sm font-medium text-violet-600">
+                      Planlanan Sonuçlanma Tarihi
+                    </div>
+                    <div class="font-medium text-gray-900">15.01.2025</div>
+                  </div>
+                  <div class="order-1 text-violet-600 sm:order-none">
+                    <i data-lucide="timer" class="size-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="border-t border-gray-200" />
+
+            <!-- Footer Note -->
+            <div class="space-y-2 px-4 pb-6 sm:px-8">
+              <p class="text-xs text-gray-500">
+                Bu sayfa gönderinin teslimi halinde hizmet sunumunu ispatlayan
+                dijital belge yerine geçer. Hizmet sunumuna ilişkin hak ve
+                yükümlülüklerinize aşağıdaki bağlantılardan erişebilirsiniz:
+              </p>
+
+              <div class="flex items-center gap-2">
+                <i
+                  data-lucide="square-arrow-out-up-right"
+                  class="size-4 text-primary-500"
+                ></i>
+                <a href="/" class="text-sm text-primary-500">
+                  Hizmet Sözleşmemiz
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Dekoratif Arkaplan Elementleri -->
+        <div class="fixed inset-0 z-[1] overflow-hidden">
+          <!-- Gradient Overlay -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-gray-50/90 via-white/50 to-gray-100/90"
+          ></div>
+
+          <!-- Ana Dekoratif Şekiller -->
+          <div
+            class="absolute right-0 top-0 -z-10 h-[500px] w-[500px] -translate-y-1/4 translate-x-1/4 rounded-full bg-primary-100/30 blur-3xl"
+          ></div>
+          <div
+            class="absolute left-0 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/4 -translate-y-1/2 rounded-full bg-primary-50/20 blur-3xl"
+          ></div>
+
+          <!-- İnce Çizgiler -->
+          <svg
+            class="absolute inset-0 z-20 h-full w-full"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern
+                id="grid"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="rgba(81, 101, 235, 0.15)"
+                  stroke-width="0.5"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <!-- Popover API -->
+        <script type="module">
+          if (!('anchorName' in document.documentElement.style)) {
+            import('https://unpkg.com/@oddbird/css-anchor-positioning')
+          }
+        </script>
       </div>
     </body>
   </html>
