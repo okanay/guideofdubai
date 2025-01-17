@@ -251,6 +251,18 @@
               >
                 Gönderi Bilgileri
               </button>
+
+              <!-- Form Message Area -->
+              <div
+                class="relative flex w-full items-center justify-center rounded-sm p-2 text-center text-sm text-primary-500"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="info" class="size-4"></i>
+                  <span>
+                    Takip numarasi bulunamadi! lutfen tekrar deneyiniz.
+                  </span>
+                </div>
+              </div>
             </div>
           </form>
 
@@ -391,56 +403,68 @@
               ></div>
             </div>
 
-            <!-- Detay Grid -->
-            <div class="grid grid-cols-2 gap-6 px-4 sm:px-8">
-              <!-- Sol Kolon -->
-              <div class="space-y-4">
-                <div class="flex items-start gap-3">
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
-                    <i data-lucide="user" class="size-5"></i>
-                  </div>
-                  <div class="space-y-1">
-                    <div class="text-sm text-gray-500">Başvuru Sahibi</div>
-                    <div class="font-medium">Mehmet Emin YILMAZ</div>
-                  </div>
+            <!-- Details Cards Container -->
+            <div class="grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-8">
+              <!-- Başvuru Sahibi Card -->
+              <div class="flex items-start gap-3 rounded-sm">
+                <div class="mt-0.5 size-5 flex-shrink-0 text-red-600">
+                  <i data-lucide="user" class="size-5"></i>
                 </div>
-                <div class="flex items-start gap-3">
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
-                    <i data-lucide="ticket-check" class="size-5"></i>
-                  </div>
-                  <div class="space-y-1">
-                    <div class="text-sm text-gray-500">Vize Türü</div>
-                    <div class="font-medium">Dubai 30 Gün Turist Vizesi</div>
+                <div class="space-y-1">
+                  <div class="text-sm text-red-600">Başvuru Sahibi</div>
+                  <div class="font-medium text-gray-900">
+                    Mehmet Emin YILMAZ
                   </div>
                 </div>
               </div>
 
-              <!-- Sağ Kolon -->
-              <div class="space-y-4">
-                <div class="flex items-start justify-end gap-3 text-end">
-                  <div class="space-y-1">
-                    <div class="text-sm text-gray-500">
+              <!-- İşleme Alınma Card -->
+              <div class="relative flex items-start rounded-sm sm:justify-end">
+                <div class="flex justify-between gap-3 sm:text-end">
+                  <div class="order-2 space-y-1 sm:order-none sm:text-end">
+                    <div class="text-sm text-amber-600">
                       İşleme Alınma Tarihi
                     </div>
-                    <div class="font-medium">13.01.2025 11:56:02</div>
+                    <div class="font-medium text-gray-900">
+                      13.01.2025 11:56:02
+                    </div>
                   </div>
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                  <div class="order-1 text-amber-600 sm:order-none">
                     <i data-lucide="calendar" class="size-5"></i>
                   </div>
                 </div>
-                <div class="flex items-start justify-end gap-3 text-end">
-                  <div class="space-y-1">
-                    <div class="text-sm text-gray-500">
+              </div>
+
+              <!-- Vize Türü Card -->
+              <div class="flex items-start gap-3 rounded-sm">
+                <div class="mt-0.5 size-5 flex-shrink-0 text-blue-600">
+                  <i data-lucide="ticket-check" class="size-5"></i>
+                </div>
+                <div class="space-y-1">
+                  <div class="text-sm text-blue-600">Vize Türü</div>
+                  <div class="font-medium text-gray-900">
+                    Dubai 30 Gün Turist Vizesi
+                  </div>
+                </div>
+              </div>
+
+              <!-- Planlanan Tarih Card -->
+              <div class="relative flex items-start rounded-sm sm:justify-end">
+                <div class="flex justify-between gap-3 sm:text-end">
+                  <div class="order-2 space-y-1 sm:order-none sm:text-end">
+                    <div class="text-sm text-violet-600">
                       Planlanan Sonuçlanma Tarihi
                     </div>
-                    <div class="font-medium">15.01.2025</div>
+                    <div class="font-medium text-gray-900">15.01.2025</div>
                   </div>
-                  <div class="mt-0.5 size-5 flex-shrink-0 text-primary-500">
+                  <div class="order-1 text-violet-600 sm:order-none">
                     <i data-lucide="timer" class="size-5"></i>
                   </div>
                 </div>
               </div>
             </div>
+
+            <hr class="border-t border-gray-200" />
 
             <!-- Footer Note -->
             <div class="space-y-2 px-4 pb-6 sm:px-8">
