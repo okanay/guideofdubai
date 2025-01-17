@@ -316,83 +316,136 @@
               <div class="min-w-[640px] sm:min-w-0">
                 <!-- Progress Bar -->
                 <div class="relative flex items-center justify-between">
-                  <!-- Step 1: Başvuru Alındı -->
-                  <div class="flex shrink-0 items-center gap-2">
+                  <!-- Step 1 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="true"
+                  >
                     <div
-                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
                     >
-                      <i data-lucide="check" class="size-4 text-white"></i>
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >1</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
                     </div>
                     <span
-                      class="whitespace-nowrap text-xs font-medium lg:text-base"
-                      >Başvuru Alındı</span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
                     >
+                      Başvuru Alındı
+                    </span>
                   </div>
 
                   <!-- Progress Line 1 -->
-                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="true"
+                  >
                     <div class="absolute inset-0 bg-gray-200"></div>
                     <div
-                      class="absolute inset-0 bg-primary-500"
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
                       style="width: 100%"
                     ></div>
                   </div>
 
-                  <!-- Step 2: İşlemde -->
-                  <div class="flex shrink-0 items-center gap-2">
+                  <!-- Step 2 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="true"
+                  >
                     <div
-                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
                     >
-                      <i data-lucide="check" class="size-4 text-white"></i>
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >2</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
                     </div>
                     <span
-                      class="whitespace-nowrap text-xs font-medium lg:text-base"
-                      >İşlemde</span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
                     >
+                      İşlemde
+                    </span>
                   </div>
 
                   <!-- Progress Line 2 -->
-                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="true"
+                  >
                     <div class="absolute inset-0 bg-gray-200"></div>
                     <div
-                      class="absolute inset-0 bg-primary-500"
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
                       style="width: 100%"
                     ></div>
                   </div>
 
-                  <!-- Step 3: Kontrol -->
-                  <div class="flex shrink-0 items-center gap-2">
+                  <!-- Step 3 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="false"
+                  >
                     <div
-                      class="flex size-6 items-center justify-center rounded-full bg-primary-500"
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
                     >
-                      <i data-lucide="check" class="size-4 text-white"></i>
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >3</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
                     </div>
                     <span
-                      class="whitespace-nowrap text-xs font-medium lg:text-base"
-                      >Kontrol</span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
                     >
+                      Kontrol
+                    </span>
                   </div>
 
                   <!-- Progress Line 3 -->
-                  <div class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1">
+                  <div
+                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
+                    data-check="false"
+                  >
                     <div class="absolute inset-0 bg-gray-200"></div>
                     <div
-                      class="absolute inset-0 bg-gray-200"
-                      style="width: 50%"
+                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
+                      style="width: 0%"
                     ></div>
                   </div>
 
-                  <!-- Step 4: Sonuç -->
-                  <div class="flex shrink-0 items-center gap-2">
+                  <!-- Step 4 -->
+                  <div
+                    class="group flex shrink-0 items-center gap-2"
+                    data-check="false"
+                  >
                     <div
-                      class="flex size-6 items-center justify-center rounded-full bg-gray-200"
+                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
                     >
-                      <span class="text-sm font-medium text-gray-600">4</span>
+                      <span
+                        class="text-sm font-medium group-data-[check=true]:hidden"
+                        >4</span
+                      >
+                      <i
+                        data-lucide="check"
+                        class="hidden size-4 text-white group-data-[check=true]:block"
+                      ></i>
                     </div>
                     <span
-                      class="whitespace-nowrap text-xs font-medium lg:text-base"
-                      >Sonuç</span
+                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
                     >
+                      Sonuç
+                    </span>
                   </div>
                 </div>
               </div>
