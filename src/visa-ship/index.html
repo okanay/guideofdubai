@@ -107,12 +107,12 @@
                         id="tracking-code"
                         name="tracking-code"
                         placeholder=" "
-                        class="peer h-11 w-full border-b border-gray-200 bg-transparent px-8 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                        class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-8 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
                         aria-label="E-posta Adresi"
                       />
                       <label
                         htmlFor="email"
-                        class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-base text-gray-400 transition-all duration-300 peer-placeholder-shown:pointer-events-none peer-placeholder-shown:left-7 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-base peer-focus:text-primary-500"
+                        class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-7 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
                       >
                         Vize Takip Kodunuz
                       </label>
@@ -188,21 +188,22 @@
 
                   <!-- Captcha Input -->
                   <div class="relative order-1 w-full sm:order-none">
-                    <input
-                      type="text"
-                      id="captcha-code"
-                      name="captcha-code"
-                      maxlength="6"
-                      required
-                      class="peer h-11 w-full rounded-none border-b border-gray-200 text-start text-xl tracking-[0.25em] text-gray-900 placeholder-transparent transition-colors duration-500 hover:border-gray-400 focus:border-primary-500 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                      placeholder="Güvenlik Kodu"
-                    />
-                    <label
-                      for="captcha-code"
-                      class="pointer-events-none absolute -top-2.5 left-0 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-primary-500"
-                    >
-                      Güvenlik Kodu
-                    </label>
+                    <div class="relative flex-1">
+                      <input
+                        type="text"
+                        id="captcha-code"
+                        name="captcha-code"
+                        placeholder=" "
+                        class="peer h-11 w-full rounded-none border-b border-gray-200 bg-transparent px-0 tracking-widest outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                        aria-label="E-posta Adresi"
+                      />
+                      <label
+                        htmlFor="captcha-code"
+                        class="pointer-events-none absolute -top-2.5 left-0 cursor-text text-nowrap bg-white text-xs text-gray-400 transition-all duration-300 peer-placeholder-shown:left-0 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2.5 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
+                      >
+                        Güvenlik Kodu
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -211,14 +212,14 @@
               <button
                 type="button"
                 id="visa-ship-modal-open-button"
-                class="block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
+                class="-mt-2 block h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-[opacity,transform] duration-500 hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
               >
                 Gönderi Bilgileri
               </button>
 
               <!-- Form Message Area -->
               <div
-                class="relative flex items-start justify-center text-sm font-medium text-red-500"
+                class="relative -mt-2 flex items-start justify-center text-sm font-medium text-red-500"
               >
                 <span class="text-pretty"
                   >Hata : Takip numarası bulunamadı.
