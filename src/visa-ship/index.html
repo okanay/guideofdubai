@@ -69,7 +69,7 @@
       <main
         class="relative mx-auto flex h-dvh min-h-dvh w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-[#fafafa] px-3.5 py-12"
       >
-        <!-- Content -->
+        <!-- Form -->
         <div
           class="z-[2] flex w-full max-w-xl flex-col gap-6 bg-transparent text-center"
         >
@@ -106,13 +106,13 @@
                         type="text"
                         id="tracking-code"
                         name="tracking-code"
-                        required
-                        class="peer w-full rounded-none border-b border-gray-200 py-2.5 pl-8 text-gray-900 placeholder-transparent transition-colors duration-500 hover:border-gray-400 focus:border-primary-500 focus:outline-none"
-                        placeholder="Vize Takip Kodunuz"
+                        placeholder=" "
+                        class="peer h-[44px] w-full border-b border-gray-200 bg-transparent px-3 outline-none transition-all duration-200 hover:border-gray-500 peer-placeholder-shown:pointer-events-none peer-focus:pointer-events-auto"
+                        aria-label="E-posta Adresi"
                       />
                       <label
-                        for="tracking-code"
-                        class="pointer-events-none absolute -top-3.5 left-0 text-sm text-gray-600 transition-all peer-placeholder-shown:left-8 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:left-0 peer-focus:text-sm peer-focus:text-primary-500"
+                        htmlFor="email"
+                        class="absolute -top-2 left-0 cursor-text text-nowrap bg-white px-1 transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:left-6 peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:left-0 peer-focus:text-xs peer-focus:text-primary-500"
                       >
                         Vize Takip Kodunuz
                       </label>
