@@ -1,14 +1,19 @@
 import { ModalController } from './packages/modal.js'
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof window !== 'undefined') {
-    window.callIcons()
+// Global'e ekleyelim
+declare global {
+  interface Window {
+    VisaModal: ModalController
   }
+}
 
-  new ModalController(
+document.addEventListener('DOMContentLoaded', () => {
+  window.callIcons()
+
+  const modal = new ModalController(
     [
       {
-        id: 'visa-ship-modal',
+        id: 'visa-modal',
         contentElement: '#visa-ship-modal',
         containers: ['#visa-ship-modal-container'],
         openElements: ['#visa-ship-modal-open-button'],
@@ -45,4 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
   )
+
+  window.VisaModal = modal
 })
