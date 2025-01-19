@@ -54,7 +54,8 @@
 
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/visa-ship.js"></script>
-    <link rel="stylesheet" href="/assets/styles/visa-ship.css" />
+    <!-- <link rel="stylesheet" href="/assets/styles/visa-ship.css" /> -->
+    <link rel="stylesheet" href="/assets/styles/globals-out.css" />
   </head>
   <!doctype html>
   <html lang="tr" class="h-full">
@@ -241,6 +242,187 @@
             adresine mail atabilirsiniz.
           </p>
         </div>
+
+        <!-- Verification Modal -->
+        <div
+          id="verification-modal"
+          data-state="closed"
+          class="fixed left-0 top-0 z-[8001] flex h-full w-full justify-center overflow-y-auto bg-gray-500/40 data-[state=closed]:pointer-events-none data-[state=closed]:hidden sm:items-center sm:py-12"
+        >
+          <section
+            id="verification-modal-container"
+            class="relative flex h-full min-h-fit w-full max-w-lg flex-col rounded-sm bg-white text-gray-950 sm:h-fit sm:border sm:border-gray-300"
+          >
+            <!-- Header -->
+            <div
+              class="flex items-center justify-between border-b border-gray-200 bg-gray-100 px-4 py-4 sm:px-8"
+            >
+              <h4 class="text-lg font-semibold text-primary-500">
+                Telefon Doğrulama
+              </h4>
+              <button
+                id="verification-modal-close-button"
+                class="transition-all duration-300 hover:opacity-75 active:scale-95"
+              >
+                <i data-lucide="x" class="size-6 cursor-pointer"></i>
+              </button>
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-col items-center px-4 py-4 sm:px-8">
+              <!-- Title and Description -->
+              <div>
+                <h5 class="text-lg font-medium text-gray-900">
+                  Doğrulama Kodunu Girin
+                </h5>
+                <p class="text-sm text-gray-500">
+                  Telefon numaranıza gönderilen doğrulama kodunu girerek işlemi
+                  tamamlayabilirsiniz.
+                </p>
+              </div>
+
+              <!-- Verification Code Input -->
+              <div
+                id="verification-code-container"
+                data-entered="______"
+                class="verification-code-container mt-2 grid w-full grid-cols-6 justify-between gap-6"
+              >
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="verification-code-input size-12 w-full border-b border-gray-200 bg-transparent text-center text-2xl font-medium text-gray-900 outline-none transition-colors duration-200 hover:border-gray-500 focus:border-primary-500"
+                />
+              </div>
+
+              <!-- Footer -->
+              <div class="mt-4 flex w-full flex-col gap-2">
+                <!-- Error Message -->
+                <div
+                  class="relative flex items-center justify-center text-sm font-medium text-red-500"
+                >
+                  <p>
+                    Hata : Girdiğiniz onay kodu hatalı, lütfen tekrar deneyiniz.
+                  </p>
+                </div>
+                <!-- Submit Button -->
+                <button
+                  type="button"
+                  class="h-11 w-full rounded-sm bg-primary-500 px-4 font-medium text-white transition-all duration-300 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95"
+                >
+                  Doğrula
+                </button>
+
+                <!-- Resend Code with Timer -->
+                <div
+                  id="resend-code-container"
+                  class="flex items-center justify-center gap-1 text-sm"
+                  data-cooldown="120"
+                >
+                  <span class="text-gray-500">Kod gelmedi mi?</span>
+                  <button
+                    type="button"
+                    id="resend-code-button"
+                    class="group flex items-center gap-1.5 font-medium text-primary-500 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:text-primary-500"
+                    data-state="ready"
+                  >
+                    <span>Tekrar Gönder</span>
+                    <span
+                      id="resend-code-timer"
+                      class="text-center text-gray-500 group-data-[state=cooling]:block group-data-[state=visible]:block group-data-[state=hidden]:hidden group-data-[state=ready]:hidden"
+                      data-state="hidden"
+                    >
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Test Event Listener -->
+        <script>
+          document.addEventListener('keyup', function (e) {
+            if (e.key === 'T' || e.key === 't') {
+              window.ResendTimer.start()
+            } else if (e.key === 'S' || e.key === 's') {
+              window.ResendTimer.stop()
+            } else if (e.key === 'R' || e.key === 'r') {
+              window.ResendTimer.reset()
+              window.VerificationCode.reset()
+            } else if (e.key === 'C' || e.key === 'c') {
+              window.ResendTimer.setCooldown(60)
+            } else if (e.key === 'E' || e.key === 'e') {
+              window.VerificationCode.setError()
+              setTimeout(() => {
+                window.VerificationCode.clearError()
+              }, 1000)
+            } else if (e.key === 'V' || e.key === 'v') {
+              const value = window.VerificationCode.getValue()
+              console.log(value)
+            } else if (e.key === 'F' || e.key === 'f') {
+              const isComplete = window.VerificationCode.isComplete()
+              console.log(isComplete)
+            } else if (e.key === '1') {
+              window.Modals.closeAllModals()
+              window.Modals.setActiveModal('verification-modal')
+            } else if (e.key === '2') {
+              window.Modals.closeAllModals()
+              window.Modals.setActiveModal('visa-modal')
+            }
+          })
+        </script>
+        <!-- Açıklama:
+
+        Timer Kontrolleri:
+        -----------------
+        T: window.ResendTimer.start()
+           Timer'ı başlatır. Varsayılan süre ile geri sayım başlar.
+
+        S: window.ResendTimer.stop()
+           Aktif timer'ı durdurur.
+
+        R: window.ResendTimer.reset()
+           Timer'ı sıfırlar ve UI'ı ilk haline döndürür.
+
+        C: window.ResendTimer.setCooldown(60)
+           Bekleme süresini 60 saniyeye ayarlar.
+
+        Input Kontrolleri:
+        -----------------
+        E: window.VerificationCode.setError()
+           Hata durumunu gösterir (1 saniye sonra otomatik temizlenir).
+
+        V: window.VerificationCode.getValue()
+           Konsola mevcut girilen değeri yazdırır (boş alanlar "_" ile gösterilir).
+
+        F: window.VerificationCode.isComplete()
+           Konsola kodun tam olup olmadığını yazdırır (true/false).
+        -->
 
         <!-- Modal -->
         <div
