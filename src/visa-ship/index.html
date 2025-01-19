@@ -54,8 +54,8 @@
 
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/visa-ship.js"></script>
-    <!-- <link rel="stylesheet" href="/assets/styles/visa-ship.css" /> -->
-    <link rel="stylesheet" href="/assets/styles/globals-out.css" />
+    <link rel="stylesheet" href="/assets/styles/visa-ship.css" />
+    <!-- <link rel="stylesheet" href="/assets/styles/globals-out.css" /> -->
   </head>
   <!doctype html>
   <html lang="tr" class="h-full">
@@ -363,66 +363,6 @@
             </div>
           </section>
         </div>
-
-        <!-- Test Event Listener -->
-        <script>
-          document.addEventListener('keyup', function (e) {
-            if (e.key === 'T' || e.key === 't') {
-              window.ResendTimer.start()
-            } else if (e.key === 'S' || e.key === 's') {
-              window.ResendTimer.stop()
-            } else if (e.key === 'R' || e.key === 'r') {
-              window.ResendTimer.reset()
-              window.VerificationCode.reset()
-            } else if (e.key === 'C' || e.key === 'c') {
-              window.ResendTimer.setCooldown(60)
-            } else if (e.key === 'E' || e.key === 'e') {
-              window.VerificationCode.setError()
-              setTimeout(() => {
-                window.VerificationCode.clearError()
-              }, 1000)
-            } else if (e.key === 'V' || e.key === 'v') {
-              const value = window.VerificationCode.getValue()
-              console.log(value)
-            } else if (e.key === 'F' || e.key === 'f') {
-              const isComplete = window.VerificationCode.isComplete()
-              console.log(isComplete)
-            } else if (e.key === '1') {
-              window.Modals.closeAllModals()
-              window.Modals.setActiveModal('verification-modal')
-            } else if (e.key === '2') {
-              window.Modals.closeAllModals()
-              window.Modals.setActiveModal('visa-modal')
-            }
-          })
-        </script>
-        <!-- Açıklama:
-
-        Timer Kontrolleri:
-        -----------------
-        T: window.ResendTimer.start()
-           Timer'ı başlatır. Varsayılan süre ile geri sayım başlar.
-
-        S: window.ResendTimer.stop()
-           Aktif timer'ı durdurur.
-
-        R: window.ResendTimer.reset()
-           Timer'ı sıfırlar ve UI'ı ilk haline döndürür.
-
-        C: window.ResendTimer.setCooldown(60)
-           Bekleme süresini 60 saniyeye ayarlar.
-
-        Input Kontrolleri:
-        -----------------
-        E: window.VerificationCode.setError()
-           Hata durumunu gösterir (1 saniye sonra otomatik temizlenir).
-
-        V: window.VerificationCode.getValue()
-           Konsola mevcut girilen değeri yazdırır (boş alanlar "_" ile gösterilir).
-
-        F: window.VerificationCode.isComplete()
-           Konsola kodun tam olup olmadığını yazdırır (true/false).
-        -->
 
         <!-- Modal -->
         <div
@@ -743,14 +683,47 @@
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
         </div>
-
-        <!-- Popover API -->
-        <script type="module">
-          if (!('anchorName' in document.documentElement.style)) {
-            import('https://unpkg.com/@oddbird/css-anchor-positioning')
-          }
-        </script>
       </div>
+
+      <!-- Test Event Listener -->
+      <script>
+        document.addEventListener('keyup', function (e) {
+          if (e.key === 'T' || e.key === 't') {
+            window.ResendTimer.start()
+          } else if (e.key === 'S' || e.key === 's') {
+            window.ResendTimer.stop()
+          } else if (e.key === 'R' || e.key === 'r') {
+            window.ResendTimer.reset()
+            window.VerificationCode.reset()
+          } else if (e.key === 'C' || e.key === 'c') {
+            window.ResendTimer.setCooldown(60)
+          } else if (e.key === 'E' || e.key === 'e') {
+            window.VerificationCode.setError()
+            setTimeout(() => {
+              window.VerificationCode.clearError()
+            }, 1000)
+          } else if (e.key === 'V' || e.key === 'v') {
+            const value = window.VerificationCode.getValue()
+            console.log(value)
+          } else if (e.key === 'F' || e.key === 'f') {
+            const isComplete = window.VerificationCode.isComplete()
+            console.log(isComplete)
+          } else if (e.key === '1') {
+            window.Modals.closeAllModals()
+            window.Modals.setActiveModal('verification-modal')
+          } else if (e.key === '2') {
+            window.Modals.closeAllModals()
+            window.Modals.setActiveModal('visa-modal')
+          }
+        })
+      </script>
+
+      <!-- Popover API -->
+      <script type="module">
+        if (!('anchorName' in document.documentElement.style)) {
+          import('https://unpkg.com/@oddbird/css-anchor-positioning')
+        }
+      </script>
     </body>
   </html>
 </html>
