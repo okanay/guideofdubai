@@ -55,6 +55,8 @@ const PAGES = {
     'otel-details',
     'payment',
     'visa-ship',
+    'rent-a-car',
+    'rent-a-car-details',
   ],
   directories: [
     'main',
@@ -72,6 +74,8 @@ const PAGES = {
     'otel-details',
     'payment',
     'visa-ship',
+    'rent-a-car',
+    'rent-a-car-details',
   ],
 }
 

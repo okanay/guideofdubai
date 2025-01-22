@@ -67,7 +67,7 @@
     <body>
       <!-- Contents -->
       <div
-        class="tw relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden bg-gray-100 text-gray-800"
+        class="tw relative mx-auto flex h-dvh min-h-fit w-full max-w-7xl flex-col items-center justify-center gap-6 overflow-hidden  text-gray-800"
       >
         <!-- Title, Form, Mail -->
         <div
@@ -413,12 +413,12 @@
             <div
               class="relative overflow-x-auto px-4 sm:overflow-x-visible sm:px-8"
             >
-              <div class="min-w-[640px] sm:min-w-0">
+              <div>
                 <!-- Progress Bar -->
                 <div class="relative flex items-center justify-between">
                   <!-- Step 1 -->
                   <div
-                    class="group flex shrink-0 items-center gap-2"
+                    class="group flex shrink-0 flex-col items-center gap-2 sm:flex-row"
                     data-check="true"
                   >
                     <div
@@ -454,7 +454,7 @@
 
                   <!-- Step 2 -->
                   <div
-                    class="group flex shrink-0 items-center gap-2"
+                    class="group flex shrink-0 flex-col items-center gap-2 sm:flex-row"
                     data-check="true"
                   >
                     <div
@@ -479,7 +479,7 @@
                   <!-- Progress Line 2 -->
                   <div
                     class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
-                    data-check="true"
+                    data-check="false"
                   >
                     <div class="absolute inset-0 bg-gray-200"></div>
                     <div
@@ -490,7 +490,7 @@
 
                   <!-- Step 3 -->
                   <div
-                    class="group flex shrink-0 items-center gap-2"
+                    class="group flex shrink-0 flex-col items-center gap-2 sm:flex-row"
                     data-check="false"
                   >
                     <div
@@ -499,42 +499,6 @@
                       <span
                         class="text-sm font-medium group-data-[check=true]:hidden"
                         >3</span
-                      >
-                      <i
-                        data-lucide="check"
-                        class="hidden size-4 text-white group-data-[check=true]:block"
-                      ></i>
-                    </div>
-                    <span
-                      class="whitespace-nowrap text-xs font-medium text-gray-600 transition-colors duration-300 group-data-[check=true]:text-primary-500 lg:text-base"
-                    >
-                      Kontrol
-                    </span>
-                  </div>
-
-                  <!-- Progress Line 3 -->
-                  <div
-                    class="relative mx-4 h-[2px] w-16 sm:w-auto sm:flex-1"
-                    data-check="false"
-                  >
-                    <div class="absolute inset-0 bg-gray-200"></div>
-                    <div
-                      class="absolute inset-0 bg-gray-200 transition-colors duration-300 data-[check=true]:bg-primary-500"
-                      style="width: 0%"
-                    ></div>
-                  </div>
-
-                  <!-- Step 4 -->
-                  <div
-                    class="group flex shrink-0 items-center gap-2"
-                    data-check="false"
-                  >
-                    <div
-                      class="flex size-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors duration-300 group-data-[check=true]:bg-primary-500"
-                    >
-                      <span
-                        class="text-sm font-medium group-data-[check=true]:hidden"
-                        >4</span
                       >
                       <i
                         data-lucide="check"
@@ -619,12 +583,25 @@
               </div>
             </div>
 
+            <!-- Footer Note -->
+            <div
+              class="flex justify-between gap-2 space-y-4 border border-gray-200 bg-gray-100 px-4 text-xs text-gray-500 sm:px-8 py-4"
+            >
+              MBD TOURISM LLC All rights reserved. 2022-
+              <script>
+                document.write(new Date().getFullYear())
+              </script>
+              Dubai, UAE
+            </div>
+
+            <div
+
             <hr
               style="margin-bottom: -0.5rem"
               class="w-full border-t border-gray-200"
             />
 
-            <!-- Footer Note -->
+            <!-- Footer Note 2 -->
             <div class="space-y-2 px-4 pb-6 sm:px-8">
               <p class="text-xs text-gray-500">
                 Bu sayfa gönderinin teslimi halinde hizmet sunumunu ispatlayan

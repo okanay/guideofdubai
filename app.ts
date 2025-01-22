@@ -115,6 +115,11 @@ app.get('/otel-details', c => {
   return c.html(html.text())
 })
 
+app.get('/rent-a-car', c => {
+  const html = Bun.file('./dist/rent-a-car/index.html')
+  return c.html(html.text())
+})
+
 app.get('/payment', c => {
   const html = Bun.file('./dist/payment/index.html')
   return c.html(html.text())
