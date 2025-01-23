@@ -1,3 +1,5 @@
+import { TouchDirectionDetector } from './touch-event.js'
+
 class DynamicSlider {
   private sliders: Map<
     HTMLElement,
@@ -8,6 +10,7 @@ class DynamicSlider {
       activeIndex: number
       isAnimating: boolean
       isVisible: boolean
+      touchDetector?: TouchDirectionDetector
     }
   > = new Map()
 
@@ -34,6 +37,55 @@ class DynamicSlider {
     if (indicator) {
       indicator.textContent = `${activeIndex + 1}/${totalItems}`
     }
+  }
+
+  private setupTouchEvents(container: HTMLElement): void {
+    const sliderId = container.getAttribute('data-slider-id')
+    if (!sliderId) return
+
+    const touchDetector = new TouchDirectionDetector(sliderId, {
+      threshold: 50,
+      onSwipe: direction => {
+        if (direction === 'left') {
+          this.next(container)
+        } else if (direction === 'right') {
+          this.prev(container)
+        }
+      },
+    })
+
+    const slider = this.sliders.get(container)
+    if (slider) {
+      slider.touchDetector = touchDetector
+    }
+  }
+
+  private setupSlider(container: HTMLElement): void {
+    if (!container.getAttribute('data-slider-id')) {
+      const sliderId = `slider-${Math.random().toString(36).substring(2, 15)}`
+      container.setAttribute('data-slider-id', sliderId)
+      container.id = sliderId // TouchDirectionDetector için gerekli
+    }
+
+    const items = Array.from(
+      container.querySelectorAll('.slider-item'),
+    ) as HTMLElement[]
+    const nextBtn = container.querySelector('.next-btn') as HTMLElement | null
+    const prevBtn = container.querySelector('.prev-btn') as HTMLElement | null
+
+    this.sliders.set(container, {
+      items,
+      nextBtn,
+      prevBtn,
+      activeIndex: 0,
+      isAnimating: false,
+      isVisible: false,
+    })
+
+    this.setupButtons(container)
+    this.setupTouchEvents(container)
+    this.initializeSliderItems(container)
+    this.intersectionObserver.observe(container)
   }
 
   private initializeSliders(): void {
@@ -185,35 +237,6 @@ class DynamicSlider {
     })
   }
 
-  private setupSlider(container: HTMLElement): void {
-    // Generate unique ID for the slider if it doesn't exist
-    if (!container.getAttribute('data-slider-id')) {
-      container.setAttribute(
-        'data-slider-id',
-        `slider-${Math.random().toString(36).substring(2, 15)}`,
-      )
-    }
-
-    const items = Array.from(
-      container.querySelectorAll('.slider-item'),
-    ) as HTMLElement[]
-    const nextBtn = container.querySelector('.next-btn') as HTMLElement | null
-    const prevBtn = container.querySelector('.prev-btn') as HTMLElement | null
-
-    this.sliders.set(container, {
-      items,
-      nextBtn,
-      prevBtn,
-      activeIndex: 0,
-      isAnimating: false,
-      isVisible: false,
-    })
-
-    this.setupButtons(container)
-    this.initializeSliderItems(container)
-    this.intersectionObserver.observe(container)
-  }
-
   private setupButtons(container: HTMLElement): void {
     const slider = this.sliders.get(container)
     if (!slider) return
@@ -352,6 +375,9 @@ class DynamicSlider {
       }
       if (slider.prevBtn) {
         slider.prevBtn.removeEventListener('click', () => this.prev(container))
+      }
+      if (slider.touchDetector) {
+        slider.touchDetector.destroy()
       }
     })
     this.sliders.clear()
