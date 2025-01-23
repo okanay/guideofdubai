@@ -11,7 +11,7 @@
     "watch:css": "tailwindcss -i ./src/assets/styles/globals.css -o ./dist/assets/styles/globals-out.css --watch",
     "serve": "bun run build && serve dist",
     "dev": "concurrently \"bun run app.ts\" \"bun run watch:css\" \"bun run watch:ts\"",
-    "kill": "npx kill-port 8080"
+    "kill": "npx kill-port 3081"
   },
   "devDependencies": {
     "@types/bun": "latest",
