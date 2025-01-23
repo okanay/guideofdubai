@@ -2055,350 +2055,85 @@
             <div
               class="relative flex h-fit w-full flex-col gap-6 bg-white px-3.5 lg:pl-2 lg:pr-0 rtl:lg:pr-2 [&>*:not(:first-child)]:pt-3"
             >
-              <!-- Card - Design -->
-              <div
-                class="group relative flex h-fit w-full flex-col items-start justify-start gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-2 transition-colors duration-500 hover:border-gray-200 hover:bg-gray-50 md:flex-row"
-              >
-                <!-- Image Container ve Badge -->
-                <button
-                  type="button"
-                  class="relative h-[200px] w-full flex-shrink-0 transition-all duration-500 md:h-auto md:w-[260px] md:hover:scale-[102%] md:hover:opacity-85 md:active:scale-[98%] md:active:opacity-100"
-                >
-                  <div class="relative">
-                    <img
-                      src="https://images.project-test.info/41.webp"
-                      alt="Chevrolet Camaro"
-                      class="h-[200px] w-full flex-shrink-0 rounded-lg object-cover md:h-auto md:w-[260px]"
-                    />
-
-                    <div class="absolute left-2 top-2 flex flex-wrap gap-2">
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="image"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span> 6 Görsel </span>
-                      </div>
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="paint-bucket"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span class="text-xs font-medium">Matte Black</span>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-
-                <!-- Info Container -->
-                <div class="mt-1.5 flex w-full flex-col gap-1.5">
-                  <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-semibold text-gray-800">
-                      Chevrolet Camaro
-                    </h3>
-                  </div>
-
-                  <!-- Car Specs Grid -->
-                  <div
-                    style="scrollbar-width: none"
-                    class="relative grid w-full grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] gap-x-8 gap-y-4 md:max-h-[120px] md:gap-x-0 md:overflow-hidden md:overflow-y-auto lg:grid-cols-[repeat(auto-fit,_minmax(132px,_1fr))]"
-                  >
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Marka</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Chevrolet
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Model</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Camaro
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Vites</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Otomatik
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Yakıt</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Benzinli
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Kasa</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Coupe
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Koltuk</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        6 Kişi
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Price Container -->
-                <div
-                  class="flex h-full w-full flex-shrink-0 flex-col justify-start gap-1.5 border-t border-gray-200 pt-4 md:w-[180px] md:items-end md:border-t-0 md:pt-2.5 md:text-end"
-                >
-                  <div
-                    class="hidden text-sm font-medium text-gray-800 md:block"
-                  >
-                    Kiralama Bedeli
-                  </div>
-
-                  <div class="flex flex-shrink-0 items-center gap-1.5">
-                    <span class="text-xs text-gray-800">Günlük</span>
-                    <span class="text-base font-semibold text-gray-900"
-                      >650 AED</span
-                    >
-                  </div>
-                  <div class="flex flex-shrink-0 items-center gap-1.5">
-                    <span class="text-xs text-gray-800">Toplam</span>
-                    <span class="text-lg font-bold text-primary-600 md:text-2xl"
-                      >1.950 AED</span
-                    >
-                  </div>
-                  <!-- Button -->
-                  <button
-                    class="flex h-11 min-w-[180px] flex-shrink-0 items-center justify-center gap-1.5 rounded-lg bg-primary-500 px-5 text-base font-semibold text-white transition-colors hover:bg-primary-600 md:text-base"
-                  >
-                    <span>Aracı Görüntüle</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- BMW X5 Kartı -->
-              <div
-                class="group relative flex h-fit w-full flex-col items-start justify-start gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-2 transition-colors duration-500 hover:border-gray-200 hover:bg-gray-50 md:flex-row"
-              >
-                <button
-                  type="button"
-                  class="relative h-[200px] w-full flex-shrink-0 transition-all duration-500 md:h-auto md:w-[260px] md:hover:scale-[102%] md:hover:opacity-85 md:active:scale-[98%] md:active:opacity-100"
-                >
-                  <div class="relative">
-                    <img
-                      src="https://images.project-test.info/42.webp"
-                      alt="BMW X5"
-                      class="h-[200px] w-full flex-shrink-0 rounded-lg object-cover md:h-auto md:w-[260px]"
-                    />
-                    <div class="absolute left-2 top-2 flex flex-wrap gap-2">
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="image"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span>12 Görsel</span>
-                      </div>
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="paint-bucket"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span class="text-xs font-medium">Alpine White</span>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-
-                <div class="mt-1.5 flex w-full flex-col gap-1.5">
-                  <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-semibold text-gray-800">
-                      BMW X5 xDrive40i
-                    </h3>
-                  </div>
-
-                  <div
-                    style="scrollbar-width: none"
-                    class="relative grid w-full grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] gap-x-8 gap-y-4 md:max-h-[120px] md:gap-x-0 md:overflow-hidden md:overflow-y-auto lg:grid-cols-[repeat(auto-fit,_minmax(132px,_1fr))]"
-                  >
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Marka</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        BMW
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Model</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        X5
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Motor</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        3.0L i6
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Vites</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Otomatik
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Yakıt</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        Benzin
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Çekiş</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        xDrive
-                      </p>
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span
-                        class="text-xs font-medium text-primary-500 md:text-sm"
-                        >Koltuk</span
-                      >
-                      <p
-                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
-                      >
-                        5 Kişi
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class="flex h-full w-full flex-shrink-0 flex-col justify-start gap-1.5 border-t border-gray-200 pt-4 md:w-[180px] md:items-end md:border-t-0 md:pt-2.5 md:text-end"
-                >
-                  <div
-                    class="hidden text-sm font-medium text-gray-800 md:block"
-                  >
-                    Kiralama Bedeli
-                  </div>
-                  <div class="flex flex-shrink-0 items-center gap-1.5">
-                    <span class="text-xs text-gray-800">Günlük</span>
-                    <span class="text-base font-semibold text-gray-900"
-                      >980 AED</span
-                    >
-                  </div>
-                  <div class="flex flex-shrink-0 items-center gap-1.5">
-                    <span class="text-xs text-gray-800">Toplam</span>
-                    <span class="text-lg font-bold text-primary-600 md:text-2xl"
-                      >2.940 AED</span
-                    >
-                  </div>
-                  <button
-                    class="flex h-11 min-w-[180px] flex-shrink-0 items-center justify-center gap-1.5 rounded-lg bg-primary-500 px-5 text-base font-semibold text-white transition-colors hover:bg-primary-600 md:text-base"
-                  >
-                    <span>Aracı Görüntüle</span>
-                  </button>
-                </div>
-              </div>
-
               <!-- Mercedes E200 Kartı -->
               <div
                 class="group relative flex h-fit w-full flex-col items-start justify-start gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-2 transition-colors duration-500 hover:border-gray-200 hover:bg-gray-50 md:flex-row"
               >
-                <button
-                  type="button"
-                  class="relative h-[200px] w-full flex-shrink-0 transition-all duration-500 md:h-auto md:w-[260px] md:hover:scale-[102%] md:hover:opacity-85 md:active:scale-[98%] md:active:opacity-100"
+                <div
+                  class="dynamic-slider relative h-[200px] w-full flex-shrink-0 overflow-hidden rounded-lg md:h-auto md:w-[260px]"
                 >
-                  <div class="relative">
-                    <img
-                      src="https://images.project-test.info/43.webp"
-                      alt="Mercedes E200"
-                      class="h-[200px] w-full flex-shrink-0 rounded-lg object-cover md:h-auto md:w-[260px]"
-                    />
-                    <div class="absolute left-2 top-2 flex flex-wrap gap-2">
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="image"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span>8 Görsel</span>
-                      </div>
-                      <div
-                        class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
-                      >
-                        <i
-                          data-lucide="paint-bucket"
-                          class="size-3 text-primary-600"
-                        ></i>
-                        <span class="text-xs font-medium">Obsidian Black</span>
-                      </div>
+                  <!-- Info badges -->
+                  <div class="absolute left-2 top-2 z-20 flex flex-wrap gap-2">
+                    <div
+                      class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
+                    >
+                      <i
+                        data-lucide="image"
+                        class="size-3 text-primary-600"
+                      ></i>
+                      <span class="slider-index-indicator">1/3 Görsel</span>
+                    </div>
+                    <div
+                      class="flex items-center gap-1.5 rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-800 shadow shadow-gray-200"
+                    >
+                      <i
+                        data-lucide="paint-bucket"
+                        class="size-3 text-primary-600"
+                      ></i>
+                      <span class="text-xs font-medium">Obsidian Black</span>
                     </div>
                   </div>
-                </button>
+
+                  <!-- Navigation buttons -->
+                  <div
+                    class="group/btn absolute left-0 top-0 z-10 flex h-full w-full items-center justify-between px-2"
+                  >
+                    <button
+                      class="prev-btn hover:transform-[102%] pointer-events-auto rounded-full bg-white p-1 shadow-lg transition-[opacity,transform] duration-500 active:scale-95 group-hover/btn:opacity-100 sm:opacity-75"
+                    >
+                      <i
+                        data-lucide="chevron-left"
+                        class="size-5 sm:size-4"
+                      ></i>
+                    </button>
+                    <button
+                      class="next-btn hover:transform-[102%] pointer-events-auto rounded-full bg-white p-1 shadow-lg transition-[opacity,transform] duration-500 active:scale-95 group-hover/btn:opacity-100 sm:opacity-75"
+                    >
+                      <i
+                        data-lucide="chevron-right"
+                        class="size-5 sm:size-4"
+                      ></i>
+                    </button>
+                  </div>
+
+                  <!-- Slider items -->
+                  <div class="slider-container z-30 h-[200px] sm:h-[172px]">
+                    <div class="slider-item absolute inset-0">
+                      <img
+                        data-src="https://images.project-test.info/41.webp"
+                        src="/assets/images/gray-placeholder.webp"
+                        alt="Mercedes E200"
+                        class="h-full w-full rounded-lg object-cover object-center"
+                      />
+                    </div>
+                    <div class="slider-item absolute inset-0">
+                      <img
+                        data-src="https://images.project-test.info/42.webp"
+                        src="/assets/images/gray-placeholder.webp"
+                        alt="Mercedes E200"
+                        class="h-full w-full rounded-lg object-cover object-center"
+                      />
+                    </div>
+                    <div class="slider-item absolute inset-0">
+                      <img
+                        data-src="https://images.project-test.info/43.webp"
+                        src="/assets/images/gray-placeholder.webp"
+                        alt="Mercedes E200"
+                        class="h-full w-full rounded-lg object-cover object-center"
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 <div class="mt-1.5 flex w-full flex-col gap-1.5">
                   <div class="flex items-center justify-between">
@@ -2464,6 +2199,18 @@
                         class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
                       >
                         5 Kişi
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col items-start">
+                      <span
+                        class="text-xs font-medium text-primary-500 md:text-sm"
+                        >Çekiş</span
+                      >
+                      <p
+                        class="max-w-[80px] truncate text-nowrap font-medium text-gray-800"
+                      >
+                        xDrive
                       </p>
                     </div>
                   </div>

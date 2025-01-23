@@ -1,3 +1,4 @@
+import { DynamicSlider } from './packages/dynamic-slider.js'
 import { RangeSlider } from './packages/range-slider.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,4 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     minInputId: 'min_price_1',
     maxInputId: 'max_price_1',
   })
+
+  const slider = new DynamicSlider()
 })
