@@ -55,6 +55,17 @@ class DynamicSlider {
     }
   }
 
+  private updateIndexIndicator(
+    container: HTMLElement,
+    activeIndex: number,
+    totalItems: number,
+  ): void {
+    const indicator = container.querySelector('.slider-index-indicator')
+    if (indicator) {
+      indicator.textContent = `${activeIndex + 1}/${totalItems} Görsel`
+    }
+  }
+
   private initializeSliders(): void {
     const sliderElements = document.querySelectorAll('.dynamic-slider')
     sliderElements.forEach(container => {
@@ -70,10 +81,8 @@ class DynamicSlider {
           if (slider) {
             slider.isVisible = entry.isIntersecting
             if (entry.isIntersecting) {
-              // Aktif görseli yükle
               this.loadImages(slider.items[slider.activeIndex])
 
-              // Önceki ve sonraki görselleri yükle
               const prevIndex =
                 (slider.activeIndex - 1 + slider.items.length) %
                 slider.items.length
@@ -118,7 +127,6 @@ class DynamicSlider {
             }
           })
 
-          // Silinen sliderları temizle
           this.sliders.forEach((_, container) => {
             if (!document.contains(container)) {
               this.sliders.delete(container)
@@ -167,7 +175,6 @@ class DynamicSlider {
 
     return new Promise(resolve => {
       requestAnimationFrame(() => {
-        // Set initial states with no transition
         currentSlide.style.transition = 'none'
         clone.style.transition = 'none'
 
@@ -175,16 +182,13 @@ class DynamicSlider {
           direction === 'left' ? 'translate(-120%, 0%)' : 'translate(120%, 0%)'
         clone.style.opacity = '0'
 
-        // Force reflow
         void clone.offsetHeight
 
-        // Apply transitions
         const transition =
           'transform 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms cubic-bezier(0.4, 0, 0.2, 1)'
         clone.style.transition = transition
         currentSlide.style.transition = transition
 
-        // Animate
         clone.style.transform = 'translate(0%, 0%)'
         clone.style.opacity = '1'
 
@@ -231,17 +235,6 @@ class DynamicSlider {
     }
   }
 
-  private updateIndexIndicator(
-    container: HTMLElement,
-    activeIndex: number,
-    totalItems: number,
-  ): void {
-    const indicator = container.querySelector('.slider-index-indicator')
-    if (indicator) {
-      indicator.textContent = `${activeIndex + 1}/${totalItems} Görsel`
-    }
-  }
-
   private initializeSliderItems(container: HTMLElement): void {
     const slider = this.sliders.get(container)
     if (!slider) return
@@ -265,7 +258,6 @@ class DynamicSlider {
         item.style.opacity = '1'
         item.style.zIndex = '2'
         if (slider.isVisible) {
-          // Aktif görseli ve komşularını yükle
           this.loadImages(item)
           const prevIndex =
             (index - 1 + slider.items.length) % slider.items.length
@@ -293,7 +285,6 @@ class DynamicSlider {
     const nextSlide = slider.items[slider.activeIndex]
     const nextNextIndex = (slider.activeIndex + 1) % slider.items.length
 
-    // Bir sonraki görseli önceden yükle
     this.loadImages(slider.items[nextNextIndex])
 
     const clone = this.createCloneElement(nextSlide, 'right')
@@ -316,11 +307,6 @@ class DynamicSlider {
       slider.activeIndex,
       slider.items.length,
     )
-    this.updateIndexIndicator(
-      container,
-      slider.activeIndex,
-      slider.items.length,
-    )
   }
 
   public async prev(container: HTMLElement): Promise<void> {
@@ -337,7 +323,6 @@ class DynamicSlider {
     const prevPrevIndex =
       (slider.activeIndex - 1 + slider.items.length) % slider.items.length
 
-    // Bir önceki görseli önceden yükle
     this.loadImages(slider.items[prevPrevIndex])
 
     const clone = this.createCloneElement(prevSlide, 'left')
@@ -355,6 +340,11 @@ class DynamicSlider {
     clone.remove()
 
     slider.isAnimating = false
+    this.updateIndexIndicator(
+      container,
+      slider.activeIndex,
+      slider.items.length,
+    )
   }
 
   public refresh(): void {
@@ -377,7 +367,6 @@ class DynamicSlider {
   }
 }
 
-// Global type definition for RefreshSlider
 declare global {
   interface Window {
     RefreshSlider: () => void
