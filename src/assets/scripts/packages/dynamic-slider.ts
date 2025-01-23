@@ -316,6 +316,11 @@ class DynamicSlider {
       slider.activeIndex,
       slider.items.length,
     )
+    this.updateIndexIndicator(
+      container,
+      slider.activeIndex,
+      slider.items.length,
+    )
   }
 
   public async prev(container: HTMLElement): Promise<void> {
