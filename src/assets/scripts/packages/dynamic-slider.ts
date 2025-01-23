@@ -1,33 +1,3 @@
-const defaultConfig = {
-  auto: true,
-  autoInterval: 6000,
-  animationConfig: {
-    duration: 400,
-    timingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-    transforms: {
-      fromLeft: {
-        enter: 'translate(-120%, 0%)',
-        exit: 'translate(20%, 0%)',
-      },
-      fromRight: {
-        enter: 'translate(120%, 0%)',
-        exit: 'translate(-20%, 0%)',
-      },
-    },
-    opacitySelected: 1,
-    opacityNotSelected: 0.75,
-    scaleSelected: 1,
-    scaleNotSelected: 1,
-  },
-  options: {
-    zIndex: {
-      clone: 3,
-      selected: 2,
-      notSelected: 1,
-    },
-  },
-} as const
-
 class DynamicSlider {
   private sliders: Map<
     HTMLElement,
@@ -43,7 +13,7 @@ class DynamicSlider {
 
   private observer!: MutationObserver
   private intersectionObserver!: IntersectionObserver
-  private loadedImages = new Set<string>()
+  private loadedImages = new Map<string, Set<string>>()
 
   constructor() {
     this.setupIntersectionObserver()
@@ -62,7 +32,7 @@ class DynamicSlider {
   ): void {
     const indicator = container.querySelector('.slider-index-indicator')
     if (indicator) {
-      indicator.textContent = `${activeIndex + 1}/${totalItems} Görsel`
+      indicator.textContent = `${activeIndex + 1}/${totalItems}`
     }
   }
 
@@ -101,17 +71,26 @@ class DynamicSlider {
   private loadImages(element: HTMLElement): void {
     if (!element) return
 
-    const slider = this.sliders.get(
-      element.closest('.dynamic-slider') as HTMLElement,
-    )
+    const container = element.closest('.dynamic-slider') as HTMLElement
+    const slider = this.sliders.get(container)
     if (!slider?.isVisible) return
+
+    const sliderId =
+      container.getAttribute('data-slider-id') ||
+      `slider-${Math.random().toString(36).substring(2, 15)}`
+    container.setAttribute('data-slider-id', sliderId)
+
+    if (!this.loadedImages.has(sliderId)) {
+      this.loadedImages.set(sliderId, new Set())
+    }
+    const sliderLoadedImages = this.loadedImages.get(sliderId)!
 
     const images = element.querySelectorAll('img[data-src]')
     images.forEach(img => {
       const dataSrc = img.getAttribute('data-src')
-      if (dataSrc && !this.loadedImages.has(dataSrc)) {
+      if (dataSrc && !sliderLoadedImages.has(dataSrc)) {
         img.setAttribute('src', dataSrc)
-        this.loadedImages.add(dataSrc)
+        sliderLoadedImages.add(dataSrc)
       }
     })
   }
@@ -129,6 +108,10 @@ class DynamicSlider {
 
           this.sliders.forEach((_, container) => {
             if (!document.contains(container)) {
+              const sliderId = container.getAttribute('data-slider-id')
+              if (sliderId) {
+                this.loadedImages.delete(sliderId)
+              }
               this.sliders.delete(container)
             }
           })
@@ -203,6 +186,14 @@ class DynamicSlider {
   }
 
   private setupSlider(container: HTMLElement): void {
+    // Generate unique ID for the slider if it doesn't exist
+    if (!container.getAttribute('data-slider-id')) {
+      container.setAttribute(
+        'data-slider-id',
+        `slider-${Math.random().toString(36).substring(2, 15)}`,
+      )
+    }
+
     const items = Array.from(
       container.querySelectorAll('.slider-item'),
     ) as HTMLElement[]
@@ -239,7 +230,6 @@ class DynamicSlider {
     const slider = this.sliders.get(container)
     if (!slider) return
 
-    // Update index indicator
     this.updateIndexIndicator(
       container,
       slider.activeIndex,
@@ -349,6 +339,7 @@ class DynamicSlider {
 
   public refresh(): void {
     this.sliders.clear()
+    this.loadedImages.clear()
     this.initializeSliders()
   }
 
@@ -364,6 +355,7 @@ class DynamicSlider {
       }
     })
     this.sliders.clear()
+    this.loadedImages.clear()
   }
 }
 
