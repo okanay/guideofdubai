@@ -1962,6 +1962,125 @@
                   ></button>
                 </aside>
               </li>
+
+              <!-- Araç Kartı Yükleniyor -->
+              <li
+                class="group relative flex h-fit w-full flex-col gap-y-2 overflow-hidden rounded-lg border border-gray-200/75 bg-gray-50/50 md:h-[200px] md:flex-row md:pl-2"
+              >
+                <!-- Resim Yükleniyor -->
+                <div
+                  class="relative h-[180px] w-full flex-shrink-0 animate-pulse rounded bg-gray-200 md:my-2 md:w-[240px]"
+                ></div>
+
+                <!-- Detaylar Yükleniyor -->
+                <div class="w-full px-4 md:px-0 md:py-2">
+                  <!-- Başlık -->
+                  <div
+                    class="mb-4 h-7 w-48 animate-pulse rounded bg-gray-200 md:ml-4"
+                  ></div>
+
+                  <!-- Özellikler Grid -->
+                  <div class="grid grid-cols-3 gap-4 md:ml-4">
+                    <!-- Marka -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                    <!-- Model -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                    <!-- Vites -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                    <!-- Yakıt -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                    <!-- Koltuk -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                    <!-- Renk -->
+                    <div class="space-y-2">
+                      <div
+                        class="h-4 w-16 animate-pulse rounded bg-gray-200"
+                      ></div>
+                      <div
+                        class="h-5 w-20 animate-pulse rounded bg-gray-200"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fiyat Alanı -->
+                <div
+                  class="mt-4 flex w-full flex-col gap-2 border-t border-gray-200 bg-gray-100 px-3 py-2.5 md:mt-0 md:w-[220px] md:items-end md:border-l md:border-t-0"
+                >
+                  <div class="h-5 w-32 animate-pulse rounded bg-gray-200"></div>
+                  <div class="h-6 w-24 animate-pulse rounded bg-gray-200"></div>
+                  <div class="h-8 w-36 animate-pulse rounded bg-gray-200"></div>
+                  <div
+                    class="h-11 w-[188px] animate-pulse rounded bg-gray-200"
+                  ></div>
+                </div>
+              </li>
+
+              <!-- No Results State -->
+              <div
+                class="flex min-h-[320px] flex-col items-center justify-center gap-4 text-center"
+              >
+                <div class="flex flex-col items-center gap-4">
+                  <!-- İkon -->
+                  <div class="rounded-full bg-gray-100 p-4">
+                    <i data-lucide="car" class="size-12 text-gray-400"></i>
+                  </div>
+
+                  <!-- Başlık ve Açıklama -->
+                  <div class="max-w-sm space-y-2">
+                    <h4 class="text-lg font-medium text-gray-800">
+                      Araç Bulunamadı
+                    </h4>
+                    <p class="text-balance text-sm text-gray-500">
+                      Seçtiğiniz kriterlere uygun araç bulunamadı. Lütfen
+                      filtreleri düzenleyerek tekrar deneyin.
+                    </p>
+                  </div>
+
+                  <!-- Reset Butonu -->
+                  <button
+                    class="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-[98%]"
+                  >
+                    <i data-lucide="rotate-ccw" class="size-4"></i>
+                    Filtreleri Temizle
+                  </button>
+                </div>
+              </div>
             </ul>
           </section>
 
