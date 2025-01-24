@@ -1480,14 +1480,16 @@
               </div>
             </div>
 
-            <!-- Vites -->
+            <!-- Vites Seçimi -->
             <div class="mb-6 px-4 sm:mb-8">
               <h3 class="mb-3 text-base font-medium text-gray-900">Vites</h3>
               <div class="space-y-3">
                 <label class="group flex cursor-pointer items-center gap-3">
                   <input
-                    type="checkbox"
-                    class="peer relative grid size-5 appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                    type="radio"
+                    name="transmission"
+                    value="automatic"
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
                   />
                   <span class="text-sm text-gray-700 group-hover:text-gray-900"
                     >Otomatik</span
@@ -1495,8 +1497,10 @@
                 </label>
                 <label class="group flex cursor-pointer items-center gap-3">
                   <input
-                    type="checkbox"
-                    class="peer relative grid size-5 appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                    type="radio"
+                    name="transmission"
+                    value="manual"
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
                   />
                   <span class="text-sm text-gray-700 group-hover:text-gray-900"
                     >Manuel</span
@@ -1505,17 +1509,220 @@
               </div>
             </div>
 
+            <!-- Renk Filtresi -->
+            <div class="mb-6 sm:mb-8">
+              <input
+                type="checkbox"
+                id="colorToggle"
+                class="peer hidden"
+                checked
+              />
+              <label
+                for="colorToggle"
+                class="block cursor-n-resize px-4 peer-checked:cursor-s-resize peer-checked:[&_.icon-rotate]:rotate-180"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-medium">Renk Seçimi</h3>
+                  </div>
+                  <i
+                    data-lucide="chevron-down"
+                    class="icon-rotate size-5 transition-transform duration-300"
+                  ></i>
+                </div>
+              </label>
+
+              <!-- Renk Grid Container -->
+              <div
+                class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out peer-checked:grid-rows-[1fr]"
+              >
+                <div class="overflow-hidden px-3.5">
+                  <div
+                    class="grid grid-cols-[repeat(auto-fill,_48px)] justify-start gap-2 gap-y-4 py-4"
+                  >
+                    <!-- Siyah-->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="black"
+                        name="black"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="black"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #000"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Siyah</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- Beyaz -->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="white"
+                        name="white"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="white"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #ffffff"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Beyaz</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- Gri -->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="gray"
+                        name="gray"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="gray"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #6b7280"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Gri</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- Kırmızı -->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="red"
+                        name="red"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="red"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #ef4444"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Kırmızı</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- Mavi -->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="blue"
+                        name="blue"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="blue"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #3b82f6"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Mavi</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- Yeşil -->
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="green"
+                        name="green"
+                        class="peer/color hidden"
+                      />
+                      <label
+                        for="green"
+                        class="flex flex-col items-center gap-1.5 hover:cursor-pointer peer-checked/color:[&_.checkbox]:!opacity-100 peer-checked/color:[&_.color-circle]:!ring-primary-400 peer-checked/color:[&_.color-text]:font-semibold"
+                      >
+                        <div
+                          style="background-color: #22c55e"
+                          class="color-circle relative flex size-7 items-center justify-center rounded-full border border-gray-200 ring-2 ring-transparent ring-offset-2 transition-colors duration-300"
+                        >
+                          <i
+                            data-lucide="check"
+                            class="checkbox size-3.5 rounded-full border border-gray-200 bg-white p-0.5 text-gray-950 opacity-0 transition-opacity duration-300"
+                          ></i>
+                        </div>
+                        <span
+                          class="color-text text-xs font-medium text-gray-600 transition-[weight] duration-300"
+                          >Yeşil</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!-- Filter Actions -->
-            <div class="flex gap-2 px-4">
+            <div class="flex gap-2 px-3.5">
               <button
                 type="button"
-                class="h-12 flex-1 rounded border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-200"
+                class="h-12 w-full flex-1 rounded border border-gray-200 bg-gray-100 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-200"
               >
                 Temizle
               </button>
               <button
                 type="button"
-                class="h-12 flex-1 rounded bg-primary-500 px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-primary-600"
+                class="h-12 w-full flex-1 rounded bg-primary-500 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-primary-600"
               >
                 Uygula
               </button>
