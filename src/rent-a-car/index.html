@@ -1089,7 +1089,7 @@
     <div
       id="date-picker"
       data-language="tr"
-      class="absolute w-[calc(100%-1.65rem)] max-w-[456px] rounded-lg border border-gray-200 bg-white p-4 opacity-0 lg:max-w-[366px]"
+      class="absolute z-[1000] w-[calc(100%-1.65rem)] max-w-[456px] rounded-lg border border-gray-200 bg-white p-4 opacity-0 lg:max-w-[366px]"
     >
       <div class="flex flex-col gap-4">
         <!-- Prev - Current Month - Next -->
@@ -1207,25 +1207,23 @@
             </div>
           </div>
 
-          <!-- Date Select -->
+          <!-- Date Select Start -->
           <div class="w-full lg:w-1/3">
             <div class="relative">
               <input
                 type="text"
-                id="date-input"
-                name="date"
+                id="date-input-start"
+                name="date-input-start"
                 readonly
                 data-focus="false"
-                data-start="2024-12-26"
-                data-end="2025-01-24"
                 class="h-12 w-full appearance-none !rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-200 sm:text-base"
                 placeholder="Tarih seçin"
               />
               <label
-                id="date-input-label"
-                for="date-input"
+                id="date-input-start-label"
+                for="date-input-start"
                 data-focus="false"
-                class="absolute -top-2 left-2.5 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
               >
                 Teslim Alım Tarihi
               </label>
@@ -1237,25 +1235,23 @@
             </div>
           </div>
 
-          <!-- Date Select -->
+          <!-- Date Select End -->
           <div class="w-full lg:w-1/3">
             <div class="relative">
               <input
                 type="text"
-                id="date-input"
-                name="date"
+                id="date-input-end"
+                name="date-input-end"
                 readonly
                 data-focus="false"
-                data-start="2024-12-26"
-                data-end="2025-01-24"
                 class="h-12 w-full appearance-none !rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-200 sm:text-base"
                 placeholder="Tarih seçin"
               />
               <label
-                id="date-input-label"
-                for="date-input"
+                id="date-input-end-label"
+                for="date-input-end"
                 data-focus="false"
-                class="absolute -top-2 left-2.5 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
               >
                 Geri Teslim Tarihi
               </label>

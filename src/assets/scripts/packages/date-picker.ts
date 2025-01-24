@@ -836,7 +836,7 @@ class DatePicker {
     this.containerElement.style.position = 'absolute'
     this.containerElement.style.top = `${Math.round(top)}px`
     this.containerElement.style.left = `${Math.round(left)}px`
-    this.containerElement.style.zIndex = '20'
+    this.containerElement.style.zIndex = '100'
     this.containerElement.style.opacity = '100%'
 
     // Add a data attribute indicating position (useful for animations/styling)
@@ -1668,8 +1668,62 @@ class DatePicker {
       // Input'u güncelle
       input.value = this.formatDateBasedOnConfig(today)
       this.updateDataAttributes(input, { start: today, end: null })
+    } else if (this.config.input.type === 'two') {
+      // Önce tüm değerleri temizle
+      this.clearDateMaps()
+
+      // Aktif input'un türünü kontrol et
+      const inputConfig = this.registeredInputs.get(input.id)
+
+      if (inputConfig?.type === 'start' || !inputConfig) {
+        // Start input veya belirsizse, start inputu güncelle
+        const startInput = document.getElementById(
+          (this.config.input.elements as DateRangeInput).start.id,
+        ) as HTMLInputElement
+
+        if (startInput) {
+          this.selectedDates.set(startInput.id, today)
+          this.dateValues.set(startInput.id, today)
+          startInput.value = this.formatDateBasedOnConfig(today)
+          this.updateDataAttributes(startInput, { start: today })
+        }
+
+        // End input'u temizle
+        const endInput = document.getElementById(
+          (this.config.input.elements as DateRangeInput).end.id,
+        ) as HTMLInputElement
+
+        if (endInput) {
+          endInput.value = ''
+          this.updateDataAttributes(endInput, { end: null })
+        }
+      } else if (inputConfig?.type === 'end') {
+        // End input ise ve start input seçili değilse önce start'ı ayarla
+        const startInput = document.getElementById(
+          (this.config.input.elements as DateRangeInput).start.id,
+        ) as HTMLInputElement
+
+        const endInput = document.getElementById(
+          (this.config.input.elements as DateRangeInput).end.id,
+        ) as HTMLInputElement
+
+        if (startInput && !this.selectedDates.has(startInput.id)) {
+          this.selectedDates.set(startInput.id, today)
+          this.dateValues.set(startInput.id, today)
+          startInput.value = this.formatDateBasedOnConfig(today)
+          this.updateDataAttributes(startInput, { start: today })
+        }
+
+        // End input'u temizle
+        if (endInput) {
+          endInput.value = ''
+          this.selectedDates.delete(endInput.id)
+          this.dateValues.delete(endInput.id)
+          this.updateDataAttributes(endInput, { end: null })
+        }
+      }
     } else {
-      // Single veya Two inputs mode için bugün resetleme
+      // Single mode için bugün resetleme
       this.selectedDates.set(input.id, today)
       this.dateValues.set(input.id, today)
       input.value = this.formatDateBasedOnConfig(today)

@@ -1,4 +1,7 @@
+import { languages } from '../constants/date-picker-languages.js'
+import { DatePicker, type DatePickerConfig } from './packages/date-picker.js'
 import { DynamicSlider } from './packages/dynamic-slider.js'
+import { ModalController } from './packages/modal.js'
 import { RangeSlider } from './packages/range-slider.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,4 +17,91 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   const slider = new DynamicSlider()
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date()
+  const datepickerConfig: DatePickerConfig = {
+    minDate: today,
+    elements: {
+      container: 'date-picker',
+      monthContainer: 'current-month',
+      daysContainer: 'calendar-days',
+      buttons: {
+        prev: 'prev-month',
+        next: 'next-month',
+        reset: 'reset-date',
+        resetAll: 'reset-all',
+        close: 'close-picker',
+      },
+    },
+    input: {
+      type: 'two',
+      elements: {
+        start: {
+          id: 'date-input-start',
+          focusContainer: 'date-input-start-label',
+        },
+        end: {
+          id: 'date-input-end',
+          focusContainer: 'date-input-end-label',
+        },
+      },
+    },
+    output: {
+      slash: '-',
+      fullFormat: true,
+      backendFormat: ['year', 'month', 'day'],
+      order: ['day', 'month', 'year'],
+      between: 'to',
+    },
+    autoClose: true,
+    autoSwitchInput: true,
+    language: [...languages],
+  }
+
+  const datePicker = new DatePicker(datepickerConfig)
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  new ModalController(
+    [
+      {
+        id: 'filter-modal',
+        openElements: [],
+        toggleElements: ['#filter-modal-button'],
+        contentElement: '#filter-modal',
+        closeElements: ['#filter-modal-close-button'],
+        containers: ['#filter-container'],
+      },
+    ],
+    {
+      outsideClickClose: true,
+      escapeClose: true,
+      preserveModalHistory: true,
+      attributes: {
+        stateAttribute: 'data-state',
+        values: {
+          open: 'open',
+          preserved: 'open',
+          hidden: 'closed',
+        },
+      },
+      scrollLock: {
+        enabled: false,
+        styles: {
+          hidden: {
+            overflow: 'hidden',
+            position: 'fixed',
+            width: '100%',
+          },
+          visible: {
+            overflow: 'auto',
+            position: 'static',
+            width: 'auto',
+          },
+        },
+      },
+    },
+  )
 })
