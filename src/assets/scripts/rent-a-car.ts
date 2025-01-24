@@ -1,8 +1,10 @@
+import { brands } from '../constants/car-brands.js'
 import { languages } from '../constants/date-picker-languages.js'
 import { DatePicker, type DatePickerConfig } from './packages/date-picker.js'
 import { DynamicSlider } from './packages/dynamic-slider.js'
 import { ModalController } from './packages/modal.js'
 import { RangeSlider } from './packages/range-slider.js'
+import SearchableSelect from './packages/searchable-select.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   new RangeSlider({
@@ -104,4 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
   )
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const CarBrandSelectInput = new SearchableSelect({
+    elements: {
+      container: 'car-brand-container',
+      select: 'car-brand-select-input',
+      input: 'car-brand-search-input',
+      suggestions: 'car-brand-suggestions',
+      clearButton: 'clear-button', // opsiyonel
+    },
+  })
+  CarBrandSelectInput.updateOptions(brands)
 })

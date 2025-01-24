@@ -1174,36 +1174,68 @@
       >
         <!-- Search Inputs Container (80% on desktop) -->
         <div class="flex w-full flex-col gap-4 md:flex-row lg:w-full">
-          <!-- Destination Input with Suggestions -->
+          <!-- Brand Input with Suggestions -->
           <div class="group relative w-full overflow-visible lg:w-1/3">
-            <div>
-              <input
-                type="text"
-                id="car-brand-input"
-                name="car-brand"
-                style="-webkit-border-radius: 0; border-radius: 0"
-                class="peer h-12 w-full !rounded border border-gray-200 px-3 py-2 pl-10 text-sm outline-none focus:border-primary-200 sm:text-base rtl:pl-0 rtl:pr-10"
-                placeholder="Nereye Gidiyorsunuz?"
-                value="Mercedes"
-              />
-              <label
-                for="car-brand-input"
-                class="absolute -top-2 left-2.5 bg-white px-1 text-xs text-gray-500 peer-focus:text-primary-500 rtl:left-auto rtl:right-3"
-              >
-                Araç Modeli
-              </label>
-              <!-- Search Icon -->
-              <i
-                data-lucide="car"
-                class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400 rtl:left-auto rtl:right-3"
-              ></i>
-              <!-- Clear Button -->
-              <button
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 rtl:left-3 rtl:right-auto"
-              >
-                <i data-lucide="x" class="size-4"></i>
-              </button>
+            <div id="car-brand-container">
+              <div class="relative">
+                <!-- Hidden Observer Select Input -->
+                <select id="car-brand-select-input" class="hidden"></select>
+
+                <input
+                  type="text"
+                  id="car-brand-search-input"
+                  name="car-brand-search-input"
+                  aria-autocomplete="off"
+                  autocomplete="new-password"
+                  class="peer h-12 w-full rounded border border-gray-200 px-3 pe-9 outline-none transition-colors focus:border-primary-200"
+                  placeholder="Araç Markası"
+                />
+                <label
+                  id="car-brand-label"
+                  for="car-brand-search-input"
+                  data-focus="false"
+                  class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                >
+                  Araç Markası
+                </label>
+                <button
+                  class="absolute right-4 top-[50%] flex h-full -translate-y-1/2 items-center justify-center peer-placeholder-shown:hidden peer-focus:visible"
+                  id="clear-button"
+                  type="button"
+                >
+                  <i data-lucide="x" class="size-4 text-gray-400"></i>
+                </button>
+
+                <!-- Suggestion -->
+                <div
+                  id="car-brand-suggestions"
+                  style="scrollbar-width: none"
+                  class="pointer-events-none absolute left-0 right-0 top-full z-[30] mt-1 flex max-h-64 flex-col overflow-y-auto rounded border border-gray-200 bg-white opacity-0 shadow-lg transition-all duration-300 peer-focus:pointer-events-auto peer-focus:opacity-100"
+                >
+                  <!-- None Item -->
+                  <button
+                    type="button"
+                    class="none-item cursor-pointer bg-gray-200 px-3 py-2 text-start opacity-75 transition-opacity duration-300 hover:opacity-100 data-[hide=true]:hidden"
+                    data-value="not-selected"
+                    data-hide="false"
+                  >
+                    Seçim Yok
+                  </button>
+                  <!-- Template elements -->
+                  <button
+                    type="button"
+                    class="suggestion-item cursor-pointer px-3 py-2 text-start hover:bg-primary-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                    data-value="suggestion"
+                    data-selected="false"
+                  >
+                    Suggestion
+                  </button>
+                  <!-- No Results -->
+                  <div class="no-results px-3 py-2 text-gray-500">
+                    Sonuç bulunamadı
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1922,10 +1954,12 @@
                     </dd>
                   </dl>
                   <button
-                    class="flex h-11 min-w-[188px] flex-shrink-0 items-center justify-center gap-1.5 rounded bg-primary-500 px-5 text-base font-semibold text-white transition-[colors,transform] hover:bg-primary-600 active:scale-95 md:text-base"
-                  >
-                    Aracı Görüntüle
-                  </button>
+                    class="flex h-11 min-w-[188px] items-center justify-center gap-1.5 rounded bg-primary-500 px-5 text-base font-semibold text-white transition-[color,transform] duration-100 after:content-[var(--message-normal)] hover:bg-primary-600 active:scale-[98%] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 disabled:opacity-75 disabled:transition-none disabled:after:content-[var(--message-disabled)] disabled:active:scale-100"
+                    style="
+                      --message-normal: 'Aracı Görüntüle';
+                      --message-disabled: 'Mevcut Değil';
+                    "
+                  ></button>
                 </aside>
               </li>
             </ul>
