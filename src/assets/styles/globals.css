@@ -327,7 +327,7 @@
   }
 
   .date-hidden {
-    @apply hidden;
+    @apply pointer-events-none !opacity-0;
   }
 
   .day-selected {
