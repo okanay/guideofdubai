@@ -22,10 +22,6 @@ class DynamicSlider {
     this.setupIntersectionObserver()
     this.initializeSliders()
     this.setupObserver()
-
-    if (!window.RefreshSlider) {
-      window.RefreshSlider = this.refresh.bind(this)
-    }
   }
 
   private updateIndexIndicator(
@@ -382,12 +378,6 @@ class DynamicSlider {
     })
     this.sliders.clear()
     this.loadedImages.clear()
-  }
-}
-
-declare global {
-  interface Window {
-    RefreshSlider: () => void
   }
 }
 

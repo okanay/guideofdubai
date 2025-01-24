@@ -6,6 +6,17 @@ import { ModalController } from './packages/modal.js'
 import { RangeSlider } from './packages/range-slider.js'
 import SearchableSelect from './packages/searchable-select.js'
 
+declare global {
+  interface Window {
+    DynamicSlider: DynamicSlider
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = new DynamicSlider()
+  window.DynamicSlider = slider
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   new RangeSlider({
     containerId: 'price-range-1',
@@ -17,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     minInputId: 'min_price_1',
     maxInputId: 'max_price_1',
   })
-
-  const slider = new DynamicSlider()
 })
 
 document.addEventListener('DOMContentLoaded', () => {
