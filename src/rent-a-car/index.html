@@ -1206,10 +1206,15 @@
                   id="car-brand-label"
                   for="car-brand-search-input"
                   data-focus="false"
-                  class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                  class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 peer-focus:text-primary-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
                 >
                   Araç Markası
                 </label>
+                <div
+                  class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
+                >
+                  <i data-lucide="car" class="size-4 text-gray-800"></i>
+                </div>
                 <button
                   class="absolute right-4 top-[50%] z-20 flex h-full -translate-y-1/2 items-center justify-center peer-placeholder-shown:hidden peer-focus:visible data-[active=true]:!visible data-[active=true]:!block"
                   id="clear-button"
@@ -1268,14 +1273,17 @@
                 id="date-input-start-label"
                 for="date-input-start"
                 data-focus="false"
-                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
               >
-                Teslim Alım Tarihi
+                Başlangıç Tarihi
               </label>
               <div
                 class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
               >
-                <i data-lucide="calendar" class="size-4 text-gray-500"></i>
+                <i
+                  data-lucide="calendar-arrow-up"
+                  class="size-4 text-gray-800"
+                ></i>
               </div>
             </div>
           </div>
@@ -1296,14 +1304,17 @@
                 id="date-input-end-label"
                 for="date-input-end"
                 data-focus="false"
-                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-500 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-primary-500 rtl:left-auto rtl:right-3"
               >
                 Geri Teslim Tarihi
               </label>
               <div
                 class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
               >
-                <i data-lucide="calendar" class="size-4 text-gray-500"></i>
+                <i
+                  data-lucide="calendar-arrow-down"
+                  class="size-4 text-gray-800"
+                ></i>
               </div>
             </div>
           </div>
