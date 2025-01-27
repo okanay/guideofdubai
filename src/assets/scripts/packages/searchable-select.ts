@@ -8,7 +8,7 @@ interface SearchableSelectElements {
 
 interface SearchableSelectOptions {
   elements: SearchableSelectElements
-  onSelect?: (value: string) => void
+  onSelect?: (value: string | string[]) => void
   onClear?: () => void
   onSearch?: (searchText: string) => void
   onDropdownOpen?: () => void
@@ -33,6 +33,8 @@ class SearchableSelect {
   private options: SearchableSelectOptions
   private allOptions: SearchOption[] = []
   private isOpen: boolean = false
+  private isMultiple: boolean = false
+  private selectedValues: Set<string> = new Set()
   private templates: {
     suggestionItem: HTMLElement
     noResults: HTMLElement
@@ -40,10 +42,8 @@ class SearchableSelect {
   }
 
   constructor(options: SearchableSelectOptions) {
-    // 1. Options'ı kaydet
     this.options = options
 
-    // 2. Gerekli elementleri bul ve validate et
     const container = document.getElementById(options.elements.container)
     const select = document.getElementById(
       options.elements.select,
@@ -56,12 +56,10 @@ class SearchableSelect {
       ? document.getElementById(options.elements.clearButton)
       : null
 
-    // 3. Element validasyonu
     if (!container || !select || !input || !suggestions) {
       throw new Error('Required elements not found')
     }
 
-    // 4. Element referanslarını kaydet
     this.elements = {
       container,
       select,
@@ -70,7 +68,8 @@ class SearchableSelect {
       clearButton,
     }
 
-    // 5. Template'leri yakala ve valide et (kritik nokta)
+    this.isMultiple = this.elements.select.hasAttribute('multiple')
+
     const suggestionItem =
       this.elements.suggestions.querySelector('.suggestion-item')
     const noResults = this.elements.suggestions.querySelector('.no-results')
@@ -82,68 +81,61 @@ class SearchableSelect {
       )
     }
 
-    // 6. Template'leri kaydet
     this.templates = {
       suggestionItem: suggestionItem.cloneNode(true) as HTMLElement,
       noResults: noResults.cloneNode(true) as HTMLElement,
       noneItem: noneItem.cloneNode(true) as HTMLElement,
     }
 
-    // 7. Suggestions container'ı temizle
     this.elements.suggestions.innerHTML = ''
-
-    // 8. Select options'ları yakala
     this.captureSelectOptions()
-
-    // 9. Event listener'ları bağla
     this.setupEventListeners()
-
-    // 10. Orijinal select'i gizle
     this.hideOriginalSelect()
 
-    // 11. Başlangıç değerini ayarla
-    const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
-    this.setValue(noneValue)
+    // Başlangıç değerlerini ayarla
+    if (this.isMultiple) {
+      Array.from(this.elements.select.selectedOptions).forEach(option => {
+        this.selectedValues.add(option.value)
+      })
+      this.updateInputValueForMultiple()
 
-    // Eğer select'in değeri yoksa veya none ise
-    if (
-      !this.elements.select.value ||
-      this.elements.select.value === noneValue
-    ) {
-      this.elements.input.value = ''
-      this.elements.select.value = noneValue
-
-      // Dataset'i güncelle
-      const datasetKey = Object.keys(this.elements.select.dataset)[0]
-      if (datasetKey) {
-        this.elements.select.dataset[datasetKey] = noneValue
+      // Clear button başlangıç durumu
+      if (this.elements.clearButton) {
+        this.elements.clearButton.setAttribute(
+          'data-active',
+          (this.selectedValues.size > 0).toString(),
+        )
       }
     } else {
-      // Specific bir değer seçili ise
-      const selectedOption = this.allOptions.find(
-        opt => opt.value === this.elements.select.value,
-      )
-      if (selectedOption) {
-        this.elements.input.value = selectedOption.text
+      const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
+      this.setValue(noneValue)
+
+      if (
+        !this.elements.select.value ||
+        this.elements.select.value === noneValue
+      ) {
+        this.elements.input.value = ''
+        this.elements.select.value = noneValue
+      } else {
+        const selectedOption = this.allOptions.find(
+          opt => opt.value === this.elements.select.value,
+        )
+        if (selectedOption) {
+          this.elements.input.value = selectedOption.text
+        }
       }
     }
 
-    // 12. Önerileri ilk kez render et
     this.filterAndRenderSuggestions('')
-
-    // 13. Instance'ı kaydet
     SearchableSelect.instances.set(container, this)
   }
 
   private captureSelectOptions(): void {
-    // Select options'ları al ve kaydet
-    // None option'ı da dahil edilmeli
     this.allOptions = Array.from(this.elements.select.options).map(option => ({
       value: option.value,
       text: option.text,
     }))
 
-    // None option'ı ekle (eğer yoksa)
     const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
     const hasNoneOption = this.allOptions.some(opt => opt.value === noneValue)
 
@@ -155,52 +147,6 @@ class SearchableSelect {
     }
   }
 
-  private filterAndRenderSuggestions(searchText: string): void {
-    this.elements.suggestions.innerHTML = ''
-    const currentValue = this.elements.select.value
-    const trimmedSearch = searchText.trim()
-
-    const filteredOptions =
-      trimmedSearch === ''
-        ? this.allOptions
-        : this.allOptions.filter(option =>
-            option.text.toLowerCase().includes(trimmedSearch.toLowerCase()),
-          )
-
-    // None item'ı sadece arama yapılmadığında göster
-    if (!trimmedSearch) {
-      const noneElement = this.templates.noneItem.cloneNode(true) as HTMLElement
-      const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
-      noneElement.setAttribute('data-selected', (!currentValue).toString())
-
-      // Mevcut attribute'ları koru
-      Array.from(this.templates.noneItem.attributes).forEach(attr => {
-        if (attr.name !== 'data-selected') {
-          noneElement.setAttribute(attr.name, attr.value)
-        }
-      })
-
-      this.elements.suggestions.appendChild(noneElement)
-    }
-
-    if (filteredOptions.length === 0) {
-      this.elements.suggestions.appendChild(
-        this.templates.noResults.cloneNode(true),
-      )
-      return
-    }
-
-    const fragment = document.createDocumentFragment()
-    filteredOptions.forEach(option => {
-      const element = this.createSuggestionElement(option)
-      const isSelected = option.value === currentValue
-      element.setAttribute('data-selected', isSelected.toString())
-      fragment.appendChild(element)
-    })
-
-    this.elements.suggestions.appendChild(fragment)
-  }
-
   private createSuggestionElement(option: SearchOption): HTMLElement {
     const element = this.templates.suggestionItem.cloneNode(true) as HTMLElement
     element.setAttribute('data-value', option.value)
@@ -210,6 +156,23 @@ class SearchableSelect {
 
   private handleInput(e: Event): void {
     const searchText = (e.target as HTMLInputElement).value
+
+    if (this.isMultiple) {
+      const startPlaceholder =
+        this.elements.input.getAttribute('data-start-placeholder') || ''
+      this.elements.input.placeholder = startPlaceholder
+
+      // Clear button active durumunu güncelle
+      if (this.elements.clearButton) {
+        const shouldShowClear =
+          searchText.length > 0 || this.selectedValues.size > 0
+        this.elements.clearButton.setAttribute(
+          'data-active',
+          shouldShowClear.toString(),
+        )
+      }
+    }
+
     this.filterAndRenderSuggestions(searchText)
     this.options.onSearch?.(searchText)
   }
@@ -217,6 +180,12 @@ class SearchableSelect {
   private handleInputFocus(): void {
     this.isOpen = true
     this.options.onDropdownOpen?.()
+
+    if (this.isMultiple) {
+      // Focus olduğunda normal placeholder'ı göster
+      this.elements.input.placeholder =
+        this.elements.input.getAttribute('placeholder') || ''
+    }
 
     const currentInputValue = this.elements.input.value
     this.elements.input.value = ''
@@ -242,17 +211,6 @@ class SearchableSelect {
     }, 0)
   }
 
-  private handleSuggestionClick(e: Event): void {
-    const target = e.target as HTMLElement
-    const suggestionEl = target.closest('[data-value]') as HTMLElement
-    const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
-
-    if (suggestionEl) {
-      const value = suggestionEl.dataset.value || noneValue
-      this.selectOption(value)
-    }
-  }
-
   private selectOption(value: string): void {
     const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
 
@@ -263,23 +221,190 @@ class SearchableSelect {
       const selectedOption = this.allOptions.find(opt => opt.value === value)
       if (!selectedOption) return
 
-      this.elements.input.value = selectedOption.text
-      this.elements.select.value = value
+      if (!this.isMultiple) {
+        this.elements.input.value = selectedOption.text
+        this.elements.select.value = value
+      }
     }
 
     this.filterAndRenderSuggestions('')
     this.elements.select.dispatchEvent(new Event('change'))
     this.options.onSelect?.(this.elements.select.value)
 
-    this.closeDropdown()
-    this.elements.input.blur()
+    // Sadece tekli seçimde dropdown'ı kapat
+    if (!this.isMultiple) {
+      this.closeDropdown()
+      this.elements.input.blur()
+    }
+  }
+
+  private updateInputValueForMultiple(): void {
+    if (this.selectedValues.size === 0) {
+      this.elements.input.value = ''
+      const startPlaceholder =
+        this.elements.input.getAttribute('data-start-placeholder') || ''
+      this.elements.input.placeholder = startPlaceholder
+
+      if (this.elements.clearButton) {
+        this.elements.clearButton.setAttribute('data-active', 'false')
+      }
+
+      // Eğer 0 ise selected durumu start placeholder mesajı yayınlanmalı
+      this.options.onSelect?.(startPlaceholder)
+      return
+    }
+
+    const selectedCount = this.selectedValues.size
+    const selectedPlaceholder =
+      this.elements.input.getAttribute('data-selected-placeholder') || ''
+
+    if (this.elements.clearButton) {
+      this.elements.clearButton.setAttribute('data-active', 'true')
+    }
+
+    this.elements.input.placeholder = `${selectedCount} ${selectedPlaceholder}`
+    this.elements.input.value = ''
+  }
+
+  private filterAndRenderSuggestions(searchText: string): void {
+    this.elements.suggestions.innerHTML = ''
+    const trimmedSearch = searchText.trim()
+
+    const filteredOptions =
+      trimmedSearch === ''
+        ? this.allOptions
+        : this.allOptions.filter(option =>
+            option.text.toLowerCase().includes(trimmedSearch.toLowerCase()),
+          )
+
+    // None seçeneğini sadece tekli seçimde ve arama yokken göster
+    if (!trimmedSearch && !this.isMultiple) {
+      const noneElement = this.templates.noneItem.cloneNode(true) as HTMLElement
+      const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
+      noneElement.setAttribute(
+        'data-selected',
+        (!this.selectedValues.size).toString(),
+      )
+
+      Array.from(this.templates.noneItem.attributes).forEach(attr => {
+        if (attr.name !== 'data-selected') {
+          noneElement.setAttribute(attr.name, attr.value)
+        }
+      })
+
+      this.elements.suggestions.appendChild(noneElement)
+    }
+
+    if (filteredOptions.length === 0) {
+      this.elements.suggestions.appendChild(
+        this.templates.noResults.cloneNode(true),
+      )
+      return
+    }
+
+    const fragment = document.createDocumentFragment()
+    filteredOptions.forEach(option => {
+      const element = this.createSuggestionElement(option)
+      const isSelected = this.isMultiple
+        ? this.selectedValues.has(option.value)
+        : option.value === this.elements.select.value
+      element.setAttribute('data-selected', isSelected.toString())
+      fragment.appendChild(element)
+    })
+
+    this.elements.suggestions.appendChild(fragment)
+  }
+
+  private handleSuggestionClick(e: Event): void {
+    const target = e.target as HTMLElement
+    const suggestionEl = target.closest('[data-value]') as HTMLElement
+    const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
+
+    if (suggestionEl) {
+      const value = suggestionEl.dataset.value || noneValue
+
+      if (this.isMultiple) {
+        if (value === noneValue) return // Çoklu seçimde none seçeneğini yoksay
+
+        if (this.selectedValues.has(value)) {
+          this.selectedValues.delete(value)
+        } else {
+          this.selectedValues.add(value)
+        }
+
+        // Select elementini güncelle
+        Array.from(this.elements.select.options).forEach(option => {
+          option.selected = this.selectedValues.has(option.value)
+        })
+
+        // Seçili öğe sayısını güncelle ve placeholder'ı ayarla
+        const selectedCount = this.selectedValues.size
+        const selectedPlaceholder =
+          this.elements.input.getAttribute('data-selected-placeholder') || ''
+        this.elements.input.placeholder = selectedCount
+          ? `${selectedCount} ${selectedPlaceholder}`
+          : this.elements.input.getAttribute('data-start-placeholder') || ''
+
+        this.elements.input.value = '' // Arama kutusunu temizle
+        this.filterAndRenderSuggestions('') // Tüm seçenekleri göster
+        this.elements.select.dispatchEvent(new Event('change'))
+        this.options.onSelect?.(Array.from(this.selectedValues))
+
+        // Clear button active durumunu güncelle
+        if (this.elements.clearButton) {
+          this.elements.clearButton.setAttribute(
+            'data-active',
+            (this.selectedValues.size > 0).toString(),
+          )
+        }
+
+        // Çoklu seçimde dropdown'ı açık tut
+        setTimeout(() => {
+          this.elements.input.focus() // Input'u odakta tut
+        }, 0)
+      } else {
+        this.selectOption(value)
+      }
+    }
   }
 
   private handleClear(): void {
-    this.selectOption('')
+    if (this.isMultiple) {
+      if (this.elements.input.value) {
+        // Sadece arama metnini temizle
+        this.elements.input.value = ''
+        this.filterAndRenderSuggestions('')
+
+        // Placeholder'ı seçili öğe sayısına göre güncelle
+        const selectedCount = this.selectedValues.size
+        const selectedPlaceholder =
+          this.elements.input.getAttribute('data-selected-placeholder') || ''
+        this.elements.input.placeholder = selectedCount
+          ? `${selectedCount} ${selectedPlaceholder}`
+          : this.elements.input.getAttribute('data-start-placeholder') || ''
+      } else {
+        // Seçili öğeleri temizle
+        this.selectedValues.clear()
+        Array.from(this.elements.select.options).forEach(option => {
+          option.selected = false
+        })
+        this.updateInputValueForMultiple()
+      }
+    } else {
+      const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
+      this.selectOption(noneValue)
+    }
+
     this.elements.input.focus()
-    this.filterAndRenderSuggestions('')
     this.options.onClear?.()
+
+    // Clear button durumunu güncelle
+    if (this.elements.clearButton) {
+      this.elements.clearButton.setAttribute(
+        'data-active',
+        (this.selectedValues.size > 0).toString(),
+      )
+    }
   }
 
   private hideOriginalSelect(): void {
@@ -306,7 +431,10 @@ class SearchableSelect {
     )
 
     document.addEventListener('click', (e: MouseEvent) => {
-      if (!this.elements.container.contains(e.target as Node)) {
+      if (
+        !this.elements.container.contains(e.target as Node) &&
+        !this.isMultiple
+      ) {
         this.closeDropdown()
       }
     })
@@ -326,12 +454,24 @@ class SearchableSelect {
     return SearchableSelect.instances.get(container)
   }
 
-  public getValue(): string {
-    return this.elements.select.value
+  public getValue(): string | string[] {
+    return this.isMultiple
+      ? Array.from(this.selectedValues)
+      : this.elements.select.value
   }
 
-  public setValue(value: string): void {
-    this.selectOption(value)
+  public setValue(value: string | string[]): void {
+    if (this.isMultiple && Array.isArray(value)) {
+      this.selectedValues = new Set(value)
+      Array.from(this.elements.select.options).forEach(option => {
+        option.selected = this.selectedValues.has(option.value)
+      })
+      this.updateInputValueForMultiple()
+      this.filterAndRenderSuggestions('')
+      this.elements.select.dispatchEvent(new Event('change'))
+    } else if (!Array.isArray(value)) {
+      this.selectOption(value)
+    }
   }
 
   public clear(): void {

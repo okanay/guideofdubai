@@ -1179,7 +1179,11 @@
             <div id="car-brand-container">
               <div class="relative">
                 <!-- Hidden Observer Select Input -->
-                <select id="car-brand-select-input" class="hidden"></select>
+                <select
+                  multiple
+                  id="car-brand-select-input"
+                  class="hidden"
+                ></select>
 
                 <input
                   type="text"
@@ -1188,6 +1192,8 @@
                   aria-autocomplete="off"
                   autocomplete="new-password"
                   class="peer h-12 w-full rounded border border-gray-200 px-3 pe-9 text-sm outline-none transition-colors focus:border-primary-200 sm:text-base"
+                  data-selected-placeholder="Marka Seçildi"
+                  data-start-placeholder="Tüm Markalar"
                   placeholder="Tüm Markalar"
                 />
                 <label
@@ -1199,8 +1205,9 @@
                   Araç Markası
                 </label>
                 <button
-                  class="absolute right-4 top-[50%] flex h-full -translate-y-1/2 items-center justify-center peer-placeholder-shown:hidden peer-focus:visible"
+                  class="absolute right-4 top-[50%] z-20 flex h-full -translate-y-1/2 items-center justify-center peer-placeholder-shown:hidden peer-focus:visible data-[active=true]:!visible data-[active=true]:!block"
                   id="clear-button"
+                  data-active="false"
                   type="button"
                 >
                   <i data-lucide="x" class="size-4 text-gray-400"></i>
