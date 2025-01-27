@@ -1367,14 +1367,12 @@
       </div>
 
       <!-- Extra Filter and Results Container -->
-      <div
-        class="mx-auto flex max-w-7xl items-start gap-x-4 px-3.5 pt-2 lg:px-4"
-      >
+      <div class="mx-auto flex max-w-7xl items-start gap-x-4 px-3.5 lg:px-4">
         <!--  Filter Part/Modal -->
         <div
           data-state="closed"
           id="filter-modal"
-          class="group fixed left-0 top-0 z-[8000] h-full w-full max-w-lg flex-shrink-0 overflow-hidden transition-transform duration-300 data-[state=closed]:translate-x-[-100%] data-[state=open]:translate-x-0 lg:static lg:z-auto lg:w-[260px] lg:!translate-x-0"
+          class="group fixed left-0 top-0 z-[8000] h-full w-full max-w-lg flex-shrink-0 overflow-hidden transition-transform duration-300 data-[state=closed]:translate-x-[-100%] data-[state=open]:translate-x-0 lg:sticky lg:z-auto lg:w-[260px] lg:!translate-x-0 lg:pt-2"
         >
           <div
             id="filter-container"
@@ -1532,6 +1530,18 @@
             <div class="mb-6 px-4 sm:mb-8">
               <h3 class="mb-3 text-base font-medium text-gray-900">Vites</h3>
               <div class="space-y-3">
+                <label class="group flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="transmission"
+                    value="all"
+                    checked
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                  />
+                  <span class="text-sm text-gray-700 group-hover:text-gray-900"
+                    >Hepsi</span
+                  >
+                </label>
                 <label class="group flex cursor-pointer items-center gap-3">
                   <input
                     type="radio"
@@ -1779,7 +1789,7 @@
         </div>
 
         <!-- Ana İçerik Alanı -->
-        <div class="flex w-full flex-col space-y-4">
+        <div class="flex w-full flex-col space-y-4 lg:pt-2">
           <!-- Arama Sonuçları -->
           <section class="flex w-full flex-col space-y-8">
             <!-- Sonuçlar Konteyneri -->
