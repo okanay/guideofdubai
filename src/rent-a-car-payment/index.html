@@ -68,10 +68,10 @@
   <body class="bg-white">
     <header class="h-fit w-full">
       <!-- Desktop Navigation -->
-      <nav
-        class="relative z-[5000] hidden gap-2 overflow-hidden lg:flex lg:flex-col"
-      >
-        <div class="w-full border-b border-white bg-primary-500">
+      <nav class="relative z-[5000] hidden gap-2 lg:flex lg:flex-col">
+        <div
+          class="w-full overflow-x-hidden border-b border-white bg-primary-500"
+        >
           <div
             class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 font-medium text-white"
           >
@@ -1969,6 +1969,79 @@
               </button>
             </div>
           </form>
+        </div>
+      </div>
+
+      <div class="mb-6 w-full space-y-4">
+        <!-- Başlık -->
+        <div
+          class="flex items-center justify-between border-b border-gray-200 pb-4"
+        >
+          <h2 class="text-xl font-semibold text-gray-800">Araç Hakkında</h2>
+          <!-- Expand/Collapse Button -->
+          <button
+            type="button"
+            class="text-primary-500 hover:text-primary-600 focus:outline-none"
+            id="toggleDetails"
+          >
+            <i
+              data-lucide="chevron-down"
+              class="size-6 transform transition-transform duration-200"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Detaylı Bilgi İçeriği -->
+        <div
+          class="overflow-hidden transition-all duration-300"
+          id="detailsContent"
+        >
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <!-- Sol Kolon - Teknik Özellikler -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-medium text-gray-700">
+                Teknik Özellikler
+              </h3>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="gauge" class="size-5 text-primary-500"></i>
+                  <span>333 kW Motor Gücü</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="zap" class="size-5 text-primary-500"></i>
+                  <span>617 Nm Tork</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="disc" class="size-5 text-primary-500"></i>
+                  <span>RWD Çekiş Sistemi</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sağ Kolon - Detaylı Açıklama -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-medium text-gray-700">Detaylı Bilgi</h3>
+              <p class="leading-relaxed text-gray-600">
+                Chevrolet Camaro Matte Black, güçlü motor performansı ve
+                etkileyici tasarımıyla öne çıkan bir spor otomobildir. Mat siyah
+                dış görünümü, agresif hatları ve aerodinamik yapısıyla dikkat
+                çeker. İç mekanda premium malzemeler ve modern teknoloji bir
+                araya gelir. Spor egzoz sistemi ve RWD çekiş sistemiyle her
+                sürüşte maksimum performans sunar.
+              </p>
+            </div>
+          </div>
+
+          <!-- Alt Bilgi Alanı -->
+          <div class="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div class="flex items-center gap-2 text-primary-600">
+              <i data-lucide="info" class="size-5"></i>
+              <p class="text-sm">
+                Bu araç hakkında daha detaylı bilgi almak için müşteri
+                temsilcilerimizle iletişime geçebilirsiniz.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
