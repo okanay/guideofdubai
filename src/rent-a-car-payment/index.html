@@ -68,7 +68,9 @@
   <body class="bg-white">
     <header class="h-fit w-full">
       <!-- Desktop Navigation -->
-      <nav class="relative z-[5000] hidden gap-2 lg:flex lg:flex-col">
+      <nav
+        class="relative z-[5000] hidden gap-2 overflow-hidden lg:flex lg:flex-col"
+      >
         <div class="w-full border-b border-white bg-primary-500">
           <div
             class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 font-medium text-white"
@@ -1571,7 +1573,7 @@
                     name="driver-type"
                     value="self"
                     checked
-                    class="peer/self relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500 rtl:before:checked:translate-x-[-30%]"
                   />
                   <span class="text-pretty text-sm">Ben kullanacağım</span>
                 </label>
@@ -1581,7 +1583,7 @@
                     type="radio"
                     name="driver-type"
                     value="other"
-                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500 rtl:before:checked:translate-x-[-30%]"
                     id="other-driver"
                   />
                   <span class="text-pretty text-sm"
