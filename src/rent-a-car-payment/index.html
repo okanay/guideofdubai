@@ -1285,7 +1285,6 @@
             <h3 class="hidden text-lg font-semibold lg:mb-4 lg:block lg:px-4">
               Kiralama Ücreti
             </h3>
-
             <div class="flex flex-col gap-3">
               <!-- Checkbox için input -->
               <input
@@ -1293,7 +1292,6 @@
                 id="priceToggle"
                 class="peer/details hidden"
               />
-
               <!-- Fiyat Detayları -->
               <div
                 class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out peer-checked/details:grid-rows-[1fr] lg:grid-rows-[1fr]"
@@ -1312,10 +1310,16 @@
                       <dt class="text-sm text-gray-600">Kiralama Süresi</dt>
                       <dd class="text-base font-medium text-gray-800">3 Gün</dd>
                     </dl>
+                    <!-- Ekstra Hizmetler -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Ekstra Hizmetler</dt>
+                      <dd class="text-base font-medium text-gray-800">
+                        <span id="summary-extras-total">0</span> AED
+                      </dd>
+                    </dl>
                   </div>
                 </div>
               </div>
-
               <!-- Toplam Tutar -->
               <label
                 for="priceToggle"
@@ -1346,6 +1350,7 @@
           </div>
         </div>
 
+        <!-- Form ve Kayit/Giris -->
         <div class="flex w-full flex-col gap-4">
           <!--  Login and Register Section -->
           <div

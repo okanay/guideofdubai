@@ -165,6 +165,8 @@ class ExtrasCounter {
 
   private updateTotalPrice(): void {
     const totalPriceElement = document.getElementById('extras-total-price')
+    const summaryTotalElement = document.getElementById('summary-extras-total')
+
     if (!totalPriceElement) return
 
     const total = Array.from(
@@ -174,7 +176,13 @@ class ExtrasCounter {
       0,
     )
 
+    // Ana extras total'ı güncelle
     totalPriceElement.textContent = `${total}`
+
+    // Özet kısmındaki extras total'ı güncelle
+    if (summaryTotalElement) {
+      summaryTotalElement.textContent = `${total}`
+    }
   }
 }
 
