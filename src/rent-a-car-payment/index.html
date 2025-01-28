@@ -1287,16 +1287,13 @@
             <h3 class="hidden text-lg font-semibold lg:mb-4 lg:block lg:px-4">
               Kiralama Ücreti
             </h3>
-            <div class="flex flex-col gap-3">
+            <!-- Wrapper div'i grup olarak işaretleyelim -->
+            <div class="group flex flex-col gap-3">
               <!-- Checkbox için input -->
-              <input
-                type="checkbox"
-                id="priceToggle"
-                class="peer/details hidden"
-              />
+              <input type="checkbox" id="priceToggle" class="peer hidden" />
               <!-- Fiyat Detayları -->
               <div
-                class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out peer-checked/details:grid-rows-[1fr] lg:grid-rows-[1fr]"
+                class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out peer-checked:grid-rows-[1fr] lg:grid-rows-[1fr]"
               >
                 <div class="overflow-hidden">
                   <div class="space-y-2 pt-3 lg:px-4 lg:pt-0">
@@ -1337,18 +1334,42 @@
                   <div
                     class="flex cursor-pointer items-center gap-1 text-sm text-primary-600 lg:hidden"
                   >
-                    <span class="peer-checked/details:hidden"
-                      >Detayları göster</span
-                    >
+                    <span
+                      style="--message-open: 'Detayları Göster'"
+                      data-close="Detayları Gizle"
+                      class="before:content-[var(--message-open)]"
+                    ></span>
                     <i
                       data-lucide="chevron-up"
-                      class="size-4 transition-transform duration-200 peer-checked:rotate-180"
+                      class="detail-icon size-4 transition-transform duration-200"
                     ></i>
                   </div>
                 </div>
                 <dd class="text-xl font-bold text-primary-600">5,850.00 AED</dd>
               </label>
             </div>
+
+            <!-- Peer selector sorununu çözmek için style -->
+            <style>
+              /* Checkbox checked olduğunda içerik değişimi */
+              input[type='checkbox']#priceToggle:checked ~ label span:before {
+                content: attr(data-close);
+              }
+
+              /* Checkbox checked olduğunda ikon dönüşü */
+              input[type='checkbox']#priceToggle:checked ~ label i {
+                transform: rotate(180deg);
+              }
+
+              /* Grid rows değişimi */
+              input[type='checkbox']#priceToggle:checked ~ div {
+                grid-template-rows: 1fr;
+              }
+
+              input[type='checkbox']#priceToggle:checked ~ label .detail-icon {
+                transform: rotate(180deg);
+              }
+            </style>
           </div>
         </div>
 
