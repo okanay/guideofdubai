@@ -1404,6 +1404,7 @@
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
                   placeholder="Adınızı giriniz"
                 />
@@ -1417,6 +1418,7 @@
                 <input
                   type="text"
                   id="surname"
+                  name="surname"
                   class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
                   placeholder="Soyadınızı giriniz"
                 />
@@ -1433,6 +1435,7 @@
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
                   placeholder="E-posta adresinizi giriniz"
                 />
@@ -1469,6 +1472,7 @@
                         <!-- data-language= "TR" | "EN" -->
                         <select
                           id="country-code"
+                          name="country-code"
                           data-language="EN"
                           data-default="TR"
                           disabled
@@ -1483,6 +1487,7 @@
                       <input
                         type="tel"
                         id="phone-input"
+                        name="phone"
                         autocomplete="tel"
                         inputmode="tel"
                         style="-webkit-border-radius: 0; border-radius: 0"
@@ -1550,25 +1555,29 @@
             </div>
 
             <!-- Sürücü Bilgileri -->
-            <div class="space-y-4">
+            <div class="space-y-4" id="driver-info">
               <h3 class="text-lg font-semibold">Sürücü Bilgileri</h3>
+
+              <!-- Radio buttons -->
               <div class="space-y-3">
-                <label class="group flex cursor-pointer items-center gap-3">
+                <label class="flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="driver-type"
+                    value="self"
+                    checked
+                    class="peer/self relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                  />
+                  <span class="text-pretty text-sm">Ben kullanacağım</span>
+                </label>
+
+                <label class="flex cursor-pointer items-center gap-3">
                   <input
                     type="radio"
                     name="driver-type"
                     value="other"
-                    checked
-                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500 rtl:before:checked:translate-x-[-30%]"
-                  />
-                  <span class="text-pretty text-sm">Ben kullanacağım</span>
-                </label>
-                <label class="group flex cursor-pointer items-center gap-3">
-                  <input
-                    type="radio"
-                    name="driver-type"
-                    value="manual"
-                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500 rtl:before:checked:translate-x-[-30%]"
+                    class="peer relative grid size-5 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-white transition-colors duration-200 before:absolute before:size-2.5 before:translate-x-[30%] before:translate-y-[30%] before:scale-0 before:rounded-full before:bg-white before:transition-transform before:duration-200 before:content-[''] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                    id="other-driver"
                   />
                   <span class="text-pretty text-sm"
                     >Başka bir sürücü kullanacak</span
@@ -1576,6 +1585,150 @@
                 </label>
               </div>
             </div>
+
+            <!-- Extra Driver Form -->
+            <div id="driver-form">
+              <div class="overflow-hidden">
+                <div
+                  class="grid grid-cols-1 gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 md:grid-cols-2"
+                >
+                  <!-- Ad -->
+                  <div class="space-y-2">
+                    <label
+                      for="driver_name"
+                      class="text-sm font-medium text-gray-700"
+                      >Ad</label
+                    >
+                    <input
+                      type="text"
+                      id="driver_name"
+                      name="driver_name"
+                      class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                      placeholder="Sürücünün adını giriniz"
+                    />
+                  </div>
+
+                  <!-- Soyad -->
+                  <div class="space-y-2">
+                    <label
+                      for="driver_surname"
+                      class="text-sm font-medium text-gray-700"
+                      >Soyad</label
+                    >
+                    <input
+                      type="text"
+                      id="driver_surname"
+                      name="driver_surname"
+                      class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                      placeholder="Sürücünün soyadını giriniz"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ekstra sürücü formu - Uzakta bir yerde -->
+              <div
+                class="extra-driver grid grid-rows-[0fr] transition-[grid-template-rows] duration-300"
+              >
+                <div class="overflow-hidden">
+                  <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                      <!-- Ad -->
+                      <div class="space-y-2">
+                        <label
+                          for="driver_name"
+                          class="text-sm font-medium text-gray-700"
+                          >Ad</label
+                        >
+                        <input
+                          type="text"
+                          id="driver_name"
+                          name="driver_name"
+                          class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                          placeholder="Sürücünün adını giriniz"
+                        />
+                      </div>
+
+                      <!-- Soyad -->
+                      <div class="space-y-2">
+                        <label
+                          for="driver_surname"
+                          class="text-sm font-medium text-gray-700"
+                          >Soyad</label
+                        >
+                        <input
+                          type="text"
+                          id="driver_surname"
+                          name="driver_surname"
+                          class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                          placeholder="Sürücünün soyadını giriniz"
+                        />
+                      </div>
+
+                      <!-- Telefon -->
+                      <div class="space-y-2">
+                        <label
+                          for="driver_phone"
+                          class="text-sm font-medium text-gray-700"
+                          >Telefon</label
+                        >
+                        <input
+                          type="tel"
+                          id="driver_phone"
+                          name="driver_phone"
+                          class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                          placeholder="Telefon numarası"
+                        />
+                      </div>
+
+                      <!-- Email -->
+                      <div class="space-y-2">
+                        <label
+                          for="driver_email"
+                          class="text-sm font-medium text-gray-700"
+                          >E-posta</label
+                        >
+                        <input
+                          type="email"
+                          id="driver_email"
+                          name="driver_email"
+                          class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
+                          placeholder="E-posta adresi"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <style>
+              #driver-form {
+                display: grid;
+                grid-template-rows: 0fr;
+                transition: grid-template-rows 0.3s ease;
+                margin-top: -1rem;
+                margin-bottom: -1rem;
+              }
+
+              #driver-form > div {
+                overflow: hidden;
+              }
+
+              /* :has() kullanarak modern tarayıcılar için */
+              #driver-info:has(#other-driver:checked) + #driver-form {
+                grid-template-rows: 1fr;
+                margin-top: 0;
+                margin-bottom: 0;
+              }
+
+              /* Genel destek için fallback */
+              #other-driver:checked ~ #driver-form {
+                grid-template-rows: 1fr;
+                margin-top: 0;
+                margin-bottom: 0;
+              }
+            </style>
 
             <!-- Hizmetler -->
             <div class="space-y-4">
@@ -1586,6 +1739,7 @@
                 >
                   <input
                     type="checkbox"
+                    name="service-insurance"
                     class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-400"
                   />
                   <span class="text-sm">
@@ -1598,6 +1752,7 @@
                 >
                   <input
                     type="checkbox"
+                    name="service-airport"
                     class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-400"
                   />
                   <span class="text-sm"> Havalimanı Teslim (+50 AED) </span>
@@ -1609,26 +1764,36 @@
             <div>
               <h3 class="mb-4 text-lg font-semibold">Ekstra Hizmetler</h3>
               <div class="relative space-y-4 overflow-x-auto">
-                <div class="min-w-[540px]">
+                <div class="min-w-[640px]">
                   <table class="w-full">
                     <!-- Table Header -->
                     <thead>
-                      <tr class="border-b border-gray-100">
-                        <th class="w-1/3 pb-2 text-left">
-                          <!-- Sabit genişlik eklendi -->
-                          <span class="font-medium">Hizmet</span>
+                      <tr
+                        class="divide-x divide-gray-200 border border-gray-200 bg-gray-50"
+                      >
+                        <th class="w-1/3 px-2 py-1">
+                          <span
+                            class="flex justify-start font-medium text-gray-600"
+                            >Hizmet</span
+                          >
                         </th>
-                        <th class="w-1/4 pb-2 text-center">
-                          <!-- Sabit genişlik eklendi -->
-                          <span class="font-medium">Adet</span>
+                        <th class="w-1/4 px-4 py-1">
+                          <span
+                            class="flex justify-center font-medium text-gray-600"
+                            >Adet</span
+                          >
                         </th>
-                        <th class="w-1/6 pb-2 text-right">
-                          <!-- Sabit genişlik eklendi -->
-                          <span class="font-medium">Ücret</span>
+                        <th class="w-1/6 px-4 py-1">
+                          <span
+                            class="flex justify-end font-medium text-gray-600"
+                            >Ücret</span
+                          >
                         </th>
-                        <th class="w-1/4 pb-2 text-right">
-                          <!-- Sabit genişlik eklendi -->
-                          <span class="font-medium">Toplam</span>
+                        <th class="w-1/4 px-2 py-1">
+                          <span
+                            class="flex justify-end font-medium text-gray-600"
+                            >Toplam</span
+                          >
                         </th>
                       </tr>
                     </thead>
@@ -1649,7 +1814,7 @@
                           data-price="50"
                         />
                         <!-- Name -->
-                        <td class="py-4">
+                        <td class="px-2 py-4">
                           <label>Bebek Koltuğu</label>
                         </td>
 
@@ -1673,12 +1838,12 @@
                         </td>
 
                         <!-- Price -->
-                        <td class="py-4 text-right font-medium">
+                        <td class="px-4 py-4 text-right font-medium">
                           <span class="extra-item-price">50</span> AED
                         </td>
 
                         <!-- Total Price -->
-                        <td class="py-4 text-right font-medium">
+                        <td class="px-2 py-4 text-right font-medium">
                           <span class="extra-item-total">0</span> AED
                         </td>
                       </tr>
@@ -1695,7 +1860,7 @@
                           data-price="200"
                         />
                         <!-- Name -->
-                        <td class="py-4">
+                        <td class="px-2 py-4">
                           <label>Minibar Hizmeti</label>
                         </td>
 
@@ -1719,12 +1884,12 @@
                         </td>
 
                         <!-- Price -->
-                        <td class="py-4 text-right font-medium">
+                        <td class="px-4 py-4 text-right font-medium">
                           <span class="extra-item-price">200</span> AED
                         </td>
 
                         <!-- Total Price -->
-                        <td class="py-4 text-right font-medium">
+                        <td class="px-2 py-4 text-right font-medium">
                           <span class="extra-item-total">0</span> AED
                         </td>
                       </tr>
@@ -1735,7 +1900,7 @@
 
               <!-- Table Footer -->
               <div
-                class="flex w-full flex-col items-start border-t border-gray-100 py-4 font-medium sm:flex-row sm:items-center sm:justify-between"
+                class="flex w-full flex-col items-start border-t border-gray-100 py-4 font-medium sm:flex-row sm:items-center sm:justify-between lg:px-2"
               >
                 <span> Toplam Ekstra Ücret </span>
                 <span class="text-right font-bold text-primary-600">
@@ -1758,6 +1923,7 @@
               <div class="space-y-2">
                 <textarea
                   id="special-requests"
+                  name="special-requests"
                   rows="4"
                   class="w-full rounded border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 focus:ring-1 focus:ring-primary-200"
                   placeholder="Özel isteklerinizi yazın..."
