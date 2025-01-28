@@ -1098,7 +1098,6 @@
         <span>Chevrolet Camaro Matte Black</span>
       </nav>
 
-      <!--  Progress -->
       <!-- Progress -->
       <div class="relative mt-8 flex items-center justify-between pt-6 lg:pt-0">
         <!-- Step 1 -->
@@ -1280,34 +1279,69 @@
           </div>
 
           <!-- Fiyat Özeti Kartı -->
-          <div class="rounded-2xl bg-white">
-            <h3 class="mb-4 text-lg font-semibold lg:px-4">Kiralama Ücreti</h3>
+          <div
+            class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] lg:relative lg:bottom-auto lg:left-auto lg:right-auto lg:rounded-2xl lg:border-0 lg:px-0 lg:py-0 lg:shadow-none"
+          >
+            <h3 class="hidden text-lg font-semibold lg:mb-4 lg:block lg:px-4">
+              Kiralama Ücreti
+            </h3>
 
             <div class="flex flex-col gap-3">
-              <!-- Fiyat Detayları -->
-              <div class="space-y-2 lg:px-4">
-                <!-- Günlük Fiyat -->
-                <dl class="flex items-center justify-between">
-                  <dt class="text-sm text-gray-600">Günlük</dt>
-                  <dd class="text-base font-medium text-gray-800">1850 AED</dd>
-                </dl>
+              <!-- Checkbox için input -->
+              <input
+                type="checkbox"
+                id="priceToggle"
+                class="peer/details hidden"
+              />
 
-                <!-- Kiralama Süresi -->
-                <dl class="flex items-center justify-between">
-                  <dt class="text-sm text-gray-600">Kiralama Süresi</dt>
-                  <dd class="text-base font-medium text-gray-800">3 Gün</dd>
-                </dl>
+              <!-- Fiyat Detayları -->
+              <div
+                class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out peer-checked/details:grid-rows-[1fr] lg:grid-rows-[1fr]"
+              >
+                <div class="overflow-hidden">
+                  <div class="space-y-2 pt-3 lg:px-4 lg:pt-0">
+                    <!-- Günlük Fiyat -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Günlük</dt>
+                      <dd class="text-base font-medium text-gray-800">
+                        1850 AED
+                      </dd>
+                    </dl>
+                    <!-- Kiralama Süresi -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Kiralama Süresi</dt>
+                      <dd class="text-base font-medium text-gray-800">3 Gün</dd>
+                    </dl>
+                  </div>
+                </div>
               </div>
 
               <!-- Toplam Tutar -->
-              <dl
-                class="flex items-center justify-between rounded-b border-t border-gray-200 pb-3 pt-3 lg:bg-gray-50 lg:px-4"
+              <label
+                for="priceToggle"
+                class="flex items-center justify-between lg:rounded-b lg:border-t lg:border-gray-200 lg:bg-gray-50 lg:px-4 lg:py-3"
               >
-                <dt class="text-base font-medium text-gray-800">
-                  Toplam Tutar
-                </dt>
+                <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2">
+                  <dt
+                    class="text-sm text-gray-600 lg:text-base lg:font-medium lg:text-gray-800"
+                  >
+                    Toplam Tutar
+                  </dt>
+                  <!-- Toggle Butonu (Label) -->
+                  <div
+                    class="flex cursor-pointer items-center gap-1 text-sm text-primary-600 lg:hidden"
+                  >
+                    <span class="peer-checked/details:hidden"
+                      >Detayları göster</span
+                    >
+                    <i
+                      data-lucide="chevron-up"
+                      class="size-4 transition-transform duration-200 peer-checked:rotate-180"
+                    ></i>
+                  </div>
+                </div>
                 <dd class="text-xl font-bold text-primary-600">5,850.00 AED</dd>
-              </dl>
+              </label>
             </div>
           </div>
         </div>
