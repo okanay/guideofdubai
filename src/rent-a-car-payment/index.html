@@ -1573,140 +1573,146 @@
             </div>
 
             <!-- Ekstra Hizmetler -->
-            <div class="relative space-y-4 overflow-x-auto">
-              <h3 class="text-lg font-semibold">Ekstra Hizmetler</h3>
+            <div>
+              <h3 class="mb-4 text-lg font-semibold">Ekstra Hizmetler</h3>
+              <div class="relative space-y-4 overflow-x-auto">
+                <div class="min-w-[540px]">
+                  <table class="w-full">
+                    <!-- Table Header -->
+                    <thead>
+                      <tr class="border-b border-gray-100">
+                        <th class="w-1/3 pb-2 text-left">
+                          <!-- Sabit genişlik eklendi -->
+                          <span class="text-sm font-semibold">Hizmet</span>
+                        </th>
+                        <th class="w-1/4 pb-2 text-center">
+                          <!-- Sabit genişlik eklendi -->
+                          <span class="text-sm font-semibold">Adet</span>
+                        </th>
+                        <th class="w-1/6 pb-2 text-right">
+                          <!-- Sabit genişlik eklendi -->
+                          <span class="text-sm font-semibold">Ücret</span>
+                        </th>
+                        <th class="w-1/4 pb-2 text-right">
+                          <!-- Sabit genişlik eklendi -->
+                          <span class="text-sm font-semibold">Toplam</span>
+                        </th>
+                      </tr>
+                    </thead>
 
-              <div class="min-w-[540px]">
-                <table class="w-full">
-                  <!-- Table Header -->
-                  <thead>
-                    <tr class="border-b border-gray-100">
-                      <th class="w-1/3 pb-2 text-left">
-                        <!-- Sabit genişlik eklendi -->
-                        <span class="text-sm font-semibold">Hizmet</span>
-                      </th>
-                      <th class="w-1/4 pb-2 text-center">
-                        <!-- Sabit genişlik eklendi -->
-                        <span class="text-sm font-semibold">Adet</span>
-                      </th>
-                      <th class="w-1/6 pb-2 text-right">
-                        <!-- Sabit genişlik eklendi -->
-                        <span class="text-sm font-semibold">Ücret</span>
-                      </th>
-                      <th class="w-1/4 pb-2 text-right">
-                        <!-- Sabit genişlik eklendi -->
-                        <span class="text-sm font-semibold">Toplam</span>
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody class="divide-y divide-gray-50" id="extras-container">
-                    <tr id="extra-item-container" class="py-2">
-                      <!-- Hidden Inputs -->
-                      <input
-                        type="hidden"
-                        class="extra-quantity-input"
-                        name="extra-baby-quantity"
-                        value="1"
-                        data-min="1"
-                        data-max="4"
-                        data-price="50"
-                      />
-                      <!-- Name -->
-                      <td class="py-4">
-                        <label class="text-sm font-medium">Bebek Koltuğu</label>
-                      </td>
-
-                      <!-- Counter Input -->
-                      <td class="py-4">
-                        <div class="flex items-center justify-center gap-2">
-                          <button
-                            type="button"
-                            class="extra-minus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                    <tbody
+                      class="divide-y divide-gray-50"
+                      id="extras-container"
+                    >
+                      <tr id="extra-item-container" class="py-2">
+                        <!-- Hidden Inputs -->
+                        <input
+                          type="hidden"
+                          class="extra-quantity-input"
+                          name="extra-baby-quantity"
+                          value="1"
+                          data-min="1"
+                          data-max="4"
+                          data-price="50"
+                        />
+                        <!-- Name -->
+                        <td class="py-4">
+                          <label class="text-sm font-medium"
+                            >Bebek Koltuğu</label
                           >
-                            <i data-lucide="minus" class="size-4"></i>
-                          </button>
-                          <span class="extra-count w-8 text-center">0</span>
-                          <button
-                            type="button"
-                            class="extra-plus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                        </td>
+
+                        <!-- Counter Input -->
+                        <td class="py-4">
+                          <div class="flex items-center justify-center gap-2">
+                            <button
+                              type="button"
+                              class="extra-minus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                            >
+                              <i data-lucide="minus" class="size-4"></i>
+                            </button>
+                            <span class="extra-count w-8 text-center">0</span>
+                            <button
+                              type="button"
+                              class="extra-plus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                            >
+                              <i data-lucide="plus" class="size-4"></i>
+                            </button>
+                          </div>
+                        </td>
+
+                        <!-- Price -->
+                        <td class="py-4 text-right text-sm font-medium">
+                          <span class="extra-item-price">50</span> AED
+                        </td>
+
+                        <!-- Total Price -->
+                        <td class="py-4 text-right text-sm font-medium">
+                          <span class="extra-item-total">0</span> AED
+                        </td>
+                      </tr>
+
+                      <tr id="extra-item-container" class="py-2">
+                        <!-- Hidden Inputs -->
+                        <input
+                          type="hidden"
+                          class="extra-quantity-input"
+                          name="extra-minibar-quantity"
+                          value="0"
+                          data-min="0"
+                          data-max="1"
+                          data-price="200"
+                        />
+                        <!-- Name -->
+                        <td class="py-4">
+                          <label class="text-sm font-medium"
+                            >Minibar Hizmeti</label
                           >
-                            <i data-lucide="plus" class="size-4"></i>
-                          </button>
-                        </div>
-                      </td>
+                        </td>
 
-                      <!-- Price -->
-                      <td class="py-4 text-right text-sm font-medium">
-                        <span class="extra-item-price">50</span> AED
-                      </td>
+                        <!-- Counter Input -->
+                        <td class="py-4">
+                          <div class="flex items-center justify-center gap-2">
+                            <button
+                              type="button"
+                              class="extra-minus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                            >
+                              <i data-lucide="minus" class="size-4"></i>
+                            </button>
+                            <span class="extra-count w-8 text-center">0</span>
+                            <button
+                              type="button"
+                              class="extra-plus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
+                            >
+                              <i data-lucide="plus" class="size-4"></i>
+                            </button>
+                          </div>
+                        </td>
 
-                      <!-- Total Price -->
-                      <td class="py-4 text-right text-sm font-medium">
-                        <span class="extra-item-total">0</span> AED
-                      </td>
-                    </tr>
+                        <!-- Price -->
+                        <td class="py-4 text-right text-sm font-medium">
+                          <span class="extra-item-price">200</span> AED
+                        </td>
 
-                    <tr id="extra-item-container" class="py-2">
-                      <!-- Hidden Inputs -->
-                      <input
-                        type="hidden"
-                        class="extra-quantity-input"
-                        name="extra-minibar-quantity"
-                        value="0"
-                        data-min="0"
-                        data-max="1"
-                        data-price="200"
-                      />
-                      <!-- Name -->
-                      <td class="py-4">
-                        <label class="text-sm font-medium"
-                          >Minibar Hizmeti</label
-                        >
-                      </td>
-
-                      <!-- Counter Input -->
-                      <td class="py-4">
-                        <div class="flex items-center justify-center gap-2">
-                          <button
-                            type="button"
-                            class="extra-minus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
-                          >
-                            <i data-lucide="minus" class="size-4"></i>
-                          </button>
-                          <span class="extra-count w-8 text-center">0</span>
-                          <button
-                            type="button"
-                            class="extra-plus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
-                          >
-                            <i data-lucide="plus" class="size-4"></i>
-                          </button>
-                        </div>
-                      </td>
-
-                      <!-- Price -->
-                      <td class="py-4 text-right text-sm font-medium">
-                        <span class="extra-item-price">200</span> AED
-                      </td>
-
-                      <!-- Total Price -->
-                      <td class="py-4 text-right text-sm font-medium">
-                        <span class="extra-item-total">0</span> AED
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <!-- Table Footer -->
-                <div
-                  class="flex w-full flex-col items-start border-t border-gray-100 py-4 text-sm font-medium sm:flex-row sm:items-center sm:justify-between"
-                >
-                  <span> Toplam Ekstra Ücret </span>
-                  <span class="text-right font-bold text-primary-500">
-                    <span id="extras-total-price">0</span>
-                    AED
-                  </span>
+                        <!-- Total Price -->
+                        <td class="py-4 text-right text-sm font-medium">
+                          <span class="extra-item-total">0</span> AED
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
+
+              <!-- Table Footer -->
+              <div
+                class="flex w-full flex-col items-start border-t border-gray-100 py-4 text-sm font-medium sm:flex-row sm:items-center sm:justify-between"
+              >
+                <span> Toplam Ekstra Ücret </span>
+                <span class="text-right font-bold text-primary-500">
+                  <span id="extras-total-price">0</span>
+                  AED
+                </span>
               </div>
             </div>
 
