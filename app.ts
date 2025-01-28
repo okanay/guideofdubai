@@ -120,6 +120,11 @@ app.get('/rent-a-car', c => {
   return c.html(html.text())
 })
 
+app.get('/rent-a-car-payment', c => {
+  const html = Bun.file('./dist/rent-a-car-payment/index.html')
+  return c.html(html.text())
+})
+
 app.get('/payment', c => {
   const html = Bun.file('./dist/payment/index.html')
   return c.html(html.text())

@@ -5,6 +5,7 @@ import { DynamicSlider } from './packages/dynamic-slider.js'
 import { ModalController } from './packages/modal.js'
 import { RangeSlider } from './packages/range-slider.js'
 import SearchableSelect from './packages/searchable-select.js'
+import { TouchDirectionDetector } from './packages/touch-event.js'
 
 declare global {
   interface Window {
@@ -72,6 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const datePicker = new DatePicker(datepickerConfig)
+
+  new TouchDirectionDetector('date-picker', {
+    threshold: 50,
+    onSwipe: direction => {
+      if (direction === 'left') {
+        return datePicker.safeChangeMonth('next')
+      }
+      if (direction === 'right') {
+        return datePicker.safeChangeMonth('prev')
+      }
+    },
+  })
 })
 
 document.addEventListener('DOMContentLoaded', () => {
