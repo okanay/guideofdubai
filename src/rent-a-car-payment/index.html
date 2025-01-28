@@ -1970,30 +1970,20 @@
         </div>
       </div>
 
+      <!-- Araç Hakkimda / Detaylı Bilgi İçeriği -->
       <div class="mb-6 w-full space-y-4">
         <!-- Başlık -->
         <div
           class="flex items-center justify-between border-b border-gray-200 pb-4"
         >
           <h2 class="text-xl font-semibold text-gray-800">Araç Hakkında</h2>
-          <!-- Expand/Collapse Button -->
-          <button
-            type="button"
-            class="text-primary-500 hover:text-primary-600 focus:outline-none"
-            id="toggleDetails"
-          >
-            <i
-              data-lucide="chevron-down"
-              class="size-6 transform transition-transform duration-200"
-            ></i>
-          </button>
+          <i
+            data-lucide="book-open"
+            class="size-6 transform text-primary-500 transition-transform duration-200 hover:text-primary-600 focus:outline-none"
+          ></i>
         </div>
 
-        <!-- Detaylı Bilgi İçeriği -->
-        <div
-          class="overflow-hidden transition-all duration-300"
-          id="detailsContent"
-        >
+        <div class="overflow-hidden transition-all duration-300">
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Sol Kolon - Teknik Özellikler -->
             <div class="space-y-4">
@@ -2032,7 +2022,7 @@
 
           <!-- Alt Bilgi Alanı -->
           <div class="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <div class="flex items-center gap-2 text-primary-600">
+            <div class="flex items-center gap-2 text-primary-500">
               <i data-lucide="info" class="size-5"></i>
               <p class="text-sm">
                 Bu araç hakkında daha detaylı bilgi almak için müşteri
