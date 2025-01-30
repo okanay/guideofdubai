@@ -34,13 +34,25 @@ class ExtrasCounter {
         container.querySelector<HTMLSpanElement>('.extra-count')
       const totalDisplay =
         container.querySelector<HTMLSpanElement>('.extra-item-total')
+      const priceDisplay =
+        container.querySelector<HTMLSpanElement>('.extra-item-price')
 
-      if (!input || !minusBtn || !plusBtn || !countDisplay || !totalDisplay)
+      if (
+        !input ||
+        !minusBtn ||
+        !plusBtn ||
+        !countDisplay ||
+        !totalDisplay ||
+        !priceDisplay
+      )
         return
 
       const min = parseInt(input.dataset.min) || 0
       const max = parseInt(input.dataset.max) || 99
       const price = parseFloat(input.dataset.price) || 0
+
+      // Update price display based on data-price
+      priceDisplay.innerHTML = price.toString()
 
       minusBtn.addEventListener('click', () => {
         this.updateCount(
@@ -88,14 +100,26 @@ class ExtrasCounter {
       const minusBtn =
         container.querySelector<HTMLButtonElement>('.extra-minus')
       const plusBtn = container.querySelector<HTMLButtonElement>('.extra-plus')
+      const priceDisplay =
+        container.querySelector<HTMLSpanElement>('.extra-item-price')
 
-      if (!input || !countDisplay || !totalDisplay || !minusBtn || !plusBtn)
+      if (
+        !input ||
+        !countDisplay ||
+        !totalDisplay ||
+        !minusBtn ||
+        !plusBtn ||
+        !priceDisplay
+      )
         return
 
       const initialValue = parseInt(input.value) || 0
       const price = parseFloat(input.dataset.price) || 0
       const min = parseInt(input.dataset.min) || 0
       const max = parseInt(input.dataset.max) || 99
+
+      // Update price display based on data-price
+      priceDisplay.innerHTML = price.toString()
 
       if (initialValue > 0) {
         // Count değerini güncelle

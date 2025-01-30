@@ -1851,11 +1851,11 @@
                           value="1"
                           data-min="1"
                           data-max="4"
-                          data-price="50"
+                          data-price="65"
                         />
                         <!-- Name -->
                         <td class="px-2 py-4">
-                          <label>Bebek Koltuğu</label>
+                          <p>Bebek Koltuğu</p>
                         </td>
 
                         <!-- Counter Input -->
@@ -1878,58 +1878,12 @@
                         </td>
 
                         <!-- Price -->
-                        <td class="px-4 py-4 text-right font-medium">
-                          <span class="extra-item-price">50</span> AED
+                        <td class="px-4 py-4 text-right">
+                          <span class="extra-item-price">0</span> AED
                         </td>
 
                         <!-- Total Price -->
-                        <td class="px-2 py-4 text-right font-medium">
-                          <span class="extra-item-total">0</span> AED
-                        </td>
-                      </tr>
-
-                      <tr id="extra-item-container" class="py-2">
-                        <!-- Hidden Inputs -->
-                        <input
-                          type="hidden"
-                          class="extra-quantity-input"
-                          name="extra-minibar-quantity"
-                          value="0"
-                          data-min="0"
-                          data-max="1"
-                          data-price="200"
-                        />
-                        <!-- Name -->
-                        <td class="px-2 py-4">
-                          <label>Minibar Hizmeti</label>
-                        </td>
-
-                        <!-- Counter Input -->
-                        <td class="py-4">
-                          <div class="flex items-center justify-center gap-2">
-                            <button
-                              type="button"
-                              class="extra-minus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
-                            >
-                              <i data-lucide="minus" class="size-4"></i>
-                            </button>
-                            <span class="extra-count w-8 text-center">0</span>
-                            <button
-                              type="button"
-                              class="extra-plus flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-primary-500 transition-transform duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:text-gray-500 disabled:hover:scale-100"
-                            >
-                              <i data-lucide="plus" class="size-4"></i>
-                            </button>
-                          </div>
-                        </td>
-
-                        <!-- Price -->
-                        <td class="px-4 py-4 text-right font-medium">
-                          <span class="extra-item-price">200</span> AED
-                        </td>
-
-                        <!-- Total Price -->
-                        <td class="px-2 py-4 text-right font-medium">
+                        <td class="px-2 py-4 text-right">
                           <span class="extra-item-total">0</span> AED
                         </td>
                       </tr>
@@ -1940,10 +1894,10 @@
 
               <!-- Table Footer -->
               <div
-                class="flex w-full flex-col items-start border-t border-gray-100 py-4 font-medium sm:flex-row sm:items-center sm:justify-between lg:px-2"
+                class="flex w-full flex-col items-start border-t border-gray-100 py-4 font-semibold text-gray-800 sm:flex-row sm:items-center sm:justify-between lg:px-2"
               >
                 <span> Toplam Ekstra Ücret </span>
-                <span class="text-right font-bold text-primary-600">
+                <span class="text-right text-primary-600">
                   <span id="extras-total-price">0</span>
                   AED
                 </span>
