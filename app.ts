@@ -85,6 +85,11 @@ app.get('/about', c => {
   return c.html(html.text())
 })
 
+app.get('/about', c => {
+  const html = Bun.file('./dist/about-mobile/index.html')
+  return c.html(html.text())
+})
+
 app.get('/contact', c => {
   const html = Bun.file('./dist/contact/index.html')
   return c.html(html.text())
@@ -92,6 +97,11 @@ app.get('/contact', c => {
 
 app.get('/faq', c => {
   const html = Bun.file('./dist/faq/index.html')
+  return c.html(html.text())
+})
+
+app.get('/faq', c => {
+  const html = Bun.file('./dist/faq-mobile/index.html')
   return c.html(html.text())
 })
 
