@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/layout.js"></script>
-    <script type="module" src="/assets/scripts/about.js"></script>
+    <script type="module" src="/assets/scripts/about-mobile.js"></script>
 
     <script>
       ;(function () {
@@ -86,21 +86,21 @@
   <body class="bg-white">
     <main>
       <section>
-        <div class="relative z-10 h-64 w-full bg-gray-100">
+        <div
+          class="relative z-10 h-64 w-full bg-gray-100 after:absolute after:inset-0 after:z-20 after:bg-gradient-to-br after:from-gray-600/50 after:to-transparent"
+        >
           <div
             class="absolute left-[50%] top-0 z-[61] flex h-full w-full max-w-5xl -translate-x-1/2 flex-col items-start justify-center px-3.5 lg:px-4"
           >
-            <h1
-              class="max-w-[360px] py-6 text-3xl font-bold text-gray-50 sm:text-4xl"
-            >
+            <h1 class="max-w-[360px] py-6 text-4xl font-bold text-gray-50">
               Türkiye’nin Dubai’ye Açılan Kapısı
             </h1>
           </div>
 
           <img
-            src="https://images.project-test.info/7.webp"
+            src="https://images.project-test.info/22.webp"
             alt="Dubai'de Balayı Tatili"
-            class="h-full w-full object-cover rtl:scale-x-[-1]"
+            class="h-full w-full object-cover"
           />
         </div>
       </section>
@@ -113,7 +113,7 @@
           class="mx-auto flex h-12 w-full max-w-5xl items-center justify-between bg-white pt-1.5"
         >
           <nav
-            class="flex h-12 w-full items-center justify-between border-b bg-white px-1 pt-1.5"
+            class="flex h-12 w-full items-center justify-between border-b bg-white pt-1.5"
           >
             <div
               class="flex h-full w-3/4 items-start justify-start gap-8 px-3.5 lg:gap-16 lg:px-0"
