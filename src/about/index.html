@@ -165,7 +165,7 @@
                 </button>
                 <!-- Search Tooltip -->
                 <div
-                  class="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[125%] transform opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  class="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100"
                 >
                   <div
                     class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
@@ -191,7 +191,7 @@
                 </button>
                 <!-- Language Tooltip -->
                 <div
-                  class="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  class="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100"
                 >
                   <div
                     class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
@@ -444,7 +444,7 @@
         <!-- Logo -->
         <a href="/" class="" aria-label="MBD Travel Home">
           <img
-            src="/assets/images/brand-images/logo.svg?v=c"
+            src="/assets/images/brand-images/logo.svg"
             alt="MBD Travel"
             class="h-auto w-[96px] object-scale-down brightness-0 invert"
           />
@@ -1112,14 +1112,16 @@
         <a href="#" class="hover:underline"> MBD Travel Hakkımızda </a>
       </nav>
       <section>
-        <div class="relative z-10 h-64 w-full bg-gray-100">
+        <div
+          class="relative z-10 h-72 w-full bg-gray-100 after:absolute after:inset-0 after:bg-gradient-to-r after:from-primary-900/50 after:to-transparent"
+        >
           <div
             class="absolute left-[50%] top-0 z-[61] flex h-full w-full max-w-5xl -translate-x-1/2 flex-col items-start justify-center px-3.5 lg:px-4"
           >
             <h1
-              class="max-w-[360px] py-6 text-3xl font-bold text-gray-800 sm:text-4xl"
+              class="max-w-[440px] text-balance py-6 text-3xl font-bold text-white md:text-5xl"
             >
-              Türkiye’nin Dubai’ye Açılan Kapısı
+              The Most Enjoyable State of Vacation is with Us
             </h1>
           </div>
 
@@ -1129,9 +1131,6 @@
             class="h-full w-full object-cover rtl:scale-x-[-1]"
             style="transition: filter 0.3s ease"
           />
-          <div
-            class="absolute inset-0 z-[60] bg-gradient-to-r from-gray-50/75 to-transparent rtl:from-transparent rtl:to-gray-50/75"
-          ></div>
         </div>
       </section>
 
@@ -1140,13 +1139,13 @@
         <!-- Navigation Tabs -->
         <div
           id="about-nav"
-          class="mx-auto flex h-12 w-full max-w-5xl items-center justify-between bg-white px-3.5 pt-1.5 lg:px-4"
+          class="mx-auto flex h-12 w-full items-center justify-between bg-white pt-1.5"
         >
           <nav
             class="flex h-12 w-full items-center justify-between border-b bg-white pt-1.5"
           >
             <div
-              class="flex h-full w-3/4 items-start justify-start gap-8 px-3.5 lg:gap-16 lg:px-0"
+              class="mx-auto flex h-full w-full max-w-5xl items-start justify-start gap-8 px-3.5 lg:gap-16 lg:px-4"
             >
               <button
                 id="about-btn"
@@ -1177,19 +1176,20 @@
           <section
             id="about"
             data-state="closed"
-            class="mb-12 mt-9 hidden data-[state=open]:block group-data-[query=about]/query:!block lg:mt-10"
+            class="mb-12 mt-9 hidden data-[state=open]:block group-data-[query=about]/query:!block lg:mt-[52px]"
           >
             <div class="mx-auto max-w-5xl px-3.5 py-8 lg:px-4">
-              <div class="mx-auto max-w-3xl">
+              <div class="mx-auto max-w-[880px]">
                 <div class="relative mx-auto h-auto max-w-6xl lg:min-h-[400px]">
                   <!-- Image Card (Background) -->
                   <div
-                    class="absolute -top-[10%] right-[-0%] h-full w-4/5 overflow-hidden rounded-2xl lg:w-3/5 rtl:left-[-0%] rtl:right-auto"
+                    class="absolute -top-[10%] right-[0%] h-full w-4/5 overflow-hidden rounded-2xl md:right-[-5%] lg:w-3/5 rtl:left-[0%] rtl:right-auto rtl:md:left-[-5%]"
                   >
                     <img
-                      src="https://images.project-test.info/22.webp"
+                      src="https://images.project-test.info/60.webp"
                       alt="Dubai Tourism"
                       class="h-full w-full object-cover"
+                      style="object-position: 0px 50%"
                     />
                   </div>
 
