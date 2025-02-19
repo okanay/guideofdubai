@@ -213,11 +213,10 @@
                     >
                   </li>
                   <li class="group relative" id="desktop-nav-1">
-                    <!-- Ana link -->
+                    <!-- Ana menü öğesi -->
                     <a
                       href="/sehir-turlari"
-                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
-                      aria-label="Şehir Turları"
+                      class="flex items-center gap-0.5 transition-colors duration-300 group-hover:text-primary-500"
                     >
                       <span>Şehir Turları</span>
                       <i
@@ -231,74 +230,22 @@
                       class="invisible absolute left-0 h-4 w-full group-hover:visible"
                     ></div>
 
-                    <!-- Dropdown menü -->
+                    <!-- Level 1 Dropdown -->
                     <ul
-                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-0.5 rounded border border-gray-200 bg-white text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
                     >
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
+                      <a
+                        href="/sehir-turlari/dubai"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
                       >
-                        <a href="/sehir-turlari/dubai" class="text-nowrap"
-                          >Dubai Şehir Turu</a
-                        >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
+                        Dubai Şehir Turu
+                      </a>
+                      <a
+                        href="/sehir-turlari/abu-dhabi"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
                       >
-                        <a href="/sehir-turlari/abu-dhabi" class="text-nowrap"
-                          >Abu Dhabi Şehir Turu</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="group relative" id="desktop-nav-2">
-                    <!-- Ana link -->
-                    <a
-                      href="/activities"
-                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
-                      aria-label="Dubai Aktiviteleri"
-                    >
-                      <span>Aktiviteler</span>
-                      <i
-                        data-lucide="chevron-down"
-                        class="size-[16px] object-cover transition-transform duration-300 group-hover:rotate-180"
-                      ></i>
-                    </a>
-
-                    <!-- Görünmez köprü -->
-                    <div
-                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
-                    ></div>
-
-                    <!-- Dropdown menü -->
-                    <ul
-                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
-                    >
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a href="/aktiviteler/burj-khalifa" class="text-nowrap"
-                          >Burj Khalifa</a
-                        >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a
-                          href="/aktiviteler/museum-of-future"
-                          class="text-nowrap"
-                          >Museum of the Future</a
-                        >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a
-                          href="/aktiviteler/miracle-garden"
-                          class="text-nowrap"
-                          >Miracle Garden</a
-                        >
-                      </li>
+                        Abu Dhabi Şehir Turu
+                      </a>
                     </ul>
                   </li>
                   <li>
@@ -310,11 +257,10 @@
                     >
                   </li>
                   <li class="group relative" id="desktop-nav-3">
-                    <!-- Ana link -->
+                    <!-- Ana menü öğesi -->
                     <a
                       href="/corporate"
-                      class="flex items-center gap-0.5 transition-colors duration-300 hover:text-primary-500"
-                      aria-label="Corporate"
+                      class="flex items-center gap-0.5 transition-colors duration-300 group-hover:text-primary-500"
                     >
                       <span>Corporate</span>
                       <i
@@ -328,35 +274,238 @@
                       class="invisible absolute left-0 h-4 w-full group-hover:visible"
                     ></div>
 
-                    <!-- Dropdown menü -->
+                    <!-- Level 1 Dropdown -->
                     <ul
-                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-2 rounded border border-gray-200 bg-white px-3 py-3 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-0.5 rounded border border-gray-200 bg-white text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
                     >
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
+                      <a
+                        href="/corporate/about-us"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
                       >
-                        <a href="/corporate/about-us" class="text-nowrap"
-                          >About Us</a
+                        About Us
+                      </a>
+                      <a
+                        href="/corporate/contact"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                      >
+                        Contact
+                      </a>
+                      <a
+                        href="/corporate/career"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                      >
+                        Career
+                      </a>
+                      <a
+                        href="/corporate/faq"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                      >
+                        F.A.Q
+                      </a>
+                    </ul>
+                  </li>
+                  <!-- YENI -->
+                  <li class="group relative" id="desktop-nav-1">
+                    <!-- Ana menü öğesi -->
+                    <a
+                      href="/aktiviteler"
+                      class="flex items-center gap-0.5 transition-colors duration-300 group-hover:text-primary-500"
+                    >
+                      <span>Aktiviteler</span>
+                      <i
+                        data-lucide="chevron-down"
+                        class="size-[16px] object-cover transition-transform duration-300 group-hover:rotate-180"
+                      ></i>
+                    </a>
+
+                    <!-- Görünmez köprü -->
+                    <div
+                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
+                    ></div>
+
+                    <!-- Level 1 Dropdown -->
+                    <ul
+                      class="invisible absolute bottom-0 left-[50%] flex h-fit w-fit -translate-x-1/2 translate-y-[110%] flex-col gap-0.5 rounded border border-gray-200 bg-white text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                    >
+                      <!-- Diğer Level 1 Items -->
+                      <a
+                        href="/aktiviteler/su"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                      >
+                        Su Aktiviteleri</a
+                      >
+
+                      <a
+                        href="/aktiviteler/col-safari"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        >Çöl Safari Turları</a
+                      >
+
+                      <!-- Level 1 Item with Level 2 -->
+                      <li
+                        class="group/submenu relative cursor-default rounded-sm p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                      >
+                        <!-- Title -->
+                        <div
+                          class="flex items-center justify-between gap-2 text-nowrap"
                         >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a href="/corporate/contact" class="text-nowrap"
-                          >Contact</a
+                          <span
+                            class="transition-colors duration-300 group-hover/submenu:text-primary-500"
+                            >Lüks Dubai Aktiviteleri</span
+                          >
+                          <i
+                            data-lucide="chevron-right"
+                            class="size-[14px] object-cover transition-colors duration-300 group-hover/submenu:stroke-primary-500"
+                          ></i>
+                        </div>
+
+                        <!-- Level 2 Dropdown -->
+                        <ul
+                          style="max-height: 320px; width: 200px"
+                          class="sidebar invisible absolute -top-2 left-[101%] ml-0.5 flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white transition-all duration-300 group-hover/submenu:visible"
                         >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a href="/corporate/career" class="text-nowrap"
-                          >Career</a
-                        >
-                      </li>
-                      <li
-                        class="transition-opacity duration-300 hover:opacity-75"
-                      >
-                        <a href="/corporate/faq" class="text-nowrap">F.A.Q</a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Dubai Helikopter Turu
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Helikopter Turu - 12 Dakika - 5 veya 6 Kişi Özel
+                              Kapatılma
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Dubai'de Lüks Yat Turu - 2 Saat - 10 Kişi
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Premium Desert Safari - 6 Saat - Özel Araç
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              VIP Transfer - Mercedes V Class
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Burj Khalifa 124. Kat Premium Giriş
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Atlantis Aquaventure Su Parkı VIP Giriş
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Dubai Frame Skip-the-Line Bilet
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              Dubai Mall Akvaryum & Sualtı Hayvanat Bahçesi
+                            </span>
+                          </a>
+                          <a
+                            href="/"
+                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          >
+                            <i
+                              data-lucide="circle"
+                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                            ></i>
+                            <span
+                              class="flex items-center justify-between gap-2"
+                            >
+                              IMG Worlds of Adventure Bilet
+                            </span>
+                          </a>
+                        </ul>
                       </li>
                     </ul>
                   </li>

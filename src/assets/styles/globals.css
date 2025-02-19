@@ -55,6 +55,23 @@
     }
   }
 
+  /* Doğru selector yapısı */
+  .sidebar::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: rgb(var(--gray-200));
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgb(var(--gray-400));
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--gray-500));
+  }
+
   .input-group {
     @apply flex items-center justify-between;
     .btn-increment,
