@@ -3063,25 +3063,23 @@
       >
         <input
           id="faq-control-input"
-          class="peer/more hidden"
+          class="peer hidden"
           type="checkbox"
           checked
+          aria-expanded="true"
+          aria-controls="faq-content"
         />
         <label
           for="faq-control-input"
-          class="mx-auto hidden h-11 w-fit cursor-pointer items-center rounded border border-primary-500 bg-white px-4 text-center font-semibold text-primary-500 transition-colors duration-300 hover:border-gray-200 hover:bg-primary-500 hover:text-white peer-checked/more:flex"
+          class="mx-auto flex h-11 w-fit cursor-pointer items-center rounded border border-primary-500 bg-white px-4 text-center font-semibold text-primary-500 transition-colors duration-300 hover:border-gray-200 hover:bg-primary-500 hover:text-white [&_.less-text]:block peer-checked:[&_.less-text]:hidden [&_.more-text]:hidden peer-checked:[&_.more-text]:block"
+          role="button"
+          aria-label="İçeriği kontrol et"
         >
-          <span> Daha Fazla Göster </span>
-        </label>
-
-        <label
-          for="faq-control-input"
-          class="mx-auto flex h-11 w-fit cursor-pointer items-center rounded border border-primary-500 bg-white px-4 text-center font-semibold text-primary-500 transition-colors duration-300 hover:border-gray-200 hover:bg-primary-500 hover:text-white peer-checked/more:hidden"
-        >
-          <span> Daha Az Göster </span>
+          <span class="more-text" aria-hidden="true"> Daha Fazla Göster </span>
+          <span class="less-text" aria-hidden="true"> Daha Az Göster </span>
         </label>
         <div
-          class="mt-8 grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked/more:grid-rows-[0fr] md:mt-2"
+          class="mt-8 grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr] md:mt-2"
         >
           <div
             class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
