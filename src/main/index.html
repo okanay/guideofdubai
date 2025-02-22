@@ -3061,164 +3061,48 @@
       <section
         class="relative mx-auto flex w-full max-w-7xl flex-col overflow-hidden lg:px-3.5"
       >
-        <h2 class="mb-4 px-3.5 text-2xl font-semibold text-gray-800 lg:px-0">
-          Sıkça Sorulan Sorular
-        </h2>
-        <div
-          class="grid grid-cols-1 grid-rows-1 gap-4 lg:grid-cols-2 lg:grid-rows-2 lg:gap-6"
+        <input
+          id="faq-control-input"
+          class="peer/more hidden"
+          type="checkbox"
+          checked
+        />
+        <label
+          for="faq-control-input"
+          class="mx-auto hidden h-11 w-fit cursor-pointer items-center rounded bg-gray-950 px-4 text-center font-semibold text-white peer-checked/more:flex"
         >
-          <!-- Desktop FAQ -->
-          <ul
-            class="order-2 row-span-2 hidden list-decimal flex-col gap-y-4 text-sm lg:flex"
+          <span> Daha Fazla Göster </span>
+        </label>
+
+        <label
+          for="faq-control-input"
+          class="mx-auto flex h-11 w-fit cursor-pointer items-center rounded bg-gray-950 px-4 text-center font-semibold text-white peer-checked/more:hidden"
+        >
+          <span> Daha Az Göster </span>
+        </label>
+        <div
+          class="mt-8 grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked/more:grid-rows-[0fr] md:mt-2"
+        >
+          <div
+            class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
           >
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                1. MBD Travel hangi destinasyonlara turlar düzenliyor?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                MBD Travel, Dubai başta olmak üzere birçok benzersiz
-                destinasyona turlar düzenlemektedir. Dubai’nin lüks ve modern
-                yapılarından, kültürel turlara, çöl safarilerinden helikopter
-                turlarına kadar geniş bir yelpazede hizmet sunuyoruz. Ayrıca,
-                Abu Dhabi, Limuzin Turları, Yat Kiralama, Gökyüzünde Yemek gibi
-                özel turlarımız da bulunmaktadır.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                2. MBD Travel turları kişiye özel mi düzenleniyor?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                Evet, MBD Travel olarak her misafirimizin ihtiyaçlarına göre
-                kişiselleştirilmiş turlar düzenliyoruz. Seyahatinizin
-                başlangıcından bitişine kadar, ilgi alanlarınıza ve
-                taleplerinize uygun olarak özel turlar ve aktiviteler
-                hazırlıyoruz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                3. MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                Evet, MBD Travel, Dubai'ye seyahat etmek isteyen misafirlerimiz
-                için vize başvuru işlemleri konusunda yardımcı olmaktadır. Vize
-                başvurunuzun kolay ve hızlı bir şekilde işleme alınmasını
-                sağlıyoruz. Detaylar için bizimle iletişime geçebilirsiniz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                4. MBD Travel turlarında rehberlik hizmeti var mı?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                Tüm turlarımızda deneyimli ve profesyonel rehberlerimiz
-                misafirlerimize eşlik eder. Rehberlerimiz, gittiğiniz yerler
-                hakkında yerel tarih, kültür ve gezi noktaları hakkında bilgiler
-                sunar.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                5. Seyahat sigortası hizmeti sunuyor musunuz?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                MBD Travel, seyahatiniz için seyahat sigortası hizmeti
-                sunmaktadır. Seyahatiniz sırasında meydana gelebilecek olumsuz
-                durumlara karşı güvence sağlayan sigorta seçenekleri hakkında
-                bilgi almak için bizimle iletişime geçebilirsiniz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                6. MBD Travel, transfer hizmeti sunuyor mu?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                MBD Travel, Dubai'deki otellerden havaalanına veya turlarımız
-                arasında VIP transfer hizmetleri sunmaktadır. Hem grup hem de
-                özel transfer seçenekleriyle seyahatinizde rahat bir deneyim
-                yaşamanızı sağlıyoruz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                7. Turlar için ödeme seçenekleri nelerdir?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                MBD Travel, kredi kartı, banka havalesi ve diğer güvenli ödeme
-                yöntemlerini kabul etmektedir. Seyahatinizi güvenli bir şekilde
-                rezerve edebilmeniz için çeşitli ödeme seçenekleri sunuyoruz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                8. MBD Travel turlarında çocuklar için özel hizmetler var mı?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                Çocuklar için aile dostu turlar ve aktiviteler düzenliyoruz.
-                Ailelerin rahatça katılabileceği turlarımızda çocuklar için özel
-                etkinlikler, çocuk dostu oteller ve aktiviteler sağlıyoruz.
-              </p>
-            </li>
-            <li class="flex flex-col gap-4">
-              <h5 class="font-semibold text-gray-950">
-                9. Hamileler için turlarınız mevcut mu?
-              </h5>
-              <p class="leading-tight text-gray-600">
-                MBD Travel, hamile misafirlerimiz için güvenli ve konforlu
-                seyahat deneyimleri sunmayı önemsemektedir. Ancak, her hamilelik
-                farklıdır, bu nedenle seyahate çıkmadan önce doktorunuza
-                danışmanız önemlidir. Hamilelik sürecinizde rahat edeceğiniz
-                turlar ve aktiviteler önererek, sağlıklı bir seyahat deneyimi
-                yaşamanızı sağlıyoruz. Ayrıca, seyahat esnasında ekstra bakım ve
-                rahatlık sağlayacak özel düzenlemeler yap
-              </p>
-            </li>
-          </ul>
-
-          <!-- Image - 1 -->
-          <img
-            src="/assets/images/gray-placeholder.webp"
-            data-src="https://images.project-test.info/28.webp"
-            loading="lazy"
-            alt="Burj Khalifa"
-            class="lazy-image order-1 h-[180px] w-full object-cover lg:order-2 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
-            style="transition: filter 0.3s ease"
-          />
-
-          <!-- Image - 2 -->
-          <img
-            src="/assets/images/gray-placeholder.webp"
-            data-src="https://images.project-test.info/29.webp"
-            loading="lazy"
-            alt="Dubai"
-            class="lazy-image order-4 h-[180px] w-full object-cover lg:order-3 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
-            style="transition: filter 0.3s ease"
-          />
-
-          <!-- Mobile FAQ - 1 -->
-          <ul
-            class="order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
-            id="faq-container-1"
-          >
-            <li class="faq group border-b border-solid border-gray-200 pb-2">
-              <button
-                class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+            <h2
+              class="mb-4 px-3.5 text-2xl font-semibold text-gray-800 lg:px-0"
+            >
+              Sıkça Sorulan Sorular
+            </h2>
+            <div
+              class="grid grid-cols-1 grid-rows-1 gap-4 lg:grid-cols-2 lg:grid-rows-2 lg:gap-6"
+            >
+              <!-- Desktop FAQ -->
+              <ul
+                class="order-2 row-span-2 hidden list-decimal flex-col gap-y-4 text-sm lg:flex"
               >
-                <h5 class="text-start font-semibold text-gray-950">
-                  MBD Travel hangi destinasyonlara turlar düzenliyor?
-                </h5>
-                <i
-                  data-lucide="chevron-down"
-                  class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                ></i>
-              </button>
-              <div
-                style="height: 0px"
-                class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-              >
-                <div class="pt-2">
-                  <p class="text-sm font-normal text-gray-600">
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    1. MBD Travel hangi destinasyonlara turlar düzenliyor?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
                     MBD Travel, Dubai başta olmak üzere birçok benzersiz
                     destinasyona turlar düzenlemektedir. Dubai’nin lüks ve
                     modern yapılarından, kültürel turlara, çöl safarilerinden
@@ -3226,76 +3110,128 @@
                     sunuyoruz. Ayrıca, Abu Dhabi, Limuzin Turları, Yat Kiralama,
                     Gökyüzünde Yemek gibi özel turlarımız da bulunmaktadır.
                   </p>
-                </div>
-              </div>
-            </li>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    2. MBD Travel turları kişiye özel mi düzenleniyor?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    Evet, MBD Travel olarak her misafirimizin ihtiyaçlarına göre
+                    kişiselleştirilmiş turlar düzenliyoruz. Seyahatinizin
+                    başlangıcından bitişine kadar, ilgi alanlarınıza ve
+                    taleplerinize uygun olarak özel turlar ve aktiviteler
+                    hazırlıyoruz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    3. MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    Evet, MBD Travel, Dubai'ye seyahat etmek isteyen
+                    misafirlerimiz için vize başvuru işlemleri konusunda
+                    yardımcı olmaktadır. Vize başvurunuzun kolay ve hızlı bir
+                    şekilde işleme alınmasını sağlıyoruz. Detaylar için bizimle
+                    iletişime geçebilirsiniz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    4. MBD Travel turlarında rehberlik hizmeti var mı?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    Tüm turlarımızda deneyimli ve profesyonel rehberlerimiz
+                    misafirlerimize eşlik eder. Rehberlerimiz, gittiğiniz yerler
+                    hakkında yerel tarih, kültür ve gezi noktaları hakkında
+                    bilgiler sunar.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    5. Seyahat sigortası hizmeti sunuyor musunuz?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    MBD Travel, seyahatiniz için seyahat sigortası hizmeti
+                    sunmaktadır. Seyahatiniz sırasında meydana gelebilecek
+                    olumsuz durumlara karşı güvence sağlayan sigorta seçenekleri
+                    hakkında bilgi almak için bizimle iletişime geçebilirsiniz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    6. MBD Travel, transfer hizmeti sunuyor mu?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    MBD Travel, Dubai'deki otellerden havaalanına veya
+                    turlarımız arasında VIP transfer hizmetleri sunmaktadır. Hem
+                    grup hem de özel transfer seçenekleriyle seyahatinizde rahat
+                    bir deneyim yaşamanızı sağlıyoruz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    7. Turlar için ödeme seçenekleri nelerdir?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    MBD Travel, kredi kartı, banka havalesi ve diğer güvenli
+                    ödeme yöntemlerini kabul etmektedir. Seyahatinizi güvenli
+                    bir şekilde rezerve edebilmeniz için çeşitli ödeme
+                    seçenekleri sunuyoruz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    8. MBD Travel turlarında çocuklar için özel hizmetler var
+                    mı?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    Çocuklar için aile dostu turlar ve aktiviteler düzenliyoruz.
+                    Ailelerin rahatça katılabileceği turlarımızda çocuklar için
+                    özel etkinlikler, çocuk dostu oteller ve aktiviteler
+                    sağlıyoruz.
+                  </p>
+                </li>
+                <li class="flex flex-col gap-4">
+                  <h5 class="font-semibold text-gray-950">
+                    9. Hamileler için turlarınız mevcut mu?
+                  </h5>
+                  <p class="leading-tight text-gray-600">
+                    MBD Travel, hamile misafirlerimiz için güvenli ve konforlu
+                    seyahat deneyimleri sunmayı önemsemektedir. Ancak, her
+                    hamilelik farklıdır, bu nedenle seyahate çıkmadan önce
+                    doktorunuza danışmanız önemlidir. Hamilelik sürecinizde
+                    rahat edeceğiniz turlar ve aktiviteler önererek, sağlıklı
+                    bir seyahat deneyimi yaşamanızı sağlıyoruz. Ayrıca, seyahat
+                    esnasında ekstra bakım ve rahatlık sağlayacak özel
+                    düzenlemeler yap
+                  </p>
+                </li>
+              </ul>
 
-            <li class="faq group border-b border-solid border-gray-200 pb-2">
-              <button
-                class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-              >
-                <h5 class="text-start font-semibold text-gray-950">
-                  MBD Travel turları kişiye özel mi düzenliyor?
-                </h5>
-                <i
-                  data-lucide="chevron-down"
-                  class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                ></i>
-              </button>
-              <div
-                style="height: 0px"
-                class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-              >
-                <div class="pt-2">
-                  <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                </div>
-              </div>
-            </li>
+              <!-- Image - 1 -->
+              <img
+                src="/assets/images/gray-placeholder.webp"
+                data-src="https://images.project-test.info/28.webp"
+                loading="lazy"
+                alt="Burj Khalifa"
+                class="lazy-image order-1 h-[180px] w-full object-cover lg:order-2 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
+                style="transition: filter 0.3s ease"
+              />
 
-            <li class="faq group border-b border-solid border-gray-200 pb-2">
-              <button
-                class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-              >
-                <h5 class="text-start font-semibold text-gray-950">
-                  MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
-                </h5>
-                <i
-                  data-lucide="chevron-down"
-                  class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                ></i>
-              </button>
-              <div
-                style="height: 0px"
-                class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-              >
-                <div class="pt-2">
-                  <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+              <!-- Image - 2 -->
+              <img
+                src="/assets/images/gray-placeholder.webp"
+                data-src="https://images.project-test.info/29.webp"
+                loading="lazy"
+                alt="Dubai"
+                class="lazy-image order-4 h-[180px] w-full object-cover lg:order-3 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
+                style="transition: filter 0.3s ease"
+              />
 
-          <!-- Hidden Mobile FAQ -->
-          <ul class="order-3 flex flex-col lg:hidden" id="faq-hidden-container">
-            <li
-              class="faq-2 group flex flex-col space-y-4 overflow-hidden lg:h-full"
-            >
-              <!--  Control Button -->
-              <button
-                class="faq-toggle-2 inline-flex items-center justify-start gap-2.5 px-3.5 text-lg font-semibold text-gray-800 lg:hidden"
-              >
-                <span
-                  style="
-                    --message-open: 'Daha Fazla Göster';
-                    --message-close: 'Daha Az Göster';
-                  "
-                  class="after:content-[var(--message-open)] group-data-[state=open]:after:content-[var(--message-close)]"
-                >
-                </span>
-              </button>
-              <!-- Mobile FAQ Show More -->
+              <!-- Mobile FAQ - 1 -->
               <ul
-                class="faq-content-2 order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
+                class="order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
+                id="faq-container-1"
               >
                 <li
                   class="faq group border-b border-solid border-gray-200 pb-2"
@@ -3304,7 +3240,7 @@
                     class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
                   >
                     <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel turlarında rehberlik hizmeti var mı?
+                      MBD Travel hangi destinasyonlara turlar düzenliyor?
                     </h5>
                     <i
                       data-lucide="chevron-down"
@@ -3317,10 +3253,13 @@
                   >
                     <div class="pt-2">
                       <p class="text-sm font-normal text-gray-600">
-                        Tüm turlarımızda deneyimli ve profesyonel rehberlerimiz
-                        misafirlerimize eşlik eder. Rehberlerimiz, gittiğiniz
-                        yerler hakkında yerel tarih, kültür ve gezi noktaları
-                        hakkında bilgiler sunar.
+                        MBD Travel, Dubai başta olmak üzere birçok benzersiz
+                        destinasyona turlar düzenlemektedir. Dubai’nin lüks ve
+                        modern yapılarından, kültürel turlara, çöl
+                        safarilerinden helikopter turlarına kadar geniş bir
+                        yelpazede hizmet sunuyoruz. Ayrıca, Abu Dhabi, Limuzin
+                        Turları, Yat Kiralama, Gökyüzünde Yemek gibi özel
+                        turlarımız da bulunmaktadır.
                       </p>
                     </div>
                   </div>
@@ -3333,7 +3272,7 @@
                     class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
                   >
                     <h5 class="text-start font-semibold text-gray-950">
-                      Seyahat sigortası hizmeti sunuyor musunuz?
+                      MBD Travel turları kişiye özel mi düzenliyor?
                     </h5>
                     <i
                       data-lucide="chevron-down"
@@ -3357,79 +3296,7 @@
                     class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
                   >
                     <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel, transfer hizmeti sunuyor mu?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                    </div>
-                  </div>
-                </li>
-
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      Turlar için ödeme seçenekleri nelerdir?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                    </div>
-                  </div>
-                </li>
-
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel turlarında çocuklar için özel hizmetler var mı?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                    </div>
-                  </div>
-                </li>
-
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      Hamileler için turlarınız mevcut mu?
+                      MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
                     </h5>
                     <i
                       data-lucide="chevron-down"
@@ -3446,8 +3313,197 @@
                   </div>
                 </li>
               </ul>
-            </li>
-          </ul>
+
+              <!-- Hidden Mobile FAQ -->
+              <ul
+                class="order-3 flex flex-col lg:hidden"
+                id="faq-hidden-container"
+              >
+                <li
+                  class="faq-2 group flex flex-col space-y-4 overflow-hidden lg:h-full"
+                >
+                  <!--  Control Button -->
+                  <button
+                    class="faq-toggle-2 inline-flex items-center justify-start gap-2.5 px-3.5 text-lg font-semibold text-gray-800 lg:hidden"
+                  >
+                    <span
+                      style="
+                        --message-open: 'Daha Fazla Göster';
+                        --message-close: 'Daha Az Göster';
+                      "
+                      class="after:content-[var(--message-open)] group-data-[state=open]:after:content-[var(--message-close)]"
+                    >
+                    </span>
+                  </button>
+                  <!-- Mobile FAQ Show More -->
+                  <ul
+                    class="faq-content-2 order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
+                  >
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          MBD Travel turlarında rehberlik hizmeti var mı?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Tüm turlarımızda deneyimli ve profesyonel
+                            rehberlerimiz misafirlerimize eşlik eder.
+                            Rehberlerimiz, gittiğiniz yerler hakkında yerel
+                            tarih, kültür ve gezi noktaları hakkında bilgiler
+                            sunar.
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          Seyahat sigortası hizmeti sunuyor musunuz?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Açıklama
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          MBD Travel, transfer hizmeti sunuyor mu?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Açıklama
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          Turlar için ödeme seçenekleri nelerdir?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Açıklama
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          MBD Travel turlarında çocuklar için özel hizmetler var
+                          mı?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Açıklama
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li
+                      class="faq group border-b border-solid border-gray-200 pb-2"
+                    >
+                      <button
+                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
+                      >
+                        <h5 class="text-start font-semibold text-gray-950">
+                          Hamileler için turlarınız mevcut mu?
+                        </h5>
+                        <i
+                          data-lucide="chevron-down"
+                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
+                        ></i>
+                      </button>
+                      <div
+                        style="height: 0px"
+                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
+                      >
+                        <div class="pt-2">
+                          <p class="text-sm font-normal text-gray-600">
+                            Açıklama
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </main>
