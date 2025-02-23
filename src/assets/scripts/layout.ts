@@ -85,6 +85,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeElements: [],
         containers: ['#mobile-navigation-content'],
       },
+      {
+        id: 'shopping-cart-modal',
+        toggleElements: [
+          '#shopping-cart-button',
+          '#shopping-cart-button-mobile',
+        ],
+        openElements: [],
+        contentElement: '#shopping-cart-modal',
+        closeElements: ['#close-shopping-cart'],
+        containers: ['#shopping-cart-modal-content'],
+      },
     ],
     {
       outsideClickClose: true,
