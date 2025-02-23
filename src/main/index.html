@@ -1408,7 +1408,7 @@
             <!-- Empty Cart -->
             <div
               class="h-full flex-col items-center justify-center gap-4 px-4 pb-4 sm:px-6"
-              style="display: flex !important"
+              style="display: none !important"
             >
               <div class="rounded-full bg-gray-100 p-3">
                 <i data-lucide="shopping-cart" class="size-8 text-gray-400"></i>
@@ -1428,7 +1428,7 @@
             <!-- Item Show Here-->
             <div
               class="h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4"
-              style="display: none !important"
+              style="display: flex !important"
             >
               <!-- Item -->
               <div class="flex items-start gap-6 py-6">
@@ -1472,7 +1472,10 @@
               </div>
 
               <!-- Item -->
-              <div class="flex items-start gap-6 py-6">
+              <div
+                class="flex items-start gap-6 py-6"
+                style="display: none !important"
+              >
                 <div class="h-24 w-24 flex-shrink-0">
                   <img
                     src="https://images.project-test.info/9.webp"
