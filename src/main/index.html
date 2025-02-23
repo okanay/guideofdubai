@@ -132,7 +132,7 @@
                 </a>
               </li>
             </ul>
-            <div class="flex items-center gap-4 text-white">
+            <div class="relative flex items-center gap-4 text-white">
               <!-- Search Button with Tooltip -->
               <div class="group relative">
                 <button
@@ -146,7 +146,7 @@
                 </button>
                 <!-- Search Tooltip -->
                 <div
-                  class="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100"
+                  class="pointer-events-none absolute left-1/2 top-[108%] -translate-x-1/2 transform opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100"
                 >
                   <div
                     class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
@@ -170,14 +170,23 @@
                   />
                   <span class="text-sm">TL</span>
                 </button>
-                <!-- Language Tooltip -->
+
+                <!-- Language Tooltip - Outer absolute container -->
                 <div
-                  class="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-[calc(125%_+4px)] transform opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100"
+                  class="pointer-events-none absolute right-full top-[125%] -translate-x-1/2"
                 >
+                  <!-- Inner absolute container -->
                   <div
-                    class="pointer-events-none text-nowrap rounded border border-gray-200 bg-gray-50 px-3 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
+                    class="absolute left-1/2 -translate-x-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100"
                   >
-                    Dil ve para birimi seç
+                    <!-- Tooltip content -->
+                    <div
+                      class="rounded border border-gray-200 bg-gray-50 px-2 py-1 text-[0.65rem] text-gray-800 shadow shadow-gray-200"
+                    >
+                      <span class="block text-nowrap"
+                        >Dil ve para birimi seç</span
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1334,7 +1343,7 @@
                   id="close-shopping-cart"
                   class="text-gray-400 transition hover:text-gray-500"
                 >
-                  <i data-lucide="x" class="h-5 w-5"></i>
+                  <i data-lucide="x" class="size-6 brightness-0"></i>
                 </button>
               </div>
 
@@ -1344,7 +1353,6 @@
                 <div
                   role="alert"
                   class="mb-4 flex items-center rounded-lg border-l-4 border-lime-400 bg-lime-50 p-4 text-lime-800"
-                  style="display: none !important"
                 >
                   <i data-lucide="check" class="size-4 flex-shrink-0"></i>
                   <div class="ms-3 text-sm font-medium">
