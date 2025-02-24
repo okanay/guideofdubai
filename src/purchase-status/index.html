@@ -213,7 +213,7 @@
               </div>
               <!-- Navigation Links -->
               <div class="hidden text-wrap lg:block">
-                <ul class="flex gap-6 text-sm font-medium">
+                <ul class="t flex gap-6 font-medium">
                   <li>
                     <a
                       href="#"
@@ -1429,11 +1429,11 @@
             </div>
             <!-- Items Show Here-->
             <div
-              class="h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4"
+              class="-mt-1 h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4 sm:mt-0"
               style="display: flex !important"
             >
               <!-- Item -->
-              <div class="flex items-start gap-6 py-6">
+              <div class="flex items-start gap-6">
                 <div class="h-24 w-24 flex-shrink-0">
                   <img
                     src="https://images.project-test.info/6.webp"
@@ -1475,7 +1475,7 @@
               </div>
 
               <!-- Item -->
-              <div class="flex items-start gap-6 py-6">
+              <div class="flex items-start gap-6">
                 <div class="h-24 w-24 flex-shrink-0">
                   <img
                     src="https://images.project-test.info/9.webp"
@@ -1663,14 +1663,17 @@
       >
         <!-- Success Icon -->
         <div class="mb-6 rounded-full bg-lime-100 p-3">
-          <i data-lucide="check-circle" class="size-12 text-lime-500"></i>
+          <i
+            data-lucide="check-circle"
+            class="size-10 text-lime-500 sm:size-12"
+          ></i>
         </div>
 
         <!-- Success Message -->
-        <h1 class="mb-2 text-2xl font-semibold text-gray-900">
+        <h1 class="mb-2 text-xl font-semibold text-gray-900 sm:text-2xl">
           Ödemeniz Başarıyla Tamamlandı!
         </h1>
-        <p class="mb-8 text-gray-600">
+        <p class="mb-8 text-pretty text-sm text-gray-600 sm:text-base">
           Rezervasyon detaylarınız e-posta adresinize gönderilecektir.
         </p>
 
@@ -1679,13 +1682,13 @@
           class="mb-8 w-full max-w-2xl overflow-hidden rounded-lg border border-gray-200 bg-white"
         >
           <!-- Header -->
-          <div class="bg-gray-50 px-6 py-4">
+          <div class="bg-gray-50 px-4 py-6">
             <div class="flex items-center justify-between">
               <h2 class="text-lg font-semibold text-gray-900">
                 Sipariş Özetiniz
               </h2>
               <span
-                class="rounded-full bg-lime-100 px-3 py-1 text-xs font-medium text-lime-700"
+                class="rounded-full bg-lime-100 px-2 py-1 text-xs font-medium text-lime-700"
                 >Onaylandı</span
               >
             </div>
@@ -1696,9 +1699,9 @@
           </div>
 
           <!-- Payment Details -->
-          <div class="border-b border-gray-100 bg-white px-6 py-4">
+          <div class="border-b border-gray-100 bg-white px-4 py-4">
             <div
-              class="flex flex-wrap items-start justify-between gap-2 text-left"
+              class="flex flex-col flex-wrap items-start justify-between gap-x-2 gap-y-3 text-left md:flex-row"
             >
               <div>
                 <p class="text-sm text-gray-500">Rezervasyon Numarası</p>
@@ -1727,11 +1730,13 @@
           <!-- Services List -->
           <div class="divide-y divide-gray-100">
             <!-- Hotel Service -->
-            <div class="p-6">
-              <div class="flex flex-wrap items-start gap-4 sm:flex-nowrap">
+            <div class="px-4 py-6">
+              <div
+                class="flex flex-col flex-wrap items-start gap-4 sm:flex-row sm:flex-nowrap"
+              >
                 <!-- Hotel Image -->
                 <div
-                  class="size-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:size-24"
+                  class="max-h-[200px] w-full flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-24 sm:w-24"
                 >
                   <img
                     src="https://images.project-test.info/22.webp"
@@ -1786,11 +1791,13 @@
             </div>
 
             <!-- Car Service  -->
-            <div class="p-6">
-              <div class="flex flex-wrap items-start gap-4 sm:flex-nowrap">
+            <div class="px-4 py-6">
+              <div
+                class="flex flex-col flex-wrap items-start gap-4 sm:flex-row sm:flex-nowrap"
+              >
                 <!-- Car Image -->
                 <div
-                  class="size-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:size-24"
+                  class="max-h-[200px] w-full flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-24 sm:w-24"
                 >
                   <img
                     src="https://images.project-test.info/41.webp"
@@ -1846,7 +1853,7 @@
           </div>
 
           <!-- Order Summary -->
-          <div class="border-t border-gray-200 bg-gray-50 p-6">
+          <div class="border-t border-gray-200 bg-gray-50 px-4 py-6">
             <div class="space-y-2">
               <!-- Ara Toplam -->
               <div class="flex items-center justify-between">
@@ -1898,11 +1905,11 @@
 
         <!-- Important Notes with Soft Blue Theme -->
         <div
-          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
+          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white px-4 py-6"
         >
           <h3 class="mb-3 font-medium text-gray-900">Önemli Bilgiler</h3>
-          <ul class="space-y-3 text-left text-sm">
-            <li class="flex items-start gap-2.5">
+          <ul class="flex flex-col gap-4 text-left text-sm">
+            <li class="flex items-start gap-2">
               <i
                 data-lucide="info"
                 class="size-4 flex-shrink-0 text-primary-500"
@@ -1912,7 +1919,7 @@
                 bulundurmanız gerekmektedir.</span
               >
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2">
               <i
                 data-lucide="mail"
                 class="size-4 flex-shrink-0 text-primary-500"
@@ -1921,7 +1928,7 @@
                 >Voucher'ınız kayıtlı e-posta adresinize gönderilecektir.</span
               >
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2">
               <i
                 data-lucide="phone"
                 class="size-4 flex-shrink-0 text-primary-500"
@@ -1931,7 +1938,7 @@
                 +90 xxx xxx xx xx</span
               >
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2">
               <i
                 data-lucide="calendar"
                 class="size-4 flex-shrink-0 text-primary-500"
@@ -1940,7 +1947,7 @@
                 >Check-in saati: 15:00 - Check-out saati: 12:00</span
               >
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2">
               <i
                 data-lucide="shield-check"
                 class="size-4 flex-shrink-0 text-primary-500"
@@ -1955,11 +1962,11 @@
 
         <!-- Help Section -->
         <div
-          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
+          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white px-4 py-6"
         >
           <h3 class="mb-8 font-medium text-gray-900">İletişim Bilgileri</h3>
-          <div class="flex flex-wrap items-start justify-between">
-            <div class="flex items-start gap-x-3">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
               <i data-lucide="phone" class="size-5 text-primary-500"></i>
               <div class="text-left">
                 <p class="text-sm font-medium text-gray-900">
@@ -1987,14 +1994,14 @@
       >
         <!-- Failed Icon -->
         <div class="mb-6 rounded-full bg-red-100 p-3">
-          <i data-lucide="x-circle" class="size-12 text-red-500"></i>
+          <i data-lucide="x-circle" class="size-10 text-red-500 sm:size-12"></i>
         </div>
 
         <!-- Failed Message -->
-        <h1 class="mb-2 text-2xl font-semibold text-gray-900">
+        <h1 class="mb-2 text-xl font-semibold text-gray-900 sm:text-2xl">
           Ödeme İşlemi Başarısız
         </h1>
-        <p class="mb-4 text-gray-600">
+        <p class="mb-4 text-pretty text-sm text-gray-600 sm:text-base">
           Ödeme işlemi sırasında bir hata oluştu. Lütfen tekrar deneyiniz.
         </p>
 
@@ -2068,7 +2075,7 @@
 
         <!-- Payment Link Section -->
         <div
-          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
+          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white px-4 py-6"
         >
           <!-- Header with Timer -->
           <div class="mb-4 flex items-start justify-between text-start">
@@ -2118,13 +2125,13 @@
 
         <!-- Help Section -->
         <div
-          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
+          class="mb-8 w-full max-w-2xl rounded-lg border border-gray-200 bg-white px-4 py-6"
         >
           <h3 class="mb-8 font-medium text-gray-900">
             Ödeme Yapamıyor musunuz?
           </h3>
-          <div class="flex flex-wrap items-start justify-between">
-            <div class="flex items-start gap-x-3">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
               <i data-lucide="phone" class="size-5 text-primary-500"></i>
               <div class="text-left">
                 <p class="text-sm font-medium text-gray-900">
