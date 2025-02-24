@@ -59,8 +59,7 @@ const PAGES = {
     'visa-ship',
     'rent-a-car',
     'rent-a-car-payment',
-    'purchase-complete',
-    'purchase-fail',
+    'purchase-status',
   ],
   directories: [
     'main',
@@ -82,8 +81,7 @@ const PAGES = {
     'visa-ship',
     'rent-a-car',
     'rent-a-car-payment',
-    'purchase-complete',
-    'purchase-fail',
+    'purchase-status',
   ],
 }
 

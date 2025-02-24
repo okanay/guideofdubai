@@ -140,13 +140,8 @@ app.get('/payment', c => {
   return c.html(html.text())
 })
 
-app.get('/purchase-complete', c => {
-  const html = Bun.file('./dist/purchase-complete/index.html')
-  return c.html(html.text())
-})
-
-app.get('/purchase-fail', c => {
-  const html = Bun.file('./dist/purchase-fail/index.html')
+app.get('/purchase-status', c => {
+  const html = Bun.file('./dist/purchase-status/index.html')
   return c.html(html.text())
 })
 
