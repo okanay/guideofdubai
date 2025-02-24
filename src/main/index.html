@@ -1333,15 +1333,16 @@
         >
           <!-- Main Content -->
           <div class="flex h-full flex-col justify-start overflow-y-auto">
+            <!-- Header -->
             <div class="flex flex-shrink-0 flex-col justify-start">
-              <!-- Header -->
+              <!-- Name & Close Button -->
               <div
                 class="flex items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6"
               >
                 <h2 class="text-xl font-medium text-gray-900">Shopping Cart</h2>
                 <button
                   id="close-shopping-cart"
-                  class="text-gray-400 transition hover:text-gray-500"
+                  class="text-gray-400 transition-opacity duration-300 hover:opacity-50"
                 >
                   <i data-lucide="x" class="size-6 brightness-0"></i>
                 </button>
@@ -1407,7 +1408,7 @@
 
             <!-- Empty Cart -->
             <div
-              class="h-full flex-col items-center justify-center gap-4 px-4 pb-4 sm:px-6"
+              class="flex h-full flex-col items-center justify-center gap-4 px-4 pb-4 sm:px-6"
               style="display: none !important"
             >
               <div class="rounded-full bg-gray-100 p-3">
@@ -1425,7 +1426,7 @@
                 Alışverişe Başla
               </button>
             </div>
-            <!-- Item Show Here-->
+            <!-- Items Show Here-->
             <div
               class="h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4"
               style="display: flex !important"
@@ -1461,12 +1462,13 @@
                 </div>
                 <div class="flex flex-col items-end gap-3">
                   <p class="font-medium text-gray-900">
-                    <span>62.00</span> <span>₺</span>
+                    <span>62.00</span> <span>AED</span>
                   </p>
                   <button
-                    class="text-sm font-medium text-red-500 transition hover:text-red-600"
+                    class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
                   >
-                    <i data-lucide="trash-2" class="size-4"></i>
+                    <span>Remove</span>
+                    <i data-lucide="trash-2" class="size-3.5"></i>
                   </button>
                 </div>
               </div>
@@ -1502,23 +1504,24 @@
                 </div>
                 <div class="flex flex-col items-end gap-3">
                   <p class="font-medium text-gray-900">
-                    <span>120.00</span> <span>₺</span>
+                    <span>120.00</span> <span>AED</span>
                   </p>
                   <button
-                    class="text-sm font-medium text-red-500 transition hover:text-red-600"
+                    class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
                   >
-                    <i data-lucide="trash-2" class="size-4"></i>
+                    <span>Remove</span>
+                    <i data-lucide="trash-2" class="size-3.5"></i>
                   </button>
                 </div>
               </div>
             </div>
-            <!-- Purchase Complete State -->
+            <!-- Complete State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
               style="display: none !important"
             >
-              <div class="rounded-full bg-green-100 p-3">
-                <i data-lucide="check-circle" class="size-8 text-green-500"></i>
+              <div class="rounded-full bg-lime-100 p-3">
+                <i data-lucide="check-circle" class="size-8 text-lime-500"></i>
               </div>
               <div class="text-center">
                 <h3 class="font-medium text-gray-900">
@@ -1534,7 +1537,7 @@
                 Siparişlerime Git
               </button>
             </div>
-            <!-- Purchase Failed State -->
+            <!-- Failed State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
               style="display: none !important"
@@ -1556,7 +1559,7 @@
                 Tekrar Dene
               </button>
             </div>
-            <!-- Purchase Pending State -->
+            <!-- Pending State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
               style="display: none !important"
@@ -1583,20 +1586,23 @@
           <div class="flex-shrink-0">
             <!-- Order Summary -->
             <div
-              class="mt-auto space-y-3 bg-gray-50 px-4 py-4 sm:px-6"
+              class="mt-auto space-y-3 border-t border-gray-200 bg-gray-50 px-4 py-4 sm:px-6"
               style="display: block"
             >
               <div class="flex items-center justify-between">
                 <h3 class="font-medium text-gray-900">Total Amount</h3>
                 <p class="font-medium text-gray-900">
                   <span>182.00</span>
-                  <span>₺</span>
+                  <span>AED</span>
                 </p>
               </div>
             </div>
 
             <!-- Payment Link Section -->
-            <div class="border-t px-4 pt-4 sm:px-6" style="display: block">
+            <div
+              class="border-t border-gray-200 px-4 pt-4 sm:px-6"
+              style="display: block"
+            >
               <div class="mb-4 flex items-center justify-between">
                 <div>
                   <h3 class="font-medium text-gray-900">Payment Link</h3>
