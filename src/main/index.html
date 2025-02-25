@@ -524,7 +524,7 @@
 
             <div class="flex flex-shrink-0 items-center gap-10 text-nowrap">
               <div class="flex items-center gap-4">
-                <!-- Shopping Cart Button -->
+                <!--   Cart Button -->
                 <button
                   id="shopping-cart-button"
                   type="button"
@@ -1329,324 +1329,372 @@
       >
         <div
           id="shopping-cart-modal-content"
-          class="relative flex h-full w-full max-w-2xl flex-col justify-between border-gray-600/80 bg-white sm:my-12 sm:h-auto sm:min-h-0 sm:rounded-lg sm:border sm:shadow"
+          class="relative flex h-fit w-full max-w-2xl flex-col justify-between border-gray-600/80 bg-white sm:my-12 sm:h-auto sm:min-h-0 sm:rounded-lg sm:border sm:shadow"
         >
-          <!-- Main Content -->
-          <div class="flex h-full flex-col justify-start overflow-y-auto">
-            <!-- Header -->
-            <div class="flex flex-shrink-0 flex-col justify-start">
-              <!-- Name & Close Button -->
-              <div
-                class="flex items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6"
+          <!-- Name & Close Button -->
+          <div
+            class="flex items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6"
+          >
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl font-medium text-gray-900">Shopping Cart</h2>
+              <span
+                class="inline-flex items-center justify-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-700"
               >
-                <h2 class="text-xl font-medium text-gray-900">Shopping Cart</h2>
-                <button
-                  id="close-shopping-cart"
-                  class="text-gray-400 transition-opacity duration-300 hover:opacity-50"
-                >
-                  <i data-lucide="x" class="size-6 brightness-0"></i>
-                </button>
-              </div>
-
-              <!-- Notification Area -->
-              <div class="px-4 pt-4 sm:px-6">
-                <!-- Success -->
-                <div
-                  role="alert"
-                  class="mb-4 flex items-center rounded-lg border-l-4 border-lime-400 bg-lime-50 p-4 text-lime-800"
-                  style="display: none !important"
-                >
-                  <i data-lucide="check" class="size-4 flex-shrink-0"></i>
-                  <div class="ms-3 text-sm font-medium">
-                    Success: Payment link has been copied to clipboard
-                  </div>
-                </div>
-                <!-- Warning -->
-                <div
-                  role="alert"
-                  class="mb-4 flex items-center rounded-lg border-l-4 border-yellow-400 bg-yellow-50 p-4 text-yellow-800"
-                  style="display: none !important"
-                >
-                  <i
-                    data-lucide="alert-triangle"
-                    class="size-4 flex-shrink-0"
-                  ></i>
-                  <div class="ms-3 text-sm font-medium">
-                    Warning: Your session is about to expire
-                  </div>
-                </div>
-                <!-- Error -->
-                <div
-                  role="alert"
-                  class="mb-4 flex items-center rounded-lg border-l-4 border-red-400 bg-red-50 p-4 text-red-800"
-                  style="display: none !important"
-                >
-                  <i
-                    data-lucide="alert-circle"
-                    class="size-4 flex-shrink-0"
-                  ></i>
-                  <div class="ms-3 text-sm font-medium">
-                    Danger: An error occurred while processing your request
-                  </div>
-                </div>
-                <!-- Information -->
-                <div
-                  role="alert"
-                  class="mb-4 flex items-center rounded-lg border-l-4 border-blue-400 bg-blue-50 p-4 text-blue-800"
-                  style="display: none !important"
-                >
-                  <i
-                    data-lucide="book-open-text"
-                    class="size-4 flex-shrink-0"
-                  ></i>
-                  <div class="ms-3 text-sm font-medium">
-                    Info: Your changes have been saved successfully
-                  </div>
-                </div>
-              </div>
+                2 Items
+              </span>
             </div>
-
-            <!-- Empty Cart -->
-            <div
-              class="flex h-full flex-col items-center justify-center gap-4 px-4 pb-4 sm:px-6"
-              style="display: none !important"
+            <button
+              id="close-shopping-cart"
+              class="rounded-full p-1 text-gray-400 transition-opacity duration-300 hover:bg-gray-100 hover:opacity-50"
             >
-              <div class="rounded-full bg-gray-100 p-3">
-                <i data-lucide="shopping-cart" class="size-8 text-gray-400"></i>
-              </div>
-              <div class="text-center">
-                <h3 class="font-medium text-gray-900">Sepetiniz Boş</h3>
-                <p class="mt-1 text-sm text-gray-500">
-                  Sepetinizde hiç ürün bulunmamaktadır.
-                </p>
-              </div>
-              <button
-                class="mt-2 text-sm font-medium text-primary-600 hover:text-primary-700"
-              >
-                Alışverişe Başla
-              </button>
-            </div>
-            <!-- Items Show Here-->
+              <i data-lucide="x" class="size-5 brightness-0"></i>
+            </button>
+          </div>
+
+          <!-- Notification Area -->
+          <div class="px-4 pt-4 sm:px-6">
+            <!-- Success -->
             <div
-              class="-mt-1 h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4 sm:mt-0"
+              role="alert"
+              class="mb-4 flex items-center rounded-lg border-l-4 border-lime-400 bg-lime-50 p-4 text-lime-800"
               style="display: flex !important"
             >
-              <!-- Item -->
-              <div class="flex items-start gap-6">
-                <div class="h-24 w-24 flex-shrink-0">
-                  <img
-                    src="https://images.project-test.info/6.webp"
-                    alt="Museum of the Future"
-                    class="h-full w-full rounded-lg object-cover"
-                  />
-                </div>
-                <div class="flex-1">
-                  <h3 class="line-clamp-1 font-medium text-gray-900">
-                    Museum of the Future:
-                  </h3>
-                  <p class="mt-1 line-clamp-2 text-sm text-gray-500">
-                    Geleceğe Yolculuk, Akın
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    <span class="font-medium text-gray-800"> Tarih: </span>
-                    <span> 23.02.2025 </span>
-                    <span>-</span>
-                    <span> 25.02.2025 </span>
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    <span class="font-medium text-gray-800"> Saat: </span>
-                    <span> 10:00 </span>
-                    <span>-</span>
-                    <span> 18:30 </span>
-                  </p>
-                </div>
-                <div class="flex flex-col items-end gap-3">
-                  <p class="font-medium text-gray-900">
-                    <span>62.00</span> <span>AED</span>
-                  </p>
-                  <button
-                    class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
-                  >
-                    <span>Remove</span>
-                    <i data-lucide="trash-2" class="size-3.5"></i>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Item -->
-              <div class="flex items-start gap-6">
-                <div class="h-24 w-24 flex-shrink-0">
-                  <img
-                    src="https://images.project-test.info/9.webp"
-                    alt="Burj Khalifa"
-                    class="h-full w-full rounded-lg object-cover"
-                  />
-                </div>
-                <div class="flex-1">
-                  <h3 class="line-clamp-1 font-medium text-gray-900">
-                    Burj Khalifa:
-                  </h3>
-                  <p class="mt-1 line-clamp-2 text-sm text-gray-500">
-                    Dünyanın En Yüksek Binası
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    <span class="font-medium text-gray-800"> Tarih: </span>
-                    <span> 01.03.2025 </span>
-                    <span>-</span>
-                    <span> 03.03.2025 </span>
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    <span class="font-medium text-gray-800"> Saat: </span>
-                    <span> 09:00 </span>
-                    <span>-</span>
-                    <span> 20:00 </span>
-                  </p>
-                </div>
-                <div class="flex flex-col items-end gap-3">
-                  <p class="font-medium text-gray-900">
-                    <span>120.00</span> <span>AED</span>
-                  </p>
-                  <button
-                    class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
-                  >
-                    <span>Remove</span>
-                    <i data-lucide="trash-2" class="size-3.5"></i>
-                  </button>
-                </div>
+              <i data-lucide="check" class="size-4 flex-shrink-0"></i>
+              <div class="ms-3 text-sm font-medium">
+                Success: Payment link has been copied to clipboard.
               </div>
             </div>
-            <!-- Complete State -->
+            <!-- Warning -->
             <div
-              class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
+              role="alert"
+              class="mb-4 flex items-center rounded-lg border-l-4 border-yellow-400 bg-yellow-50 p-4 text-yellow-800"
               style="display: none !important"
             >
-              <div class="rounded-full bg-lime-100 p-3">
-                <i data-lucide="check-circle" class="size-8 text-lime-500"></i>
+              <i data-lucide="alert-triangle" class="size-4 flex-shrink-0"></i>
+              <div class="ms-3 text-sm font-medium">
+                Warning: Your session is about to expire
               </div>
-              <div class="text-center">
-                <h3 class="font-medium text-gray-900">
-                  Satın Alma İşlemi Tamamlandı
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">
-                  Satın alma işleminiz başarıyla tamamlandı.
-                </p>
-              </div>
-              <button
-                class="mt-2 text-sm font-medium text-primary-600 hover:text-primary-700"
-              >
-                Siparişlerime Git
-              </button>
             </div>
-            <!-- Failed State -->
+            <!-- Error -->
             <div
-              class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
+              role="alert"
+              class="mb-4 flex items-center rounded-lg border-l-4 border-red-400 bg-red-50 p-4 text-red-800"
               style="display: none !important"
             >
-              <div class="rounded-full bg-red-100 p-3">
-                <i data-lucide="x-circle" class="size-8 text-red-500"></i>
+              <i data-lucide="alert-circle" class="size-4 flex-shrink-0"></i>
+              <div class="ms-3 text-sm font-medium">
+                Danger: An error occurred while processing your request
               </div>
-              <div class="text-center">
-                <h3 class="font-medium text-gray-900">
-                  Satın Alma İşlemi Başarısız
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">
-                  Bir hata oluştu. Lütfen tekrar deneyiniz.
-                </p>
-              </div>
-              <button
-                class="mt-2 text-sm font-medium text-primary-600 hover:text-primary-700"
-              >
-                Tekrar Dene
-              </button>
             </div>
-            <!-- Pending State -->
+            <!-- Information -->
             <div
-              class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
+              role="alert"
+              class="mb-4 flex items-center rounded-lg border-l-4 border-blue-400 bg-blue-50 p-4 text-blue-800"
               style="display: none !important"
             >
-              <div class="rounded-full bg-yellow-100 p-3">
-                <i data-lucide="clock" class="size-8 text-yellow-500"></i>
-              </div>
-              <div class="text-center">
-                <h3 class="font-medium text-gray-900">İşlem Beklemede</h3>
-                <p class="mt-1 text-sm text-gray-500">
-                  Ödeme işleminiz devam ediyor, lütfen bekleyiniz.
-                </p>
-              </div>
-              <div class="mt-2 flex items-center gap-2 text-sm text-gray-500">
-                <div
-                  class="h-4 w-4 animate-spin rounded-full border-2 border-primary-600 border-t-transparent"
-                ></div>
-                İşlem devam ediyor...
+              <i data-lucide="book-open-text" class="size-4 flex-shrink-0"></i>
+              <div class="ms-3 text-sm font-medium">
+                Info: Your changes have been saved successfully
               </div>
             </div>
           </div>
 
-          <!-- Actions -->
-          <div class="flex-shrink-0">
-            <!-- Order Summary -->
-            <div
-              class="mt-auto space-y-3 border-t border-gray-200 bg-gray-50 px-4 py-4 sm:px-6"
-              style="display: block"
+          <!-- Empty Cart -->
+          <div
+            style="display: none !important"
+            class="flex h-full flex-col items-center justify-center gap-4 px-4 py-16 sm:px-6"
+          >
+            <div class="rounded-full bg-gray-100 p-4">
+              <i data-lucide="shopping-cart" class="size-12 text-gray-400"></i>
+            </div>
+            <div class="max-w-md text-center">
+              <h3 class="text-lg font-medium text-gray-900">Sepetiniz Boş</h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Sepetinizde ürün bulunmuyor. Dubai'nin eşsiz etkinliklerini
+                keşfetmek ve unutulmaz anılar biriktirmek için hemen alışverişe
+                başlayın.
+              </p>
+            </div>
+            <button
+              class="mt-2 flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700"
             >
-              <div class="flex items-center justify-between">
-                <h3 class="font-medium text-gray-900">Total Amount</h3>
+              <i data-lucide="shopping-bag" class="size-4"></i>
+              Alışverişe Başla
+            </button>
+
+            <!-- Popular Recommendations -->
+            <div class="mt-6 w-full">
+              <h4 class="mb-3 text-center text-sm font-medium text-gray-700">
+                Popüler Etkinlikler
+              </h4>
+              <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <div
+                  class="group cursor-pointer overflow-hidden rounded-lg border border-gray-200 transition-colors hover:border-primary-200"
+                >
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src="https://images.project-test.info/10.webp"
+                      alt="Popular Activity"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div class="p-2">
+                    <p class="line-clamp-1 text-xs font-medium text-gray-900">
+                      Dubai Aquarium
+                    </p>
+                    <p class="mt-1 text-xs text-primary-600">85.00 AED</p>
+                  </div>
+                </div>
+                <div
+                  class="group cursor-pointer overflow-hidden rounded-lg border border-gray-200 transition-colors hover:border-primary-200"
+                >
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src="https://images.project-test.info/16.webp"
+                      alt="Popular Activity"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div class="p-2">
+                    <p class="line-clamp-1 text-xs font-medium text-gray-900">
+                      Desert Safari
+                    </p>
+                    <p class="mt-1 text-xs text-primary-600">120.00 AED</p>
+                  </div>
+                </div>
+                <div
+                  class="group hidden cursor-pointer overflow-hidden rounded-lg border border-gray-200 transition-colors hover:border-primary-200 sm:block"
+                >
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src="https://images.project-test.info/6.webp"
+                      alt="Popular Activity"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div class="p-2">
+                    <p class="line-clamp-1 text-xs font-medium text-gray-900">
+                      Museum of the Future
+                    </p>
+                    <p class="mt-1 text-xs text-primary-600">62.00 AED</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Show Here-->
+          <div
+            class="sidebar -mt-2 flex h-full max-h-[320px] flex-col divide-y divide-gray-200 overflow-y-auto px-4 pb-4"
+          >
+            <!-- Item -->
+            <div class="flex items-start gap-6 py-4">
+              <div class="size-24 flex-shrink-0">
+                <img
+                  src="https://images.project-test.info/6.webp"
+                  alt="Museum of the Future"
+                  class="h-full w-full rounded-lg object-cover"
+                />
+              </div>
+              <div class="flex-1">
+                <h3 class="line-clamp-1 font-medium text-gray-900">
+                  Museum of the Future:
+                </h3>
+                <p class="mt-1 line-clamp-2 text-sm text-gray-500">
+                  Geleceğe Yolculuk, Akın
+                </p>
+                <div class="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs">
+                  <p class="flex items-center gap-1 text-gray-500">
+                    <i data-lucide="calendar" class="size-3 text-gray-400"></i>
+                    <span class="font-medium text-gray-700">Tarih:</span>
+                    <span>23.02.2025 - 25.02.2025</span>
+                  </p>
+                  <p class="flex items-center gap-1 text-gray-500">
+                    <i data-lucide="clock" class="size-3 text-gray-400"></i>
+                    <span class="font-medium text-gray-700">Saat:</span>
+                    <span>10:00 - 18:30</span>
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col items-end gap-3">
                 <p class="font-medium text-gray-900">
-                  <span>182.00</span>
+                  <span>62.00</span> <span>AED</span>
+                </p>
+                <button
+                  class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
+                >
+                  <span>Remove</span>
+                  <i data-lucide="trash-2" class="size-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Item -->
+            <div class="flex items-start gap-6 py-4">
+              <div class="size-24 flex-shrink-0">
+                <img
+                  src="https://images.project-test.info/9.webp"
+                  alt="Burj Khalifa"
+                  class="h-full w-full rounded-lg object-cover"
+                />
+              </div>
+              <div class="flex-1">
+                <h3 class="line-clamp-1 font-medium text-gray-900">
+                  Burj Khalifa:
+                </h3>
+                <p class="mt-1 line-clamp-2 text-sm text-gray-500">
+                  Dünyanın En Yüksek Binası
+                </p>
+                <div class="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs">
+                  <p class="flex items-center gap-1 text-gray-500">
+                    <i data-lucide="calendar" class="size-3 text-gray-400"></i>
+                    <span class="font-medium text-gray-700">Tarih:</span>
+                    <span>23.02.2025 - 25.02.2025</span>
+                  </p>
+                  <p class="flex items-center gap-1 text-gray-500">
+                    <i data-lucide="clock" class="size-3 text-gray-400"></i>
+                    <span class="font-medium text-gray-700">Saat:</span>
+                    <span>10:00 - 18:30</span>
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col items-end gap-3">
+                <p class="font-medium text-gray-900">
+                  <span>120.00</span> <span>AED</span>
+                </p>
+                <button
+                  class="flex items-center gap-2 rounded border border-red-600 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition-opacity duration-300 hover:opacity-75"
+                >
+                  <span>Remove</span>
+                  <i data-lucide="trash-2" class="size-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div
+            class="relative space-y-4 border-t border-gray-200 bg-gray-50 px-4 py-4 sm:px-6"
+          >
+            <!-- Coupon Code Input -->
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Kupon Kodu Girin"
+                class="h-11 flex-1 rounded-md border border-gray-300 pl-4 text-sm focus:border-primary-500 focus:outline-none focus:outline-offset-0"
+              />
+              <button
+                class="h-11 rounded-md bg-primary-600 px-3 text-sm font-medium text-white transition hover:opacity-75"
+              >
+                Uygula
+              </button>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="space-y-2 pt-2">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-500">Ara Toplam</span>
+                <span class="text-gray-700">182.00 AED</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-500">İndirim</span>
+                <span class="text-lime-600">-0.00 AED</span>
+              </div>
+
+              <div class="my-2 h-px w-full bg-gray-200"></div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-medium text-gray-900">Genel Toplam</h3>
+                <p class="font-medium text-primary-600">
+                  <span>191.10</span>
                   <span>AED</span>
                 </p>
               </div>
             </div>
+          </div>
 
-            <!-- Payment Link Section -->
-            <div
-              class="border-t border-gray-200 px-4 pt-4 sm:px-6"
-              style="display: block"
-            >
-              <div class="mb-4 flex items-center justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-900">Payment Link</h3>
-                  <p class="mt-1 text-sm text-gray-500">
-                    Time Remaining:
-                    <span class="font-medium text-primary-600">9:08</span>
-                  </p>
-                </div>
+          <!-- Payment Link Section -->
+          <div
+            class="border-t border-gray-200 px-4 pt-4 sm:px-6"
+            style="display: block"
+          >
+            <div class="mb-4 flex items-start justify-between">
+              <div>
+                <h3 class="font-medium text-gray-900">Payment Link</h3>
+                <p class="mt-1 text-sm text-gray-500">
+                  Time Remaining:
+                  <span class="font-medium text-primary-600">9:08</span>
+                </p>
               </div>
-              <div class="space-y-2">
-                <div
-                  class="flex items-center gap-2 rounded-lg border bg-white p-2"
-                >
-                  <input
-                    type="text"
-                    value="https://sandbox.dev.business"
-                    class="flex-1 text-sm text-gray-500 outline-none"
-                    readonly
-                  />
-                  <button
-                    class="rounded-lg bg-gray-100 p-2 text-gray-600 transition hover:bg-gray-200"
-                  >
-                    <i data-lucide="copy" class="h-5 w-5"></i>
-                  </button>
-                </div>
+              <div
+                class="flex items-center gap-1 rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-800"
+              >
+                <i data-lucide="alert-triangle" class="size-3"></i>
+                <span>Link expires soon</span>
               </div>
             </div>
 
-            <!-- Buttons -->
-            <div
-              class="flex-col gap-3 px-4 py-4 sm:flex-row sm:px-6"
+            <div class="space-y-2">
+              <div
+                class="flex items-center gap-2 rounded-lg border bg-white p-2 focus-within:border-primary-500 focus:outline-none focus:outline-offset-0"
+              >
+                <input
+                  type="text"
+                  value="https://sandbox.dev.business"
+                  class="flex-1 text-sm text-gray-500 outline-none"
+                  readonly
+                />
+                <button
+                  class="group rounded-lg bg-primary-600 p-2 text-white transition hover:opacity-75"
+                  id="copy-payment-link"
+                >
+                  <i data-lucide="copy" class="h-5 w-5"></i>
+                  <span class="sr-only">Copy to clipboard</span>
+                  <span
+                    class="absolute -right-2 -top-10 hidden whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs text-white group-hover:block"
+                    >Copy to clipboard</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div
+            class="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:px-6"
+            style="display: flex"
+          >
+            <button
+              class="flex flex-1 items-center justify-center gap-1 rounded-lg border border-gray-200 px-4 py-2.5 text-gray-700 transition hover:bg-gray-50"
+            >
+              <i data-lucide="trash-2" class="size-4"></i>
+              <span>Clear Cart</span>
+            </button>
+            <!-- Generate Payment Link -->
+            <button
+              disabled
+              style="display: none"
+              id="payment-link-button"
+              class="group relative flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-white transition hover:bg-primary-700 disabled:cursor-wait disabled:bg-yellow-200 disabled:text-yellow-700"
+            >
+              <!-- Normal durumda gösterilen içerik -->
+              <i data-lucide="link" class="size-4 group-disabled:hidden"></i>
+              <span class="group-disabled:hidden">Generate Payment Link</span>
+
+              <!-- Disabled durumunda gösterilen içerik (link üretme) -->
+              <i
+                data-lucide="loader-circle"
+                class="hidden size-4 animate-spin stroke-2 group-disabled:block"
+              ></i>
+              <span class="hidden group-disabled:block">Creating Link...</span>
+            </button>
+            <!--Ödeme butonu -->
+            <button
+              class="group relative flex flex-1 items-center justify-center gap-2 rounded-lg border border-lime-50 bg-lime-600 px-4 py-2.5 text-lime-500 transition-colors duration-300 hover:bg-lime-700"
               style="display: flex"
             >
-              <button
-                class="flex-1 rounded-lg border border-gray-200 px-4 py-2.5 text-gray-700 transition hover:bg-gray-50"
-              >
-                Clear Cart
-              </button>
-              <button
-                class="flex-1 rounded-lg bg-primary-600 px-4 py-2.5 text-white transition hover:bg-primary-700"
-              >
-                Generate Payment Link
-              </button>
-            </div>
+              <i data-lucide="credit-card" class="size-4 text-lime-50"></i>
+              <span class="text-lime-50">Proceed to Payment</span>
+            </button>
           </div>
         </div>
       </div>
