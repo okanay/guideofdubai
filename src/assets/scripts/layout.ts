@@ -3,42 +3,16 @@ import { ModalController } from './packages/modal.js'
 import { PictureLazyLoadController } from './packages/picture-lazy-load.js'
 import { LazyImageLoadController } from './packages/lazy-load.js'
 
-document.addEventListener('DOMContentLoaded', async () => {
-  function formatUserName(name: string) {
-    // Boşlukları temizle ve birden fazla boşluğu tek boşluğa indir
-    const cleanName = name.trim().replace(/\s+/g, ' ')
-
-    // İsmi boşluklardan böl
-    const nameParts = cleanName.split(' ')
-
-    // Son ismin ilk harfi
-    const lastInitial = nameParts[nameParts.length - 1][0]
-
-    // İlk isim 4 harften uzunsa
-    if (nameParts[0].length > 4) {
-      return `${nameParts[0][0]}. ${lastInitial}.`
-    } else {
-      // İlk isim 4 harf veya daha kısaysa
-      return `${nameParts[0]} ${lastInitial}.`
-    }
+declare global {
+  interface Window {
+    LayoutModals: ModalController
+    openCart: () => void
+    callIcons: () => void
   }
-
-  // DOM yüklendikten sonra çalışacak kod
-  const userNameElement = document.getElementById('user-name')
-  if (userNameElement && userNameElement.textContent) {
-    const originalName = userNameElement.textContent.trim()
-    const formattedName = formatUserName(originalName)
-    userNameElement.textContent = formattedName
-
-    // Hover durumunda orijinal ismi göstermek için title attribute'u ekle
-    userNameElement.title = originalName
-  }
-})
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (typeof window !== 'undefined') {
-    window.callIcons()
-  }
+  window.callIcons()
 
   new PictureLazyLoadController({
     imageSelector: '.lazy-picture',
@@ -57,6 +31,66 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   new ModalController(
+    [
+      {
+        id: 'nav-1',
+        toggleElements: [],
+        openElements: ['#footer-nav-1-btn'],
+        contentElement: '#footer-nav-1',
+        closeElements: [],
+        containers: ['#footer-nav-1'],
+      },
+      {
+        id: 'nav-2',
+        toggleElements: [],
+        openElements: ['#footer-nav-2-btn'],
+        contentElement: '#footer-nav-2',
+        closeElements: [],
+        containers: ['#footer-nav-2'],
+      },
+      {
+        id: 'nav-3',
+        toggleElements: [],
+        openElements: ['#footer-nav-3-btn'],
+        contentElement: '#footer-nav-3',
+        closeElements: [],
+        containers: ['#footer-nav-3'],
+      },
+    ],
+    {
+      initialActiveModal: 'nav-1',
+      outsideClickClose: false,
+      escapeClose: false,
+      preserveModalHistory: false,
+      scrollLock: {
+        enabled: false,
+      },
+    },
+  )
+
+  new AccordionController({
+    container: '#footer-container',
+    accordionSelector: '.footer',
+    toggleButtonSelector: '.footer-toggle',
+    contentSelector: '.footer-content',
+    iconSelector: '.footer-icon',
+    defaultOpenIndex: 4,
+    closeOthersOnOpen: false,
+    animation: {
+      enabled: true,
+      duration: 300,
+      timingFunction: 'ease',
+    },
+    attributes: {
+      stateAttribute: 'data-state',
+    },
+    classes: {
+      activeClass: 'footer-active',
+      inactiveClass: 'footer-inactive',
+    },
+  })
+
+  const layoutModals = new ModalController(
     [
       {
         id: 'language-menu',
@@ -127,63 +161,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   )
 
-  new ModalController(
-    [
-      {
-        id: 'nav-1',
-        toggleElements: [],
-        openElements: ['#footer-nav-1-btn'],
-        contentElement: '#footer-nav-1',
-        closeElements: [],
-        containers: ['#footer-nav-1'],
-      },
-      {
-        id: 'nav-2',
-        toggleElements: [],
-        openElements: ['#footer-nav-2-btn'],
-        contentElement: '#footer-nav-2',
-        closeElements: [],
-        containers: ['#footer-nav-2'],
-      },
-      {
-        id: 'nav-3',
-        toggleElements: [],
-        openElements: ['#footer-nav-3-btn'],
-        contentElement: '#footer-nav-3',
-        closeElements: [],
-        containers: ['#footer-nav-3'],
-      },
-    ],
-    {
-      initialActiveModal: 'nav-1',
-      outsideClickClose: false,
-      escapeClose: false,
-      preserveModalHistory: false,
-      scrollLock: {
-        enabled: false,
-      },
-    },
-  )
+  window.LayoutModals = layoutModals
+})
 
-  new AccordionController({
-    container: '#footer-container',
-    accordionSelector: '.footer',
-    toggleButtonSelector: '.footer-toggle',
-    contentSelector: '.footer-content',
-    iconSelector: '.footer-icon',
-    defaultOpenIndex: 4,
-    closeOthersOnOpen: false,
-    animation: {
-      enabled: true,
-      duration: 300,
-      timingFunction: 'ease',
-    },
-    attributes: {
-      stateAttribute: 'data-state',
-    },
-    classes: {
-      activeClass: 'footer-active',
-      inactiveClass: 'footer-inactive',
-    },
-  })
+document.addEventListener('DOMContentLoaded', async () => {
+  function formatUserName(name: string) {
+    // Boşlukları temizle ve birden fazla boşluğu tek boşluğa indir
+    const cleanName = name.trim().replace(/\s+/g, ' ')
+
+    // İsmi boşluklardan böl
+    const nameParts = cleanName.split(' ')
+
+    // Son ismin ilk harfi
+    const lastInitial = nameParts[nameParts.length - 1][0]
+
+    // İlk isim 4 harften uzunsa
+    if (nameParts[0].length > 4) {
+      return `${nameParts[0][0]}. ${lastInitial}.`
+    } else {
+      // İlk isim 4 harf veya daha kısaysa
+      return `${nameParts[0]} ${lastInitial}.`
+    }
+  }
+
+  // DOM yüklendikten sonra çalışacak kod
+  const userNameElement = document.getElementById('user-name')
+  if (userNameElement && userNameElement.textContent) {
+    const originalName = userNameElement.textContent.trim()
+    const formattedName = formatUserName(originalName)
+    userNameElement.textContent = formattedName
+
+    // Hover durumunda orijinal ismi göstermek için title attribute'u ekle
+    userNameElement.title = originalName
+  }
 })

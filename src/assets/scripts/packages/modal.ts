@@ -346,8 +346,12 @@ class ModalController {
     }
   }
 
+  private lastModalOpenTime: number = 0
+
   private handleOutsideClick(e: MouseEvent): void {
     if (!this.activeModalId) return
+
+    if (Date.now() - this.lastModalOpenTime < 100) return
 
     const activeModal = this.menus.get(this.activeModalId)
     if (!activeModal) return
@@ -390,6 +394,8 @@ class ModalController {
   ): void {
     const menu = this.menus.get(menuId)
     if (!menu) return
+
+    this.lastModalOpenTime = Date.now()
 
     if (this.config.preserveModalHistory) {
       if (this.activeModalId && this.activeModalId !== menuId) {

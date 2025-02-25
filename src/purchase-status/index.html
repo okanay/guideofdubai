@@ -62,8 +62,6 @@
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/layout.js"></script>
-    <script type="module" src="/assets/scripts/rent-a-car-payment.js"></script>
-    <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
   </head>
   <body class="bg-white">
     <header class="h-fit w-full">
@@ -1355,11 +1353,11 @@
                 <div
                   role="alert"
                   class="mb-4 flex items-center rounded-lg border-l-4 border-lime-400 bg-lime-50 p-4 text-lime-800"
-                  style="display: none !important"
+                  style="display: flex !important"
                 >
                   <i data-lucide="check" class="size-4 flex-shrink-0"></i>
                   <div class="ms-3 text-sm font-medium">
-                    Success: Payment link has been copied to clipboard
+                    Success: Payment link has been copied to clipboard.
                   </div>
                 </div>
                 <!-- Warning -->
@@ -1427,14 +1425,14 @@
                 Alışverişe Başla
               </button>
             </div>
+
             <!-- Items Show Here-->
             <div
-              class="-mt-1 h-full flex-col gap-4 divide-y divide-gray-100 overflow-y-auto px-4 pb-4 sm:mt-0"
-              style="display: flex !important"
+              class="-mt-2 -flex h-full flex-col divide-y divide-gray-200 overflow-y-auto px-4 pb-4"
             >
               <!-- Item -->
-              <div class="flex items-start gap-6">
-                <div class="h-24 w-24 flex-shrink-0">
+              <div class="flex items-start gap-6 py-4">
+                <div class="size-24 flex-shrink-0">
                   <img
                     src="https://images.project-test.info/6.webp"
                     alt="Museum of the Future"
@@ -1475,8 +1473,8 @@
               </div>
 
               <!-- Item -->
-              <div class="flex items-start gap-6">
-                <div class="h-24 w-24 flex-shrink-0">
+              <div class="flex items-start gap-6 py-4">
+                <div class="size-24 flex-shrink-0">
                   <img
                     src="https://images.project-test.info/9.webp"
                     alt="Burj Khalifa"
@@ -1516,6 +1514,7 @@
                 </div>
               </div>
             </div>
+
             <!-- Complete State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
@@ -1538,6 +1537,7 @@
                 Siparişlerime Git
               </button>
             </div>
+
             <!-- Failed State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
@@ -1560,6 +1560,7 @@
                 Tekrar Dene
               </button>
             </div>
+
             <!-- Pending State -->
             <div
               class="flex h-full flex-col items-center justify-center gap-4 px-4 py-4 sm:px-6"
@@ -1673,6 +1674,7 @@
         <h1 class="mb-2 text-xl font-semibold text-gray-900 sm:text-2xl">
           Ödemeniz Başarıyla Tamamlandı!
         </h1>
+
         <p class="mb-8 text-pretty text-sm text-gray-600 sm:text-base">
           Rezervasyon detaylarınız e-posta adresinize gönderilecektir.
         </p>
@@ -1727,7 +1729,7 @@
             </div>
           </div>
 
-          <!-- Services List -->
+          <!-- Order List -->
           <div class="divide-y divide-gray-100">
             <!-- Hotel Service -->
             <div class="px-4 py-6">
@@ -1782,7 +1784,13 @@
                 </div>
 
                 <!-- Hotel Price -->
-                <div class="text-right">
+                <div class="flex flex-col text-left sm:items-end sm:text-right">
+                  <div class="mb-1 flex items-center gap-1">
+                    <i data-lucide="ticket" class="size-4 text-primary-500"></i>
+                    <span class="text-xs font-medium text-gray-700"
+                      >Voucher: ACT-24387</span
+                    >
+                  </div>
                   <p class="text-lg font-semibold text-primary-600">
                     28.470 AED
                   </p>
@@ -1843,10 +1851,164 @@
                 </div>
 
                 <!-- Car Price -->
-                <div class="text-right">
+                <div class="flex flex-col text-left sm:items-end sm:text-right">
+                  <div class="mb-1 flex items-center gap-1">
+                    <i data-lucide="ticket" class="size-4 text-primary-500"></i>
+                    <span class="text-xs font-medium text-gray-700"
+                      >Voucher: ACT-24388</span
+                    >
+                  </div>
                   <p class="text-lg font-semibold text-primary-600">
                     5.850 AED
                   </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Service -->
+            <div class="px-4 py-6">
+              <div
+                class="flex flex-col flex-wrap items-start gap-4 sm:flex-row sm:flex-nowrap"
+              >
+                <!-- Activity Image -->
+                <div
+                  class="max-h-[200px] w-full flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-24 sm:w-24"
+                >
+                  <img
+                    src="https://images.project-test.info/9.webp"
+                    alt="Chevrolet Camaro"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+
+                <!-- Activity Details -->
+                <div class="flex-1">
+                  <div class="flex flex-col gap-2 text-left">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-medium text-gray-800">
+                        Lüks Safari Platinium Heritage
+                      </h4>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <div
+                        class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
+                      >
+                        <span class="font-medium">Tarih: </span>
+                        <span>23.12.2024</span>
+                      </div>
+                      <i data-lucide="clock" class="size-3 text-gray-400"></i>
+                      <div
+                        class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
+                      >
+                        <span class="font-medium">Saat: </span>
+                        <span>08:00 - 13:00</span>
+                      </div>
+                    </div>
+
+                    <!-- Özellikler Listesi (Veri öznitelikleriyle genişletilmiş) -->
+                    <ul
+                      class="feature-list mt-2 grid grid-cols-1 gap-x-3 gap-y-2 text-xs sm:grid-cols-2"
+                    >
+                      <li
+                        class="feature-item"
+                        data-feature-type="people"
+                        data-adults="2"
+                        data-children="1"
+                      >
+                        <div class="flex items-center gap-1.5">
+                          <i
+                            data-lucide="users"
+                            class="feature-icon size-3 text-gray-500"
+                          ></i>
+                          <span class="feature-text text-gray-600"
+                            >2 Yetişkin, 1 Çocuk</span
+                          >
+                        </div>
+                      </li>
+
+                      <li
+                        class="feature-item"
+                        data-feature-type="transportation"
+                        data-transport-type="private"
+                      >
+                        <div class="flex items-center gap-1.5">
+                          <i
+                            data-lucide="car"
+                            class="feature-icon size-3 text-gray-500"
+                          ></i>
+                          <span class="feature-text text-gray-600"
+                            >Özel Araç Transferi</span
+                          >
+                        </div>
+                      </li>
+
+                      <li
+                        class="feature-item"
+                        data-feature-type="duration"
+                        data-hours="5"
+                      >
+                        <div class="flex items-center gap-1.5">
+                          <i
+                            data-lucide="clock"
+                            class="feature-icon size-3 text-gray-500"
+                          ></i>
+                          <span class="feature-text text-gray-600">5 Saat</span>
+                        </div>
+                      </li>
+
+                      <li
+                        class="feature-item"
+                        data-feature-type="language"
+                        data-languages="tr,en"
+                      >
+                        <div class="flex items-center gap-1.5">
+                          <i
+                            data-lucide="globe"
+                            class="feature-icon size-3 text-gray-500"
+                          ></i>
+                          <span class="feature-text text-gray-600"
+                            >Türkçe, İngilizce</span
+                          >
+                        </div>
+                      </li>
+                    </ul>
+
+                    <ul
+                      class="mt-1 grid list-none grid-cols-2 gap-x-2 gap-y-1 text-xs text-gray-600"
+                    >
+                      <li class="flex items-center gap-1">
+                        <i data-lucide="check" class="size-3 text-lime-500"></i>
+                        <span>Platinum Kamp Deneyimi</span>
+                      </li>
+                      <li class="flex items-center gap-1">
+                        <i data-lucide="check" class="size-3 text-lime-500"></i>
+                        <span>Geleneksel Arap Yemekleri</span>
+                      </li>
+                      <li class="flex items-center gap-1">
+                        <i data-lucide="check" class="size-3 text-lime-500"></i>
+                        <span>Çöl Yıldız Gözlemi</span>
+                      </li>
+                      <li class="flex items-center gap-1">
+                        <i data-lucide="check" class="size-3 text-lime-500"></i>
+                        <span>Deve Binişi Dahil</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Activity Price -->
+                <div class="flex flex-col text-left sm:items-end sm:text-right">
+                  <div class="mb-1 flex items-center gap-1">
+                    <i data-lucide="ticket" class="size-4 text-primary-500"></i>
+                    <span class="text-xs font-medium text-gray-700"
+                      >Voucher: ACT-24389</span
+                    >
+                  </div>
+                  <p class="text-lg font-semibold text-primary-600">
+                    3.480 AED
+                  </p>
+                  <div class="mt-1 text-xs text-lime-600">%10 İndirimli</div>
                 </div>
               </div>
             </div>
@@ -1855,31 +2017,17 @@
           <!-- Order Summary -->
           <div class="border-t border-gray-200 bg-gray-50 px-4 py-6">
             <div class="space-y-2">
-              <!-- Ara Toplam -->
-              <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-500">Ara Toplam</span>
-                <span class="text-sm font-medium text-gray-700"
-                  >34.320 AED</span
-                >
-              </div>
-
-              <!-- İndirim -->
-              <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-500">İndirim</span>
-                <span class="text-sm font-medium text-lime-600"
-                  >-2.320 AED</span
-                >
-              </div>
-
-              <!-- Divider -->
-              <div class="my-2 h-px w-full bg-gray-200"></div>
-
               <!-- Genel Toplam -->
               <div class="flex items-center justify-between">
                 <span class="font-medium text-gray-700">Genel Toplam</span>
-                <span class="text-lg font-semibold text-primary-600"
-                  >32.000 AED</span
-                >
+                <div class="flex flex-col items-end">
+                  <span class="hidden text-xs text-gray-500 line-through"
+                    >34.320 AED</span
+                  >
+                  <span class="text-lg font-semibold text-primary-600"
+                    >32.000 AED</span
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -2058,13 +2206,14 @@
 
         <!-- Action Buttons -->
         <div class="mb-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="#"
+          <button
+            data-cart-button
+            onclick="window.LayoutModals.setActiveModal('shopping-cart-modal')"
             class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-6 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
             <i data-lucide="shopping-cart" class="size-4"></i>
             Sepete Dön
-          </a>
+          </button>
           <button
             class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary-500 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-primary-600"
           >
