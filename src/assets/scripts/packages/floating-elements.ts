@@ -6,7 +6,18 @@ interface FixedElement {
   showAnimation: Partial<CSSStyleDeclaration>
   hideAnimation: Partial<CSSStyleDeclaration>
   onClick?: () => void
+  // Medya sorguları için yeni özellikler
+  breakpoints?: {
+    mobile?: boolean // Mobil görünümde göster/gizle
+    tablet?: boolean // Tablet görünümde göster/gizle
+    desktop?: boolean // Masaüstü görünümde göster/gizle
+    mobileOrder?: number // Mobil görünümde sıralama
+    tabletOrder?: number // Tablet görünümde sıralama
+    desktopOrder?: number // Masaüstü görünümde sıralama
+  }
 }
+
+type DeviceType = 'mobile' | 'tablet' | 'desktop'
 
 export class ScrollManager {
   private elements: Map<
@@ -16,22 +27,49 @@ export class ScrollManager {
       element: HTMLElement
       height: number
       isVisible: boolean
+      isInViewport: boolean // Elemanın DOM'da görünür olup olmadığını kontrol eder
     }
   > = new Map()
 
   private scrollTimeout: number | null = null
   private resizeTimeout: number | null = null
-  private readonly startThreshold = 0.65 // Eski threshold.start değeri
-  private readonly endThreshold = 0.1 // Eski threshold.end değeri
+  private readonly startThreshold = 0.65
+  private readonly endThreshold = 0.1
+
+  // Cihaz boyutu için breakpoint değerleri
+  private readonly breakpoints = {
+    mobile: 0,
+    tablet: 768, // Tailwind'in md breakpoint'i
+    desktop: 1024, // Tailwind'in lg breakpoint'i
+  }
+
+  private currentDevice: DeviceType = 'mobile'
 
   constructor(elements: FixedElement[]) {
+    this.detectDeviceType()
     this.initializeElements(elements)
 
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
 
-    // Initial check
+    // İlk kontrolü yap
+    this.updateElementsVisibility()
     this.checkElementsVisibility()
+  }
+
+  // Cihaz tipini algıla
+  private detectDeviceType(): void {
+    const width = window.innerWidth
+
+    if (width >= this.breakpoints.desktop) {
+      this.currentDevice = 'desktop'
+    } else if (width >= this.breakpoints.tablet) {
+      this.currentDevice = 'tablet'
+    } else {
+      this.currentDevice = 'mobile'
+    }
+
+    console.log(`Current device type: ${this.currentDevice}`)
   }
 
   private initializeElements(elements: FixedElement[]) {
@@ -39,19 +77,57 @@ export class ScrollManager {
       const element = document.getElementById(config.id)
       if (!element) return
 
+      // Temel pozisyon stillerini uygula
       Object.assign(element.style, {
         ...config.position,
       })
+
+      // Varsayılan breakpoint konfigürasyonunu ayarla
+      if (!config.breakpoints) {
+        config.breakpoints = {
+          mobile: true,
+          tablet: true,
+          desktop: true,
+        }
+      }
 
       this.elements.set(config.id, {
         config,
         element,
         height: element.offsetHeight,
         isVisible: false,
+        isInViewport: this.isElementInViewport(element),
       })
 
       if (config.onClick) {
         element.addEventListener('click', config.onClick)
+      }
+    })
+  }
+
+  // Element'in DOM'da görünür olup olmadığını kontrol et (display: none, visibility: hidden vb. değil)
+  private isElementInViewport(element: HTMLElement): boolean {
+    // Element'in display computed style'ını kontrol et
+    const computedStyle = window.getComputedStyle(element)
+    return (
+      computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden'
+    )
+  }
+
+  // Tüm elementlerin DOM'da görünürlüğünü güncelle
+  private updateElementsVisibility(): void {
+    this.elements.forEach(data => {
+      data.isInViewport = this.isElementInViewport(data.element)
+
+      // Geçerli cihaz tipine göre element'in görünür olması gerekip gerekmediğini kontrol et
+      if (data.config.breakpoints) {
+        const shouldBeVisibleOnDevice =
+          data.config.breakpoints[this.currentDevice]
+
+        // Eğer bu cihaz tipinde görünmemesi gerekiyorsa, isInViewport'u false yap
+        if (shouldBeVisibleOnDevice === false) {
+          data.isInViewport = false
+        }
       }
     })
   }
@@ -66,32 +142,57 @@ export class ScrollManager {
     }, 100)
   }
 
-  private handleResize = () => {
+  // Yükseklikleri güncelleyen metot
+  private updateElementHeights() {
+    this.elements.forEach(data => {
+      if (!data.isInViewport) return // DOM'da görünür değilse atla
+
+      // Stili geçici olarak değiştir ve yüksekliği ölç
+      const originalStyles = {
+        display: data.element.style.display,
+        visibility: data.element.style.visibility,
+        opacity: data.element.style.opacity,
+        position: data.element.style.position,
+        transform: data.element.style.transform,
+      }
+
+      // Elemanı ölçüm için hazırla
+      data.element.style.display = 'block'
+      data.element.style.visibility = 'visible'
+      data.element.style.opacity = '1'
+      data.element.style.position = 'fixed'
+      data.element.style.transform = 'none'
+
+      // Yüksekliği al
+      void data.element.offsetHeight
+      data.height = data.element.getBoundingClientRect().height
+
+      // Orijinal stillere geri dön
+      data.element.style.display = originalStyles.display
+      data.element.style.visibility = originalStyles.visibility
+      data.element.style.opacity = originalStyles.opacity
+      data.element.style.position = originalStyles.position
+      data.element.style.transform = originalStyles.transform
+    })
+  }
+
+  public handleResize = () => {
     if (this.resizeTimeout) {
       window.clearTimeout(this.resizeTimeout)
     }
 
     this.resizeTimeout = window.setTimeout(() => {
-      this.elements.forEach(data => {
-        // Store original styles
-        const originalDisplay = data.element.style.display
-        const originalVisibility = data.element.style.visibility
-        const originalOpacity = data.element.style.opacity
+      // Cihaz tipini yeniden algıla
+      const oldDevice = this.currentDevice
+      this.detectDeviceType()
 
-        // Temporarily make element visible but hidden
-        data.element.style.display = 'block'
-        data.element.style.visibility = 'hidden'
-        data.element.style.opacity = '0'
+      // Eğer cihaz tipi değiştiyse, elementlerin DOM görünürlüğünü güncelle
+      if (oldDevice !== this.currentDevice) {
+        this.updateElementsVisibility()
+      }
 
-        // Force reflow and get height
-        void data.element.offsetHeight
-        data.height = data.element.getBoundingClientRect().height
-
-        // Restore original styles
-        data.element.style.display = originalDisplay
-        data.element.style.visibility = originalVisibility
-        data.element.style.opacity = originalOpacity
-      })
+      // Yükseklikleri güncelle ve görünürlüğü kontrol et
+      this.updateElementHeights()
       this.checkElementsVisibility()
     }, 250)
   }
@@ -99,9 +200,18 @@ export class ScrollManager {
   private checkElementsVisibility() {
     let hasVisibilityChanged = false
 
-    this.elements.forEach((data, id) => {
+    this.elements.forEach(data => {
+      // Eğer element DOM'da görünür değilse, isVisible'ı false yap ve devam et
+      if (!data.isInViewport) {
+        if (data.isVisible) {
+          data.isVisible = false
+          hasVisibilityChanged = true
+        }
+        return
+      }
+
       if (!data.config.watchSelector) {
-        // Eğer izlenecek element yoksa her zaman görünür
+        // İzlenecek element yoksa her zaman görünür
         if (!data.isVisible) {
           data.isVisible = true
           hasVisibilityChanged = true
@@ -119,7 +229,7 @@ export class ScrollManager {
       const elementTotalVisibleHeight = rect.height
       const visibilityRatio = elementVisibleHeight / elementTotalVisibleHeight
 
-      // Ana değişiklik burada: threshold mantığını düzelttik
+      // Threshold mantığı kontrolü
       const shouldBeVisible = visibilityRatio <= this.endThreshold
 
       if (shouldBeVisible !== data.isVisible) {
@@ -133,33 +243,60 @@ export class ScrollManager {
     }
   }
 
-  private updatePositions() {
-    const sortedElements = Array.from(this.elements.entries()).sort(
-      (a, b) => a[1].config.order - b[1].config.order,
-    )
+  public updatePositions() {
+    // Görünür öğeleri mevcut cihaz tipine göre sırala
+    const visibleElements = Array.from(this.elements.entries())
+      .filter(([_, data]) => data.isVisible && data.isInViewport)
+      .sort((a, b) => {
+        // Geçerli cihaz tipine göre order değerini al
+        const orderA = this.getOrderForCurrentDevice(a[1].config)
+        const orderB = this.getOrderForCurrentDevice(b[1].config)
+        return orderA - orderB
+      })
 
     let currentBottom = 0
 
-    sortedElements.forEach(([_, data]) => {
-      // Her element için animasyon uygula, görünür olsun veya olmasın
-      const animation = data.isVisible
-        ? data.config.showAnimation
-        : data.config.hideAnimation
+    // Görünür elemanları işle
+    visibleElements.forEach(([_, data]) => {
+      Object.assign(data.element.style, {
+        ...data.config.position,
+        ...data.config.showAnimation,
+        bottom: `${currentBottom}px`,
+      })
+      currentBottom += data.height + 0 // 16px ekstra boşluk
+    })
 
-      if (data.isVisible) {
+    // Görünmez elemanları işle
+    this.elements.forEach(data => {
+      if (!data.isVisible || !data.isInViewport) {
         Object.assign(data.element.style, {
           ...data.config.position,
-          ...animation,
-          bottom: `${currentBottom}px`,
-        })
-        currentBottom += data.height
-      } else {
-        Object.assign(data.element.style, {
-          ...data.config.position,
-          ...animation,
+          ...data.config.hideAnimation,
         })
       }
     })
+  }
+
+  // Geçerli cihaz tipine göre order değerini al
+  private getOrderForCurrentDevice(config: FixedElement): number {
+    if (!config.breakpoints) return config.order
+
+    switch (this.currentDevice) {
+      case 'mobile':
+        return config.breakpoints.mobileOrder !== undefined
+          ? config.breakpoints.mobileOrder
+          : config.order
+      case 'tablet':
+        return config.breakpoints.tabletOrder !== undefined
+          ? config.breakpoints.tabletOrder
+          : config.order
+      case 'desktop':
+        return config.breakpoints.desktopOrder !== undefined
+          ? config.breakpoints.desktopOrder
+          : config.order
+      default:
+        return config.order
+    }
   }
 
   public destroy() {

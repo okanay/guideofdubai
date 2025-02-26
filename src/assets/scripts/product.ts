@@ -69,25 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   )
 
-  // Rating Animator Instance
-  // const ratingAnimator = new RatingAnimator({
-  // containerSelector: '#rating-container',
-  // barSelector: '.rating-bar',
-  // animationDuration: 1000,
-  // })
-
-  // Rating Animator URL Listener
-  // const urlMatcher = new URLMatcher({
-  // queryParam: 'view',
-  // targetValues: ['reviews'],
-  // })
-
-  // Rating Animator URL Listener
-  // urlMatcher.on('onFirstMatch', 'reviews', () => {
-  //   ratingAnimator.animate()
-  // })
-
-  new ScrollManager([
+  const manager = new ScrollManager([
     {
       id: 'complete-purchase-container',
       watchSelector: '#purchase-submit-btn',
@@ -98,20 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
         bottom: '0px',
         width: '100%',
         zIndex: '50',
-        visibility: 'hidden',
-        opacity: '0',
+        opacity: '1',
         transform: 'translateY(0%)',
         transition:
           'transform 500ms cubic-bezier(0.4, 0, 0.2, 1), opacity 500ms cubic-bezier(0.4, 0, 0.2, 1)',
         willChange: 'transform, opacity',
       },
       showAnimation: {
-        visibility: 'visible',
         opacity: '1',
         transform: 'translateY(0%)',
       },
       hideAnimation: {
-        visibility: 'hidden',
         opacity: '0',
         transform: 'translateY(100%)',
       },
@@ -121,6 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
           block: 'center',
         })
       },
+      // Cihaz boyutu bazında görünürlük ve sıralama ayarları
+      breakpoints: {
+        mobile: true, // Mobil ekranlarda görünür
+        tablet: false, // Tablet ekranlarda görünür
+        desktop: false, // Masaüstü ekranlarda görünür
+        mobileOrder: 1, // Mobil ekranlarda sıralama
+        tabletOrder: 99, // Tablet ekranlarda sıralama
+        desktopOrder: 99, // Masaüstü ekranlarda sıralama
+      },
     },
     {
       id: 'whatsapp-button',
@@ -128,8 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       position: {
         position: 'fixed',
         right: '16px',
-        bottom: '84px',
-        visibility: 'hidden',
+        bottom: '64px',
         opacity: '0%',
         transform: 'translateY(100%)',
         transition: 'all 0.3s ease-in-out',
@@ -137,18 +124,31 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       showAnimation: {
         transition: 'all 0.3s ease-in-out',
-        transform: 'translateY(-12px)',
-        visibility: 'visible',
+        transform: 'translateY(-20%)',
         opacity: '100%',
       },
       hideAnimation: {
         transition: 'all 0.3s ease-in-out',
-        transform: 'translateY(120%)',
-        visibility: 'hidden',
+        transform: 'translateY(100%)',
         opacity: '0%',
+      },
+      // Cihaz boyutu bazında görünürlük ve sıralama ayarları
+      breakpoints: {
+        mobile: true, // Mobil ekranlarda görünür
+        tablet: true, // Tablet ekranlarda görünür
+        desktop: true, // Masaüstü ekranlarda görünür
+        mobileOrder: 2, // Mobil ekranlarda sıralama
+        tabletOrder: 2, // Tablet ekranlarda sıralama
+        desktopOrder: 2, // Masaüstü ekranlarda sıralama
       },
     },
   ])
+
+  // Resize event listener
+  window.addEventListener('resize', () => {
+    console.log('resize')
+    manager.handleResize()
+  })
 
   // Mobile Screen Nav Sticky Manager
   new NavStickyManager({
