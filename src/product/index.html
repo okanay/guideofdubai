@@ -3202,118 +3202,123 @@
                   </div>
 
                   <!-- Checkbox -->
-                  <div
-                    class="grid grid-cols-1 gap-x-3 gap-y-4 sm:grid-cols-2 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
-                  >
-                    <div class="relative">
-                      <input
-                        type="checkbox"
-                        name="checkbox-1"
-                        id="checkbox-1"
-                        class="peer hidden"
-                      />
-                      <label
-                        for="checkbox-1"
-                        class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
-                      >
-                        <div
-                          class="check-icon flex items-center gap-2 brightness-0"
+                  <div class="flex flex-col gap-1">
+                    <h2 class="text-sm font-semibold text-gray-950">
+                      Ekstra Hizmetler
+                    </h2>
+                    <div
+                      class="grid grid-cols-1 gap-x-3 gap-y-4 sm:grid-cols-2 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
+                    >
+                      <div class="relative">
+                        <input
+                          type="checkbox"
+                          name="checkbox-1"
+                          id="checkbox-1"
+                          class="peer hidden"
+                        />
+                        <label
+                          for="checkbox-1"
+                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
                         >
-                          <img
-                            src="/assets/images/form-icons/5.svg"
-                            alt=""
-                            class="size-6"
-                          />
-                          <span class="text-sm">Seçenek 1</span>
-                        </div>
-                        <div
-                          class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
-                          style="
-                            background-color: var(--checkbox-bg);
-                            border-color: var(--checkbox-border);
-                          "
-                        >
-                          <i
-                            data-lucide="check"
-                            class="size-4 text-primary-50 transition-opacity"
-                            style="opacity: var(--checkbox-checked-opacity)"
-                          ></i>
-                        </div>
-                      </label>
-                    </div>
+                          <div
+                            class="check-icon flex items-center gap-2 brightness-0"
+                          >
+                            <img
+                              src="/assets/images/form-icons/5.svg"
+                              alt=""
+                              class="size-6"
+                            />
+                            <span class="text-sm">Seçenek 1</span>
+                          </div>
+                          <div
+                            class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
+                            style="
+                              background-color: var(--checkbox-bg);
+                              border-color: var(--checkbox-border);
+                            "
+                          >
+                            <i
+                              data-lucide="check"
+                              class="size-4 text-primary-50 transition-opacity"
+                              style="opacity: var(--checkbox-checked-opacity)"
+                            ></i>
+                          </div>
+                        </label>
+                      </div>
 
-                    <div class="relative">
-                      <input
-                        type="checkbox"
-                        name="checkbox-2"
-                        id="checkbox-2"
-                        class="peer hidden"
-                      />
-                      <label
-                        for="checkbox-2"
-                        class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
-                      >
-                        <div
-                          class="check-icon flex items-center gap-2 brightness-0"
+                      <div class="relative">
+                        <input
+                          type="checkbox"
+                          name="checkbox-2"
+                          id="checkbox-2"
+                          class="peer hidden"
+                        />
+                        <label
+                          for="checkbox-2"
+                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
                         >
-                          <img
-                            src="/assets/images/form-icons/4.svg"
-                            alt=""
-                            class="size-6"
-                          />
-                          <span class="text-sm">Seçenek 2</span>
-                        </div>
-                        <div
-                          class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
-                          style="
-                            background-color: var(--checkbox-bg);
-                            border-color: var(--checkbox-border);
-                          "
-                        >
-                          <i
-                            data-lucide="check"
-                            class="size-4 text-primary-50 transition-opacity"
-                            style="opacity: var(--checkbox-checked-opacity)"
-                          ></i>
-                        </div>
-                      </label>
-                    </div>
+                          <div
+                            class="check-icon flex items-center gap-2 brightness-0"
+                          >
+                            <img
+                              src="/assets/images/form-icons/4.svg"
+                              alt=""
+                              class="size-6"
+                            />
+                            <span class="text-sm">Seçenek 2</span>
+                          </div>
+                          <div
+                            class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
+                            style="
+                              background-color: var(--checkbox-bg);
+                              border-color: var(--checkbox-border);
+                            "
+                          >
+                            <i
+                              data-lucide="check"
+                              class="size-4 text-primary-50 transition-opacity"
+                              style="opacity: var(--checkbox-checked-opacity)"
+                            ></i>
+                          </div>
+                        </label>
+                      </div>
 
-                    <div class="relative">
-                      <input
-                        type="checkbox"
-                        name="checkbox-3"
-                        id="checkbox-3"
-                        class="peer hidden"
-                      />
-                      <label
-                        for="checkbox-3"
-                        class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
-                      >
-                        <div
-                          class="check-icon flex items-center gap-2 brightness-0"
+                      <div class="relative">
+                        <input
+                          type="checkbox"
+                          name="checkbox-3"
+                          id="checkbox-3"
+                          class="peer hidden"
+                        />
+                        <label
+                          for="checkbox-3"
+                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>.check-icon]:!invert"
                         >
-                          <img
-                            src="/assets/images/form-icons/7.svg"
-                            alt=""
-                            class="size-6"
-                          />
-                          <span class="text-sm">Seçenek 3</span>
-                        </div>
-                        <div
-                          class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
-                          style="
-                            background-color: var(--checkbox-bg);
-                            border-color: var(--checkbox-border);
-                          "
-                        >
-                          <i
-                            data-lucide="check"
-                            class="size-4 text-primary-50 transition-opacity"
-                            style="opacity: var(--checkbox-checked-opacity)"
-                          ></i>
-                        </div>
-                      </label>
+                          <div
+                            class="check-icon flex items-center gap-2 brightness-0"
+                          >
+                            <img
+                              src="/assets/images/form-icons/7.svg"
+                              alt=""
+                              class="size-6"
+                            />
+                            <span class="text-sm">Seçenek 3</span>
+                          </div>
+                          <div
+                            class="flex h-5 w-5 items-center justify-center rounded-sm border transition-colors"
+                            style="
+                              background-color: var(--checkbox-bg);
+                              border-color: var(--checkbox-border);
+                            "
+                          >
+                            <i
+                              data-lucide="check"
+                              class="size-4 text-primary-50 transition-opacity"
+                              style="opacity: var(--checkbox-checked-opacity)"
+                            ></i>
+                          </div>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
