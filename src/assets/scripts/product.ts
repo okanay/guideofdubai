@@ -1,6 +1,6 @@
 import { ModalController } from './packages/modal.js'
-import { RatingAnimator } from './packages/rating-bar-controller.js'
-import { URLMatcher } from './packages/url-matcher.js'
+// import { RatingAnimator } from './packages/rating-bar-controller.js'
+// import { URLMatcher } from './packages/url-matcher.js'
 import { ScrollManager } from './packages/floating-elements.js'
 import { NavStickyManager } from './packages/scroll-style.js'
 import { DatePickerManager } from './packages/date-selector.js'
@@ -70,22 +70,22 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 
   // Rating Animator Instance
-  const ratingAnimator = new RatingAnimator({
-    containerSelector: '#rating-container',
-    barSelector: '.rating-bar',
-    animationDuration: 1000,
-  })
+  // const ratingAnimator = new RatingAnimator({
+  // containerSelector: '#rating-container',
+  // barSelector: '.rating-bar',
+  // animationDuration: 1000,
+  // })
 
   // Rating Animator URL Listener
-  const urlMatcher = new URLMatcher({
-    queryParam: 'view',
-    targetValues: ['reviews'],
-  })
+  // const urlMatcher = new URLMatcher({
+  // queryParam: 'view',
+  // targetValues: ['reviews'],
+  // })
 
   // Rating Animator URL Listener
-  urlMatcher.on('onFirstMatch', 'reviews', () => {
-    ratingAnimator.animate()
-  })
+  // urlMatcher.on('onFirstMatch', 'reviews', () => {
+  //   ratingAnimator.animate()
+  // })
 
   new ScrollManager([
     {
