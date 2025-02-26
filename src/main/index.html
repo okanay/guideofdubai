@@ -344,12 +344,6 @@
                         Su Aktiviteleri</a
                       >
 
-                      <a
-                        href="/aktiviteler/col-safari"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
-                        >Çöl Safari Turları</a
-                      >
-
                       <!-- Level 1 Item with Level 2 -->
                       <li
                         class="group/submenu relative cursor-default rounded-sm p-2.5 transition-colors duration-300 hover:bg-gray-50"
@@ -371,7 +365,7 @@
                         <!-- Level 2 Dropdown -->
                         <ul
                           style="max-height: 320px; width: 200px"
-                          class="sidebar invisible absolute -top-2 left-[101%] ml-0.5 flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white transition-all duration-300 group-hover/submenu:visible"
+                          class="sidebar pointer-event-none group-hover/submenu:pointer-event-auto absolute -top-2 left-[101%] ml-0.5 flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white opacity-0 transition-all duration-300 group-hover/submenu:opacity-100"
                         >
                           <a
                             href="/"
@@ -747,6 +741,400 @@
               class="flex h-fit w-full flex-1 flex-col justify-start bg-white px-4 py-8"
             >
               <h4 class="mb-4 font-semibold text-primary-500">
+                Otel Hizmetleri
+              </h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <li class="group flex items-center justify-between">
+                  <a href="#" class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="https://guideofdubai.com/codes/assets/images/mobile-menu/9.svg?v=3"
+                        alt="User Icon"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition group-hover:text-gray-900"
+                      >
+                        Hotels
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="size-5 brightness-0 rtl:scale-x-[-1]"
+                    ></i>
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Aktiviteler Mobil Menü -->
+              <h4 class="mb-4 mt-8 font-semibold text-primary-500">
+                Aktiviteler
+              </h4>
+              <ul
+                class="flex w-full flex-col gap-4 border-b border-neutral-200 pb-8"
+              >
+                <!-- Checkbox ile açılıp kapanabilen dropdown -->
+                <li class="relative">
+                  <!-- Gizli checkbox -->
+                  <input
+                    type="checkbox"
+                    id="activity-menu-1"
+                    class="peer sr-only"
+                  />
+
+                  <!-- Label ve içindeki elementi -->
+                  <label
+                    for="activity-menu-1"
+                    class="flex w-full cursor-pointer items-center justify-between [--icon-color:inherit] [--rotation:0deg] [--title-color:inherit] peer-checked:[--icon-color:theme(colors.primary.500)] peer-checked:[--rotation:180deg] peer-checked:[--title-color:theme(colors.primary.500)]"
+                  >
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/2.svg?v=3"
+                        alt="Lüks Dubai Aktiviteleri"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition"
+                        style="color: var(--title-color)"
+                      >
+                        Lüks Dubai Aktiviteleri
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-down"
+                      class="size-5 transition-transform duration-300"
+                      style="
+                        transform: rotate(var(--rotation));
+                        color: var(--icon-color);
+                      "
+                    ></i>
+                  </label>
+
+                  <!-- Dropdown içeriği - Checkbox checked durumunda açılacak -->
+                  <div
+                    class="grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[1fr]"
+                  >
+                    <div class="min-h-0">
+                      <ul
+                        class="ml-3 mt-2 flex max-h-[240px] flex-col gap-2 overflow-y-auto border-l-2 border-gray-100 pl-6 pt-3"
+                      >
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Dubai Helikopter Turu</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Helikopter Turu - 12 Dakika - 5 veya 6 Kişi Özel
+                              Kapatılma</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Dubai'de Lüks Yat Turu - 2 Saat - 10 Kişi</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Premium Desert Safari - 6 Saat - Özel Araç</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>VIP Transfer - Mercedes V Class</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Burj Khalifa 124. Kat Premium Giriş</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Atlantis Aquaventure Su Parkı VIP Giriş</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Dubai Frame Skip-the-Line Bilet</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Dubai Mall Akvaryum & Sualtı Hayvanat
+                              Bahçesi</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>IMG Worlds of Adventure Bilet</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="relative">
+                  <!-- Gizli checkbox -->
+                  <input
+                    type="checkbox"
+                    id="activity-menu-2"
+                    class="peer sr-only"
+                  />
+
+                  <!-- Label ve içindeki elementi -->
+                  <label
+                    for="activity-menu-2"
+                    class="flex w-full cursor-pointer items-center justify-between [--icon-color:inherit] [--rotation:0deg] [--title-color:inherit] peer-checked:[--icon-color:theme(colors.primary.500)] peer-checked:[--rotation:180deg] peer-checked:[--title-color:theme(colors.primary.500)]"
+                  >
+                    <div class="flex items-center gap-3">
+                      <img
+                        src="/assets/images/mobile-menu/2.svg?v=3"
+                        alt="Lüks Dubai Aktiviteleri"
+                        class="size-6"
+                      />
+                      <span
+                        class="text-gray-700 transition"
+                        style="color: var(--title-color)"
+                        >Iconic Places
+                      </span>
+                    </div>
+                    <i
+                      data-lucide="chevron-down"
+                      class="size-5 transition-transform duration-300"
+                      style="
+                        transform: rotate(var(--rotation));
+                        color: var(--icon-color);
+                      "
+                    ></i>
+                  </label>
+
+                  <!-- Dropdown içeriği - Checkbox checked durumunda açılacak -->
+                  <div
+                    class="grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[1fr]"
+                  >
+                    <div class="min-h-0">
+                      <ul
+                        class="ml-3 mt-2 flex max-h-[240px] flex-col gap-2 overflow-y-auto border-l-2 border-gray-100 pl-6 pt-3"
+                      >
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Dubai Helikopter Turu</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Helikopter Turu - 12 Dakika - 5 veya 6 Kişi Özel
+                              Kapatılma</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Dubai'de Lüks Yat Turu - 2 Saat - 10 Kişi</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Premium Desert Safari - 6 Saat - Özel Araç</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>VIP Transfer - Mercedes V Class</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Burj Khalifa 124. Kat Premium Giriş</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Atlantis Aquaventure Su Parkı VIP Giriş</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>Dubai Frame Skip-the-Line Bilet</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span
+                              >Dubai Mall Akvaryum & Sualtı Hayvanat
+                              Bahçesi</span
+                            >
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/"
+                            class="flex items-center gap-2 rounded-md py-2 pl-3 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+                          >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-3.5 flex-shrink-0 text-gray-400"
+                            ></i>
+                            <span>IMG Worlds of Adventure Bilet</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <h4 class="mb-4 mt-8 font-semibold text-primary-500">
                 Dubai Aktiviteleri
               </h4>
               <ul
