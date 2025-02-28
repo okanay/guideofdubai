@@ -245,13 +245,13 @@
                     >
                       <a
                         href="/sehir-turlari/dubai"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         Dubai Şehir Turu
                       </a>
                       <a
                         href="/sehir-turlari/abu-dhabi"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         Abu Dhabi Şehir Turu
                       </a>
@@ -289,33 +289,33 @@
                     >
                       <a
                         href="/corporate/about-us"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         About Us
                       </a>
                       <a
                         href="/corporate/contact"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         Contact
                       </a>
                       <a
                         href="/corporate/career"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         Career
                       </a>
                       <a
                         href="/corporate/faq"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
                       >
                         F.A.Q
                       </a>
                     </ul>
                   </li>
-                  <!-- YENI -->
+                  <!-- Yeni : Sidemenu Örneği: -->
                   <li class="group relative" id="desktop-nav-1">
-                    <!-- Ana menü öğesi -->
+                    <!-- MENU: Ana başlık ve ok ikonu -->
                     <a
                       href="/aktiviteler"
                       class="flex items-center gap-0.5 transition-colors duration-300 group-hover:text-primary-500"
@@ -327,190 +327,225 @@
                       ></i>
                     </a>
 
-                    <!-- Görünmez köprü -->
+                    <!-- DROPDOWN: İlk Dropdown - -->
+                    <!-- pt-4 (padding-top) -->
                     <div
-                      class="invisible absolute left-0 h-4 w-full group-hover:visible"
-                    ></div>
-
-                    <!-- Level 1 Dropdown -->
-                    <ul
-                      class="invisible absolute left-[50%] top-[150%] flex h-fit w-fit -translate-x-1/2 flex-col gap-0.5 rounded border border-gray-200 bg-white text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100"
+                      class="invisible absolute left-0 top-full w-full pt-4 group-hover:visible"
                     >
-                      <!-- Diğer Level 1 Items -->
-                      <a
-                        href="/aktiviteler/su"
-                        class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50"
+                      <!-- DROPDOWN: İlk Menü Kutusu -->
+                      <ul
+                        class="relative left-[50%] flex h-fit w-fit -translate-x-1/2 flex-col gap-0.5 rounded border border-gray-200 bg-white text-xs opacity-0 transition-all duration-300 group-hover:opacity-100"
                       >
-                        Su Aktiviteleri</a
-                      >
-
-                      <!-- Level 1 Item with Level 2 -->
-                      <li
-                        class="group/submenu relative cursor-default rounded-sm p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                      >
-                        <!-- Title -->
-                        <div
-                          class="flex items-center justify-between gap-2 text-nowrap"
+                        <!-- SUBMENU: Örnek İkinci Menü Kutusu -->
+                        <li
+                          class="group/submenu relative cursor-default rounded-sm p-2.5 transition-colors duration-300 hover:bg-gray-50"
                         >
-                          <span
-                            class="transition-colors duration-300 group-hover/submenu:text-primary-500"
-                            >Lüks Dubai Aktiviteleri</span
+                          <!-- SUBMENU: Başlık ve sağ ok ikonu -->
+                          <div
+                            class="flex items-center justify-between gap-2 text-nowrap"
                           >
-                          <i
-                            data-lucide="chevron-right"
-                            class="size-[14px] object-cover transition-colors duration-300 group-hover/submenu:stroke-primary-500"
-                          ></i>
-                        </div>
+                            <span
+                              class="transition-colors duration-300 group-hover/submenu:text-primary-500"
+                              >Water Activities</span
+                            >
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-[14px] object-cover transition-colors duration-300 group-hover/submenu:stroke-primary-500"
+                            ></i>
+                          </div>
 
-                        <!-- Level 2 Dropdown -->
-                        <ul
-                          style="max-height: 320px; width: 200px"
-                          class="sidebar pointer-event-none group-hover/submenu:pointer-event-auto absolute -top-2 left-[101%] ml-0.5 flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white opacity-0 transition-all duration-300 group-hover/submenu:opacity-100"
+                          <!-- HOVER KÖPRÜSÜ 1: Sağ kenar boşluğu - Hover'ın kaybolmasını engeller -->
+                          <div class="absolute -right-4 top-0 h-full w-4"></div>
+
+                          <!-- HOVER KÖPRÜSÜ 2: Alt menüye geçiş köprüsü - Menüler arası geçişte hover kaybını önler -->
+                          <div
+                            class="invisible absolute -top-2 left-[calc(100%-2px)] h-[calc(100%+4px)] w-6 group-hover/submenu:visible"
+                          ></div>
+
+                          <!-- SUBMENU: Açılan alt menü (yatay açılır) -->
+                          <ul
+                            style="max-height: 17.5rem; width: 200px"
+                            class="sidebar invisible absolute -top-0.5 left-[calc(100%+0.25rem)] flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white opacity-0 transition-opacity duration-300 group-hover/submenu:visible group-hover/submenu:opacity-100"
+                          >
+                            <!-- SUBMENU ITEM: Alt menü öğesi -->
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span
+                                class="flex items-center justify-between gap-2"
+                              >
+                                Dubai Helikopter Turu
+                              </span>
+                            </a>
+
+                            <!-- SUBMENU ITEM: Alt menü ek öğeleri (örnek) -->
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
+                            >
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span>Dubai Helikopter Turu</span>
+                            </a>
+                          </ul>
+                        </li>
+
+                        <!-- SUBMENU: Örnek İkinci Menü Kutusu -->
+                        <li
+                          class="group/submenu relative cursor-default rounded-sm p-2.5 transition-colors duration-300 hover:bg-gray-50"
                         >
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                          <!-- SUBMENU: Başlık ve sağ ok ikonu -->
+                          <div
+                            class="flex items-center justify-between gap-2 text-nowrap"
                           >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
                             <span
-                              class="flex items-center justify-between gap-2"
+                              class="transition-colors duration-300 group-hover/submenu:text-primary-500"
+                              >Luxury Activities</span
                             >
-                              Dubai Helikopter Turu
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
+                            <i
+                              data-lucide="chevron-right"
+                              class="size-[14px] object-cover transition-colors duration-300 group-hover/submenu:stroke-primary-500"
+                            ></i>
+                          </div>
+
+                          <!-- HOVER KÖPRÜSÜ 1: Sağ kenar boşluğu - Hover'ın kaybolmasını engeller -->
+                          <div class="absolute -right-4 top-0 h-full w-4"></div>
+
+                          <!-- HOVER KÖPRÜSÜ 2: Alt menüye geçiş köprüsü - Menüler arası geçişte hover kaybını önler -->
+                          <div
+                            class="invisible absolute -top-2 left-[calc(100%-2px)] h-[calc(100%+4px)] w-6 group-hover/submenu:visible"
+                          ></div>
+
+                          <!-- SUBMENU: Açılan alt menü (yatay açılır) -->
+                          <ul
+                            style="max-height: 17.5rem; width: 200px"
+                            class="sidebar invisible absolute -top-0.5 left-[calc(100%+0.25rem)] flex flex-col gap-0.5 overflow-y-auto overflow-x-hidden rounded border border-gray-200 bg-white opacity-0 transition-opacity duration-300 group-hover/submenu:visible group-hover/submenu:opacity-100"
                           >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
+                            <!-- SUBMENU ITEM: Alt menü öğesi -->
+                            <a
+                              href="/"
+                              class="relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50 hover:text-primary-500"
                             >
-                              Helikopter Turu - 12 Dakika - 5 veya 6 Kişi Özel
-                              Kapatılma
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Dubai'de Lüks Yat Turu - 2 Saat - 10 Kişi
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Premium Desert Safari - 6 Saat - Özel Araç
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              VIP Transfer - Mercedes V Class
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Burj Khalifa 124. Kat Premium Giriş
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Atlantis Aquaventure Su Parkı VIP Giriş
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Dubai Frame Skip-the-Line Bilet
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              Dubai Mall Akvaryum & Sualtı Hayvanat Bahçesi
-                            </span>
-                          </a>
-                          <a
-                            href="/"
-                            class="group/sidemenu relative flex items-center gap-2 p-2.5 transition-colors duration-300 hover:bg-gray-50"
-                          >
-                            <i
-                              data-lucide="circle"
-                              class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
-                            ></i>
-                            <span
-                              class="flex items-center justify-between gap-2"
-                            >
-                              IMG Worlds of Adventure Bilet
-                            </span>
-                          </a>
-                        </ul>
-                      </li>
-                    </ul>
+                              <i
+                                data-lucide="circle"
+                                class="size-1.5 flex-shrink-0 fill-gray-300 stroke-gray-300"
+                              ></i>
+                              <span
+                                class="flex items-center justify-between gap-2"
+                              >
+                                Dubai Helikopter Turu
+                              </span>
+                            </a>
+                          </ul>
+                        </li>
+
+                        <!-- Normal menü öğesi örneği -->
+
+                        <a
+                          href="/aktiviteler/su"
+                          class="transition-color text-nowrap p-2.5 duration-300 hover:bg-gray-50 hover:text-primary-500"
+                        >
+                          Su Aktiviteleri</a
+                        >
+                      </ul>
+                    </div>
                   </li>
                 </ul>
               </div>

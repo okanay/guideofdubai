@@ -1,6 +1,4 @@
 import { ModalController } from './packages/modal.js'
-// import { RatingAnimator } from './packages/rating-bar-controller.js'
-// import { URLMatcher } from './packages/url-matcher.js'
 import { ScrollManager } from './packages/floating-elements.js'
 import { NavStickyManager } from './packages/scroll-style.js'
 import { DatePickerManager } from './packages/date-selector.js'
@@ -28,14 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         contentElement: '#product-info-content-2',
         closeElements: [],
         containers: ['#product-info-content-2'],
-      },
-      {
-        id: 'reviews',
-        toggleElements: [],
-        openElements: ['#product-info-btn-3'],
-        contentElement: '#product-info-content-3',
-        closeElements: [],
-        containers: ['#product-info-content-3'],
       },
       {
         id: 'faq',
@@ -146,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Resize event listener
   window.addEventListener('resize', () => {
-    console.log('resize')
     manager.handleResize()
   })
 
