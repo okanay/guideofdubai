@@ -92,7 +92,7 @@
         >
           <h1
             style="color: '#101935'"
-            class="max-w-[840px] px-4 text-5xl font-bold leading-tight tracking-tight md:px-8 lg:text-[4rem] lg:leading-[4rem]"
+            class="max-w-[840px] px-4 text-[2.75rem] font-bold leading-[3rem] tracking-tight md:px-8 lg:text-[4rem] lg:leading-[4rem]"
           >
             Monetize your travel content with GetYourGuide
           </h1>
@@ -121,11 +121,19 @@
           >
             <!-- Banner background image -->
             <div class="w-full">
-              <img
-                src="https://cdn.getyourguide.com/pp/assets/static/landing/image-banner-desktop.png"
-                alt="Travel experiences - person in a canyon"
-                class="h-auto min-h-[540px] w-full object-cover object-[24%_top] md:object-center"
-              />
+              <picture>
+                <source
+                  srcset="
+                    https://cdn.getyourguide.com/pp/assets/static/landing/image-banner-desktop.png
+                  "
+                  media="(min-width: 768px)"
+                />
+                <img
+                  src="https://cdn.getyourguide.com/pp/assets/static/landing/image-banner-mobile-2.jpeg"
+                  alt="Travel experiences - person in a canyon"
+                  class="h-auto min-h-[540px] w-full object-cover"
+                />
+              </picture>
             </div>
 
             <!-- Content overlay -->
@@ -146,13 +154,13 @@
                   </h2>
 
                   <!-- Alt metin 1 -->
-                  <p class="mb-4 text-base text-white md:mb-6">
+                  <p class="text-base font-medium text-gray-200 md:mb-6">
                     Whether you share your content on social media, your
                     website, or both, we have a program that's built for you.
                   </p>
 
                   <!-- Alt metin 2 -->
-                  <p class="mb-8 text-base text-white">
+                  <p class="mb-8 text-base font-medium text-gray-200">
                     From sponsored activities to earning commission with
                     affiliate links, explore the ways you can grow your online
                     presence and earn with GetYourGuide.
@@ -447,16 +455,16 @@
           <div class="mt-10 grid gap-8 md:grid-cols-2">
             <!-- Become a partner -->
             <div>
-              <h2 class="mb-4 text-3xl font-bold text-gray-900">
+              <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
                 Become a partner
               </h2>
-              <p class="mb-6 font-medium text-gray-700">
+              <p class="mb-6 text-sm font-medium text-gray-700 md:text-base">
                 Sign up to become a partner with GetYourGuide to grow and
                 monetize your platforms.
               </p>
               <a
                 href="#"
-                class="inline-block rounded-full bg-blue-600 px-8 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
+                class="inline-block rounded-full bg-blue-600 px-10 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
               >
                 Sign up
               </a>
@@ -464,8 +472,10 @@
 
             <!-- Need help? -->
             <div>
-              <h2 class="mb-4 text-3xl font-bold text-gray-900">Need help?</h2>
-              <p class="mb-6 font-medium text-gray-700">
+              <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
+                Need help?
+              </h2>
+              <p class="mb-6 text-sm font-medium text-gray-700 md:text-base">
                 Check out our Partner Resource Center or reach out to our
                 support team if you need further assistance.
               </p>
