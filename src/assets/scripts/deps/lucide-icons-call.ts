@@ -13,8 +13,4 @@ declare global {
 
 window.callIcons = callIcons
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.callIcons()
-})
-
 export { createIcons, icons, callIcons }

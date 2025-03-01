@@ -60,6 +60,7 @@ const PAGES = {
     'rent-a-car',
     'rent-a-car-payment',
     'purchase-status',
+    'partner',
   ],
   directories: [
     'main',
@@ -82,6 +83,7 @@ const PAGES = {
     'rent-a-car',
     'rent-a-car-payment',
     'purchase-status',
+    'partner',
   ],
 }
 

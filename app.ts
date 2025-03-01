@@ -75,6 +75,11 @@ app.get('/profile', c => {
   return c.html(html.text())
 })
 
+app.get('/partner', c => {
+  const html = Bun.file('./dist/partner/index.html')
+  return c.html(html.text())
+})
+
 app.get('/terms', c => {
   const html = Bun.file('./dist/terms/index.html')
   return c.html(html.text())
