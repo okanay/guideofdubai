@@ -55,7 +55,21 @@
     <!-- <link rel="stylesheet" href="/assets/styles/partner.css" /> -->
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
   </head>
-  <body>
+  <body
+    style="
+      --primary-50: 240 253 249;
+      --primary-100: 205 250 239;
+      --primary-200: 155 244 223;
+      --primary-300: 96 232 204;
+      --primary-400: 48 209 182;
+      --primary-500: 23 181 157;
+      --primary-600: 23 181 157;
+      --primary-700: 18 125 112;
+      --primary-800: 18 93 85;
+      --primary-900: 20 77 71;
+      --primary-950: 5 46 43;
+    "
+  >
     <header
       style="width: 100%; height: 80px; border-bottom: 1px solid #000"
     ></header>
@@ -69,21 +83,44 @@
           class="hidden min-h-[320px] flex-col items-start justify-start md:flex"
         >
           <div class="h-auto w-[155px] min-w-[80px] translate-y-[-28px]">
-            <img
-              class="h-full w-full"
-              src="https://cdn.getyourguide.com/pp/assets/static/landing/hero-banner-dotted-line-blue.svg"
-              alt="Blue Shape"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="137"
+              viewBox="0 0 120 137"
+              fill="none"
+            >
+              <path
+                d="M108.335 117.314C54.2587 148.11 -30.9013 86.4394 29.4172 11.9693"
+                stroke="rgb(var(--primary-500))"
+                stroke-width="22"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-dasharray="0.01 38.5"
+              />
+            </svg>
           </div>
         </div>
 
         <!-- Sari Şekil (Top) -->
         <div class="h-[100px] w-full md:hidden">
-          <img
-            class="h-full w-full"
-            src="https://cdn.getyourguide.com/pp/assets/static/landing/hero-banner-fluid-line-mobile.svg"
-            alt="Yellow Shape"
-          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="320"
+            height="88"
+            viewBox="0 0 320 88"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M-9.26397 35.7434C91.236 -2.75655 104.736 83.7435 182.236 42.2435C259.736 0.743459 296.496 34.3158 301.164 59.5512C305.506 83.0299 267.575 89.4039 266.535 60.5299C265.721 37.9394 294.394 -12.5977 350.565 17.5729C390.736 39.1495 398.236 59.5512 425.981 57.0729"
+              stroke="#FFD938"
+              stroke-width="16"
+              stroke-miterlimit="6.78131"
+              stroke-linecap="square"
+            />
+          </svg>
         </div>
 
         <!-- İçerik -->
@@ -103,11 +140,19 @@
           class="hidden min-h-[320px] flex-shrink-0 flex-col items-end justify-end md:flex"
         >
           <div class="h-auto w-full max-w-[264px] translate-y-[20px]">
-            <img
-              class="h-full w-full"
-              src="https://cdn.getyourguide.com/pp/assets/static/landing/hero-banner-fluid-line-yellow.svg"
-              alt="Yellow Shape"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="278"
+              height="289"
+              viewBox="0 0 278 289"
+              fill="none"
+            >
+              <path
+                d="M5 37.2945C54 -0.705502 109.062 2.35639 130 23.2944C170 63.2944 131 141.294 93 166.294C55 191.294 15 150.294 70 115.294C125 80.2945 214 75.2944 253 124.294C292 173.294 253 243.294 208 282.294"
+                stroke="#facc15"
+                stroke-width="16"
+              />
+            </svg>
           </div>
         </div>
       </section>
@@ -169,7 +214,7 @@
                   <!-- Sign up button -->
                   <a
                     href="#"
-                    class="inline-block rounded-full bg-blue-600 px-12 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
+                    class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition duration-200 hover:bg-primary-700"
                   >
                     Sign up
                   </a>
@@ -182,8 +227,7 @@
 
       <!-- Social Media Community Section -->
       <section
-        style="background-color: #1a2b49"
-        class="relative w-full overflow-hidden py-12 md:py-16"
+        class="relative w-full overflow-hidden bg-primary-900 py-12 md:py-16"
       >
         <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <!-- Content container -->
@@ -218,7 +262,7 @@
       </section>
 
       <!-- Website Monetization Section -->
-      <section style="background-color: #e1f0ff" class="w-full py-12 md:py-16">
+      <section class="w-full bg-primary-100 py-12 md:py-16">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <!-- Heading -->
           <h2
@@ -322,7 +366,7 @@
           <div class="mt-4 flex justify-start">
             <a
               href="#"
-              class="inline-block rounded-full bg-blue-600 px-12 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
+              class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition duration-200 hover:bg-primary-700"
             >
               Sign up
             </a>
@@ -359,7 +403,7 @@
                     <polyline
                       points="0,70 20,60 40,65 60,40 80,50 100,30 120,45 140,35 160,50 180,40 200,60 220,50 240,40 260,45 280,35 300,45 320,30 340,40 360,30 380,50 400,40"
                       fill="none"
-                      stroke="#809CFF"
+                      stroke="#facc15"
                       stroke-width="4"
                     />
                   </svg>
@@ -380,7 +424,7 @@
 
               <!-- Card 2 - Pink -->
               <div
-                class="w-[320px] flex-none snap-center rounded-lg bg-red-100 px-2 py-12 shadow-sm md:w-full md:flex-auto md:snap-align-none md:px-6"
+                class="w-[320px] flex-none snap-center rounded-lg bg-pink-100 px-2 py-12 shadow-sm md:w-full md:flex-auto md:snap-align-none md:px-6"
               >
                 <div class="flex flex-col items-center">
                   <div class="mb-8 flex h-16 w-full items-end justify-center">
@@ -412,7 +456,7 @@
 
               <!-- Card 3 - Blue -->
               <div
-                class="w-[320px] flex-none snap-center rounded-lg bg-blue-100 px-2 py-12 shadow-sm md:w-full md:flex-auto md:snap-align-none md:px-6"
+                class="w-[320px] flex-none snap-center rounded-lg bg-primary-100 px-2 py-12 shadow-sm md:w-full md:flex-auto md:snap-align-none md:px-6"
               >
                 <div class="flex flex-col items-center">
                   <!-- Dotted Path SVG -->
@@ -464,7 +508,7 @@
               </p>
               <a
                 href="#"
-                class="inline-block rounded-full bg-blue-600 px-10 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
+                class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition duration-200 hover:bg-primary-700"
               >
                 Sign up
               </a>
@@ -481,7 +525,7 @@
               </p>
               <a
                 href="#"
-                class="inline-block rounded-full bg-blue-600 px-8 py-3 font-medium text-white transition duration-200 hover:bg-blue-700"
+                class="inline-block rounded-full bg-primary-600 px-8 py-3 font-medium text-white transition duration-200 hover:bg-primary-700"
               >
                 Visit Resource Center
               </a>
