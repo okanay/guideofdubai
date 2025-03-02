@@ -104,7 +104,7 @@
           <!-- Language Toggle Button -->
           <button
             id="language-toggle-button"
-            class="flex h-11 items-center justify-center rounded-md px-2 transition-colors duration-200 hover:bg-gray-100 focus:outline-none"
+            class="hidden h-11 items-center justify-center rounded-md px-2 transition-colors duration-200 hover:bg-gray-100 focus:outline-none lg:flex"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            <span> Log in </span>
+            <span> Giriş Yap </span>
           </a>
 
           <!-- Sign Up -->
@@ -158,7 +158,7 @@
             href="#"
             class="hidden h-11 flex-col items-center justify-center rounded-full bg-primary-600 px-6 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95 lg:flex"
           >
-            <span> Sign Up </span>
+            <span> Kayıt Ol </span>
           </a>
 
           <!-- Mobil için hamburger menü butonu -->
@@ -406,7 +406,7 @@
           <img
             src="https://mbdtravel.project-test.info/assets/images/brand-images/logo.svg"
             alt="MBD Travel Brand Logo"
-            class="h-10"
+            class="h-12"
           />
           <button
             id="mobile-menu-close-button"
@@ -573,7 +573,7 @@
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-              <span>Log in</span>
+              <span>Giriş Yap</span>
             </a>
             <a
               href="#"
@@ -595,7 +595,7 @@
                 <line x1="20" y1="8" x2="20" y2="14"></line>
                 <line x1="23" y1="11" x2="17" y2="11"></line>
               </svg>
-              <span>Sign Up</span>
+              <span>Kayıt Ol</span>
             </a>
           </div>
         </div>
@@ -657,9 +657,14 @@
           class="relative z-10 mx-auto flex h-full translate-y-[-20px] flex-col items-center justify-center md:min-h-[320px]"
         >
           <h1
-            class="max-w-[840px] px-4 text-[2.75rem] font-bold leading-[3rem] tracking-tight text-gray-900 md:px-8 lg:text-[4rem] lg:leading-[4rem]"
+            style="
+              font-size: clamp(1.5rem, 0.8333rem + 3.3333vw, 3.5rem);
+              line-height: clamp(1.7rem, 1.0167rem + 3.4167vw, 3.75rem);
+            "
+            class="max-w-[840px] px-4 font-bold tracking-tight text-gray-900 md:px-8"
           >
-            Monetize your travel content with GetYourGuide
+            Seyahat içeriklerinizi gelire çevirmenin en iyi yolu, MBD Travel
+            Influencer Programı!
           </h1>
         </div>
 
@@ -723,20 +728,22 @@
                   <h2
                     class="mb-4 text-3xl font-bold text-white md:mb-6 md:text-4xl"
                   >
-                    Partner with the leading platform for travel experiences
+                    Lider kurumla seyahat deneyimleriniz için Partner Olun!
                   </h2>
 
                   <!-- Alt metin 1 -->
                   <p class="text-base font-medium text-gray-200 md:mb-6">
-                    Whether you share your content on social media, your
-                    website, or both, we have a program that's built for you.
+                    Sosyal medya hesaplarınızda, websitenizde, yada ikisindede
+                    iş birliği yapabileceğimiz muhteşem bir program tasarladık.
                   </p>
 
                   <!-- Alt metin 2 -->
                   <p class="mb-8 text-base font-medium text-gray-200">
-                    From sponsored activities to earning commission with
-                    affiliate links, explore the ways you can grow your online
-                    presence and earn with GetYourGuide.
+                    Yapacağınız aktivitelerde yada ürettiğiniz içeriklerde size
+                    özel promosyon kodlarıyla komisyon kazanabileceğiniz, bu
+                    sayede takipçilerinize doğrudan fayda sağlayabileceğiniz,
+                    aynı zamanda gelir üretebileceğiniz bir program sizin için
+                    yayında.
                   </p>
 
                   <!-- Sign up button -->
@@ -744,7 +751,7 @@
                     href="#"
                     class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
                   >
-                    Sign up
+                    Kayıt Ol
                   </a>
                 </div>
               </div>
@@ -765,22 +772,24 @@
               <h2
                 class="mb-8 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl"
               >
-                Grow your social media presence by joining our travel community
+                Sosyal medya etkileşimlerinizi, partner programımıza dahil
+                olarak artırın!
               </h2>
-              <ul class="text-white md:text-xl">
+              <ul class="flex flex-col gap-4 text-white md:text-lg">
                 <li class="flex items-start">
-                  <span class="-mt-2 mr-4 text-3xl md:-mt-3.5 md:text-5xl"
-                    >•</span
+                  <span class="-mt-2 mr-4 text-3xl">•</span>
+                  <span
+                    >MBD Travel Influencer Partner Programına Başvuruda Bulunun
+                    - Yayınlanan kampanyaları hesabınıza tanımlayın, içeriğinizi
+                    paylaşın ve gelir elde etmeye başlayın</span
                   >
-                  <span>Apply for sponsored GetYourGuide experiences</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="-mt-2 mr-4 text-3xl md:-mt-3.5 md:text-5xl"
-                    >•</span
-                  >
+                  <span class="-mt-2 mr-4 text-3xl">•</span>
                   <span
-                    >Participate in workshops, networking events, and
-                    giveaways</span
+                    >MBD Travel'in Düzenlediği Workshoplara, Eventlere Katılın
+                    ve Networkünüzü Genişletin, - PR Paketlerine ve
+                    Promosyonlarına İlk Siz Sahip Olun</span
                   >
                 </li>
               </ul>
@@ -796,7 +805,7 @@
           <h2
             class="mb-8 text-start text-3xl font-bold text-gray-900 md:text-4xl"
           >
-            Make money through your website or blog
+            İnteraktif kanallarınızı kullanarak gelir elde etmeye başlayın!
           </h2>
 
           <!-- Cards Container -->
@@ -826,7 +835,7 @@
                     <path d="M6 12h.01M18 12h.01" />
                   </svg>
                   <p class="text-center font-semibold text-gray-900">
-                    Earn a minimum commission rate of 8%, paid monthly
+                    Dolar bazında getiri elde edin
                   </p>
                 </div>
               </div>
@@ -853,9 +862,9 @@
                     />
                   </svg>
                   <p class="text-center font-semibold text-gray-900">
-                    Optimize your earnings through an easy-to-use analytics
-                    suite, automatic widgets, and integrations that fit your
-                    content
+                    Gelirlerinizi anlık olarak analiz araçlarımızla takip edin,
+                    içeriklerinize uygun olan kampanyaları hesabınıza
+                    tanımlayın!
                   </p>
                 </div>
               </div>
@@ -883,7 +892,8 @@
                   </svg>
 
                   <p class="text-center font-semibold text-gray-900">
-                    Have access to a dedicated support system and resources
+                    Size özel destek ekibimize ve en güncel içerik ilham
+                    kaynaklarına erişim sağlayın.
                   </p>
                 </div>
               </div>
@@ -896,7 +906,7 @@
               href="#"
               class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
             >
-              Sign up
+              Kayıt Ol
             </a>
           </div>
         </div>
@@ -909,7 +919,7 @@
           <h2
             class="mb-8 text-start text-3xl font-bold text-gray-900 md:text-4xl"
           >
-            How it works
+            Nasıl Çalışıyor?
           </h2>
 
           <!-- Cards Container -->
@@ -937,14 +947,8 @@
                   </svg>
 
                   <div class="text-center">
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      SIGN UP FOR OUR
-                    </h3>
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      CONTENT CREATOR
-                    </h3>
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      PROGRAM
+                    <h3 class="text-xl font-bold uppercase text-gray-900">
+                      Influencer Program'ımıza Kayıt Talebi İletin
                     </h3>
                   </div>
                 </div>
@@ -972,11 +976,9 @@
                   </div>
 
                   <div class="text-center">
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      CREATE INTEGRATIONS &
-                    </h3>
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      EARN COMMISSIONS
+                    <h3 class="text-xl font-bold uppercase text-gray-900">
+                      Kampanyayı Hesabınıza Tanımlayıp İçeriklerinizi Üretmeye
+                      Başlayın
                     </h3>
                   </div>
                 </div>
@@ -1008,14 +1010,9 @@
                   </svg>
 
                   <div class="text-center">
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      JOIN OUR TRAVEL
-                    </h3>
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      COMMUNITY & APPLY
-                    </h3>
-                    <h3 class="text-2xl font-bold uppercase text-gray-900">
-                      FOR FREE EXPERIENCES
+                    <h3 class="text-xl font-bold uppercase text-gray-900">
+                      MBD Travel Influencer Program üyelerinin ayrıcalıklarından
+                      yararlanın!
                     </h3>
                   </div>
                 </div>
@@ -1026,37 +1023,47 @@
           <!-- Partner/Help Section -->
           <div class="mt-10 grid gap-8 md:grid-cols-2">
             <!-- Become a partner -->
-            <div>
-              <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
-                Become a partner
-              </h2>
-              <p class="mb-6 text-sm font-medium text-gray-700 md:text-base">
-                Sign up to become a partner with GetYourGuide to grow and
-                monetize your platforms.
-              </p>
-              <a
-                href="#"
-                class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
-              >
-                Sign up
-              </a>
+            <div class="flex h-full flex-col justify-between">
+              <div>
+                <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
+                  Şimdi Partner Olun!
+                </h2>
+                <p class="text-sm font-medium text-gray-700 md:text-base">
+                  MBD Travel Influencer Programına dahil olarak sosyal medyada
+                  etkileşimlerinizi katlamak ve gelir elde etmek için şimdi
+                  başvurunuzu yapın!
+                </p>
+              </div>
+              <div class="mt-6">
+                <a
+                  href="#"
+                  class="inline-block rounded-full bg-primary-600 px-12 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
+                >
+                  Kayıt Ol
+                </a>
+              </div>
             </div>
 
             <!-- Need help? -->
-            <div>
-              <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
-                Need help?
-              </h2>
-              <p class="mb-6 text-sm font-medium text-gray-700 md:text-base">
-                Check out our Partner Resource Center or reach out to our
-                support team if you need further assistance.
-              </p>
-              <a
-                href="#"
-                class="inline-block rounded-full bg-primary-600 px-8 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
-              >
-                Visit Resource Center
-              </a>
+            <div class="flex h-full flex-col justify-between">
+              <div>
+                <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
+                  Yardım Lazım Mı?
+                </h2>
+                <p class="text-sm font-medium text-gray-700 md:text-base">
+                  Şimdi Influencer Partner Destek Merkezi'mizi ziyaret edin,
+                  eğer aradığınızı bulamazsanız iletişim formundan mutlaka bize
+                  ulaşın!
+                </p>
+              </div>
+              <div class="mt-6">
+                <a
+                  href="#"
+                  class="inline-block rounded-full bg-primary-600 px-8 py-3 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
+                >
+                  Visit Resource Center
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1186,7 +1193,8 @@
         <div class="flex flex-col items-center justify-between md:flex-row">
           <!-- Telif Hakkı Metni -->
           <p class="mb-4 text-sm text-gray-500 md:mb-0">
-            © 2025 MBD Travel Influencer. Tüm hakları saklıdır
+            MBD TRAVEL®️ Influencer Partnership Marketing Program. All rights
+            reserved.
           </p>
 
           <!-- Sosyal Medya İkonları -->
