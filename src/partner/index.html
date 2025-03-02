@@ -83,43 +83,21 @@
             <img
               src="https://mbdtravel.project-test.info/assets/images/brand-images/logo.svg"
               alt="MBD Travel Brand Logo"
-              class="h-10 lg:h-14"
+              class="h-14"
             />
           </a>
         </div>
 
-        <!-- Mobil için hamburger menü butonu -->
-        <button
-          id="mobile-menu-toggle"
-          class="flex h-10 w-10 items-center justify-center rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none lg:hidden"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="4" x2="20" y1="12" y2="12"></line>
-            <line x1="4" x2="20" y1="6" y2="6"></line>
-            <line x1="4" x2="20" y1="18" y2="18"></line>
-          </svg>
-        </button>
-
         <!-- Sağ Taraf - Desktop Menü -->
-        <div class="hidden flex-shrink-0 items-center gap-10 lg:flex">
+        <div class="flex flex-shrink-0 items-center gap-5 lg:gap-10">
           <a
             href="#"
-            class="font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600"
+            class="hidden font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600 lg:block"
             >Özellikler</a
           >
           <a
             href="#"
-            class="font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600"
+            class="hidden font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600 lg:block"
             >Faydalar</a
           >
 
@@ -150,12 +128,12 @@
                 />
               </g>
             </svg>
-            <span class="ml-2 hidden text-gray-600 sm:inline">Türkçe</span>
+            <span class="ml-2 inline text-gray-600">Türkçe</span>
           </button>
 
           <a
             href="#"
-            class="flex items-center gap-2 font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600"
+            class="hidden items-center gap-2 font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600 lg:flex"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -175,10 +153,32 @@
           </a>
           <a
             href="#"
-            class="flex h-11 flex-col items-center justify-center rounded-full bg-primary-600 px-6 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95"
+            class="hidden h-11 flex-col items-center justify-center rounded-full bg-primary-600 px-6 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95 lg:flex"
           >
             <span> Sign Up </span>
           </a>
+
+          <!-- Mobil için hamburger menü butonu -->
+          <button
+            id="mobile-menu-toggle"
+            class="flex h-10 w-10 items-center justify-center rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none lg:hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
       </div>
     </header>
