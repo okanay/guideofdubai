@@ -52,7 +52,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- <link rel="stylesheet" href="/assets/styles/partner.css" /> -->
+    <script type="module" src="/assets/scripts/partner.js"></script>
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
   </head>
   <body
@@ -75,7 +75,7 @@
       class="fixed left-0 top-0 z-40 w-full border-b border-gray-200 bg-white lg:static"
     >
       <div
-        class="relative mx-auto flex h-16 items-center justify-between gap-4 overflow-hidden px-4 lg:h-20 lg:gap-12"
+        class="relative mx-auto flex h-16 items-center justify-between gap-4 overflow-hidden px-2 lg:h-20 lg:gap-12 lg:px-4"
       >
         <!-- Logo Alanı -->
         <div class="flex-shrink-0">
@@ -88,7 +88,7 @@
           </a>
         </div>
 
-        <!-- Sağ Taraf - Desktop Menü -->
+        <!-- Sağ Taraf  -->
         <div class="flex flex-shrink-0 items-center gap-5 lg:gap-10">
           <a
             href="#"
@@ -101,10 +101,10 @@
             >Faydalar</a
           >
 
+          <!-- Language Toggle Button -->
           <button
-            id="langBtn"
+            id="language-toggle-button"
             class="flex h-11 items-center justify-center rounded-md px-2 transition-colors duration-200 hover:bg-gray-100 focus:outline-none"
-            onclick="document.getElementById('langDialog').showModal()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -128,9 +128,10 @@
                 />
               </g>
             </svg>
-            <span class="ml-2 inline text-gray-600">Türkçe</span>
+            <span class="ml-2 hidden text-gray-600 sm:inline">Türkçe</span>
           </button>
 
+          <!-- Login -->
           <a
             href="#"
             class="hidden items-center gap-2 font-semibold text-gray-700 transition-colors duration-300 hover:text-primary-600 lg:flex"
@@ -151,6 +152,8 @@
             </svg>
             <span> Log in </span>
           </a>
+
+          <!-- Sign Up -->
           <a
             href="#"
             class="hidden h-11 flex-col items-center justify-center rounded-full bg-primary-600 px-6 font-medium text-white transition-[colors,transform] duration-300 hover:bg-primary-400 active:scale-95 lg:flex"
@@ -183,97 +186,421 @@
       </div>
     </header>
 
-    <dialog id="langDialog" class="w-full max-w-xs rounded-lg backdrop-blur-md">
-      <!-- Aktif Dil (Dialog Başlığı) -->
+    <!-- Language Modal -->
+    <div
+      id="language-modal-container"
+      data-state="closed"
+      class="fixed inset-0 z-[8001] flex items-center justify-center overflow-y-auto bg-gray-900/40 backdrop-blur-[2px] transition-all duration-300 ease-in-out data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 data-[state=open]:opacity-100"
+    >
       <div
-        class="flex items-center justify-between bg-gradient-to-r from-primary-600 to-primary-500 p-4 text-white shadow-sm"
+        id="language-modal-content"
+        class="w-full max-w-xs transform rounded-lg bg-white shadow-xl transition-all duration-300 ease-in-out data-[state=closed]:translate-y-4 data-[state=open]:translate-y-0 data-[state=closed]:opacity-0 data-[state=open]:opacity-100"
       >
-        <div class="flex items-center">
-          <span class="text-lg font-medium">Dil Seçimi</span>
-        </div>
-        <button
-          class="rounded-full p-1 text-white transition-all duration-200 hover:bg-white/20 focus:outline-none"
-          onclick="document.getElementById('langDialog').close()"
+        <!-- Aktif Dil (Dialog Başlığı) -->
+        <div
+          class="flex items-center justify-between rounded-t-lg bg-gradient-to-r from-primary-600 to-primary-500 p-4 text-white shadow-md"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-2"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m12 2-2.3 2.3"></path>
+              <path d="m12 2 2.3 2.3"></path>
+              <path d="m12 22-2.3-2.3"></path>
+              <path d="m12 22 2.3-2.3"></path>
+              <path d="M2 12h4"></path>
+              <path d="M18 12h4"></path>
+            </svg>
+            <span class="text-lg font-medium">Dil Seçimi</span>
+          </div>
+          <button
+            id="language-closed-button"
+            class="rounded-full p-1.5 text-white transition-all duration-200 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 active:scale-95"
           >
-            <path
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Dil Seçenekleri Listesi -->
+        <div class="p-4">
+          <!-- Türkçe -->
+          <div
+            class="lang-option group mb-2 flex cursor-pointer items-center rounded-lg border border-transparent px-4 py-3.5 transition-all duration-200 hover:border-primary-100 hover:bg-primary-50 active:scale-[0.98] data-[active=true]:border-primary-200 data-[active=true]:bg-primary-50"
+            data-active="true"
+            onclick="selectLanguage(this, 'tr')"
+          >
+            <div
+              class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 p-2 text-primary-600 transition-all duration-200 group-hover:bg-primary-200 group-hover:text-primary-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="flag-icons-tr-option"
+                viewBox="0 0 640 480"
+                class="h-6 w-6"
+              >
+                <g fill-rule="evenodd">
+                  <path fill="#e30a17" d="M0 0h640v480H0z" />
+                  <path
+                    fill="#fff"
+                    d="M407 247.5c0 66.2-54.6 119.9-122 119.9s-122-53.7-122-120 54.6-119.8 122-119.8 122 53.7 122 119.9"
+                  />
+                  <path
+                    fill="#e30a17"
+                    d="M413 247.5c0 53-43.6 95.9-97.5 95.9s-97.6-43-97.6-96 43.7-95.8 97.6-95.8 97.6 42.9 97.6 95.9z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="m430.7 191.5-1 44.3-41.3 11.2 40.8 14.5-1 40.7 26.5-31.8 40.2 14-23.2-34.1 28.3-33.9-43.5 12-25.8-37z"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-medium text-gray-900">Türkçe</span>
+              <span class="text-xs text-gray-500">Turkish</span>
+            </div>
+            <div class="ml-auto">
+              <div
+                class="flex h-5 w-5 items-center justify-center rounded-full bg-primary-500 text-white opacity-0 transition-opacity duration-200 data-[active=true]:opacity-100 group-data-[active=true]:opacity-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- İngilizce -->
+          <div
+            class="lang-option group mb-2 flex cursor-pointer items-center rounded-lg border border-transparent px-4 py-3.5 transition-all duration-200 hover:border-primary-100 hover:bg-primary-50 active:scale-[0.98] data-[active=true]:border-primary-200 data-[active=true]:bg-primary-50"
+            data-active="false"
+            onclick="selectLanguage(this, 'en')"
+          >
+            <div
+              class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 p-2 text-gray-600 transition-all duration-200 group-hover:bg-primary-100 group-hover:text-primary-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="flag-icons-gb-eng"
+                viewBox="0 0 640 480"
+                class="h-6 w-6"
+              >
+                <path fill="#fff" d="M0 0h640v480H0z" />
+                <path fill="#ce1124" d="M281.6 0h76.8v480h-76.8z" />
+                <path fill="#ce1124" d="M0 201.6h640v76.8H0z" />
+              </svg>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-medium text-gray-900">English</span>
+              <span class="text-xs text-gray-500">İngilizce</span>
+            </div>
+            <div class="ml-auto">
+              <div
+                class="flex h-5 w-5 items-center justify-center rounded-full bg-primary-500 text-white opacity-0 transition-opacity duration-200 data-[active=true]:opacity-100 group-data-[active=true]:opacity-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arapça -->
+          <div
+            class="lang-option group flex cursor-pointer items-center rounded-lg border border-transparent px-4 py-3.5 transition-all duration-200 hover:border-primary-100 hover:bg-primary-50 active:scale-[0.98] data-[active=true]:border-primary-200 data-[active=true]:bg-primary-50"
+            data-active="false"
+            onclick="selectLanguage(this, 'ar')"
+          >
+            <div
+              class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 p-2 text-gray-600 transition-all duration-200 group-hover:bg-primary-100 group-hover:text-primary-600"
+            >
+              <img
+                src="https://marketing.mbdtravel.ae/assets/flags/ar.svg"
+                alt="العربية"
+                class="h-6 w-6 rounded-sm"
+              />
+            </div>
+            <div class="flex flex-col">
+              <span class="font-medium text-gray-900">العربية</span>
+              <span class="text-xs text-gray-500">Arapça</span>
+            </div>
+            <div class="ml-auto">
+              <div
+                class="flex h-5 w-5 items-center justify-center rounded-full bg-primary-500 text-white opacity-0 transition-opacity duration-200 data-[active=true]:opacity-100 group-data-[active=true]:opacity-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <!-- Dil Seçenekleri Listesi -->
-      <div class="bg-white p-3">
-        <!-- Türkçe -->
+    <!-- Mobil Menu Modal -->
+    <div
+      id="mobile-menu-container"
+      data-state="closed"
+      class="fixed inset-0 z-[8000] overflow-y-auto bg-gray-900/40 backdrop-blur-[2px] transition-all duration-300 ease-in-out data-[state=closed]:pointer-events-none data-[state=closed]:opacity-0 data-[state=open]:opacity-100 lg:hidden"
+    >
+      <div
+        id="mobile-menu-content"
+        class="ml-auto h-full w-[85%] max-w-sm transform bg-white shadow-xl transition-all duration-300 ease-in-out data-[state=closed]:translate-x-full data-[state=open]:translate-x-0"
+      >
+        <!-- Menü Header -->
         <div
-          class="lang-option active mb-1 flex cursor-pointer items-center rounded-md px-4 py-3 transition-all duration-200 hover:bg-gray-100"
-          onclick="selectLanguage(this, 'tr')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            id="flag-icons-tr"
-            viewBox="0 0 640 480"
-            class="mr-3 size-6"
-          >
-            <g fill-rule="evenodd">
-              <path fill="#e30a17" d="M0 0h640v480H0z" />
-              <path
-                fill="#fff"
-                d="M407 247.5c0 66.2-54.6 119.9-122 119.9s-122-53.7-122-120 54.6-119.8 122-119.8 122 53.7 122 119.9"
-              />
-              <path
-                fill="#e30a17"
-                d="M413 247.5c0 53-43.6 95.9-97.5 95.9s-97.6-43-97.6-96 43.7-95.8 97.6-95.8 97.6 42.9 97.6 95.9z"
-              />
-              <path
-                fill="#fff"
-                d="m430.7 191.5-1 44.3-41.3 11.2 40.8 14.5-1 40.7 26.5-31.8 40.2 14-23.2-34.1 28.3-33.9-43.5 12-25.8-37z"
-              />
-            </g>
-          </svg>
-          <span class="text-gray-800">Türkçe</span>
-        </div>
-
-        <!-- İngilizce -->
-        <div
-          class="lang-option mb-1 flex cursor-pointer items-center rounded-md px-4 py-3 transition-all duration-200 hover:bg-gray-100"
-          onclick="selectLanguage(this, 'en')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            id="flag-icons-gb-eng"
-            viewBox="0 0 640 480"
-            class="mr-3 size-6"
-          >
-            <path fill="#fff" d="M0 0h640v480H0z" />
-            <path fill="#ce1124" d="M281.6 0h76.8v480h-76.8z" />
-            <path fill="#ce1124" d="M0 201.6h640v76.8H0z" />
-          </svg>
-          <span class="text-gray-800">English</span>
-        </div>
-
-        <!-- Arapça -->
-        <div
-          class="lang-option flex cursor-pointer items-center rounded-md px-4 py-3 transition-all duration-200 hover:bg-gray-100"
-          onclick="selectLanguage(this, 'ar')"
+          class="flex items-center justify-between border-b border-gray-100 p-4"
         >
           <img
-            src="https://marketing.mbdtravel.ae/assets/flags/ar.svg"
-            alt="العربية"
-            class="mr-3 h-6 w-6 rounded-sm shadow-sm"
+            src="https://mbdtravel.project-test.info/assets/images/brand-images/logo.svg"
+            alt="MBD Travel Brand Logo"
+            class="h-10"
           />
-          <span class="text-gray-800">العربية</span>
+          <button
+            id="mobile-menu-close-button"
+            class="rounded-full p-2 text-gray-500 transition-all duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-200 active:scale-95"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Menü İçeriği -->
+        <div class="flex flex-col p-4">
+          <!-- Ana Menü Seçenekleri -->
+          <div class="mb-6 space-y-1">
+            <a
+              href="#"
+              class="group flex items-center rounded-lg px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-primary-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="mr-3 text-gray-500 transition-colors group-hover:text-primary-600"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span class="font-medium">Ana Sayfa</span>
+            </a>
+            <a
+              href="#"
+              class="group flex items-center rounded-lg px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-primary-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="mr-3 text-gray-500 transition-colors group-hover:text-primary-600"
+              >
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4"></path>
+                <circle cx="7" cy="17" r="3"></circle>
+                <circle cx="17" cy="17" r="3"></circle>
+                <path d="M10 17h4"></path>
+              </svg>
+              <span class="font-medium">Özellikler</span>
+            </a>
+            <a
+              href="#"
+              class="group flex items-center rounded-lg px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-primary-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="mr-3 text-gray-500 transition-colors group-hover:text-primary-600"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span class="font-medium">Faydalar</span>
+            </a>
+          </div>
+
+          <!-- Dil Seçimi -->
+          <div class="mb-6">
+            <p class="mb-2 px-4 text-xs font-medium uppercase text-gray-500">
+              Dil Seçimi
+            </p>
+            <button
+              id="language-toggle-button-mobile"
+              class="group flex w-full items-center rounded-lg px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-primary-50"
+            >
+              <div
+                class="mr-3 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-100 text-gray-500 transition-colors group-hover:bg-primary-100 group-hover:text-primary-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="flag-icons-tr-mobile-menu"
+                  viewBox="0 0 640 480"
+                  class="h-5 w-5"
+                >
+                  <g fill-rule="evenodd">
+                    <path fill="#e30a17" d="M0 0h640v480H0z" />
+                    <path
+                      fill="#fff"
+                      d="M407 247.5c0 66.2-54.6 119.9-122 119.9s-122-53.7-122-120 54.6-119.8 122-119.8 122 53.7 122 119.9"
+                    />
+                    <path
+                      fill="#e30a17"
+                      d="M413 247.5c0 53-43.6 95.9-97.5 95.9s-97.6-43-97.6-96 43.7-95.8 97.6-95.8 97.6 42.9 97.6 95.9z"
+                    />
+                    <path
+                      fill="#fff"
+                      d="m430.7 191.5-1 44.3-41.3 11.2 40.8 14.5-1 40.7 26.5-31.8 40.2 14-23.2-34.1 28.3-33.9-43.5 12-25.8-37z"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <span class="font-medium">Türkçe</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ml-auto text-gray-400 transition-colors group-hover:text-primary-600"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Kullanıcı İşlemleri -->
+          <div class="mt-auto border-t border-gray-100 pt-6">
+            <a
+              href="#"
+              class="mb-3 flex items-center justify-center gap-2 rounded-lg border border-gray-200 py-3 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Log in</span>
+            </a>
+            <a
+              href="#"
+              class="flex items-center justify-center gap-2 rounded-lg bg-primary-600 py-3 font-medium text-white transition-all duration-200 hover:bg-primary-500 active:scale-[0.98]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+              <span>Sign Up</span>
+            </a>
+          </div>
         </div>
       </div>
-    </dialog>
+    </div>
 
     <main class="">
       <!-- Hero Section -->
@@ -756,7 +1083,7 @@
             <img
               src="https://mbdtravel.project-test.info/assets/images/brand-images/logo.svg"
               alt="MBD Travel Brand Logo"
-              class="mb-6 h-12"
+              class="mb-6 h-12 translate-x-[-5%]"
             />
             <p class="text-sm leading-relaxed text-gray-600">
               MBD Travel Influencer Programı, içerik üreticilerinin yüksek
