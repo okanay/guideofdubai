@@ -10,6 +10,7 @@ import { TouchDirectionDetector } from './packages/touch-event.js'
 declare global {
   interface Window {
     DynamicSlider: DynamicSlider
+    CarBrandSelectInput: SearchableSelect
   }
 }
 
@@ -140,5 +141,29 @@ document.addEventListener('DOMContentLoaded', () => {
       clearButton: 'clear-button', // opsiyonel
     },
   })
-  CarBrandSelectInput.updateOptions(brands)
+  window.CarBrandSelectInput = CarBrandSelectInput
+  window.CarBrandSelectInput.updateOptions(brands)
+
+  // Bu seçimi günceller aşağıda audi olarak yapıyor.
+  document.addEventListener('keydown', event => {
+    if (event.key === 'o') {
+      window.CarBrandSelectInput.hardSet([{ text: 'Audi', value: 'Audi' }])
+    }
+  })
+
+  // Bu listeyi günceller eğer seçili olan yeni listede yoksa onu siler.
+  document.addEventListener('keydown', event => {
+    if (event.key === 'a') {
+      window.CarBrandSelectInput.updateOptions(
+        brands.filter(brand => brand.text.startsWith('A')),
+      )
+    }
+  })
+
+  // Listeyi korur seçimleri sıfırlar.
+  document.addEventListener('keydown', event => {
+    if (event.key === 'c') {
+      window.CarBrandSelectInput.clear()
+    }
+  })
 })

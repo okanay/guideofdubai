@@ -407,6 +407,36 @@ class SearchableSelect {
     }
   }
 
+  // Sadece seçili değerleri temizlemek için yeni metot
+  private handleClearSelected(): void {
+    if (this.isMultiple) {
+      // Seçili öğeleri temizle (arama metnini koruyarak)
+      const currentSearchText = this.elements.input.value
+
+      this.selectedValues.clear()
+      Array.from(this.elements.select.options).forEach(option => {
+        option.selected = false
+      })
+
+      // Input değerini koru (arama metni)
+      this.elements.input.value = currentSearchText
+      this.updateInputValueForMultiple()
+      this.filterAndRenderSuggestions(currentSearchText)
+    } else {
+      const noneValue = this.templates.noneItem.getAttribute('data-value') || ''
+      this.selectOption(noneValue)
+    }
+
+    // Select elementini güncelle ve değişiklik olayını tetikle
+    this.elements.select.dispatchEvent(new Event('change'))
+    this.options.onSelect?.(this.isMultiple ? [] : '')
+
+    // Clear button durumunu güncelle
+    if (this.elements.clearButton) {
+      this.elements.clearButton.setAttribute('data-active', 'false')
+    }
+  }
+
   private hideOriginalSelect(): void {
     this.elements.select.style.display = 'none'
   }
@@ -475,16 +505,108 @@ class SearchableSelect {
   }
 
   public clear(): void {
-    this.handleClear()
+    this.handleClearSelected()
+  }
+
+  // Sadece seçili değerleri temizlemek için yeni metot
+  public clearSelected(): void {
+    this.handleClearSelected()
   }
 
   public updateOptions(newOptions: SearchOption[]): void {
+    // Önce HTML select elementini güncelle
     this.elements.select.innerHTML = newOptions
       .map(opt => `<option value="${opt.value}">${opt.text}</option>`)
       .join('')
 
+    // Seçenek listesini güncelle
     this.allOptions = newOptions
+
+    // Eğer multiple select ise ve seçili değerler varsa
+    if (this.isMultiple && this.selectedValues.size > 0) {
+      // Mevcut seçili değerleri kontrol et
+      const newValues = new Set(newOptions.map(opt => opt.value))
+      const valuesToRemove: string[] = []
+
+      // Seçili değerlerden hangilerinin yeni listede olmadığını belirle
+      this.selectedValues.forEach(value => {
+        if (!newValues.has(value)) {
+          valuesToRemove.push(value)
+        }
+      })
+
+      // Yeni listede olmayan değerleri seçimden kaldır
+      valuesToRemove.forEach(value => {
+        this.selectedValues.delete(value)
+      })
+
+      // Select elementindeki seçimleri güncelle
+      Array.from(this.elements.select.options).forEach(option => {
+        option.selected = this.selectedValues.has(option.value)
+      })
+
+      // Input değerini güncelle
+      this.updateInputValueForMultiple()
+
+      // Eğer seçimler değiştiyse, change olayını tetikle
+      if (valuesToRemove.length > 0) {
+        this.elements.select.dispatchEvent(new Event('change'))
+        this.options.onSelect?.(Array.from(this.selectedValues))
+      }
+    }
+    // Tekli seçim durumunda
+    else if (!this.isMultiple) {
+      const currentValue = this.elements.select.value
+
+      // Mevcut seçili değer yeni listede yoksa, hiçbiri seçeneğini seç
+      if (currentValue && !newOptions.some(opt => opt.value === currentValue)) {
+        const noneValue =
+          this.templates.noneItem.getAttribute('data-value') || ''
+        this.selectOption(noneValue)
+      }
+    }
+
+    // Filtreleme ve yeniden render işlemini yap
     this.filterAndRenderSuggestions(this.elements.input.value)
+  }
+
+  // Yeni eklenen hardSet metodu
+  public hardSet(option: SearchOption | SearchOption[]): void {
+    if (Array.isArray(option) && this.isMultiple) {
+      // Birden fazla seçenek için (multiple select durumunda)
+      const values = option.map(opt => opt.value)
+      this.setValue(values)
+
+      // Eğer bu seçenekler mevcut seçenekler arasında yoksa ekle
+      option.forEach(opt => {
+        if (!this.allOptions.some(existing => existing.value === opt.value)) {
+          this.allOptions.push(opt)
+          const newOption = document.createElement('option')
+          newOption.value = opt.value
+          newOption.text = opt.text
+          this.elements.select.appendChild(newOption)
+        }
+      })
+    } else if (!Array.isArray(option) && !this.isMultiple) {
+      // Tek bir seçenek (tek seçim durumunda)
+      // Eğer bu seçenek mevcut seçenekler arasında yoksa ekle
+      if (!this.allOptions.some(existing => existing.value === option.value)) {
+        this.allOptions.push(option)
+        const newOption = document.createElement('option')
+        newOption.value = option.value
+        newOption.text = option.text
+        this.elements.select.appendChild(newOption)
+      }
+
+      this.selectOption(option.value)
+      this.elements.input.value = option.text
+    } else {
+      console.warn(
+        'hardSet: Geçersiz veri tipi veya çoklu/tekli seçim uyumsuzluğu',
+      )
+    }
+
+    this.filterAndRenderSuggestions('')
   }
 
   public destroy(): void {
