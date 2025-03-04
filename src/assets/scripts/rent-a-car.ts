@@ -138,32 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
       select: 'car-brand-select-input',
       input: 'car-brand-search-input',
       suggestions: 'car-brand-suggestions',
-      clearButton: 'clear-button', // opsiyonel
+      clearButton: 'clear-button',
     },
   })
   window.CarBrandSelectInput = CarBrandSelectInput
   window.CarBrandSelectInput.updateOptions(brands)
 
-  // Bu seçimi günceller aşağıda audi olarak yapıyor.
-  document.addEventListener('keydown', event => {
-    if (event.key === 'o') {
-      window.CarBrandSelectInput.hardSet([{ text: 'Audi', value: 'Audi' }])
-    }
-  })
-
-  // Bu listeyi günceller eğer seçili olan yeni listede yoksa onu siler.
-  document.addEventListener('keydown', event => {
-    if (event.key === 'a') {
-      window.CarBrandSelectInput.updateOptions(
-        brands.filter(brand => brand.text.startsWith('A')),
-      )
-    }
-  })
-
-  // Listeyi korur seçimleri sıfırlar.
-  document.addEventListener('keydown', event => {
-    if (event.key === 'c') {
-      window.CarBrandSelectInput.clear()
-    }
-  })
+  document.dispatchEvent(new CustomEvent('CarBrandSelectReady'))
 })
