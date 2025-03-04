@@ -1174,7 +1174,24 @@
                     </span>
                     <span
                       class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
-                      >Rezervasyonlarım</span
+                      >Activities</span
+                    >
+                  </button>
+                </li>
+                <li class="group">
+                  <button
+                    id="profile-view-control-10"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="ticket" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                      >Tickets</span
                     >
                   </button>
                 </li>
@@ -1328,15 +1345,15 @@
             <div
               class="h-full min-h-fit w-full bg-white px-3.5 lg:px-8 lg:pt-4"
             >
-              <!-- Reservations -->
+              <!-- Activities -->
               <div
                 data-state="closed"
-                id="reservation"
-                class="flex h-full data-[state=closed]:hidden group-data-[query=reservation]/query:!block"
+                id="activities"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=activities]/query:!block"
               >
                 <div class="flex h-full w-full flex-col justify-start">
                   <h2 class="mb-4 pl-px text-2xl font-semibold text-gray-800">
-                    Rezervasyonlarım
+                    Activities
                   </h2>
 
                   <!-- Loading Skeleton for Reservations/Orders -->
@@ -1821,6 +1838,18 @@
                       Şimdi Planla
                     </button>
                   </div>
+                </div>
+              </div>
+              <!-- Tickets -->
+              <div
+                data-state="closed"
+                id="tickets"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=tickets]/query:!block"
+              >
+                <div class="h-full w-full">
+                  <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+                    Tickets
+                  </h2>
                 </div>
               </div>
               <!-- Favorites -->

@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
           '#profile-view-control-7',
           '#profile-view-control-8',
           '#profile-view-control-9',
+          '#profile-view-control-10',
         ],
         containers: ['#profile-navigation-content', '#profile-navigation'],
       },
@@ -43,12 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
   new ModalController(
     [
       {
-        id: 'reservation',
+        id: 'activities',
         toggleElements: [],
         openElements: ['#profile-view-control-1'],
-        contentElement: '#reservation',
+        contentElement: '#activities',
         closeElements: [],
-        containers: ['#reservation'],
+        containers: ['#activities'],
+      },
+      {
+        id: 'tickets',
+        toggleElements: [],
+        openElements: ['#profile-view-control-10'],
+        contentElement: '#tickets',
+        closeElements: [],
+        containers: ['#tickets'],
       },
       {
         id: 'favorites',
@@ -116,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     ],
     {
-      initialActiveModal: 'reservation',
+      initialActiveModal: 'activities',
       outsideClickClose: false,
       escapeClose: false,
       preserveModalHistory: false,
@@ -142,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enabled: true,
         queryParam: 'view',
         modals: [
-          'reservation',
+          'activities',
           'favorites',
           'profile-details',
           'password-email',
