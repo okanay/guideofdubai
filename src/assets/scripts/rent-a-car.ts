@@ -1,11 +1,10 @@
 import { brands } from '../constants/car-brands.js'
 import { languages } from '../constants/date-picker-languages.js'
-import { DatePicker, type DatePickerConfig } from './packages/date-picker.js'
 import { DynamicSlider } from './packages/dynamic-slider.js'
 import { ModalController } from './packages/modal.js'
 import { RangeSlider } from './packages/range-slider.js'
 import SearchableSelect from './packages/searchable-select.js'
-import { TouchDirectionDetector } from './packages/touch-event.js'
+import { DatePickerWithTime } from './packages/date-time-picker.js'
 
 declare global {
   interface Window {
@@ -29,62 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     maxHandleId: 'max-handle-1',
     minInputId: 'min_price_1',
     maxInputId: 'max_price_1',
-  })
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  const today = new Date()
-  const datepickerConfig: DatePickerConfig = {
-    minDate: today,
-    elements: {
-      container: 'date-picker',
-      monthContainer: 'current-month',
-      daysContainer: 'calendar-days',
-      buttons: {
-        prev: 'prev-month',
-        next: 'next-month',
-        reset: 'reset-date',
-        resetAll: 'reset-all',
-        close: 'close-picker',
-      },
-    },
-    input: {
-      type: 'two',
-      elements: {
-        start: {
-          id: 'date-input-start',
-          focusContainer: 'date-input-start-label',
-        },
-        end: {
-          id: 'date-input-end',
-          focusContainer: 'date-input-end-label',
-        },
-      },
-    },
-    output: {
-      slash: '-',
-      fullFormat: true,
-      backendFormat: ['year', 'month', 'day'],
-      order: ['day', 'month', 'year'],
-      between: 'to',
-    },
-    autoClose: true,
-    autoSwitchInput: true,
-    language: [...languages],
-  }
-
-  const datePicker = new DatePicker(datepickerConfig)
-
-  new TouchDirectionDetector('date-picker', {
-    threshold: 50,
-    onSwipe: direction => {
-      if (direction === 'left') {
-        return datePicker.safeChangeMonth('next')
-      }
-      if (direction === 'right') {
-        return datePicker.safeChangeMonth('prev')
-      }
-    },
   })
 })
 
@@ -145,4 +88,101 @@ document.addEventListener('DOMContentLoaded', () => {
   window.CarBrandSelectInput.updateOptions(brands)
 
   document.dispatchEvent(new CustomEvent('CarBrandSelectReady'))
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const datePicker = new DatePickerWithTime({
+    minDate: new Date(),
+    autoClose: false,
+    elements: {
+      container: 'date-picker',
+      monthContainer: 'current-month',
+      daysContainer: 'calendar-days',
+      timeContainer: 'time-container',
+      buttons: {
+        prev: 'prev-month',
+        next: 'next-month',
+        reset: 'reset-date',
+        resetAll: 'reset-all',
+        close: 'close-picker',
+      },
+    },
+    output: {
+      fullFormat: true,
+      between: ' & ',
+      slash: '-',
+      order: ['day', 'month', 'year'],
+      backendFormat: ['year', 'month', 'day'],
+    },
+    language: languages,
+    timePicker: {
+      enabled: true,
+      use24HourFormat: true,
+      minuteInterval: 30,
+      defaultHours: 12,
+      defaultMinutes: 0,
+    },
+  })
+
+  // Departure inputu bağla
+  const departureInput = datePicker.connect({
+    input: 'date-input-start',
+    label: 'date-input-start-label',
+    focusContainer: 'date-input-start-label',
+  })
+
+  // Return inputu bağla
+  const returnInput = datePicker.connect({
+    input: 'date-input-end',
+    label: 'date-input-end-label',
+    focusContainer: 'date-input-end-label',
+  })
+
+  // Yardımcı fonksiyon: Tarihe belirli sayıda gün ekler
+  function addDaysToDate(date: Date, days: number) {
+    if (!date) return null
+    const newDate = new Date(date)
+    newDate.setDate(newDate.getDate() + days)
+    return newDate
+  }
+
+  // Gidiş-dönüş tarih kısıtlamalarını güncelleme fonksiyonu
+  function updateDateConstraints(focusTarget?: 'departure' | 'return') {
+    const departureDate = departureInput.getDate()
+    const returnDate = returnInput.getDate()
+
+    // Gidiş tarihi seçildiyse, dönüş tarihinin min değerini gidiş tarihinden bir gün sonrası olarak ayarla
+    if (departureDate) {
+      const minReturnDate = addDaysToDate(departureDate, 1)
+      returnInput.changeMinDate(minReturnDate!)
+
+      // Eğer mevcut dönüş tarihi min tarihten önceyse, dönüş tarihini min tarihe ayarla
+      if (returnDate && returnDate < minReturnDate!) {
+        returnInput.resetDate(minReturnDate!)
+      }
+    }
+
+    // Dönüş tarihi seçildiyse, gidiş tarihinin max değerini dönüş tarihinden bir gün öncesi olarak ayarla
+    if (returnDate) {
+      const maxDepartureDate = addDaysToDate(returnDate, -1)
+      departureInput.changeMaxDate(maxDepartureDate!)
+
+      // Eğer mevcut gidiş tarihi max tarihten sonraysa, gidiş tarihini max tarihe ayarla
+      if (departureDate && departureDate > maxDepartureDate!) {
+        departureInput.resetDate(maxDepartureDate!)
+      }
+    }
+  }
+
+  // Input değerleri değiştiğinde kısıtlamaları güncelle
+  document
+    .getElementById('date-input-start')!
+    .addEventListener('change', () => updateDateConstraints('departure'))
+
+  document
+    .getElementById('date-input-end')!
+    .addEventListener('change', () => updateDateConstraints('return'))
+
+  // Sayfa yüklendiğinde başlangıç kısıtlamalarını ayarla
+  updateDateConstraints()
 })

@@ -344,7 +344,7 @@
   }
 
   .date-hidden {
-    @apply pointer-events-none !opacity-0;
+    @apply !pointer-events-none absolute !opacity-0;
   }
 
   .day-selected {
@@ -353,5 +353,40 @@
 
   .date-between {
     @apply bg-primary-100;
+  }
+
+  /* TimePicker Özel Stiller */
+  .time-container {
+  }
+
+  .time-column {
+    @apply flex flex-col items-center gap-1;
+  }
+  .time-display {
+    @apply min-w-[2.5rem] px-2 py-1 text-center text-lg font-bold;
+  }
+  .time-btn {
+    @apply flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 transition-all duration-300;
+  }
+  .time-btn:hover {
+    @apply bg-gray-300;
+  }
+  .time-separator {
+    @apply mx-1 self-center text-lg font-bold;
+  }
+  .ampm-container {
+    @apply ml-2 self-center;
+  }
+  .ampm-btn {
+    @apply rounded bg-gray-200 px-2 py-1 font-medium transition-all duration-300;
+  }
+  .ampm-btn:hover {
+    @apply bg-gray-300;
+  }
+  .ampm-selected {
+    @apply bg-red-500 text-white;
+  }
+  .ampm-selected:hover {
+    @apply bg-red-600;
   }
 }

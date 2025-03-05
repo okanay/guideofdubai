@@ -1,20 +1,20 @@
+// lucide-icons.ts dosyası
 import { createIcons, icons } from 'lucide'
 
-function callIcons() {
+// Global'e ekleme
+window.callIcons = function () {
   createIcons({ icons: { ...icons } })
 }
 
-// Global'e ekleyelim
+// TypeScript tanımlaması - ayrı bir .d.ts dosyasına da koyabilirsiniz
 declare global {
   interface Window {
     callIcons: () => void
   }
 }
 
-window.callIcons = callIcons
-
 document.addEventListener('DOMContentLoaded', () => {
   window.callIcons()
 })
 
-export { createIcons, icons, callIcons }
+export { createIcons, icons }
