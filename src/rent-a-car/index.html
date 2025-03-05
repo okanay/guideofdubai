@@ -1089,111 +1089,99 @@
     <div
       id="date-picker"
       data-language="tr"
-      class="absolute opacity-0 transition-opacity"
+      class="absolute !z-[200000] flex flex-col overflow-hidden opacity-0 sm:flex-row"
     >
-      <div class="flex w-full flex-col sm:flex-row">
+      <div class="flex flex-col sm:flex-row">
         <!-- Date Picker -->
         <div
-          class="relative order-2 flex h-fit w-[330px] flex-col gap-4 overflow-hidden rounded rounded-t-none border border-gray-200 bg-white sm:order-none sm:rounded-l sm:rounded-r-none sm:rounded-br"
+          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-200 bg-white sm:rounded-b-lg sm:rounded-tr-none"
         >
-          <!-- Prev - Current Month - Next -->
+          <!-- Ay Navigasyon Bar -->
           <div
-            class="flex h-[52px] flex-col items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
+            class="flex h-[52px] items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
           >
-            <div class="flex h-full w-full items-center justify-between">
-              <button
-                id="prev-month"
-                class="size-6 rounded-full p-1 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-red-600 disabled:pointer-events-none disabled:opacity-50"
+            <button
+              id="prev-month"
+              class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-colors duration-300 hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Önceki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m15 18-6-6 6-6"></path>
-                </svg>
-              </button>
-              <div id="current-month" class="font-bold">Mart 2025</div>
-              <button
-                id="next-month"
-                class="size-6 rounded-full p-1 text-red-500 transition-colors duration-300 hover:bg-gray-100 hover:text-red-600 disabled:pointer-events-none disabled:opacity-50"
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </button>
+            <div id="current-month" class="current-month">Mart 2025</div>
+            <button
+              id="next-month"
+              class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-colors duration-300 hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Sonraki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m9 18 6-6-6-6"></path>
-                </svg>
-              </button>
-            </div>
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
           </div>
 
-          <!-- Calendar Days -->
-          <div class="-my-1 flex flex-col gap-4 px-4 pb-4">
+          <!-- Takvim İçeriği -->
+          <div class="calendar-container">
             <div id="calendar-days"></div>
 
-            <!-- Footer Buttons -->
-            <div class="flex items-center justify-between">
-              <div class="flex items-center justify-between gap-4">
-                <button
-                  id="reset-date"
-                  class="text-red-500 hover:text-red-600 hover:underline"
-                >
-                  Bugün
-                </button>
-                <button
-                  id="reset-all"
-                  class="text-red-500 hover:text-red-600 hover:underline"
-                >
-                  Temizle
-                </button>
+            <!-- Alt Düğmeler -->
+            <div class="calendar-footer">
+              <div class="reset-buttons">
+                <button id="reset-date" class="reset-btn">Bugün</button>
+                <button id="reset-all" class="reset-btn">Temizle</button>
               </div>
-              <button
-                id="close-picker"
-                class="rounded-md bg-red-500 px-3 py-2 text-sm text-white transition-colors hover:bg-red-600"
-              >
-                Kapat
-              </button>
+              <button id="close-picker" class="close-btn">Kapat</button>
             </div>
           </div>
         </div>
+
         <!-- Time Picker -->
         <div
           id="time-container"
-          class="time-container relative order-1 h-fit flex-shrink overflow-hidden rounded rounded-b-none border border-b-0 border-gray-200 bg-white sm:order-none sm:w-[160px] sm:rounded-l-none sm:rounded-r sm:border-l-0 sm:border-t"
+          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-lg border border-t-0 border-gray-200 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-l-0 sm:border-t"
         >
           <div
-            class="flex h-[52px] flex-col items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
+            class="flex h-[52px] items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
           >
-            <div class="flex h-full w-full items-center justify-between">
-              <div class="font-bold">Saat</div>
-              <!-- AM/PM Butonu (24 saat formatı kullanılmıyorsa görünecek) -->
-              <div class="ampm-container" id="ampm-container">
-                <button id="ampm-toggle" class="ampm-btn">AM</button>
-              </div>
+            <div class="time-title">Saat</div>
+            <!-- AM/PM Butonu (24 saat formatı kullanılmıyorsa görünecek) -->
+            <div class="ampm-container" id="ampm-container">
+              <button id="ampm-toggle" class="ampm-btn">AM</button>
             </div>
           </div>
 
           <div
-            class="flex items-center justify-center gap-2 px-4 py-3"
+            class="flex items-center justify-center gap-3 p-4"
             id="time-picker-content"
           >
             <!-- Saat kolonu -->
             <div class="time-column" id="hours-column">
-              <button id="hour-up" class="time-btn">
+              <button
+                id="hour-up"
+                class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati arttır"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -1209,7 +1197,11 @@
                 </svg>
               </button>
               <div id="hour-display" class="time-display">12</div>
-              <button id="hour-down" class="time-btn">
+              <button
+                id="hour-down"
+                class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati azalt"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -1231,7 +1223,11 @@
 
             <!-- Dakika kolonu -->
             <div class="time-column" id="minutes-column">
-              <button id="minute-up" class="time-btn">
+              <button
+                id="minute-up"
+                class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı arttır"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -1246,8 +1242,13 @@
                   <path d="m18 15-6-6-6 6" />
                 </svg>
               </button>
+
               <div id="minute-display" class="time-display">00</div>
-              <button id="minute-down" class="time-btn">
+              <button
+                id="minute-down"
+                class="size-6 rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı azalt"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -1412,7 +1413,7 @@
                 data-default-hours="15"
                 data-default-minute="00"
                 data-min-date="2025-03-10"
-                data-max-date="2025-03-20"
+                data-max-date="2025-05-20"
                 data-default-date="2025-03-12"
                 class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-red-200"
                 placeholder="Tarih ve saat seçin"
@@ -1421,7 +1422,7 @@
                 id="date-input-start-label"
                 for="date-input-start"
                 data-focus="false"
-                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-red-500"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-primary-500"
               >
                 Başlangıç Tarihi
               </label>
@@ -1450,8 +1451,8 @@
                 data-default-hours="15"
                 data-default-minute="00"
                 data-min-date="2025-03-10"
-                data-max-date="2025-03-20"
-                data-default-date="2025-03-12"
+                data-max-date="2025-06-20"
+                data-default-date="2025-06-12"
                 class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-red-200"
                 placeholder="Tarih ve saat seçin"
               />
@@ -1459,7 +1460,7 @@
                 id="date-input-end-label"
                 for="date-input-end"
                 data-focus="false"
-                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-red-500"
+                class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-800 data-[focus=true]:text-primary-500"
               >
                 Geri Teslim Tarihi
               </label>

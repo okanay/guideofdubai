@@ -13,6 +13,7 @@ const DEFAULT_CLASSES = {
   wrapper: {
     base: 'wrapper',
     hidden: 'date-hidden',
+    visible: 'date-visible', // Yeni eklendi - görünür durum için
   },
   month: {
     container: 'month-container',
@@ -289,6 +290,11 @@ class DatePickerWithTime {
       this.addEventListeners()
     } else {
       console.warn('Gerekli container elementleri bulunamadı.')
+    }
+
+    if (this.containerElement) {
+      this.containerElement.classList.add(this.classes.wrapper.hidden)
+      this.containerElement.classList.remove(this.classes.wrapper.visible)
     }
 
     // DatePicker'ı gizle
@@ -935,8 +941,9 @@ class DatePickerWithTime {
    * DatePicker'ı göster
    */
   private showDatePicker(): void {
-    if (this.containerElement && this.classes.wrapper.hidden) {
+    if (this.containerElement) {
       this.containerElement.classList.remove(this.classes.wrapper.hidden)
+      this.containerElement.classList.add(this.classes.wrapper.visible)
     }
   }
 
@@ -944,8 +951,9 @@ class DatePickerWithTime {
    * DatePicker'ı gizle
    */
   private hideDatePicker(): void {
-    if (this.containerElement && this.classes.wrapper.hidden) {
+    if (this.containerElement) {
       this.containerElement.classList.add(this.classes.wrapper.hidden)
+      this.containerElement.classList.remove(this.classes.wrapper.visible)
     }
 
     // Aktif bağlantının focus container'ını güncelle
@@ -959,11 +967,13 @@ class DatePickerWithTime {
    * DatePicker görünür mü?
    */
   private isDatePickerVisible(): boolean {
-    return this.containerElement && this.classes.wrapper.hidden
-      ? !this.containerElement.classList.contains(this.classes.wrapper.hidden)
-      : false
-  }
+    if (!this.containerElement) return false
 
+    // Görünür olma durumunu visible sınıfının varlığı ile kontrol et
+    return this.containerElement.classList.contains(
+      this.classes.wrapper.visible,
+    )
+  }
   /**
    * DatePicker'ı input'un altına konumlandır
    */
