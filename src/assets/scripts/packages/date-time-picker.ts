@@ -610,6 +610,14 @@ class DatePickerWithTime {
 
     this.lastOpenTime = now
 
+    // ÖNCEKİ BAĞLANTININ FOCUS DURUMUNU TEMIZLE
+    if (this.activeConnectionId && this.activeConnectionId !== connectionId) {
+      const prevConnection = this.connections.get(this.activeConnectionId)
+      if (prevConnection?.focusContainer) {
+        prevConnection.focusContainer.setAttribute('data-focus', 'false')
+      }
+    }
+
     if (
       this.isDatePickerVisible() &&
       this.activeConnectionId === connectionId
@@ -961,6 +969,10 @@ class DatePickerWithTime {
     if (activeConnection?.focusContainer) {
       activeConnection.focusContainer.setAttribute('data-focus', 'false')
     }
+
+    // Aktif bağlantı ID'sini null olarak ayarla
+    // Bu önemli çünkü artık aktif bir bağlantı yok
+    this.activeConnectionId = null
   }
 
   /**
@@ -1882,7 +1894,6 @@ class DatePickerWithTime {
       ;(this.nextButton as HTMLButtonElement).disabled = isDisabled
     }
   }
-
   /**
    * Tarih seç
    */
@@ -1900,8 +1911,12 @@ class DatePickerWithTime {
 
     this.renderCalendar()
 
-    // Eğer TimePicker etkin değilse veya autoClose true ise
-    if (!this.config.timePicker?.enabled || this.autoClose) {
+    // Input değerini her zaman güncelle (readonly olup olmadığını kontrol et)
+    if (activeConnection.input && activeConnection.input.readOnly) {
+      this.updateInputValue(activeConnection.id)
+    }
+    // Eğer TimePicker etkin değilse veya autoClose true ise (readonly olmayan inputlar için)
+    else if (!this.config.timePicker?.enabled || this.autoClose) {
       this.updateInputValue(activeConnection.id)
 
       if (this.autoClose) {
