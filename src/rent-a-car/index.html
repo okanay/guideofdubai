@@ -1088,17 +1088,17 @@
     <!-- DatePicker Modal -->
     <div
       id="date-picker"
-      data-language="tr"
-      class="absolute !z-[200000] flex flex-col overflow-hidden opacity-0 sm:flex-row"
+      data-language="en"
+      class="absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
     >
       <div class="flex flex-col sm:flex-row">
         <!-- Date Picker -->
         <div
-          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-200 bg-white sm:rounded-b-lg sm:rounded-tr-none"
+          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white sm:rounded-b-none sm:rounded-tr-none"
         >
           <!-- Ay Navigasyon Bar -->
           <div
-            class="flex h-[52px] items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
+            class="flex h-[52px] items-center justify-between border-b border-gray-300/60 bg-gray-50 px-4"
           >
             <button
               id="prev-month"
@@ -1144,22 +1144,13 @@
           <!-- Takvim İçeriği -->
           <div class="calendar-container">
             <div id="calendar-days"></div>
-
-            <!-- Alt Düğmeler -->
-            <div class="calendar-footer">
-              <div class="reset-buttons">
-                <button id="reset-date" class="reset-btn">Bugün</button>
-                <button id="reset-all" class="reset-btn">Temizle</button>
-              </div>
-              <button id="close-picker" class="close-btn">Kapat</button>
-            </div>
           </div>
         </div>
 
         <!-- Time Picker -->
         <div
           id="time-container"
-          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-lg border border-t-0 border-gray-200 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-l-0 sm:border-t"
+          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-none border border-y-0 border-gray-300/60 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-y sm:border-l-0"
         >
           <div
             class="flex h-[52px] items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
@@ -1265,6 +1256,34 @@
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Alt Düğmeler (Mobil için en altta olacak şekilde) -->
+      <div
+        class="w-full rounded-b-lg border border-gray-300/60 bg-gray-100 px-4 py-3 sm:w-[322px] sm:border-t-0"
+      >
+        <div class="flex w-full items-center justify-between">
+          <div class="flex gap-2">
+            <button
+              id="reset-date"
+              class="reset-btn rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Bugün
+            </button>
+            <button
+              id="reset-all"
+              class="reset-btn rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Temizle
+            </button>
+          </div>
+          <button
+            id="close-picker"
+            class="close-btn rounded-lg bg-primary-500 px-3 py-2 text-sm text-white transition-colors hover:bg-primary-600"
+          >
+            Kapat
+          </button>
         </div>
       </div>
     </div>
