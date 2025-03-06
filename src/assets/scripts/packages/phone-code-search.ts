@@ -134,9 +134,18 @@ class PhoneCodeSearch {
       options.defaultCountry
 
     // Initialize'da kullanmak üzere default ülkeyi belirle
-    const defaultOption = defaultCountryCode
-      ? this.allOptions.find(opt => opt.code === defaultCountryCode)
+    let defaultOption = defaultCountryCode
+      ? this.allOptions.find(opt => opt.dial_code === defaultCountryCode)
       : this.allOptions[0]
+
+    // +1 ise amerika code u olmalı US
+    if (defaultCountryCode === '+1') {
+      defaultOption = this.allOptions.find(opt => opt.code === 'US')
+    }
+    // +44 ise ingiltere
+    if (defaultCountryCode === '+44') {
+      defaultOption = this.allOptions.find(opt => opt.code === 'GB')
+    }
 
     // Başlangıç değerlerini ayarla ve event listener'ları bağla
     this.initialize(defaultOption)

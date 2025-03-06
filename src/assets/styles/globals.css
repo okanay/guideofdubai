@@ -322,6 +322,17 @@
     border-radius: 2px;
   }
 
+  /* Rarity */
+  .rarity {
+    @apply data-[badge=five]:border-gray-900 data-[badge=five]:from-gray-900 data-[badge=five]:to-gray-500 data-[badge=five]:text-white data-[badge=five]:shadow-gray-500 data-[badge=five]:ring-gray-500;
+    @apply data-[badge=four]:border-amber-700 data-[badge=four]:from-amber-700 data-[badge=four]:to-amber-400 data-[badge=four]:text-white data-[badge=four]:shadow-amber-400/80 data-[badge=four]:ring-amber-400;
+    @apply data-[badge=three]:border-violet-700 data-[badge=three]:from-violet-700 data-[badge=three]:to-violet-400 data-[badge=three]:text-white data-[badge=three]:shadow-violet-400/80 data-[badge=three]:ring-violet-400;
+    @apply data-[badge=two]:border-lime-700 data-[badge=two]:from-lime-700 data-[badge=two]:to-lime-400 data-[badge=two]:text-white data-[badge=two]:shadow-lime-400/80 data-[badge=two]:ring-lime-400;
+    @apply data-[badge=one]:border-sky-700 data-[badge=one]:from-sky-700 data-[badge=one]:to-sky-400 data-[badge=one]:text-white data-[badge=one]:shadow-sky-400/80 data-[badge=one]:ring-sky-400;
+    @apply data-[badge=theme]:border-primary-700 data-[badge=theme]:from-primary-700 data-[badge=theme]:to-primary-400 data-[badge=theme]:text-white data-[badge=theme]:shadow-primary-400/80 data-[badge=theme]:ring-primary-400;
+    @apply data-[badge=themesoft]:border-primary-500 data-[badge=themesoft]:from-primary-500 data-[badge=themesoft]:to-primary-400 data-[badge=themesoft]:text-white data-[badge=themesoft]:shadow-primary-300/80 data-[badge=themesoft]:ring-primary-300;
+  }
+
   /* DatePicker Gizlendiğinde */
   .date-hidden {
     @apply !pointer-events-none scale-95 !opacity-0 transition-all duration-300;

@@ -1793,6 +1793,22 @@
                   <span>Görsel</span>
                 </div>
 
+                <!-- Fav Button -->
+                <div
+                  class="absolute bottom-2 right-2 z-20 hidden items-center justify-center lg:flex"
+                >
+                  <button
+                    class="group/fav flex size-6 items-center justify-center rounded-full bg-white/90 p-1 shadow-md transition-all hover:bg-white"
+                    data-fav="false"
+                    onclick="this.setAttribute('data-fav', this.getAttribute('data-fav') === 'true' ? 'false' : 'true')"
+                  >
+                    <i
+                      data-lucide="heart"
+                      class="size-4 text-gray-600 transition-colors duration-500 group-hover/fav:text-rose-400 group-data-[fav='true']/fav:fill-rose-500 group-data-[fav='true']/fav:text-rose-500"
+                    ></i>
+                  </button>
+                </div>
+
                 <!-- Galeri Navigasyonu -->
                 <nav
                   class="group/btn absolute left-0 top-0 z-10 flex h-full w-full items-center justify-between px-2"
@@ -2101,7 +2117,10 @@
 
               <!-- Telefon -->
               <div class="w-full space-y-2">
-                <label for="phone" class="text-sm font-medium text-gray-700">
+                <label
+                  for="phone-input"
+                  class="text-sm font-medium text-gray-700"
+                >
                   Telefon Numaranız
                 </label>
                 <div class="flex w-full">
@@ -2132,7 +2151,7 @@
                           id="country-code"
                           name="country-code"
                           data-language="EN"
-                          data-default="TR"
+                          data-default="+44"
                           disabled
                           style="-webkit-border-radius: 0; border-radius: 0"
                           class="pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0"

@@ -88,6 +88,7 @@ interface ConnectionConfig {
   input: string // Input element ID
   label?: string // Label element ID (isteğe bağlı)
   focusContainer?: string // Focus container ID (isteğe bağlı)
+  onChange?: (date: Date | null) => void // Değişiklik callback'i (YENİ)
 }
 
 /**
@@ -103,6 +104,8 @@ interface DatePickerConnection {
   resetDate: (date: Date, updateInput?: boolean) => boolean
   changeMinDate: (date: Date, resetIfInvalid?: boolean) => boolean
   changeMaxDate: (date: Date, resetIfInvalid?: boolean) => boolean
+  // Callback fonksiyonunu güncelleme için eklendi (YENİ)
+  setOnChange: (callback: (date: Date | null) => void) => void
 }
 
 /**
@@ -191,6 +194,8 @@ interface ConnectionState {
   timePickerEnabled?: boolean
   use24HourFormat?: boolean
   minuteInterval?: number
+  // Değişiklik callback'i (YENİ)
+  onChange?: (date: Date | null) => void
 }
 
 interface ResetOptions {
@@ -275,13 +280,31 @@ class DatePickerWithTime {
       this.closeButton = document.getElementById(config.elements.buttons.close)
     }
 
-    // Min ve max tarihleri düzenle
+    // Min ve max tarihleri düzenle - Daha detaylı hata kontrolü eklenmiştir
     if (this.config.minDate) {
-      this.config.minDate = this.stripTime(this.config.minDate)
+      try {
+        this.config.minDate = this.stripTime(this.config.minDate)
+        console.log(
+          'Global minDate ayarlandı:',
+          this.formatDateForAttribute(this.config.minDate),
+        )
+      } catch (error) {
+        console.error('Geçersiz minDate formatı:', error)
+        this.config.minDate = undefined
+      }
     }
 
     if (this.config.maxDate) {
-      this.config.maxDate = this.stripTime(this.config.maxDate)
+      try {
+        this.config.maxDate = this.stripTime(this.config.maxDate)
+        console.log(
+          'Global maxDate ayarlandı:',
+          this.formatDateForAttribute(this.config.maxDate),
+        )
+      } catch (error) {
+        console.error('Geçersiz maxDate formatı:', error)
+        this.config.maxDate = undefined
+      }
     }
 
     // DatePicker'ı başlat
@@ -323,6 +346,7 @@ class DatePickerWithTime {
         resetDate: () => false,
         changeMinDate: () => false,
         changeMaxDate: () => false,
+        setOnChange: () => {},
       }
     }
 
@@ -344,47 +368,64 @@ class DatePickerWithTime {
     let minutes: number = 0
     let isPM: boolean = false
 
-    // Varsayılan tarih için data attribute kontrolü
-    const defaultDateAttr = input.getAttribute('data-default-date')
-    if (defaultDateAttr) {
-      const defaultDate = this.parseDefaultDate(defaultDateAttr)
-      if (defaultDate) {
-        selectedDate = this.stripTime(defaultDate)
-      }
-    }
+    // Min ve max tarih için data attribute kontrolü - ÖNCELİK DEĞİŞTİRİLDİ
+    // İlk olarak input'tan data attribute'ları alalım, yoksa config değerlerini kullanalım
+    let minDate: Date | undefined = undefined
+    let maxDate: Date | undefined = undefined
 
-    // Min ve max tarih için data attribute kontrolü
-    let minDate: Date | undefined = this.config.minDate
-      ? new Date(this.config.minDate)
-      : undefined
-    let maxDate: Date | undefined = this.config.maxDate
-      ? new Date(this.config.maxDate)
-      : undefined
-
+    // data-min-date kontrolü - ÖNCE INPUT ATTRIBUTE KONTROL EDİLİYOR
     const minDateAttr = input.getAttribute('data-min-date')
     if (minDateAttr) {
       const parsedMinDate = this.parseDefaultDate(minDateAttr)
       if (parsedMinDate) {
         minDate = this.stripTime(parsedMinDate)
+        console.log(
+          'Min date attribute değeri:',
+          this.formatDateForAttribute(minDate),
+        )
       }
+    } else if (this.config.minDate) {
+      // Input attribute yoksa config değerini kullan
+      minDate = new Date(this.config.minDate)
     }
 
+    // data-max-date kontrolü
     const maxDateAttr = input.getAttribute('data-max-date')
     if (maxDateAttr) {
       const parsedMaxDate = this.parseDefaultDate(maxDateAttr)
       if (parsedMaxDate) {
         maxDate = this.stripTime(parsedMaxDate)
       }
+    } else if (this.config.maxDate) {
+      // Input attribute yoksa config değerini kullan
+      maxDate = new Date(this.config.maxDate)
     }
 
-    // data attribute değerlerini kontrol et - Düzeltildi
+    // Varsayılan tarih için data attribute kontrolü
+    const defaultDateAttr = input.getAttribute('data-default-date')
+    if (defaultDateAttr) {
+      const defaultDate = this.parseDefaultDate(defaultDateAttr)
+      if (defaultDate) {
+        // minDate kontrolü yap
+        if (minDate && this.stripTime(defaultDate) < minDate) {
+          console.warn(
+            'Default tarih, minimum tarihten küçük olduğu için minimum tarih kullanılacak.',
+          )
+          selectedDate = new Date(minDate)
+        } else {
+          selectedDate = this.stripTime(defaultDate)
+        }
+      }
+    }
+
+    // data attribute değerlerini kontrol et
     const timePickerAttr = input.getAttribute('data-timepicker')
     const defaultHoursAttr = input.getAttribute('data-default-hours')
     const defaultMinuteAttr = input.getAttribute('data-default-minute')
     const ampmAttr = input.getAttribute('data-ampm')
     const minuteIntervalAttr = input.getAttribute('data-minute-interval')
 
-    // Input'taki data attributelerine öncelik verelim - Düzeltildi
+    // Input'taki data attributelerine öncelik verelim
     const configTimePickerEnabled = this.config.timePicker?.enabled ?? false
 
     // data-timepicker attribute'u için daha sağlam kontrol
@@ -393,23 +434,39 @@ class DatePickerWithTime {
       timePickerEnabled = timePickerAttr.toLowerCase() === 'true'
     }
 
-    // Diğer değerleri input'tan alırken, yalnızca değerler varsa
-    const defaultHours =
-      defaultHoursAttr !== null
-        ? parseInt(defaultHoursAttr)
-        : this.config.timePicker?.defaultHours || 12
-
-    const defaultMinutes =
-      defaultMinuteAttr !== null
-        ? parseInt(defaultMinuteAttr)
-        : this.config.timePicker?.defaultMinutes || 0
-
     // ampmAttr için daha sağlam kontrol
     let use24HourFormat = this.config.timePicker?.use24HourFormat || false
     if (ampmAttr !== null) {
       // "true" ise 12 saat formatı (AM/PM kullan)
       // "false" ise 24 saat formatı (AM/PM kullanma)
       use24HourFormat = ampmAttr.toLowerCase() !== 'true'
+    }
+
+    // Saat değerini hesapla
+    if (defaultHoursAttr !== null) {
+      const hours24 = parseInt(defaultHoursAttr)
+
+      if (!use24HourFormat) {
+        // 24 saatlik formattan 12 saatlik formata dönüşüm
+        isPM = hours24 >= 12
+        hours = hours24 % 12
+        if (hours === 0) hours = 12 // 0 yerine 12 AM
+      } else {
+        hours = hours24
+      }
+    } else {
+      hours = this.config.timePicker?.defaultHours || 12
+      if (!use24HourFormat && hours >= 12) {
+        isPM = true
+        if (hours > 12) hours = hours % 12
+      }
+    }
+
+    // Dakika değerini hesapla
+    if (defaultMinuteAttr !== null) {
+      minutes = parseInt(defaultMinuteAttr)
+    } else {
+      minutes = this.config.timePicker?.defaultMinutes || 0
     }
 
     // Dakika aralığı için daha sağlam kontrol
@@ -421,28 +478,16 @@ class DatePickerWithTime {
       }
     }
 
+    // En yakın geçerli dakika değerine yuvarla
+    minutes = this.getNearestValidMinute(minutes, minuteInterval)
+
     // TimePicker yapılandırmasını güncelle
     const timePickerConfig = {
       enabled: timePickerEnabled,
       use24HourFormat: use24HourFormat,
-      defaultHours: defaultHours,
-      defaultMinutes: defaultMinutes,
+      defaultHours: hours,
+      defaultMinutes: minutes,
       minuteInterval: minuteInterval,
-    }
-
-    // Varsayılan saat değerlerini ayarla
-    if (timePickerConfig.enabled) {
-      hours = timePickerConfig.defaultHours || 12
-      minutes = this.getNearestValidMinute(
-        timePickerConfig.defaultMinutes || 0,
-        minuteInterval,
-      )
-      isPM = !timePickerConfig.use24HourFormat && hours >= 12
-
-      // 24 saat formatında 12 varsayılan değerse 0 olarak ayarla
-      if (timePickerConfig.use24HourFormat && hours === 12) {
-        hours = 0
-      }
     }
 
     // Bağlantı durumunu oluştur
@@ -461,6 +506,8 @@ class DatePickerWithTime {
       timePickerEnabled: timePickerConfig.enabled,
       use24HourFormat: timePickerConfig.use24HourFormat,
       minuteInterval: timePickerConfig.minuteInterval,
+      // Callback'i ekle
+      onChange: config.onChange,
     }
 
     // Bağlantıyı kaydet
@@ -491,16 +538,21 @@ class DatePickerWithTime {
       focus: (openDatePicker = true) =>
         this.focusConnection(connectionId, openDatePicker),
       getDate: () => this.getDateForConnection(connectionId),
-      resetToToday: () =>
-        this.resetStateForConnection(connectionId, { type: 'today' }),
-      resetAllInputs: () =>
-        this.resetStateForConnection(connectionId, { type: 'all' }),
+      resetToToday: () => this.handleReset({ type: 'today' }, connectionId),
+      resetAllInputs: () => this.handleReset({ type: 'all' }, connectionId),
       resetDate: (date, updateInput = true) =>
         this.resetDateForConnection(connectionId, date, updateInput),
       changeMinDate: (date, resetIfInvalid = true) =>
         this.changeMinDateForConnection(connectionId, date, resetIfInvalid),
       changeMaxDate: (date, resetIfInvalid = true) =>
         this.changeMaxDateForConnection(connectionId, date, resetIfInvalid),
+      // Callback güncelleme fonksiyonu
+      setOnChange: callback => {
+        const conn = this.connections.get(connectionId)
+        if (conn) {
+          conn.onChange = callback
+        }
+      },
     }
   }
 
@@ -541,16 +593,7 @@ class DatePickerWithTime {
       }
 
       // Saat ayarlarını yansıt
-      let hours24 = connection.hours
-
-      // 12 saat formatından 24 saat formatına dönüştür (gerekirse)
-      if (connection.use24HourFormat === false) {
-        if (connection.isPM && connection.hours < 12) {
-          hours24 = connection.hours + 12
-        } else if (!connection.isPM && connection.hours === 12) {
-          hours24 = 0
-        }
-      }
+      let hours24 = this.get24HourFormat(connection)
 
       connection.input.setAttribute('data-default-hours', hours24.toString())
 
@@ -631,22 +674,56 @@ class DatePickerWithTime {
     // Aktif bağlantıyı değiştir
     this.activeConnectionId = connectionId
 
-    // Input'ta tarih varsa, o tarihi yükle
+    // ÖNEMLİ: Tarih belirleme önceliği
+    let targetDate: Date | null = null
+
+    // 1. İlk öncelik: Input değeri (eğer input dolu ise ve geçerli bir tarih içeriyorsa)
     if (connection.input && connection.input.value) {
       const dateStr = connection.input.value.split(' & ')[0] // Tarih kısmını al
-      const date = this.parseDisplayDate(dateStr)
-
-      if (date) {
-        this.currentDate = new Date(date)
-        connection.selectedDate = new Date(date)
+      const parsedDate = this.parseDisplayDate(dateStr)
+      if (parsedDate) {
+        targetDate = this.stripTime(parsedDate)
+        connection.selectedDate = new Date(targetDate)
       }
-    } else {
-      // Eğer input boşsa, varsayılan tarihi kullan (bugün)
-      this.currentDate = this.stripTime(new Date())
     }
 
-    this.renderCalendar()
+    // 2. İkinci öncelik: Daha önce seçilmiş tarih
+    if (!targetDate && connection.selectedDate) {
+      targetDate = this.stripTime(connection.selectedDate)
+    }
+
+    // 3. Üçüncü öncelik: data-min-date veya minDate konfigürasyonu
+    if (!targetDate && connection.minDate) {
+      targetDate = this.stripTime(connection.minDate)
+      // Minimum tarih bildirmek için log koy
+      console.log(
+        'Min date kullanılıyor:',
+        this.formatDateForAttribute(connection.minDate),
+      )
+    } else if (!targetDate && this.config.minDate) {
+      targetDate = this.stripTime(this.config.minDate)
+      // Global minimum tarih bildirmek için log koy
+      console.log(
+        'Global min date kullanılıyor:',
+        this.formatDateForAttribute(this.config.minDate),
+      )
+    }
+
+    // 4. Son öncelik: Bugün
+    if (!targetDate) {
+      targetDate = this.stripTime(new Date())
+    }
+
+    // currentDate'i hedef tarihe göre ayarla (ay görünümü için)
+    this.currentDate = new Date(
+      targetDate.getFullYear(),
+      targetDate.getMonth(),
+      targetDate.getDate(),
+    )
+
+    // Önce ay başlığını güncelle, sonra takvimi render et
     this.renderMonthHeader()
+    this.renderCalendar()
 
     // TimePicker'ı sadece etkinse göster
     if (connection.timePickerEnabled && this.timeContainer) {
@@ -693,25 +770,51 @@ class DatePickerWithTime {
 
       // Eğer isteniyorsa date picker'ı aç
       if (openDatePicker) {
-        // Öncelikle input'ta tarih varsa, o tarihi yükle
-        if (connection.input.value) {
-          const dateStr = connection.input.value.split(' & ')[0] // Tarih kısmını al
-          const date = this.parseDisplayDate(dateStr)
-
-          if (date) {
-            this.currentDate = new Date(date)
-            connection.selectedDate = new Date(date)
-          }
-        }
-
         // Aktif bağlantıyı ayarla
         this.activeConnectionId = connectionId
 
-        // Takvimi güncel tarih ve seçimlerle göster
-        this.renderCalendar()
-        this.renderMonthHeader()
+        // ÖNEMLİ: Tarih belirleme önceliğini handleInputClick ile aynı şekilde uygula
+        let targetDate: Date | null = null
 
-        if (this.config.timePicker?.enabled && this.timeContainer) {
+        // 1. İlk öncelik: Input değeri (eğer input dolu ise ve geçerli bir tarih içeriyorsa)
+        if (connection.input.value) {
+          const dateStr = connection.input.value.split(' & ')[0] // Tarih kısmını al
+          const parsedDate = this.parseDisplayDate(dateStr)
+          if (parsedDate) {
+            targetDate = this.stripTime(parsedDate)
+            connection.selectedDate = new Date(targetDate)
+          }
+        }
+
+        // 2. İkinci öncelik: Daha önce seçilmiş tarih
+        if (!targetDate && connection.selectedDate) {
+          targetDate = this.stripTime(connection.selectedDate)
+        }
+
+        // 3. Üçüncü öncelik: data-min-date veya minDate konfigürasyonu
+        if (!targetDate && connection.minDate) {
+          targetDate = this.stripTime(connection.minDate)
+        } else if (!targetDate && this.config.minDate) {
+          targetDate = this.stripTime(this.config.minDate)
+        }
+
+        // 4. Son öncelik: Bugün
+        if (!targetDate) {
+          targetDate = this.stripTime(new Date())
+        }
+
+        // currentDate'i hedef tarihe göre ayarla
+        this.currentDate = new Date(
+          targetDate.getFullYear(),
+          targetDate.getMonth(),
+          targetDate.getDate(),
+        )
+
+        // Takvimi güncel tarih ve seçimlerle göster
+        this.renderMonthHeader()
+        this.renderCalendar()
+
+        if (connection.timePickerEnabled && this.timeContainer) {
           this.renderTimePicker()
           // TimePicker event listener'larını yeniden ekle
           this.addTimePickerEventListeners()
@@ -952,6 +1055,15 @@ class DatePickerWithTime {
     if (this.containerElement) {
       this.containerElement.classList.remove(this.classes.wrapper.hidden)
       this.containerElement.classList.add(this.classes.wrapper.visible)
+
+      // Aktif bağlantıyı al ve timepicker durumuna göre data-timepicker attribute'ünü ayarla
+      const activeConnection = this.getActiveConnection()
+      if (activeConnection) {
+        this.containerElement.setAttribute(
+          'data-timepicker',
+          activeConnection.timePickerEnabled ? 'true' : 'false',
+        )
+      }
     }
   }
 
@@ -1087,6 +1199,9 @@ class DatePickerWithTime {
     const connection = this.connections.get(connectionId)
     if (!connection || !connection.input || !connection.selectedDate) return
 
+    // Önceki değeri kaydet (değişiklik kontrolü için)
+    const oldValue = connection.input.value
+
     let value = this.formatDateBasedOnConfig(connection.selectedDate)
 
     // TimePicker etkinse saat formatını ekle
@@ -1095,14 +1210,28 @@ class DatePickerWithTime {
       value = `${value} & ${timeStr}`
     }
 
+    // Değer değişti mi kontrol et
+    const hasChanged = oldValue !== value
+
     connection.input.value = value
 
     // Data attribute'larını güncelle
     this.updateDataAttributes(connection)
 
-    // Custom event tetikle (değer değiştiğinde harici kod için bildirim)
-    const changeEvent = new Event('change', { bubbles: true })
-    connection.input.dispatchEvent(changeEvent)
+    // Değer değişmişse, onChange callback'i çağır ve change event tetikle
+    if (hasChanged) {
+      // onChange callback'i çağır
+      if (connection.onChange) {
+        const dateWithTime = this.getDateForConnection(connectionId)
+        if (dateWithTime) {
+          connection.onChange(dateWithTime)
+        }
+      }
+
+      // Custom event tetikle (değer değiştiğinde harici kod için bildirim)
+      const changeEvent = new Event('change', { bubbles: true })
+      connection.input.dispatchEvent(changeEvent)
+    }
   }
 
   /**
@@ -1120,51 +1249,12 @@ class DatePickerWithTime {
   }
 
   /**
-   * Tarih ve saati sıfırla
-   */
-  private resetStateForConnection(
-    connectionId: string,
-    options: ResetOptions,
-  ): void {
-    const connection = this.connections.get(connectionId)
-    if (!connection) return
-
-    const { type, date, language } = options
-
-    // Dil seçeneği varsa container'ı güncelle
-    if (language && this.containerElement) {
-      this.containerElement.setAttribute('data-language', language)
-    }
-
-    switch (type) {
-      case 'today':
-        this.handleTodayResetForConnection(connection)
-        break
-
-      case 'all':
-        this.handleFullResetForConnection(connection)
-        break
-
-      case 'soft':
-        this.handleSoftResetForConnection(connection)
-        break
-    }
-
-    // Görünümü güncelle
-    this.renderCalendar()
-    this.renderMonthHeader()
-
-    if (connection.timePickerEnabled && this.timeContainer) {
-      this.renderTimePicker()
-    }
-
-    this.updateNavigationState()
-  }
-
-  /**
    * Bugüne döndür
    */
   private handleTodayResetForConnection(connection: ConnectionState): void {
+    // Önceki değeri sakla
+    const oldSelectedDate = connection.selectedDate
+
     // Bugünün tarihini al
     const today = this.stripTime(new Date())
 
@@ -1202,14 +1292,30 @@ class DatePickerWithTime {
 
     // Input değerini güncelle
     this.updateInputValue(connection.id)
+
+    // onChange callback'i çağır (YENİ)
+    // updateInputValue içinde bu çağrılacak, ancak değeri daha kolay olsun diye burada da getirelim
+    if (connection.onChange) {
+      const newDate = this.getDateForConnection(connection.id)
+      if (newDate) {
+        connection.onChange(newDate)
+      }
+    }
   }
 
   /**
    * Tüm değerleri temizle
    */
   private handleFullResetForConnection(connection: ConnectionState): void {
+    // Eski değeri sakla
+    const oldSelectedDate = connection.selectedDate
+
     connection.selectedDate = null
-    this.currentDate = this.stripTime(new Date())
+
+    // ÖNEMLİ DEĞİŞİKLİK: currentDate'i yalnızca aktif bağlantıysa güncelle
+    if (connection.id === this.activeConnectionId) {
+      this.currentDate = this.stripTime(new Date())
+    }
 
     // Saati varsayılan değerlere döndür
     if (this.config.timePicker?.enabled) {
@@ -1234,6 +1340,15 @@ class DatePickerWithTime {
       connection.input.removeAttribute('data-hours')
       connection.input.removeAttribute('data-minutes')
       connection.input.removeAttribute('data-ampm')
+
+      // onChange callback'i çağır (YENİ)
+      if (connection.onChange) {
+        connection.onChange(null)
+      }
+
+      // Custom event tetikle - bu kısmı muhafaza ediyoruz
+      const changeEvent = new Event('change', { bubbles: true })
+      connection.input.dispatchEvent(changeEvent)
     }
   }
 
@@ -1247,6 +1362,16 @@ class DatePickerWithTime {
       connection.input.removeAttribute('data-hours')
       connection.input.removeAttribute('data-minutes')
       connection.input.removeAttribute('data-ampm')
+      connection.input.removeAttribute('data-ampm-state')
+
+      // onChange callback'i çağır (YENİ)
+      if (connection.onChange) {
+        connection.onChange(null)
+      }
+
+      // Custom event tetikle
+      const changeEvent = new Event('change', { bubbles: true })
+      connection.input.dispatchEvent(changeEvent)
     }
   }
 
@@ -1457,7 +1582,7 @@ class DatePickerWithTime {
 
   /**
    * TimePicker: 24 saatlik formatta saati doğru şekilde al
-   * Backend için kullanılacak formatta 12:00 PM -> 00:00 olarak dönüştürür
+   * Backend için kullanılacak formatta 12:00 PM -> 12:00 olarak dönüştürür
    */
   private get24HourFormat(connection: ConnectionState): number {
     if (connection.use24HourFormat) {
@@ -1561,6 +1686,7 @@ class DatePickerWithTime {
       }
     }
   }
+
   /**
    * TimePicker: AM/PM değerini değiştir
    */
@@ -1757,8 +1883,12 @@ class DatePickerWithTime {
   /**
    * İki tarihin eşit olup olmadığını kontrol et
    */
-  private areDatesEqual(date1: Date, date2: Date | null): boolean {
-    if (!date2) return false
+  private areDatesEqual(date1: Date | null, date2: Date | null): boolean {
+    // Eğer iki tarih de null ise, eşit kabul edelim
+    if (date1 === null && date2 === null) return true
+
+    // Eğer tarihlerden biri null ise, eşit değiller
+    if (date1 === null || date2 === null) return false
 
     return (
       date1.getFullYear() === date2.getFullYear() &&
@@ -1894,6 +2024,7 @@ class DatePickerWithTime {
       ;(this.nextButton as HTMLButtonElement).disabled = isDisabled
     }
   }
+
   /**
    * Tarih seç
    */
@@ -1906,21 +2037,43 @@ class DatePickerWithTime {
 
     if (!isValid) return
 
+    // Eski değeri sakla
+    const oldSelectedDate = activeConnection.selectedDate
+
+    // Seçilen tarihi aktif bağlantıya kaydet
     activeConnection.selectedDate = selectedDate
-    this.currentDate = new Date(selectedDate)
 
+    // currentDate'i seçilen tarih ile güncelle
+    this.currentDate = new Date(
+      selectedDate.getFullYear(),
+      selectedDate.getMonth(),
+      selectedDate.getDate(),
+    )
+
+    // Takvim görünümünü güncelle
+    this.renderMonthHeader()
     this.renderCalendar()
+    this.updateNavigationState()
 
-    // Input değerini her zaman güncelle (readonly olup olmadığını kontrol et)
+    // Input değerini güncelle
     if (activeConnection.input && activeConnection.input.readOnly) {
       this.updateInputValue(activeConnection.id)
-    }
-    // Eğer TimePicker etkin değilse veya autoClose true ise (readonly olmayan inputlar için)
-    else if (!this.config.timePicker?.enabled || this.autoClose) {
+    } else if (!activeConnection.timePickerEnabled || this.autoClose) {
       this.updateInputValue(activeConnection.id)
 
       if (this.autoClose) {
         this.hideDatePicker()
+      }
+    }
+
+    // onChange callback'i çağır - değeri değişmişse
+    if (
+      activeConnection.onChange &&
+      !this.areDatesEqual(oldSelectedDate, selectedDate)
+    ) {
+      const fullDate = this.getDateForConnection(activeConnection.id)
+      if (fullDate) {
+        activeConnection.onChange(fullDate)
       }
     }
   }
@@ -2280,178 +2433,6 @@ class DatePickerWithTime {
   }
 
   /**
-   * Tarih ve saati sıfırla
-   */
-  private resetState(options: ResetOptions): void {
-    const { type, date, language } = options
-
-    // Dil seçeneği varsa container'ı güncelle
-    if (language && this.containerElement) {
-      this.containerElement.setAttribute('data-language', language)
-    }
-
-    switch (type) {
-      case 'today':
-        this.handleTodayReset()
-        break
-
-      case 'all':
-        this.handleFullReset()
-        break
-
-      case 'soft':
-        this.handleSoftReset()
-        break
-    }
-
-    // Görünümü güncelle
-    this.renderCalendar()
-    this.renderMonthHeader()
-
-    if (this.config.timePicker?.enabled && this.timeContainer) {
-      this.renderTimePicker()
-    }
-
-    this.updateNavigationState()
-  }
-
-  /**
-   * Bugüne döndür (eski method - sınıf genelinde)
-   */
-  private handleTodayReset(): void {
-    // Aktif bağlantı yoksa işlem yapma
-    if (!this.activeConnectionId) {
-      console.warn('Aktif bağlantı bulunamadı, bugüne döndürme başarısız.')
-      return
-    }
-
-    const connection = this.connections.get(this.activeConnectionId)
-    if (!connection) {
-      console.warn('Geçerli bir bağlantı bulunamadı.')
-      return
-    }
-
-    // Bugünün tarihini al
-    const today = this.stripTime(new Date())
-
-    // Minimum tarih kontrolü
-    if (connection.minDate && this.stripTime(connection.minDate) > today) {
-      // Eğer minDate bugünden büyükse, bugüne değil minDate'e ayarla
-      connection.selectedDate = new Date(connection.minDate)
-      this.currentDate = new Date(connection.minDate)
-
-      console.warn(
-        'Bugün tarihi, minimum tarihten küçük olduğu için minimum tarih kullanıldı:',
-        this.formatDateForAttribute(connection.minDate),
-      )
-    } else {
-      // Normal durumda bugüne ayarla
-      connection.selectedDate = today
-      this.currentDate = new Date(today)
-    }
-
-    // Saati varsayılan değerlere döndür
-    if (connection.timePickerEnabled) {
-      connection.hours = this.config.timePicker?.defaultHours || 12
-      connection.minutes = this.getNearestValidMinute(
-        this.config.timePicker?.defaultMinutes || 0,
-        connection.minuteInterval || 1,
-      )
-      connection.isPM =
-        !(connection.use24HourFormat || false) && connection.hours >= 12
-
-      // 24 saat formatında 12 varsayılan değerse 0 olarak ayarla
-      if ((connection.use24HourFormat || false) && connection.hours === 12) {
-        connection.hours = 0
-      }
-    }
-
-    // Input değerini güncelle
-    this.updateInputValue(this.activeConnectionId)
-  }
-
-  /**
-   * Tüm değerleri temizle (eski method - sınıf genelinde)
-   */
-  private handleFullReset(): void {
-    // Aktif bağlantı yoksa işlem yapma
-    if (!this.activeConnectionId) {
-      console.warn('Aktif bağlantı bulunamadı, sıfırlama başarısız.')
-      return
-    }
-
-    const connection = this.connections.get(this.activeConnectionId)
-    if (!connection) {
-      console.warn('Geçerli bir bağlantı bulunamadı.')
-      return
-    }
-
-    connection.selectedDate = null
-    this.currentDate = this.stripTime(new Date())
-
-    // Saati varsayılan değerlere döndür
-    if (connection.timePickerEnabled) {
-      connection.hours = this.config.timePicker?.defaultHours || 12
-      connection.minutes = this.getNearestValidMinute(
-        this.config.timePicker?.defaultMinutes || 0,
-        connection.minuteInterval || 1,
-      )
-      connection.isPM =
-        !(connection.use24HourFormat || false) && connection.hours >= 12
-
-      // 24 saat formatında 12 varsayılan değerse 0 olarak ayarla
-      if ((connection.use24HourFormat || false) && connection.hours === 12) {
-        connection.hours = 0
-      }
-    }
-
-    // Input değerini temizle
-    if (connection.input) {
-      connection.input.value = ''
-      connection.input.removeAttribute('data-selected')
-      connection.input.removeAttribute('data-hours')
-      connection.input.removeAttribute('data-minutes')
-      connection.input.removeAttribute('data-ampm')
-
-      // Diğer data attributeları da temizle
-      connection.input.removeAttribute('data-ampm-state')
-
-      // Custom event tetikle
-      const changeEvent = new Event('change', { bubbles: true })
-      connection.input.dispatchEvent(changeEvent)
-    }
-  }
-
-  /**
-   * Yumuşak sıfırlama (eski method - sınıf genelinde)
-   */
-  private handleSoftReset(): void {
-    // Aktif bağlantı yoksa işlem yapma
-    if (!this.activeConnectionId) {
-      console.warn('Aktif bağlantı bulunamadı, yumuşak sıfırlama başarısız.')
-      return
-    }
-
-    const connection = this.connections.get(this.activeConnectionId)
-    if (!connection || !connection.input) {
-      console.warn('Geçerli bir bağlantı veya input bulunamadı.')
-      return
-    }
-
-    // Input değerini temizle ama bağlantı durumundaki değerleri korur
-    connection.input.value = ''
-    connection.input.removeAttribute('data-selected')
-    connection.input.removeAttribute('data-hours')
-    connection.input.removeAttribute('data-minutes')
-    connection.input.removeAttribute('data-ampm')
-    connection.input.removeAttribute('data-ampm-state')
-
-    // Custom event tetikle
-    const changeEvent = new Event('change', { bubbles: true })
-    connection.input.dispatchEvent(changeEvent)
-  }
-
-  /**
    * Input elemanına odaklan ve gerekirse date picker'ı aç (eski method - sınıf genelinde)
    * @param openDatePicker Date picker'ın otomatik açılıp açılmayacağı
    * @returns İşlem başarılı mı
@@ -2603,93 +2584,257 @@ class DatePickerWithTime {
   }
 
   /**
-   * Tarihi belirtilen tarihe ayarlar (programmatik olarak tarih seçme)
-   * @param date Ayarlanacak tarih
-   * @param updateInput Input değerini güncelleme
-   * @returns İşlem başarılı mı
+   * Merkezi reset yönetim fonksiyonu
+   * @param options Reset seçenekleri
+   * @param connectionId İsteğe bağlı bağlantı ID'si. Belirtilmezse aktif bağlantı kullanılır.
+   * @returns İşlemin başarı durumu
    */
-  public resetDate(date: Date, updateInput: boolean = true): boolean {
-    // Aktif bağlantı yoksa işlem başarısız
-    if (!this.activeConnectionId) {
-      console.warn('Aktif bağlantı bulunamadı.')
-      return false
+  private handleReset(options: ResetOptions, connectionId?: string): boolean {
+    // 1. Bağlantı belirleme
+    let connection: ConnectionState | null = null
+
+    // Eğer connectionId belirtilmişse, o bağlantıyı kullan
+    if (connectionId) {
+      connection = this.connections.get(connectionId) || null
+    }
+    // Değilse aktif bağlantıyı kullan
+    else if (this.activeConnectionId) {
+      connection = this.connections.get(this.activeConnectionId) || null
     }
 
-    // Aktif bağlantıyı al
-    const connection = this.connections.get(this.activeConnectionId)
+    // Geçerli bir bağlantı bulunamazsa, işlemi sonlandır
     if (!connection) {
-      console.warn('Aktif bağlantı geçersiz.')
+      console.warn('Reset işlemi için geçerli bir bağlantı bulunamadı.')
       return false
     }
 
-    const newDate = this.stripTime(date)
+    const { type, date, language } = options
+    const isActiveConnection = connection.id === this.activeConnectionId
 
-    // Tarih geçerli mi kontrol et
-    if (!this.isDateValid(newDate, this.activeConnectionId)) {
+    // Dil seçeneği varsa container'ı güncelle
+    if (language && this.containerElement) {
+      this.containerElement.setAttribute('data-language', language)
+    }
+
+    // Reset tipi belirleme ve işlemi uygulama
+    let success = true
+    switch (type) {
+      case 'today':
+        success = this.applyTodayReset(connection)
+        break
+
+      case 'all':
+        success = this.applyFullReset(connection)
+        break
+
+      case 'soft':
+        success = this.applySoftReset(connection)
+        break
+
+      default:
+        console.warn(`Bilinmeyen reset tipi: ${type}`)
+        success = false
+    }
+
+    // Sadece aktif bağlantıysa ve işlem başarılıysa görünümü güncelle
+    if (isActiveConnection && success) {
+      this.renderCalendar()
+      this.renderMonthHeader()
+
+      if (connection.timePickerEnabled && this.timeContainer) {
+        this.renderTimePicker()
+      }
+
+      this.updateNavigationState()
+    }
+
+    return success
+  }
+
+  /**
+   * Bugüne sıfırlama işlemini uygular
+   */
+  private applyTodayReset(connection: ConnectionState): boolean {
+    // Önceki değeri sakla
+    const oldSelectedDate = connection.selectedDate
+
+    // Bugünün tarihini al
+    const today = this.stripTime(new Date())
+
+    // Minimum tarih kontrolü
+    if (connection.minDate && this.stripTime(connection.minDate) > today) {
+      // Eğer minDate bugünden büyükse, bugüne değil minDate'e ayarla
+      connection.selectedDate = new Date(connection.minDate)
+
+      // Eğer aktif bağlantıysa currentDate'i de güncelle
+      if (connection.id === this.activeConnectionId) {
+        this.currentDate = new Date(connection.minDate)
+      }
+
       console.warn(
-        'Geçersiz tarih: Minimum ve maksimum tarih sınırları dışında.',
+        'Bugün tarihi, minimum tarihten küçük olduğu için minimum tarih kullanıldı:',
+        this.formatDateForAttribute(connection.minDate),
       )
-      return false
-    }
+    } else {
+      // Normal durumda bugüne ayarla
+      connection.selectedDate = today
 
-    // Tarihi seç
-    connection.selectedDate = newDate
-    this.currentDate = new Date(newDate)
-
-    // Saati varsayılan değerlere veya belirtilen değerlere ayarla
-    if (connection.timePickerEnabled) {
-      // Belirtilen saati kullan veya varsayılan değerleri koru
-      const hours = date.getHours()
-      if (hours !== 0 || date.getMinutes() !== 0 || date.getSeconds() !== 0) {
-        // Tarih nesnesinde saat bilgisi var, kullan
-        if (connection.use24HourFormat) {
-          // 24 saat formatında doğrudan kullan
-          connection.hours = hours
-        } else {
-          // 12 saat formatına dönüştür
-          connection.isPM = hours >= 12
-          connection.hours = hours % 12
-          if (connection.hours === 0) connection.hours = 12 // 0 saat yerine 12 AM göster
-        }
-
-        // Dakikaları en yakın geçerli değere yuvarla
-        connection.minutes = this.getNearestValidMinute(
-          date.getMinutes(),
-          connection.minuteInterval || 1,
-        )
+      // Eğer aktif bağlantıysa currentDate'i de güncelle
+      if (connection.id === this.activeConnectionId) {
+        this.currentDate = new Date(today)
       }
     }
 
-    // Takvimi güncelle
-    this.renderCalendar()
-    this.renderMonthHeader()
+    // Saati varsayılan değerlere döndür
+    if (connection.timePickerEnabled) {
+      connection.hours = this.config.timePicker?.defaultHours || 12
+      connection.minutes = this.getNearestValidMinute(
+        this.config.timePicker?.defaultMinutes || 0,
+        connection.minuteInterval || 1,
+      )
+      connection.isPM =
+        !(connection.use24HourFormat || false) && connection.hours >= 12
 
-    if (connection.timePickerEnabled && this.timeContainer) {
-      this.renderTimePicker()
+      // 24 saat formatında 12 varsayılan değerse 0 olarak ayarla
+      if ((connection.use24HourFormat || false) && connection.hours === 12) {
+        connection.hours = 0
+      }
     }
 
-    this.updateNavigationState()
-
     // Input değerini güncelle
-    if (updateInput) {
-      this.updateInputValue(this.activeConnectionId)
+    this.updateInputValue(connection.id)
+
+    return true
+  }
+
+  /**
+   * Tüm değerleri sıfırlama işlemini uygular
+   */
+  private applyFullReset(connection: ConnectionState): boolean {
+    // Eski değeri sakla
+    const oldSelectedDate = connection.selectedDate
+
+    connection.selectedDate = null
+
+    // Eğer aktif bağlantıysa currentDate'i günün tarihine ayarla
+    if (connection.id === this.activeConnectionId) {
+      this.currentDate = this.stripTime(new Date())
+    }
+
+    // Saati varsayılan değerlere döndür
+    if (connection.timePickerEnabled) {
+      connection.hours = this.config.timePicker?.defaultHours || 12
+      connection.minutes = this.getNearestValidMinute(
+        this.config.timePicker?.defaultMinutes || 0,
+        connection.minuteInterval || 1,
+      )
+      connection.isPM =
+        !(connection.use24HourFormat || false) && connection.hours >= 12
+
+      // 24 saat formatında 12 varsayılan değerse 0 olarak ayarla
+      if ((connection.use24HourFormat || false) && connection.hours === 12) {
+        connection.hours = 0
+      }
+    }
+
+    // Input değerini temizle
+    if (connection.input) {
+      connection.input.value = ''
+      connection.input.removeAttribute('data-selected')
+      connection.input.removeAttribute('data-hours')
+      connection.input.removeAttribute('data-minutes')
+      connection.input.removeAttribute('data-ampm')
+      connection.input.removeAttribute('data-ampm-state')
+
+      // onChange callback'i çağır
+      if (connection.onChange) {
+        connection.onChange(null)
+      }
+
+      // Custom event tetikle
+      const changeEvent = new Event('change', { bubbles: true })
+      connection.input.dispatchEvent(changeEvent)
     }
 
     return true
   }
 
   /**
+   * Yumuşak sıfırlama işlemini uygular (sadece input)
+   */
+  private applySoftReset(connection: ConnectionState): boolean {
+    if (!connection.input) return false
+
+    // Input değerini temizle ama bağlantı durumundaki değerleri korur
+    connection.input.value = ''
+    connection.input.removeAttribute('data-selected')
+    connection.input.removeAttribute('data-hours')
+    connection.input.removeAttribute('data-minutes')
+    connection.input.removeAttribute('data-ampm')
+    connection.input.removeAttribute('data-ampm-state')
+
+    // onChange callback'i çağır
+    if (connection.onChange) {
+      connection.onChange(null)
+    }
+
+    // Custom event tetikle
+    const changeEvent = new Event('change', { bubbles: true })
+    connection.input.dispatchEvent(changeEvent)
+
+    return true
+  }
+
+  /**
+   * Tarih ve saati sıfırla
+   */
+  private resetState(options: ResetOptions): void {
+    this.handleReset(options)
+  }
+
+  /**
+   * Belirli bir bağlantı için reset işlemi
+   */
+  private resetStateForConnection(
+    connectionId: string,
+    options: ResetOptions,
+  ): void {
+    this.handleReset(options, connectionId)
+  }
+
+  /**
+   * Bugüne döndür (eski method - sınıf genelinde)
+   */
+  private handleTodayReset(): void {
+    this.handleReset({ type: 'today' })
+  }
+
+  /**
+   * Tüm değerleri temizle (eski method - sınıf genelinde)
+   */
+  private handleFullReset(): void {
+    this.handleReset({ type: 'all' })
+  }
+
+  /**
+   * Yumuşak sıfırlama (eski method - sınıf genelinde)
+   */
+  private handleSoftReset(): void {
+    this.handleReset({ type: 'soft' })
+  }
+
+  /**
    * Public API: Bugüne döndür
    */
   public resetToToday(): void {
-    this.resetState({ type: 'today' })
+    this.handleReset({ type: 'today' })
   }
 
   /**
    * Public API: Tüm değerleri temizle
    */
   public resetAllInputs(): void {
-    this.resetState({ type: 'all' })
+    this.handleReset({ type: 'all' })
   }
 
   /**

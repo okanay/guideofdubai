@@ -1089,12 +1089,13 @@
     <div
       id="date-picker"
       data-language="en"
-      class="absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
+      data-timepicker="false"
+      class="group/modal absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
     >
       <div class="flex flex-col sm:flex-row">
         <!-- Date Picker -->
         <div
-          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white sm:rounded-b-none sm:rounded-tr-none"
+          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white group-data-[timepicker=false]/modal:rounded-tr-lg sm:rounded-b-none sm:rounded-tr-none"
         >
           <!-- Ay Navigasyon Bar -->
           <div
@@ -1425,17 +1426,16 @@
                 type="text"
                 id="date-input-start"
                 name="date-input-start"
-                readonly
+                readonly=""
                 data-timepicker="true"
                 data-ampm="true"
                 data-minute-interval="15"
                 data-default-hours="15"
                 data-default-minute="00"
-                data-min-date="2025-03-10"
-                data-max-date="2025-05-20"
-                data-default-date="2025-03-12"
-                class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-red-200"
-                placeholder="Tarih ve saat seçin"
+                data-min-date="2025-03-06"
+                data-default-date="2025-03-06"
+                class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-200 sm:text-base"
+                placeholder="Select a Date"
               />
               <label
                 id="date-input-start-label"
@@ -1469,10 +1469,8 @@
                 data-minute-interval="15"
                 data-default-hours="15"
                 data-default-minute="00"
-                data-min-date="2025-03-10"
-                data-max-date="2025-06-20"
-                data-default-date="2025-06-12"
-                class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-red-200"
+                data-default-date="2025-03-14"
+                class="h-12 w-full appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-200 sm:text-base"
                 placeholder="Tarih ve saat seçin"
               />
               <label
@@ -1969,7 +1967,7 @@
             >
               <!-- Araç Kartı -->
               <li
-                class="group relative flex h-fit w-full flex-col items-start justify-start gap-x-4 gap-y-2 overflow-hidden rounded-lg border border-gray-200/75 bg-gray-50/50 transition-colors duration-300 sm:hover:border-primary-200 md:h-[200px] md:flex-row md:pl-2 rtl:pl-0 rtl:pr-2"
+                class="group relative flex h-fit w-full flex-col items-start justify-start gap-x-4 gap-y-2 overflow-hidden rounded-lg border border-gray-200/75 bg-gray-50/50 transition-colors duration-300 sm:hover:border-gray-300/80 md:h-[200px] md:flex-row md:pl-2 rtl:pl-0 rtl:pr-2"
               >
                 <!-- Resim Galerisi -->
                 <figure
@@ -1985,6 +1983,21 @@
                     ></i>
                     <span class="slider-index-indicator">0/0</span>
                     <span>Görsel</span>
+                  </div>
+                  <!-- Fav Button -->
+                  <div
+                    class="absolute right-2 top-2 z-20 flex items-center justify-center"
+                  >
+                    <button
+                      class="group/fav flex size-6 items-center justify-center rounded-full bg-white/90 p-1 shadow-md transition-all hover:bg-white"
+                      data-fav="false"
+                      onclick="this.setAttribute('data-fav', this.getAttribute('data-fav') === 'true' ? 'false' : 'true')"
+                    >
+                      <i
+                        data-lucide="heart"
+                        class="size-4 text-gray-600 transition-colors duration-500 group-hover/fav:text-rose-400 group-data-[fav='true']/fav:fill-rose-500 group-data-[fav='true']/fav:text-rose-500"
+                      ></i>
+                    </button>
                   </div>
 
                   <!-- Galeri Navigasyonu -->
@@ -2016,7 +2029,7 @@
                         data-src="https://images.project-test.info/41.webp"
                         src="/assets/images/gray-placeholder.webp"
                         alt="Mercedes E200"
-                        class="h-full w-full object-cover object-center"
+                        class="h-full w-full rounded object-cover object-center"
                       />
                     </div>
                     <div class="slider-item absolute inset-0">
@@ -2046,10 +2059,18 @@
                   <div
                     class="flex flex-col items-start justify-between gap-1.5 px-4 pb-2 md:px-0 md:pb-2 md:pt-2"
                   >
-                    <header>
+                    <header
+                      class="mb-2 flex w-full items-start justify-start gap-4"
+                    >
                       <h2 class="text-xl font-semibold text-gray-800">
                         Mercedes-Benz E200
                       </h2>
+                      <div
+                        data-badge="themesoft"
+                        class="rarity mt-px flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full border bg-gradient-to-tr px-2 py-0.5 text-[0.65rem] font-bold tracking-wide shadow-sm ring-1 ring-inset"
+                      >
+                        <span>PREMIUM</span>
+                      </div>
                     </header>
 
                     <!-- Araç Özellikleri -->

@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const datePicker = new DatePickerWithTime({
-    minDate: new Date(),
     autoClose: false,
     elements: {
       container: 'date-picker',
@@ -124,19 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   })
 
-  // Departure inputu bağla
-  const departureInput = datePicker.connect({
-    input: 'date-input-start',
-    label: 'date-input-start-label',
-    focusContainer: 'date-input-start-label',
-  })
+  // Bugünün tarihini al
+  const today = new Date()
 
-  // Return inputu bağla
-  const returnInput = datePicker.connect({
-    input: 'date-input-end',
-    label: 'date-input-end-label',
-    focusContainer: 'date-input-end-label',
-  })
+  // Sonsuz döngüyü önlemek için bayrak
+  let isUpdatingConstraints = false
 
   // Yardımcı fonksiyon: Tarihe belirli sayıda gün ekler
   function addDaysToDate(date: Date, days: number) {
@@ -146,43 +137,82 @@ document.addEventListener('DOMContentLoaded', () => {
     return newDate
   }
 
+  // Önce inputları basit callback'lerle bağlayalım
+  const departureInput = datePicker.connect({
+    input: 'date-input-start',
+    label: 'date-input-start-label',
+    focusContainer: 'date-input-start-label',
+    onChange: (date: Date | null) => {}, // Boş callback
+  })
+
+  const returnInput = datePicker.connect({
+    input: 'date-input-end',
+    label: 'date-input-end-label',
+    focusContainer: 'date-input-end-label',
+    onChange: (date: Date | null) => {}, // Boş callback
+  })
+
+  // Gidiş-dönüş tarih kısıtlamalarını güncelleme fonksiyonu
   // Gidiş-dönüş tarih kısıtlamalarını güncelleme fonksiyonu
   function updateDateConstraints(focusTarget?: 'departure' | 'return') {
-    const departureDate = departureInput.getDate()
-    const returnDate = returnInput.getDate()
+    // Eğer güncelleme zaten yapılıyorsa, çıkış yap
+    if (isUpdatingConstraints) return
 
-    // Gidiş tarihi seçildiyse, dönüş tarihinin min değerini gidiş tarihinden bir gün sonrası olarak ayarla
-    if (departureDate) {
-      const minReturnDate = addDaysToDate(departureDate, 1)
-      returnInput.changeMinDate(minReturnDate!)
+    // Güncelleme bayrağını ayarla
+    isUpdatingConstraints = true
 
-      // Eğer mevcut dönüş tarihi min tarihten önceyse, dönüş tarihini min tarihe ayarla
-      if (returnDate && returnDate < minReturnDate!) {
-        returnInput.resetDate(minReturnDate!)
+    try {
+      if (focusTarget === 'departure') {
+        // Gidiş tarihi değiştirildiğinde
+        const departureDate = departureInput.getDate()
+        if (departureDate) {
+          // Dönüş tarihini sıfırla
+          returnInput.resetAllInputs()
+          // Dönüş tarihinin min değerini gidiş tarihinden bir gün sonrası olarak ayarla
+          const minReturnDate = addDaysToDate(departureDate, 1)
+          if (minReturnDate) {
+            returnInput.changeMinDate(minReturnDate)
+          }
+        }
+      } else if (focusTarget === 'return') {
+        // Dönüş tarihi değiştirildiğinde
+        // Bu durumda özel bir işlem yapmaya gerek yok
+      } else {
+        // Sayfa yüklendiğinde başlangıç kısıtlamalarını ayarla
+        // ÖNEMLİ: data-min-date değerini ezmemek için bu satırı kaldırdık
+        // departureInput.changeMinDate(today)
+
+        // Dönüş tarihi için varsayılan değerleri ayarla
+        const departureDate = departureInput.getDate()
+        if (departureDate) {
+          // Eğer gidiş tarihi zaten seçilmişse
+          const minReturnDate = addDaysToDate(departureDate, 1)
+          if (minReturnDate) {
+            returnInput.changeMinDate(minReturnDate)
+          }
+        } else {
+          // Gidiş tarihi seçilmemişse, dönüş tarihi için min date bugün + 1
+          const tomorrowDate = addDaysToDate(today, 1)
+          if (tomorrowDate) {
+            returnInput.changeMinDate(tomorrowDate)
+          }
+        }
       }
-    }
-
-    // Dönüş tarihi seçildiyse, gidiş tarihinin max değerini dönüş tarihinden bir gün öncesi olarak ayarla
-    if (returnDate) {
-      const maxDepartureDate = addDaysToDate(returnDate, -1)
-      departureInput.changeMaxDate(maxDepartureDate!)
-
-      // Eğer mevcut gidiş tarihi max tarihten sonraysa, gidiş tarihini max tarihe ayarla
-      if (departureDate && departureDate > maxDepartureDate!) {
-        departureInput.resetDate(maxDepartureDate!)
-      }
+    } finally {
+      // İşlem bitti, bayrağı sıfırla
+      isUpdatingConstraints = false
     }
   }
 
-  // Input değerleri değiştiğinde kısıtlamaları güncelle
-  document
-    .getElementById('date-input-start')!
-    .addEventListener('change', () => updateDateConstraints('departure'))
+  // Şimdi setOnChange ile gerçek callback'leri ayarlayalım
+  departureInput.setOnChange((date: Date | null) => {
+    updateDateConstraints('departure')
+  })
 
-  document
-    .getElementById('date-input-end')!
-    .addEventListener('change', () => updateDateConstraints('return'))
+  returnInput.setOnChange((date: Date | null) => {
+    updateDateConstraints('return')
+  })
 
-  // Sayfa yüklendiğinde başlangıç kısıtlamalarını ayarla
+  // Varsayılan kısıtlamaları ayarla
   updateDateConstraints()
 })
