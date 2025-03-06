@@ -153,25 +153,49 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // Gidiş-dönüş tarih kısıtlamalarını güncelleme fonksiyonu
-  // Gidiş-dönüş tarih kısıtlamalarını güncelleme fonksiyonu
   function updateDateConstraints(focusTarget?: 'departure' | 'return') {
     // Eğer güncelleme zaten yapılıyorsa, çıkış yap
     if (isUpdatingConstraints) return
-
     // Güncelleme bayrağını ayarla
     isUpdatingConstraints = true
-
     try {
       if (focusTarget === 'departure') {
         // Gidiş tarihi değiştirildiğinde
         const departureDate = departureInput.getDate()
+        const returnDate = returnInput.getDate()
+
         if (departureDate) {
-          // Dönüş tarihini sıfırla
-          returnInput.resetAllInputs()
-          // Dönüş tarihinin min değerini gidiş tarihinden bir gün sonrası olarak ayarla
+          // Minimum dönüş tarihini hesapla (gidiş + 1 gün)
           const minReturnDate = addDaysToDate(departureDate, 1)
+
           if (minReturnDate) {
-            returnInput.changeMinDate(minReturnDate)
+            // Eğer mevcut bir dönüş tarihi varsa
+            if (returnDate) {
+              // Gidiş ve dönüş tarihlerini karşılaştırmak için aynı formatta olduklarından emin olalım
+              // Sadece yıl-ay-gün kısmını kontrol etmek için saat bilgilerini sıfırlayalım
+              const departureDateOnly = new Date(
+                departureDate.getFullYear(),
+                departureDate.getMonth(),
+                departureDate.getDate(),
+              )
+              const returnDateOnly = new Date(
+                returnDate.getFullYear(),
+                returnDate.getMonth(),
+                returnDate.getDate(),
+              )
+
+              // Eğer yeni gidiş tarihi, mevcut dönüş tarihinden sonraysa veya aynı günse
+              // dönüş tarihini sıfırla
+              if (departureDateOnly.getTime() >= returnDateOnly.getTime()) {
+                returnInput.resetAllInputs()
+              }
+
+              // Her durumda dönüş tarihinin minimum değerini güncelle
+              returnInput.changeMinDate(minReturnDate)
+            } else {
+              // Dönüş tarihi seçili değilse, sadece min değeri güncelle
+              returnInput.changeMinDate(minReturnDate)
+            }
           }
         }
       } else if (focusTarget === 'return') {
@@ -179,10 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bu durumda özel bir işlem yapmaya gerek yok
       } else {
         // Sayfa yüklendiğinde başlangıç kısıtlamalarını ayarla
-        // ÖNEMLİ: data-min-date değerini ezmemek için bu satırı kaldırdık
-        // departureInput.changeMinDate(today)
-
-        // Dönüş tarihi için varsayılan değerleri ayarla
         const departureDate = departureInput.getDate()
         if (departureDate) {
           // Eğer gidiş tarihi zaten seçilmişse
