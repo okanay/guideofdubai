@@ -3020,51 +3020,152 @@
 
                   <!-- Fiyat Özeti -->
                   <div
-                    class="rounded-md border border-gray-950/20 bg-gray-50 p-4"
+                    class="group/discount overflow-hidden rounded-lg border border-gray-950/20 bg-gray-50 shadow-sm"
+                    data-discount="true"
                   >
-                    <h3 class="mb-3 text-base font-medium text-gray-800">
-                      Fiyat Özeti
-                    </h3>
-
-                    <div class="space-y-2">
-                      <!-- Birim Fiyat -->
-                      <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Birim Fiyat</span>
-                        <span class="text-sm font-medium text-gray-800"
-                          >450 AED</span
-                        >
-                      </div>
-
-                      <!-- Kişi Sayısı -->
-                      <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">Kişi Sayısı</span>
-                        <span class="text-sm font-medium text-gray-800"
-                          >1 Yetişkin</span
-                        >
-                      </div>
-
-                      <!-- İndirim (Kupon uygulandığında gösterilir) -->
-                      <div
-                        id="discount-row"
-                        class="flex items-center justify-between"
+                    <!-- Başlık -->
+                    <div
+                      class="border-b border-gray-950/10 bg-gray-100 px-4 py-3"
+                    >
+                      <h3
+                        class="flex items-center gap-2 text-base font-semibold text-gray-800"
                       >
-                        <span class="text-sm text-gray-600">İndirim</span>
-                        <span class="text-sm font-medium text-lime-600"
-                          >-<span id="total-discount">0.00</span> AED</span
+                        <i
+                          data-lucide="receipt"
+                          class="size-4 text-primary-500"
+                        ></i>
+                        Fiyat Özeti
+                      </h3>
+                    </div>
+
+                    <!-- Ayrıntılar -->
+                    <div class="p-4">
+                      <!-- Birim Fiyatlar -->
+                      <div class="mb-3 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm font-medium text-gray-700"
+                            >Temel Paket</span
+                          >
+                          <span class="text-sm font-medium text-gray-800"
+                            >450 AED</span
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Kişi Sayısı Detayları -->
+                      <div
+                        class="mb-4 rounded-md border border-gray-200 bg-white p-3"
+                      >
+                        <p
+                          class="mb-2 text-xs font-medium uppercase tracking-wider"
                         >
+                          Katılımcılar
+                        </p>
+
+                        <!-- Yetişkin Bilgisi -->
+                        <div class="mb-2 flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <div
+                              class="flex size-6 items-center justify-center rounded-full bg-primary-100 text-primary-700"
+                            >
+                              <i data-lucide="user" class="size-3.5"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700"
+                              >Yetişkin</span
+                            >
+                            <span
+                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700"
+                              >× 2</span
+                            >
+                          </div>
+                          <span class="text-sm font-medium text-gray-800"
+                            >900 AED</span
+                          >
+                        </div>
+
+                        <!-- Çocuk Bilgisi -->
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <div
+                              class="flex size-6 items-center justify-center rounded-full bg-blue-100 text-blue-700"
+                            >
+                              <i data-lucide="baby" class="size-3.5"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700"
+                              >Çocuk</span
+                            >
+                            <span
+                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700"
+                              >× 3</span
+                            >
+                          </div>
+                          <span class="text-sm font-medium text-gray-800"
+                            >675 AED</span
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Ekstralar ve İndirimler -->
+                      <div class="space-y-2">
+                        <!-- Ekstra Seçimler -->
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm text-gray-600"
+                            >Ekstra Hizmetler</span
+                          >
+                          <span class="text-sm font-medium text-gray-800"
+                            >+150 AED</span
+                          >
+                        </div>
+
+                        <!-- İndirim (Kupon uygulandığında gösterilir) -->
+                        <div
+                          id="discount-row"
+                          class="hidden items-center justify-between group-data-[discount=true]/discount:flex"
+                        >
+                          <div class="flex items-center gap-1.5">
+                            <i
+                              data-lucide="badge-percent"
+                              class="size-3.5 text-lime-600"
+                            ></i>
+                            <span class="text-sm text-gray-600">İndirim</span>
+                          </div>
+                          <span class="text-sm font-medium text-lime-600"
+                            >-<span id="total-discount">225</span> AED</span
+                          >
+                        </div>
                       </div>
 
                       <!-- Ayrım Çizgisi -->
-                      <div class="my-2 h-px w-full bg-gray-200"></div>
+                      <div class="my-3 h-px w-full bg-gray-200"></div>
 
-                      <!-- Toplam Tutar - Vurgulanmış -->
-                      <div class="flex items-center justify-between pb-1 pt-1">
-                        <span class="text-base font-medium text-gray-800"
-                          >Toplam</span
-                        >
-                        <span class="text-xl font-bold text-primary-600"
-                          ><span id="total-price">450.00</span> AED</span
-                        >
+                      <!-- Toplam Tutar -->
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <span class="text-sm font-semibold text-gray-800"
+                            >Toplam</span
+                          >
+                          <div class="text-xs text-gray-500">
+                            <span id="total-person-count">5</span> kişi için
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <!-- İndirim gösterimi - grup sınıfı ile yönetiliyor -->
+                          <div
+                            class="hidden items-center gap-1 text-xs text-gray-500 group-data-[discount=true]/discount:flex"
+                          >
+                            <span class="line-through" id="original-price"
+                              >1725 AED</span
+                            >
+                            <span
+                              class="rounded bg-lime-100 px-1.5 py-0.5 text-[10px] font-medium text-lime-700"
+                            >
+                              %<span id="discount-percentage">13</span> İndirim
+                            </span>
+                          </div>
+                          <span class="text-xl font-bold text-primary-600">
+                            <span id="total-price">1500</span> AED
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
