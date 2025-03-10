@@ -530,19 +530,49 @@
           </li>
         </ul>
 
-        <!-- Sözleşme -->
-        <label class="group relative flex cursor-pointer items-start gap-2">
-          <input
-            type="checkbox"
-            class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
-          />
-          <span class="text-pretty text-xs">
-            <a href="#" class="text-primary-500 hover:underline"
-              >Satış sözleşmesini</a
+        <!-- Kupon Kodu Alanı -->
+        <div class="space-y-4 rounded border border-gray-200 bg-gray-50 p-4">
+          <h3 class="font-medium text-gray-800">İndirim Kuponu</h3>
+
+          <!-- Kupon Girişi -->
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              id="coupon-code"
+              placeholder="Kupon Kodu Girin"
+              class="h-12 flex-1 rounded border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary-200"
+              style="-webkit-border-radius: 0; border-radius: 0"
+            />
+            <button
+              type="button"
+              id="apply-coupon"
+              class="h-12 rounded border border-primary-200 bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              style="-webkit-border-radius: 0; border-radius: 0"
             >
-            okudum ve onaylıyorum.
-          </span>
-        </label>
+              Uygula
+            </button>
+          </div>
+
+          <!-- Fiyat Özeti -->
+          <div class="space-y-2 pt-2">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-500">Ara Toplam</span>
+              <span class="text-gray-700">125.00 $</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-500">İndirim</span>
+              <span class="text-lime-600">-0.00 $</span>
+            </div>
+            <div class="my-2 h-px w-full bg-gray-200"></div>
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium text-gray-900">Genel Toplam</h3>
+              <p class="font-medium text-primary-600">
+                <span id="total-price">125.00</span>
+                <span> $</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
         <!-- Submit Butonu -->
         <button
@@ -561,6 +591,20 @@
             />
           </span>
         </button>
+
+        <!-- Sözleşme -->
+        <label class="group relative flex cursor-pointer items-start gap-2">
+          <input
+            type="checkbox"
+            class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+          />
+          <span class="text-pretty text-xs">
+            <a href="#" class="text-primary-500 hover:underline"
+              >Satış sözleşmesini</a
+            >
+            okudum ve onaylıyorum.
+          </span>
+        </label>
       </form>
     </main>
   </body>

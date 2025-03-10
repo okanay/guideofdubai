@@ -1959,9 +1959,50 @@
                     <dl class="flex items-center justify-between">
                       <dt class="text-sm text-gray-600">Ekstra Hizmetler</dt>
                       <dd class="text-base font-semibold text-gray-800">
-                        <span id="summary-extras-total">0</span> AED
+                        <span id="summary-extras-total">65</span> AED
                       </dd>
                     </dl>
+                    <!-- İndirim Satırı - Kupon uygulandığında görünür -->
+                    <dl
+                      id="discount-row"
+                      class="flex items-center justify-between gap-4"
+                    >
+                      <dt class="text-sm text-gray-600">İndirim</dt>
+                      <dd class="text-base font-semibold text-lime-600">
+                        -<span id="discount-amount">0.00</span> AED
+                      </dd>
+                    </dl>
+
+                    <!-- YENİ: Kupon Kodu Giriş Alanı (Mobilde sadece detaylar açıkken görünür) -->
+                    <div class="mt-3 space-y-2 border-t border-gray-100 pt-3">
+                      <div class="flex items-center justify-between">
+                        <dt class="text-sm font-semibold text-gray-700">
+                          Kupon Tanımla
+                        </dt>
+                        <!-- Sadece mobilden görünür indirim bilgisi -->
+                        <dd
+                          id="mobile-discount-info"
+                          class="hidden text-sm font-semibold text-lime-600 lg:hidden"
+                        >
+                          -0.00 AED
+                        </dd>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="text"
+                          id="coupon-code"
+                          placeholder="Kupon Kodu Girin"
+                          class="h-10 flex-1 rounded border border-gray-200 px-3 py-1 text-sm outline-none focus:border-primary-200"
+                        />
+                        <button
+                          type="button"
+                          id="apply-coupon"
+                          class="h-10 rounded bg-primary-500 px-3 py-1 text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        >
+                          Uygula
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1991,31 +2032,11 @@
                     ></i>
                   </div>
                 </div>
-                <dd class="text-xl font-bold text-primary-600">5,850.00 AED</dd>
+                <dd class="text-xl font-bold text-primary-600" id="total-price">
+                  5,850.00 AED
+                </dd>
               </label>
             </div>
-
-            <!-- Peer selector sorununu çözmek için style -->
-            <style>
-              /* Checkbox checked olduğunda içerik değişimi */
-              input[type='checkbox']#priceToggle:checked ~ label span:before {
-                content: attr(data-close);
-              }
-
-              /* Checkbox checked olduğunda ikon dönüşü */
-              input[type='checkbox']#priceToggle:checked ~ label i {
-                transform: rotate(180deg);
-              }
-
-              /* Grid rows değişimi */
-              input[type='checkbox']#priceToggle:checked ~ div {
-                grid-template-rows: 1fr;
-              }
-
-              input[type='checkbox']#priceToggle:checked ~ label .detail-icon {
-                transform: rotate(180deg);
-              }
-            </style>
           </div>
         </div>
 

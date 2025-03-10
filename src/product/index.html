@@ -2978,38 +2978,93 @@
                   </div>
 
                   <div class="border-t pt-4">
-                    <div
-                      class="flex flex-col items-end justify-start px-4 pb-4"
-                    >
-                      <span class="text-xs font-bold text-primary-500"
-                        >Toplam</span
-                      >
-                      <span class="text-base font-semibold text-gray-800"
-                        >550 AED</span
-                      >
-                    </div>
-                    <button
-                      type="submit"
-                      id="purchase-submit-btn"
-                      disabled
-                      class="group -mt-2 h-[52px] w-full border border-primary-400 bg-primary-500 text-lg font-semibold text-white transition-all duration-300 hover:opacity-75 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
-                      aria-label="Aktiviteyi Satın Al"
-                    >
-                      <span class="block group-disabled:hidden">
-                        Aktiviteyi Satın Al
-                      </span>
+                    <div class="mb-4 space-y-2">
+                      <h2 class="text-sm font-semibold text-gray-950">
+                        İndirim Kuponu
+                      </h2>
 
-                      <span
-                        class="hidden items-center justify-center gap-2 group-disabled:flex"
+                      <div class="flex items-center gap-2">
+                        <div class="relative flex-1">
+                          <input
+                            type="text"
+                            id="coupon-code"
+                            name="coupon-code"
+                            placeholder=" "
+                            class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
+                          />
+                          <label
+                            for="coupon-code"
+                            class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
+                          >
+                            Kupon Kodu
+                          </label>
+                        </div>
+                        <button
+                          type="button"
+                          id="apply-coupon"
+                          class="h-[44px] whitespace-nowrap rounded-sm border border-primary-400 bg-primary-500 px-4 py-1 text-sm font-medium text-white transition-all duration-300 hover:opacity-75 active:scale-95"
+                        >
+                          Uygula
+                        </button>
+                      </div>
+
+                      <!-- İndirim Bilgisi - Kupon uygulandığında görünür -->
+                      <div
+                        id="discount-info"
+                        class="rounded-sm border border-lime-400 bg-lime-50 p-2"
                       >
-                        <span> İşlem Devam Ediyor </span>
-                        <img
-                          src="/assets/images/icons/loading-spinner.svg"
-                          alt="Loading"
-                          class="size-6 animate-spin brightness-0 invert !duration-[2500ms]"
-                        />
-                      </span>
-                    </button>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <i
+                              data-lucide="check"
+                              class="size-4 text-lime-500"
+                            ></i>
+                            <span class="text-xs font-medium text-lime-700"
+                              >Kupon uygulandı!</span
+                            >
+                          </div>
+                          <span class="text-xs font-medium text-lime-700"
+                            >-<span id="discount-amount">50.00</span> AED</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Fiyat Özeti - border-t pt-4 kısmı -->
+                    <div class="border-t pt-4">
+                      <div
+                        class="-mt-2 flex flex-col items-end justify-start px-2 pb-4"
+                      >
+                        <!-- Toplam -->
+                        <span class="text-xs font-bold text-primary-500"
+                          >Toplam</span
+                        >
+                        <span class="text-base font-semibold text-gray-800"
+                          ><span id="total-price">550</span> AED</span
+                        >
+                      </div>
+                      <button
+                        type="submit"
+                        id="purchase-submit-btn"
+                        class="group -mt-2 h-[52px] w-full border border-primary-400 bg-primary-500 text-lg font-semibold text-white transition-all duration-300 hover:opacity-75 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
+                        aria-label="Aktiviteyi Satın Al"
+                      >
+                        <span class="block group-disabled:hidden">
+                          Aktiviteyi Satın Al
+                        </span>
+
+                        <span
+                          class="hidden items-center justify-center gap-2 group-disabled:flex"
+                        >
+                          <span> İşlem Devam Ediyor </span>
+                          <img
+                            src="/assets/images/icons/loading-spinner.svg"
+                            alt="Loading"
+                            class="size-6 animate-spin brightness-0 invert !duration-[2500ms]"
+                          />
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

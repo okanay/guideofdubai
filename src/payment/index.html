@@ -1270,26 +1270,108 @@
           </div>
 
           <!-- Fiyat Özeti Kartı -->
-          <div class="rounded-2xl bg-white lg:px-4 lg:pb-6">
-            <div class="space-y-4">
-              <h3 class="text-lg font-semibold">Fiyat Özetiniz</h3>
+          <div
+            class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] lg:relative lg:bottom-auto lg:left-auto lg:right-auto lg:rounded-2xl lg:border-0 lg:bg-white lg:shadow-none"
+          >
+            <h3 class="hidden px-4 text-lg font-semibold lg:mb-4 lg:block">
+              Oda Ücreti
+            </h3>
+            <!-- Wrapper div'i grup olarak işaretleyelim -->
+            <div class="group flex flex-col gap-3">
+              <!-- Checkbox için input -->
+              <input type="checkbox" id="priceToggle" class="peer hidden" />
+              <!-- Fiyat Detayları -->
+              <div
+                class="grid grid-rows-[0fr] px-4 transition-[grid-template-rows] duration-300 ease-out peer-checked:grid-rows-[1fr] lg:grid-rows-[1fr]"
+              >
+                <div class="overflow-hidden">
+                  <div class="space-y-2 pt-3 lg:pt-0">
+                    <!-- Günlük Fiyat -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Günlük</dt>
+                      <dd class="text-base font-semibold text-gray-800">
+                        1850 AED
+                      </dd>
+                    </dl>
+                    <!-- Kiralama Süresi -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Kiralama Süresi</dt>
+                      <dd class="text-base font-semibold text-gray-800">
+                        3 Gün
+                      </dd>
+                    </dl>
+                    <!-- Ekstra Hizmetler -->
+                    <dl class="flex items-center justify-between">
+                      <dt class="text-sm text-gray-600">Ekstra Hizmetler</dt>
+                      <dd class="text-base font-semibold text-gray-800">
+                        <span id="summary-extras-total">65</span> AED
+                      </dd>
+                    </dl>
+                    <!-- İndirim Satırı - Kupon uygulandığında görünür -->
+                    <dl
+                      id="discount-row"
+                      class="flex items-center justify-between"
+                    >
+                      <dt class="text-sm text-gray-600">İndirim</dt>
+                      <dd class="text-base font-semibold text-lime-600">
+                        -<span id="discount-amount">0.00</span> AED
+                      </dd>
+                    </dl>
 
-              <div class="space-y-2">
-                <div class="flex justify-between">
-                  <span>Orijinal Fiyat</span>
-                  <span>TL 474.117,43</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Sınırlı Süreli Fiyat</span>
-                  <span>TL 189.646,97</span>
-                </div>
-                <div
-                  class="flex justify-between text-lg font-semibold text-primary-500"
-                >
-                  <span>Fiyat</span>
-                  <span>TL 284.470,46</span>
+                    <!-- Kupon Kodu Giriş Alanı -->
+                    <div class="mt-3 border-t border-gray-100 pt-3">
+                      <dt class="mb-2 text-sm font-medium text-gray-700">
+                        İndirim Kuponu
+                      </dt>
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="text"
+                          id="coupon-code"
+                          placeholder="Kupon Kodu Girin"
+                          class="h-12 flex-1 rounded border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary-200 focus:ring-0"
+                        />
+                        <button
+                          type="button"
+                          id="apply-coupon"
+                          class="h-12 rounded bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        >
+                          Uygula
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- Toplam Tutar -->
+              <label
+                for="priceToggle"
+                class="flex items-center justify-between px-4 py-3 lg:rounded-b lg:border-t lg:border-gray-200 lg:bg-gray-50"
+              >
+                <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2">
+                  <dt
+                    class="text-sm text-gray-600 lg:text-base lg:font-medium lg:text-gray-800"
+                  >
+                    Toplam Tutar
+                  </dt>
+                  <!-- Toggle Butonu (Label) -->
+                  <div
+                    class="flex cursor-pointer items-center gap-1 text-sm text-primary-600 lg:hidden"
+                  >
+                    <span
+                      style="--message-open: 'Detayları Göster'"
+                      data-close="Detayları Gizle"
+                      class="before:content-[var(--message-open)]"
+                    ></span>
+                    <i
+                      data-lucide="chevron-up"
+                      class="detail-icon size-4 transition-transform duration-200"
+                    ></i>
+                  </div>
+                </div>
+                <dd class="text-xl font-bold text-primary-600" id="total-price">
+                  5,850.00 AED
+                </dd>
+              </label>
             </div>
           </div>
         </div>
