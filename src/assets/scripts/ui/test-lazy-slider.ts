@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const desktopGalleryController = document.getElementById(
-    'desktop-gallery-controller',
-  )
   const mobileGalleryController = document.getElementById(
     'mobile-gallery-controller',
   )
 
-  if (desktopGalleryController && mobileGalleryController) {
+  if (mobileGalleryController) {
     // Başlangıçta hepsini disable yap
-    desktopGalleryController.setAttribute('data-active', '0')
     mobileGalleryController.setAttribute('data-active', '0')
 
     for (let i = 1; i <= 4; i++) {
@@ -43,21 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Önceki aktif slider'ları disable et
-        const currentDesktopActive = parseInt(
-          desktopGalleryController.getAttribute('data-active') || '0',
-        )
+
         const currentMobileActive = parseInt(
           mobileGalleryController.getAttribute('data-active') || '0',
         )
-
-        if (currentDesktopActive > 0) {
-          const currentDesktopSlider = document.getElementById(
-            `slider-${currentDesktopActive}-desktop`,
-          )
-          if (currentDesktopSlider) {
-            currentDesktopSlider.setAttribute('data-status', 'disable')
-          }
-        }
 
         if (currentMobileActive > 0) {
           const currentMobileSlider = document.getElementById(
@@ -68,11 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        // Gallery controller'ların data-active'lerini güncelle
-        desktopGalleryController.setAttribute(
-          'data-active',
-          activeIndex.toString(),
-        )
         mobileGalleryController.setAttribute(
           'data-active',
           activeIndex.toString(),

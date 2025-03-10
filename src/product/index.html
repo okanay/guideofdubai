@@ -65,6 +65,7 @@
     <script type="module" src="/assets/scripts/product.js"></script>
     <script type="module" src="/assets/scripts/ui/product-sliders.js"></script>
     <script type="module" src="/assets/scripts/ui/test-lazy-slider.js"></script>
+    <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
 
     <script>
       ;(function () {
@@ -987,6 +988,210 @@
       </div>
     </header>
 
+    <!-- DatePicker Modal -->
+    <div
+      id="date-picker"
+      data-language="en"
+      data-timepicker="false"
+      class="group/modal absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
+    >
+      <div class="flex flex-col sm:flex-row">
+        <!-- Date Picker -->
+        <div
+          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white group-data-[timepicker=false]/modal:rounded-tr-lg sm:rounded-b-none sm:rounded-tr-none"
+        >
+          <!-- Ay Navigasyon Bar -->
+          <div
+            class="flex h-[52px] items-center justify-between border-b border-gray-300/60 bg-gray-50 px-4"
+          >
+            <button
+              id="prev-month"
+              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Önceki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </button>
+            <div id="current-month" class="current-month">Mart 2025</div>
+            <button
+              id="next-month"
+              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Sonraki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Takvim İçeriği -->
+          <div class="calendar-container">
+            <div id="calendar-days"></div>
+          </div>
+        </div>
+
+        <!-- Time Picker -->
+        <div
+          id="time-container"
+          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-none border border-y-0 border-gray-300/60 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-y sm:border-l-0"
+        >
+          <div
+            class="flex h-[52px] items-center justify-between border-b border-gray-200 bg-gray-50 px-4"
+          >
+            <div class="time-title">Saat</div>
+            <!-- AM/PM Butonu (24 saat formatı kullanılmıyorsa görünecek) -->
+            <div class="ampm-container" id="ampm-container">
+              <button id="ampm-toggle" class="ampm-btn">AM</button>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-center gap-3 p-4"
+            id="time-picker-content"
+          >
+            <!-- Saat kolonu -->
+            <div class="time-column" id="hours-column">
+              <button
+                id="hour-up"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati arttır"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+              </button>
+              <div id="hour-display" class="time-display">12</div>
+              <button
+                id="hour-down"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati azalt"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Ayırıcı -->
+            <div class="time-separator">:</div>
+
+            <!-- Dakika kolonu -->
+            <div class="time-column" id="minutes-column">
+              <button
+                id="minute-up"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı arttır"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+              </button>
+
+              <div id="minute-display" class="time-display">00</div>
+              <button
+                id="minute-down"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı azalt"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt Düğmeler (Mobil için en altta olacak şekilde) -->
+      <div
+        class="w-full rounded-b-lg border border-gray-300/60 bg-gray-100 px-4 py-3 sm:w-[322px] sm:border-t-0"
+      >
+        <div class="flex w-full items-center justify-between">
+          <div class="flex gap-2">
+            <button
+              id="reset-date"
+              class="reset-btn rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Bugün
+            </button>
+            <button
+              id="reset-all"
+              class="reset-btn rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Temizle
+            </button>
+          </div>
+          <button
+            id="close-picker"
+            class="close-btn rounded-lg bg-primary-500 px-3 py-2 text-sm text-white transition-colors hover:bg-primary-600"
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    </div>
+
     <main class="mx-auto max-w-7xl overflow-hidden pb-6 pt-0 lg:px-6">
       <!-- Breadcrumb -->
       <nav
@@ -1307,561 +1512,239 @@
             <!-- Introduction -->
             <section
               id="product-info-content-1"
-              data-state="closed"
+              data-state="open"
               class="mb-8 hidden data-[state=open]:block group-data-[query=info]/query:!block"
               aria-labelledby="main-title"
             >
-              <div>
+              <div itemscope="" itemtype="http://schema.org/Description">
                 <h2 class="mb-3 text-base font-bold lg:text-xl">
-                  Genel Tanıtım
+                  Tour Information
                 </h2>
                 <div
                   class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
                 >
                   <div class="flex items-start gap-2">
-                    <p>
-                      Platinum Heritage, Dubai çölünde benzersiz bir lüks safari
-                      deneyimi sunar. Çölün eşsiz güzelliklerini keşfederken,
-                      kültürel ve çevresel sorumluluklarla hazırlanan bu
-                      deneyim, sizi modern dünyanın karmaşasından uzaklaştırır.
-                      Retro Land Rover araçlarla yapılan turlar, sizi geçmişin
-                      büyüsüne taşır.
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      <strong
+                        >🔥 Experience the Thrill of Dubai’s Mesmerizing Golden
+                        Dunes! 🌅🌙</strong
+                      >
                     </p>
                   </div>
                   <div class="flex items-start gap-2">
-                    <p>
-                      Safariler, Bedevi kültürünü yakından tanıma, geleneksel
-                      yemeklerin tadını çıkarma ve yıldızların altında çöl
-                      atmosferini yaşama fırsatı sunar. Sürdürülebilirlik odaklı
-                      yaklaşımıyla Platinum Heritage, Dubai'nin doğal ve
-                      kültürel mirasını keşfetmek isteyenler için mükemmel bir
-                      seçenektir.
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      Are you ready for an exhilarating journey through Dubai’s
+                      breathtaking desert landscape? Whether you crave an
+                      action-packed morning safari or an enchanting evening camp
+                      experience, we’ve got the perfect adventure for you! 🌟
+                      Book now and immerse yourself in a world of excitement!
+                      🚗✨
                     </p>
                   </div>
                   <div class="flex items-start gap-2">
-                    <p>
-                      Lüksü ve doğayı harmanlayan bu deneyim, unutulmaz bir
-                      yolculuk vaat ediyor.
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      &nbsp;
                     </p>
                   </div>
-                </div>
-                <!--  Desktop Package Information -->
-                <div
-                  data-active="0"
-                  id="desktop-gallery-controller"
-                  class="group hidden lg:block"
-                >
-                  <!--  Silver Package -->
-                  <div
-                    class="mt-6 hidden flex-col gap-5 lg:hidden lg:group-data-[active=1]:flex"
-                  >
-                    <h2 class="text-base font-bold lg:text-xl">Silver Kamp</h2>
-                    <div class="relative aspect-video">
-                      <!-- Images -->
-                      <div
-                        id="slider-container-1-desktop"
-                        class="relative z-[103] h-full overflow-hidden rounded-lg"
-                      >
-                        <ul
-                          id="slider-1-desktop"
-                          data-status="disable"
-                          class="slider-1-desktop relative"
-                        >
-                          <li
-                            data-index="0"
-                            class="slide-1-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/silver_1.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="1"
-                            class="slide-1-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/silver_2.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="2"
-                            class="slide-1-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/silver_3.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="3"
-                            class="slide-1-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/silver_4.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                        </ul>
-                      </div>
-                      <!-- Buttons -->
-                      <div
-                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                      >
-                        <div
-                          class="pointer-events-auto flex items-center gap-1"
-                        >
-                          <button
-                            class="slide-1-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="0"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-1-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="1"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-1-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="2"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-1-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="3"
-                            type="button"
-                          ></button>
-                        </div>
-                      </div>
-                      <!-- Next & Prev Buttons -->
-                      <div
-                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-8"
-                      >
-                        <button
-                          type="button"
-                          id="slider-1-prev-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-left"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                        <button
-                          type="button"
-                          id="slider-1-next-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-right"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
-                    >
-                      <div class="flex items-start gap-2">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <p>
-                          It is a long established fact that a reader will be
-                          distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it has a more-or-less normal distribution of
-                          letters, as opposed to using
-                        </p>
-                      </div>
-                    </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      <strong>📌 How to Book?</strong>
+                    </p>
                   </div>
-                  <!--  Gold Package -->
-                  <div
-                    class="mt-6 hidden flex-col gap-5 lg:hidden lg:group-data-[active=2]:flex"
-                  >
-                    <h2 class="text-base font-bold lg:text-xl">Gold Kamp</h2>
-                    <div class="relative aspect-video">
-                      <!-- Images -->
-                      <div
-                        id="slider-container-2-desktop"
-                        class="relative z-[103] h-full overflow-hidden rounded-lg"
-                      >
-                        <ul
-                          id="slider-2-desktop"
-                          data-status="disable"
-                          class="slider-2-desktop relative"
-                        >
-                          <li
-                            data-index="0"
-                            class="slide-2-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/gold_1.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="1"
-                            class="slide-2-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/gold_2.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                        </ul>
-                      </div>
-                      <!-- Buttons -->
-                      <div
-                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                      >
-                        <div
-                          class="pointer-events-auto flex items-center gap-1"
-                        >
-                          <button
-                            class="slide-2-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="0"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-2-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="1"
-                            type="button"
-                          ></button>
-                        </div>
-                      </div>
-                      <!-- Next & Prev Buttons -->
-                      <div
-                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-8"
-                      >
-                        <button
-                          type="button"
-                          id="slider-2-prev-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-left"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                        <button
-                          type="button"
-                          id="slider-2-next-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-right"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
-                    >
-                      <div class="flex items-start gap-2">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <p>
-                          It is a long established fact that a reader will be
-                          distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it has a more-or-less normal distribution of
-                          letters, as opposed to using
-                        </p>
-                      </div>
-                    </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      📋 Fill out the reservation form with the following
+                      details:&nbsp;
+                    </p>
                   </div>
-                  <!--  Premium Package -->
-                  <div
-                    class="mt-6 hidden flex-col gap-5 lg:hidden lg:group-data-[active=3]:flex"
-                  >
-                    <h2 class="text-base font-bold lg:text-xl">Premium Kamp</h2>
-                    <div class="relative aspect-video">
-                      <!-- Images -->
-                      <div
-                        id="slider-container-3-desktop"
-                        class="relative z-[103] h-full overflow-hidden rounded-lg"
-                      >
-                        <ul
-                          id="slider-3-desktop"
-                          data-status="disable"
-                          class="slider-3-desktop relative"
-                        >
-                          <li
-                            data-index="0"
-                            class="slide-3-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/premium_1.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="1"
-                            class="slide-3-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/premium_2.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider aspect-video h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                        </ul>
-                      </div>
-                      <!-- Buttons -->
-                      <div
-                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                      >
-                        <div
-                          class="pointer-events-auto flex items-center gap-1"
-                        >
-                          <button
-                            class="slide-3-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="0"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-3-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="1"
-                            type="button"
-                          ></button>
-                        </div>
-                      </div>
-                      <!-- Next & Prev Buttons -->
-                      <div
-                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-8"
-                      >
-                        <button
-                          type="button"
-                          id="slider-3-prev-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-left"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                        <button
-                          type="button"
-                          id="slider-3-next-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-right"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
-                    >
-                      <div class="flex items-start gap-2">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <p>
-                          It is a long established fact that a reader will be
-                          distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it has a more-or-less normal distribution of
-                          letters, as opposed to using
-                        </p>
-                      </div>
-                    </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      ✅ Name &amp; Surname<br />✅ Number of Participants<br />✅
+                      Accommodation Address<br />✅ Preferred Safari Date &amp;
+                      Type (Morning/Evening)
+                    </p>
                   </div>
-                  <!--  Platinium Package -->
-                  <div
-                    class="mt-6 hidden flex-col gap-5 lg:hidden lg:group-data-[active=4]:flex"
-                  >
-                    <h2 class="text-base font-bold lg:text-xl">
-                      Platinium Kamp
-                    </h2>
-                    <!-- Container -->
-                    <div class="relative aspect-video">
-                      <!-- Images -->
-                      <div
-                        id="slider-container-4-desktop"
-                        class="relative z-[103] h-full overflow-hidden rounded-lg"
-                      >
-                        <ul
-                          id="slider-4-desktop"
-                          data-status="disable"
-                          class="slider-4-desktop relative"
-                        >
-                          <li
-                            data-index="0"
-                            class="slide-4-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/platinium_1.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                          <li
-                            data-index="1"
-                            class="slide-4-desktop absolute left-0 top-0 w-full cursor-pointer"
-                          >
-                            <img
-                              data-src="https://images.project-test.info/platinium_2.webp"
-                              src="/assets/images/gray-placeholder.webp"
-                              alt="Dubai'de Balayı Tatili"
-                              class="lazy-slider h-full w-full object-cover object-center"
-                              style="transition: filter 0.3s ease"
-                            />
-                          </li>
-                        </ul>
-                      </div>
-                      <!-- Buttons -->
-                      <div
-                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                      >
-                        <div
-                          class="pointer-events-auto flex items-center gap-1"
-                        >
-                          <button
-                            class="slide-4-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="0"
-                            type="button"
-                          ></button>
-                          <button
-                            class="slide-4-btn-desktop size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                            data-target="1"
-                            type="button"
-                          ></button>
-                        </div>
-                      </div>
-                      <!-- Next & Prev Buttons -->
-                      <div
-                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-8"
-                      >
-                        <button
-                          type="button"
-                          id="slider-4-prev-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-left"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                        <button
-                          type="button"
-                          id="slider-4-next-desktop"
-                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                        >
-                          <i
-                            data-lucide="chevron-right"
-                            class="size-full brightness-0 rtl:scale-x-[-1]"
-                          ></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
-                    >
-                      <div class="flex items-start gap-2">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.
-                        </p>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <p>
-                          It is a long established fact that a reader will be
-                          distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it has a more-or-less normal distribution of
-                          letters, as opposed to using
-                        </p>
-                      </div>
-                    </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      &nbsp;
+                    </p>
                   </div>
-                </div>
-
-                <!-- Just Image -->
-                <div class="mt-6 hidden flex-col gap-5 lg:hidden">
-                  <!-- Title -->
-                  <h2 class="text-base font-bold lg:text-xl">Title</h2>
-                  <!-- Image -->
-                  <img
-                    src="https://images.project-test.info/silver_1.webp"
-                    alt="Dubai'de Balayı Tatili"
-                    class="aspect-video w-full rounded-lg object-fill"
-                    style="transition: filter 0.3s ease"
-                  />
-                  <div
-                    class="flex flex-col gap-4 text-sm tracking-wide text-gray-600"
-                  >
-                    <div class="flex items-start gap-2">
-                      <p>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
-                      </p>
-                    </div>
-                    <div class="flex items-start gap-2">
-                      <p>
-                        It is a long established fact that a reader will be
-                        distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is
-                        that it has a more-or-less normal distribution of
-                        letters, as opposed to using
-                      </p>
-                    </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      <strong
+                        >🌅 Morning Safari – VIP Private Experience ☀️</strong
+                      >
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      ⏰ <strong>Time:</strong> Starts early in the morning<br />🚘
+                      <strong>Vehicle:</strong> Exclusive 7-seater Jeep<br />📍
+                      <strong>Itinerary:</strong>
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                    </p>
+                    <ul>
+                      <li>🏨 Hotel Pickup</li>
+                      <li>
+                        🏎️ Transfer to ATV &amp; Buggy Area (ATV not included,
+                        extra charge applies)
+                      </li>
+                      <li>🚙 Thrilling Dune Bashing &amp; Jeep Safari</li>
+                      <li>🏂 Sandboarding &amp; Camel Ride</li>
+                      <li>
+                        🏨 Return to Hotel<br />📌
+                        <strong
+                          >Perfect for those seeking a peaceful yet
+                          adrenaline-fueled start to the day!</strong
+                        >
+                        🌄
+                      </li>
+                    </ul>
+                    <p></p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      &nbsp;
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      <strong
+                        >🌙 Evening Safari – Adventure &amp; Cultural Bliss
+                        🌌</strong
+                      >
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      ⏰ <strong>Time:</strong> Pick-up between 13:30 - 15:00<br />🚘
+                      <strong>Vehicle:</strong> Shared 7-seater Jeep (<i
+                        >Private option available</i
+                      >)<br />📍 <strong>Itinerary:</strong>
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                    </p>
+                    <ul>
+                      <li>🏨 Hotel Pickup</li>
+                      <li>
+                        🏎️ <strong>25-minute ATV Ride (Included! 🎉)</strong>
+                      </li>
+                      <li>🚙 Jeep Safari &amp; Dune Bashing</li>
+                      <li>📸 Sand Dune Photography &amp; Sandboarding</li>
+                      <li>
+                        🏕️ Arrival at Desert Camp<br />📌
+                        <strong
+                          >Perfect for those seeking entertainment, culture, and
+                          unforgettable moments under the stars! 🌟</strong
+                        >
+                      </li>
+                    </ul>
+                    <p></p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      &nbsp;
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      <strong>🏕️ 4 Exclusive Camp Options 🏆</strong>
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      ✨ <strong>Silver Camp</strong> – Traditional Arabic
+                      Experience, Open Buffet, Belly Dance &amp; Fire Shows
+                      🔥💃<br />🌟 <strong>Gold Camp</strong> – Elegant Setting,
+                      Turkish Cuisine, Comfortable Seating &amp; Exclusive
+                      Performances 🍽️🎭<br />🏆 <strong>Premium Camp</strong> –
+                      Luxury Desert Ambiance, Gourmet Dining, Stunning Photo
+                      Spots 📷✨<br />🔝 <strong>Platinum Safari</strong> –
+                      Open-Air Safari, Wildlife Encounters, Premium Buffet,
+                      Ultimate Comfort 🏜️🦒
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <p itemprop="description">
+                      <meta
+                        itemprop="location"
+                        content="Dubai Desert Safari Tour"
+                      />
+                      &nbsp;
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2027,1062 +1910,1292 @@
               </div>
             </section>
           </div>
-
-          <!--  Form -->
-          <div class="-mt-1 w-full flex-shrink-0 lg:w-[420px]">
-            <h2 class="mb-2 px-3 text-xl font-bold lg:text-center lg:text-2xl">
+          <div class="-mt-10 w-full flex-shrink-0 lg:-mt-1 lg:w-[420px]">
+            <h2
+              class="mb-4 px-4 text-xl font-bold text-gray-800 lg:text-center lg:text-2xl"
+            >
               Rezervasyon Formu
             </h2>
-            <div class="h-[64px] w-full border-primary-500 bg-lime-500">
-              <div
-                class="flex h-full w-full items-center justify-between gap-2 px-3.5 lg:justify-center"
-              >
+
+            <!-- WhatsApp İletişim Kartı -->
+            <div class="mb-2 bg-lime-500 shadow-sm lg:rounded-lg">
+              <div class="flex items-center justify-between gap-3 p-4">
                 <span
-                  class="text-balance text-start text-sm font-semibold text-white lg:w-[228px] lg:text-center"
+                  class="text-balance text-sm font-medium text-white lg:text-center"
                 >
                   For complete the booking please contact to our Whatsapp
                 </span>
                 <img
                   src="/assets/images/icons/whatsapp.svg"
                   alt="Whatsapp"
-                  class="h-[36px]"
+                  class="h-9 w-9"
                 />
               </div>
             </div>
-            <form id="purchase-form" class="w-full border-t-4 border-lime-400">
-              <div class="border-b bg-white px-2.5 py-6 lg:border-x lg:px-4">
-                <div class="mb-4">
-                  <p
-                    class="text-pretty px-0.5 text-start text-xs font-bold text-lime-500"
-                    aria-label="Availability Status"
-                  >
-                    Seçtiğiniz tarihlerde tur planında müsaitlik bulunmaktadır.
+
+            <form
+              id="purchase-form"
+              class="overflow-hidden border border-gray-200 bg-white shadow-sm lg:rounded-lg"
+            >
+              <!-- Durum Bildirimleri - Müsaitlik varsa gösterilir -->
+              <div class="border-b border-lime-200 bg-lime-50 px-4 py-3">
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="check-circle"
+                    class="size-4 text-lime-600"
+                  ></i>
+                  <p class="text-sm font-medium text-lime-700">
+                    Seçtiğiniz tarihlerde müsaitlik bulunmaktadır
                   </p>
                 </div>
+              </div>
 
-                <div class="mb-4">
-                  <p
-                    class="text-pretty px-0.5 text-start text-xs font-bold text-primary-500"
-                    aria-label="Availability Status"
-                  >
-                    Seçtiğiniz tarihlerde tur planında müsaitlik
-                    bulunmamaktadır.
+              <!-- Durum Bildirimleri - Müsaitlik yoksa gösterilir  -->
+              <div class="hidden border-b border-rose-200 bg-rose-50 px-4 py-3">
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="alert-triangle"
+                    class="size-4 text-rose-600"
+                  ></i>
+                  <p class="text-sm font-medium text-rose-700">
+                    Seçtiğiniz tarihlerde müsaitlik bulunmamaktadır
                   </p>
                 </div>
+              </div>
 
+              <!-- Form İçeriği -->
+              <div class="px-2 py-5 lg:px-5">
+                <!-- Tur Paketi Bilgisi -->
                 <div
-                  class="relative mb-6 divide-y divide-gray-200 overflow-hidden border border-gray-200"
+                  class="mb-6 rounded-lg border border-gray-100 bg-gray-50 p-3"
                 >
-                  <div class="flex flex-col px-2.5 pt-5">
-                    <h3 class="text-xs font-bold">Tur Paketi</h3>
-                    <p class="mt-0.5 text-sm">Lüks Safari Platinium Heritage</p>
-                  </div>
+                  <h3 class="text-sm font-medium">Tur Paketi</h3>
+                  <p class="mt-1 text-sm font-bold text-primary-700">
+                    Lüks Safari Platinium Heritage
+                  </p>
+                </div>
 
-                  <div
-                    class="mt-4 grid grid-cols-2 divide-x divide-gray-200 px-0"
+                <!-- Tarih Seçimi -->
+                <div class="mb-5 flex flex-col">
+                  <label
+                    for="date-input"
+                    id="date-input-label"
+                    class="mb-1.5 block text-sm font-medium text-gray-700"
                   >
-                    <!-- Gidiş Tarihi Container -->
-                    <div class="date-input-container group relative">
+                    Tarih Seçimi <span class="text-rose-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="date-input"
+                      name="date-input"
+                      readonly=""
+                      data-timepicker="false"
+                      data-ampm="true"
+                      data-minute-interval="15"
+                      data-default-hours="15"
+                      data-default-minute="00"
+                      data-min-date="2025-03-06"
+                      data-default-date="2025-03-06"
+                      class="h-12 w-full appearance-none rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-200"
+                      placeholder="Select a Date"
+                    />
+                    <div
+                      class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
+                    >
+                      <i
+                        data-lucide="calendar-arrow-up"
+                        class="size-4 text-gray-800"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Safari Saati Seçimi -->
+                <div class="mb-5">
+                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                    Safari Saati
+                  </h2>
+                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div class="relative">
                       <input
-                        type="date"
-                        id="departure-date"
-                        name="departure-date"
-                        class="peer relative z-10 h-[44px] w-fit cursor-pointer appearance-none bg-transparent px-3 text-start text-sm text-gray-800 outline-none transition-all duration-200"
+                        type="radio"
+                        id="morning"
+                        name="safari-time"
+                        class="peer hidden"
+                        checked
                       />
                       <label
-                        for="departure-date"
-                        class="absolute -top-2 left-2 z-20 h-full w-full cursor-pointer bg-transparent px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
+                        for="morning"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert"
                       >
-                        <span class="bg-white">Gidiş Tarihi</span>
+                        <img
+                          src="/assets/images/form-icons/1.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">08.00 - 13.00</span>
                       </label>
                     </div>
 
-                    <!-- Dönüş Tarihi Container -->
-                    <div class="date-input-container group relative">
+                    <div class="relative">
                       <input
-                        type="datetime-local"
-                        id="return-date"
-                        name="return-date"
-                        class="peer relative z-10 h-[44px] w-fit cursor-pointer appearance-none bg-transparent px-3 text-start text-sm text-gray-800 outline-none transition-all duration-200"
+                        type="radio"
+                        id="evening"
+                        name="safari-time"
+                        class="peer hidden"
+                        disabled
                       />
                       <label
-                        for="return-date"
-                        class="absolute -top-2 left-2 z-20 h-full w-full cursor-pointer bg-transparent px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
+                        for="evening"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
                       >
-                        <span class="bg-white">Dönüş Tarihi</span>
+                        <img
+                          src="/assets/images/form-icons/2.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">15.00 - 21.00</span>
                       </label>
                     </div>
                   </div>
                 </div>
 
-                <!--  Radio Buttons -->
-                <div class="flex flex-col gap-4">
-                  <!-- Safari Times -->
-                  <div class="flex flex-col gap-2 text-gray-950">
-                    <h2 class="text-sm font-semibold text-gray-950">
-                      Safari Saati
-                    </h2>
-                    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="morning"
-                          name="safari-time"
-                          class="peer hidden"
-                          checked
+                <!-- Araç Tahsisi -->
+                <div class="mb-5">
+                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                    Araç Tahsisi
+                  </h2>
+                  <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="private"
+                        name="vehicle-type"
+                        class="peer hidden"
+                        checked
+                      />
+                      <label
+                        for="private"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/7.svg"
+                          alt=""
+                          class="size-6 brightness-0"
                         />
-                        <label
-                          for="morning"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
-                        >
-                          <img
-                            src="/assets/images/form-icons/1.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">08.00 - 13.00</span>
-                        </label>
-                      </div>
+                        <span class="text-sm">Size Özel Araç</span>
+                      </label>
+                    </div>
 
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="evening"
-                          name="safari-time"
-                          class="peer hidden"
-                          disabled
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="shared"
+                        name="vehicle-type"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="shared"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/8.svg"
+                          alt=""
+                          class="size-6 brightness-0"
                         />
-                        <label
-                          for="evening"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
-                        >
-                          <img
-                            src="/assets/images/form-icons/2.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">15.00 - 21.00</span>
-                        </label>
-                      </div>
+                        <span class="text-sm">Paylaşımlı Araç</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Kamp Seçimi -->
+                <div class="mb-5">
+                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                    Kamp Seçimi
+                  </h2>
+                  <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="silver"
+                        name="camp-type"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="silver"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/3.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">Silver Kamp</span>
+                      </label>
+                    </div>
+
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="gold"
+                        name="camp-type"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="gold"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/4.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">Gold Kamp</span>
+                      </label>
+                    </div>
+
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="premium"
+                        name="camp-type"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="premium"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/5.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">Premium Kamp</span>
+                      </label>
+                    </div>
+
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="platinum"
+                        name="camp-type"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="platinum"
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-200 bg-gray-100 px-3 transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
+                      >
+                        <img
+                          src="/assets/images/form-icons/6.svg"
+                          alt=""
+                          class="size-6 brightness-0"
+                        />
+                        <span class="text-sm">Platinium Kamp</span>
+                      </label>
                     </div>
                   </div>
 
-                  <!-- Camp Selection -->
-                  <div class="flex flex-col gap-2">
-                    <h2 class="text-sm font-semibold text-gray-950">
-                      Kamp Seçimi
-                    </h2>
-                    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="silver"
-                          name="camp-type"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="silver"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
+                  <!-- Gallery kısmı - Mobile için -->
+                  <div
+                    data-active="0"
+                    id="mobile-gallery-controller"
+                    class="group relative mt-4 overflow-hidden rounded-md data-[active=0]:-mb-3"
+                  >
+                    <!-- Silver -->
+                    <div
+                      class="hidden border border-gray-200 group-data-[active=1]:block"
+                    >
+                      <!-- Images -->
+                      <div
+                        id="slider-container-1"
+                        class="relative z-[103] aspect-video overflow-hidden rounded"
+                      >
+                        <ul
+                          id="slider-1"
+                          data-status="disable"
+                          class="slider-1 relative"
                         >
-                          <img
-                            src="/assets/images/form-icons/3.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">Silver Kamp</span>
-                        </label>
+                          <li
+                            data-index="0"
+                            class="slide-1 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/silver_1.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                          <li
+                            data-index="1"
+                            class="slide-1 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/silver_2.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                          <li
+                            data-index="2"
+                            class="slide-1 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/silver_3.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                          <li
+                            data-index="3"
+                            class="slide-1 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/silver_4.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                        </ul>
                       </div>
-
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="gold"
-                          name="camp-type"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="gold"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
+                      <!-- Buttons -->
+                      <div
+                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
+                      >
+                        <div
+                          class="pointer-events-auto flex items-center gap-1"
                         >
-                          <img
-                            src="/assets/images/form-icons/4.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">Gold Kamp</span>
-                        </label>
+                          <button
+                            class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="0"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="1"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="2"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="3"
+                            type="button"
+                          ></button>
+                        </div>
                       </div>
-
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="premium"
-                          name="camp-type"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="premium"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
+                      <!-- Next & Prev Buttons -->
+                      <div
+                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
+                      >
+                        <button
+                          type="button"
+                          id="slider-1-prev"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
                         >
+                          <i
+                            data-lucide="chevron-left"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          id="slider-1-next"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-right"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Gold -->
+                    <div
+                      class="hidden border border-gray-200 group-data-[active=2]:block"
+                    >
+                      <!-- Images -->
+                      <div
+                        id="slider-container-2"
+                        class="relative z-[103] aspect-video overflow-hidden rounded"
+                      >
+                        <ul
+                          id="slider-2"
+                          data-status="disable"
+                          class="slider-2 relative"
+                        >
+                          <li
+                            data-index="0"
+                            class="slide-2 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/gold_1.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider h-full w-full object-scale-down"
+                            />
+                          </li>
+                          <li
+                            data-index="1"
+                            class="slide-2 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/gold_2.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- Buttons -->
+                      <div
+                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
+                      >
+                        <div
+                          class="pointer-events-auto flex items-center gap-1"
+                        >
+                          <button
+                            class="slide-2-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="0"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-2-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="1"
+                            type="button"
+                          ></button>
+                        </div>
+                      </div>
+                      <!-- Next & Prev Buttons -->
+                      <div
+                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
+                      >
+                        <button
+                          type="button"
+                          id="slider-2-prev"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-left"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          id="slider-2-next"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-right"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Premium -->
+                    <div
+                      class="hidden border border-gray-200 group-data-[active=3]:block"
+                    >
+                      <!-- Images -->
+                      <div
+                        id="slider-container-3"
+                        class="relative z-[103] aspect-video overflow-hidden rounded"
+                      >
+                        <ul
+                          id="slider-3"
+                          data-status="disable"
+                          class="slider-3 relative"
+                        >
+                          <li
+                            data-index="0"
+                            class="slide-3 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/premium_1.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                          <li
+                            data-index="1"
+                            class="slide-3 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/premium_2.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- Buttons -->
+                      <div
+                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
+                      >
+                        <div
+                          class="pointer-events-auto flex items-center gap-1"
+                        >
+                          <button
+                            class="slide-3-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="0"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-3-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="1"
+                            type="button"
+                          ></button>
+                        </div>
+                      </div>
+                      <!-- Next & Prev Buttons -->
+                      <div
+                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
+                      >
+                        <button
+                          type="button"
+                          id="slider-3-prev"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-left"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          id="slider-3-next"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-right"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Diamond -->
+                    <div
+                      class="hidden border border-gray-200 group-data-[active=4]:block"
+                    >
+                      <!-- Images -->
+                      <div
+                        id="slider-container-4"
+                        class="relative z-[103] aspect-video overflow-hidden rounded"
+                      >
+                        <ul
+                          id="slider-4"
+                          data-status="disable"
+                          class="slider-4 relative"
+                        >
+                          <li
+                            data-index="0"
+                            class="slide-4 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/platinium_1.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                          <li
+                            data-index="1"
+                            class="slide-4 absolute left-0 top-0 cursor-pointer"
+                          >
+                            <img
+                              data-src="https://images.project-test.info/platinium_2.webp"
+                              src="/assets/images/gray-placeholder.webp"
+                              alt="Dubai'de Balayı Tatili"
+                              class="lazy-slider aspect-video h-full w-full object-cover"
+                              style="transition: filter 0.3s ease"
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- Buttons -->
+                      <div
+                        class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
+                      >
+                        <div
+                          class="pointer-events-auto flex items-center gap-1"
+                        >
+                          <button
+                            class="slide-4-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="0"
+                            type="button"
+                          ></button>
+                          <button
+                            class="slide-4-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
+                            data-target="1"
+                            type="button"
+                          ></button>
+                        </div>
+                      </div>
+                      <!-- Next & Prev Buttons -->
+                      <div
+                        class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
+                      >
+                        <button
+                          type="button"
+                          id="slider-4-prev"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-left"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          id="slider-4-next"
+                          class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
+                        >
+                          <i
+                            data-lucide="chevron-right"
+                            class="size-full brightness-0 rtl:scale-x-[-1]"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ekstra Hizmetler -->
+                <div class="mb-5">
+                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                    Ekstra Hizmetler
+                  </h2>
+                  <div class="grid grid-cols-1 gap-3">
+                    <!-- Checkbox 1 -->
+                    <div class="relative">
+                      <input
+                        type="checkbox"
+                        name="checkbox-1"
+                        id="checkbox-1"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="checkbox-1"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-200 bg-gray-100 px-3 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                      >
+                        <div class="flex items-center gap-2">
                           <img
                             src="/assets/images/form-icons/5.svg"
                             alt=""
-                            class="size-6 brightness-0"
+                            class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm">Premium Kamp</span>
-                        </label>
-                      </div>
-
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="platinum"
-                          name="camp-type"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="platinum"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
+                          <span class="text-sm"
+                            >Fotoğraf Paketi
+                            <span class="text-xs opacity-75"
+                              >(+50 AED)</span
+                            ></span
+                          >
+                        </div>
+                        <div
+                          class="flex size-6 items-center justify-center rounded-sm border transition-colors"
+                          style="
+                            background-color: var(--checkbox-bg);
+                            border-color: var(--checkbox-border);
+                          "
                         >
+                          <i
+                            data-lucide="check"
+                            class="size-5 stroke-2 text-primary-700 transition-opacity"
+                            style="opacity: var(--checkbox-checked-opacity)"
+                          ></i>
+                        </div>
+                      </label>
+                    </div>
+
+                    <!-- Checkbox 2 -->
+                    <div class="relative">
+                      <input
+                        type="checkbox"
+                        name="checkbox-2"
+                        id="checkbox-2"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="checkbox-2"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-200 bg-gray-100 px-3 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                      >
+                        <div class="flex items-center gap-2">
+                          <img
+                            src="/assets/images/form-icons/4.svg"
+                            alt=""
+                            class="check-icon size-6 brightness-0"
+                          />
+                          <span class="text-sm"
+                            >Su Oyunları
+                            <span class="text-xs opacity-75"
+                              >(+75 AED)</span
+                            ></span
+                          >
+                        </div>
+                        <div
+                          class="flex size-6 items-center justify-center rounded-sm border transition-colors"
+                          style="
+                            background-color: var(--checkbox-bg);
+                            border-color: var(--checkbox-border);
+                          "
+                        >
+                          <i
+                            data-lucide="check"
+                            class="size-5 stroke-2 text-primary-700 transition-opacity"
+                            style="opacity: var(--checkbox-checked-opacity)"
+                          ></i>
+                        </div>
+                      </label>
+                    </div>
+
+                    <!-- Checkbox 3 -->
+                    <div class="relative">
+                      <input
+                        type="checkbox"
+                        name="checkbox-3"
+                        id="checkbox-3"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="checkbox-3"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-200 bg-gray-100 px-3 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                      >
+                        <div class="flex items-center gap-2">
+                          <img
+                            src="/assets/images/form-icons/3.svg"
+                            alt=""
+                            class="check-icon size-6 brightness-0"
+                          />
+                          <span class="text-sm"
+                            >Özel Rehber
+                            <span class="text-xs opacity-75"
+                              >(+100 AED)</span
+                            ></span
+                          >
+                        </div>
+                        <div
+                          class="flex size-6 items-center justify-center rounded-sm border transition-colors"
+                          style="
+                            background-color: var(--checkbox-bg);
+                            border-color: var(--checkbox-border);
+                          "
+                        >
+                          <i
+                            data-lucide="check"
+                            class="size-5 stroke-2 text-primary-700 transition-opacity"
+                            style="opacity: var(--checkbox-checked-opacity)"
+                          ></i>
+                        </div>
+                      </label>
+                    </div>
+
+                    <!-- Checkbox 4 -->
+                    <div class="relative">
+                      <input
+                        type="checkbox"
+                        name="checkbox-4"
+                        id="checkbox-4"
+                        class="peer hidden"
+                      />
+                      <label
+                        for="checkbox-4"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-200 bg-gray-100 px-3 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                      >
+                        <div class="flex items-center gap-2">
                           <img
                             src="/assets/images/form-icons/6.svg"
                             alt=""
-                            class="size-6 brightness-0"
+                            class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm">Platinium Kamp</span>
-                        </label>
-                      </div>
-                    </div>
-                    <!-- Image Gallery Mobile -->
-                    <div
-                      data-active="0"
-                      id="mobile-gallery-controller"
-                      class="group relative mt-1 w-full lg:hidden"
-                    >
-                      <!-- Silver -->
-                      <div class="hidden group-data-[active=1]:block">
-                        <!-- Images -->
-                        <div
-                          id="slider-container-1"
-                          class="relative z-[103] aspect-video overflow-hidden rounded"
-                        >
-                          <ul
-                            id="slider-1"
-                            data-status="disable"
-                            class="slider-1 relative"
+                          <span class="text-sm"
+                            >VIP Deneyim
+                            <span class="text-xs opacity-75"
+                              >(+150 AED)</span
+                            ></span
                           >
-                            <li
-                              data-index="0"
-                              class="slide-1 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/silver_1.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                            <li
-                              data-index="1"
-                              class="slide-1 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/silver_2.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                            <li
-                              data-index="2"
-                              class="slide-1 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/silver_3.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                            <li
-                              data-index="3"
-                              class="slide-1 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/silver_4.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                          </ul>
                         </div>
-                        <!-- Buttons -->
                         <div
-                          class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
+                          class="flex size-6 items-center justify-center rounded-sm border transition-colors"
+                          style="
+                            background-color: var(--checkbox-bg);
+                            border-color: var(--checkbox-border);
+                          "
                         >
-                          <div
-                            class="pointer-events-auto flex items-center gap-1"
-                          >
-                            <button
-                              class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="0"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="1"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="2"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-1-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="3"
-                              type="button"
-                            ></button>
-                          </div>
+                          <i
+                            data-lucide="check"
+                            class="size-5 stroke-2 text-primary-700 transition-opacity"
+                            style="opacity: var(--checkbox-checked-opacity)"
+                          ></i>
                         </div>
-                        <!-- Next & Prev Buttons -->
-                        <div
-                          class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
-                        >
-                          <button
-                            type="button"
-                            id="slider-1-prev"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-left"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                          <button
-                            type="button"
-                            id="slider-1-next"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-right"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                        </div>
-                      </div>
-                      <!-- Gold -->
-                      <div class="hidden group-data-[active=2]:block">
-                        <!-- Images -->
-                        <div
-                          id="slider-container-2"
-                          class="relative z-[103] aspect-video overflow-hidden rounded"
-                        >
-                          <ul
-                            id="slider-2"
-                            data-status="disable"
-                            class="slider-2 relative"
-                          >
-                            <li
-                              data-index="0"
-                              class="slide-2 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/gold_1.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider h-full w-full object-scale-down"
-                              />
-                            </li>
-                            <li
-                              data-index="1"
-                              class="slide-2 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/gold_2.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- Buttons -->
-                        <div
-                          class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                        >
-                          <div
-                            class="pointer-events-auto flex items-center gap-1"
-                          >
-                            <button
-                              class="slide-2-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="0"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-2-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="1"
-                              type="button"
-                            ></button>
-                          </div>
-                        </div>
-                        <!-- Next & Prev Buttons -->
-                        <div
-                          class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
-                        >
-                          <button
-                            type="button"
-                            id="slider-2-prev"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-left"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                          <button
-                            type="button"
-                            id="slider-2-next"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-right"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                        </div>
-                      </div>
-                      <!-- Premium -->
-                      <div class="hidden group-data-[active=3]:block">
-                        <!-- Images -->
-                        <div
-                          id="slider-container-3"
-                          class="relative z-[103] aspect-video overflow-hidden rounded"
-                        >
-                          <ul
-                            id="slider-3"
-                            data-status="disable"
-                            class="slider-3 relative"
-                          >
-                            <li
-                              data-index="0"
-                              class="slide-3 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/premium_1.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                            <li
-                              data-index="1"
-                              class="slide-3 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/premium_2.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- Buttons -->
-                        <div
-                          class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                        >
-                          <div
-                            class="pointer-events-auto flex items-center gap-1"
-                          >
-                            <button
-                              class="slide-3-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="0"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-3-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="1"
-                              type="button"
-                            ></button>
-                          </div>
-                        </div>
-                        <!-- Next & Prev Buttons -->
-                        <div
-                          class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
-                        >
-                          <button
-                            type="button"
-                            id="slider-3-prev"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-left"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                          <button
-                            type="button"
-                            id="slider-3-next"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-right"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                        </div>
-                      </div>
-                      <!-- Diamond -->
-                      <div class="hidden group-data-[active=4]:block">
-                        <!-- Images -->
-                        <div
-                          id="slider-container-4"
-                          class="relative z-[103] aspect-video overflow-hidden rounded"
-                        >
-                          <ul
-                            id="slider-4"
-                            data-status="disable"
-                            class="slider-4 relative"
-                          >
-                            <li
-                              data-index="0"
-                              class="slide-4 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/platinium_1.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                            <li
-                              data-index="1"
-                              class="slide-4 absolute left-0 top-0 cursor-pointer"
-                            >
-                              <img
-                                data-src="https://images.project-test.info/platinium_2.webp"
-                                src="/assets/images/gray-placeholder.webp"
-                                alt="Dubai'de Balayı Tatili"
-                                class="lazy-slider aspect-video h-full w-full object-cover"
-                                style="transition: filter 0.3s ease"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- Buttons -->
-                        <div
-                          class="pointer-events-none absolute left-0 top-0 z-[2000] flex h-full w-full flex-col items-center justify-end pb-4"
-                        >
-                          <div
-                            class="pointer-events-auto flex items-center gap-1"
-                          >
-                            <button
-                              class="slide-4-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="0"
-                              type="button"
-                            ></button>
-                            <button
-                              class="slide-4-btn size-2.5 rounded-full border border-gray-950 bg-gray-200 transition-all duration-300"
-                              data-target="1"
-                              type="button"
-                            ></button>
-                          </div>
-                        </div>
-                        <!-- Next & Prev Buttons -->
-                        <div
-                          class="pointer-events-none absolute inset-1 z-[200] flex items-center justify-between px-2.5 pt-4"
-                        >
-                          <button
-                            type="button"
-                            id="slider-4-prev"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-left"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                          <button
-                            type="button"
-                            id="slider-4-next"
-                            class="pointer-events-auto relative size-[28px] rounded-full border border-gray-200 bg-white p-1 opacity-50 transition-opacity duration-300 hover:opacity-100"
-                          >
-                            <i
-                              data-lucide="chevron-right"
-                              class="size-full brightness-0 rtl:scale-x-[-1]"
-                            ></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Vehicle Selection -->
-                  <div class="flex flex-col gap-2">
-                    <h2 class="text-sm font-semibold text-gray-950">
-                      Araç Tahsisi
-                    </h2>
-                    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="private"
-                          name="vehicle-type"
-                          class="peer hidden"
-                          checked
-                        />
-                        <label
-                          for="private"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
-                        >
-                          <img
-                            src="/assets/images/form-icons/7.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">Size Özel Araç</span>
-                        </label>
-                      </div>
-
-                      <div class="relative">
-                        <input
-                          type="radio"
-                          id="shared"
-                          name="vehicle-type"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="shared"
-                          class="flex h-11 cursor-pointer items-center justify-start gap-3 rounded-sm border border-gray-200 bg-gray-100 px-2 text-center transition-colors hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 peer-checked:[&>.size-6]:brightness-100 peer-disabled:[&>.size-6]:brightness-0"
-                        >
-                          <img
-                            src="/assets/images/form-icons/8.svg"
-                            alt=""
-                            class="size-6 brightness-0"
-                          />
-                          <span class="text-sm">Paylaşımlı Araç</span>
-                        </label>
-                      </div>
+                      </label>
                     </div>
                   </div>
                 </div>
 
-                <!-- <h2 class="my-3 text-lg font-semibold">Tur Bilgileriniz</h2> -->
-                <div class="mt-4 space-y-4 text-sm text-gray-500">
-                  <div class="grid grid-cols-2 gap-2.5">
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="fullname"
-                        name="fullname"
-                        placeholder=" "
-                        class="peer h-[44px] w-full appearance-none border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-label="İsim Soyisim"
-                      />
-                      <label
-                        htmlFor="fullname"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        İsim Soyisim
-                      </label>
-                    </div>
-
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="identity"
-                        name="identity"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-required="true"
-                        aria-label="Kimlik / Pasaport No"
-                      />
-                      <label
-                        htmlFor="identity"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        Kimlik / Pasaport No *
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-2.5">
-                    <div class="relative">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 outline-none transition-all duration-200 peer-placeholder-shown:pointer-events-none peer-focus:pointer-events-auto"
-                        aria-label="E-posta Adresi"
-                      />
-                      <label
-                        htmlFor="email"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        E-posta Adresi
-                      </label>
-                    </div>
-                    <div class="relative">
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-required="true"
-                        aria-label="Telefon Numarası"
-                      />
-                      <label
-                        htmlFor="phone"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        Telefon Numarası *
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-2.5">
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="hotel"
-                        name="hotel"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-required="true"
-                        aria-label="Otel Adı"
-                      />
-                      <label
-                        htmlFor="hotel"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        Otel Adı (Ulaşım İçin) *
-                      </label>
-                    </div>
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="transfer"
-                        name="transfer"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-required="true"
-                        aria-label="Transfer"
-                      />
-                      <label
-                        htmlFor="transfer"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        Transfer *
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-2.5">
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="atv"
-                        name="atv"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-required="true"
-                        aria-label="ATV"
-                      />
-                      <label
-                        htmlFor="atv"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        ATV (Tek Kişilik) *
-                      </label>
-                    </div>
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="notes"
-                        name="notes"
-                        placeholder=" "
-                        class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                        aria-label="Notlar"
-                      />
-                      <label
-                        htmlFor="notes"
-                        class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                      >
-                        Notlar
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- Checkbox -->
-                  <div class="flex flex-col gap-2">
-                    <h2 class="text-sm font-semibold text-gray-950">
-                      Ekstra Hizmetler
-                    </h2>
-                    <div
-                      class="grid grid-cols-1 gap-2.5 sm:grid-cols-2 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
-                    >
-                      <div class="relative">
-                        <input
-                          type="checkbox"
-                          name="checkbox-1"
-                          id="checkbox-1"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="checkbox-1"
-                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:invert"
-                        >
-                          <div class="flex items-center gap-2">
-                            <img
-                              src="/assets/images/form-icons/5.svg"
-                              alt=""
-                              class="check-icon size-6 brightness-0"
-                            />
-                            <span class="text-sm">Seçenek 1</span>
-                          </div>
-                          <div
-                            class="flex size-6 items-center justify-center rounded-sm border transition-colors"
-                            style="
-                              background-color: var(--checkbox-bg);
-                              border-color: var(--checkbox-border);
-                            "
-                          >
-                            <i
-                              data-lucide="check"
-                              class="size-5 stroke-2 text-primary-50 transition-opacity"
-                              style="opacity: var(--checkbox-checked-opacity)"
-                            ></i>
-                          </div>
-                        </label>
-                      </div>
-
-                      <div class="relative">
-                        <input
-                          type="checkbox"
-                          name="checkbox-2"
-                          id="checkbox-2"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="checkbox-2"
-                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:invert"
-                        >
-                          <div class="flex items-center gap-2">
-                            <img
-                              src="/assets/images/form-icons/4.svg"
-                              alt=""
-                              class="check-icon size-6 brightness-0"
-                            />
-                            <span class="text-sm">Seçenek 2</span>
-                          </div>
-                          <div
-                            class="flex size-6 items-center justify-center rounded-sm border transition-colors"
-                            style="
-                              background-color: var(--checkbox-bg);
-                              border-color: var(--checkbox-border);
-                            "
-                          >
-                            <i
-                              data-lucide="check"
-                              class="size-5 stroke-2 text-primary-50 transition-opacity"
-                              style="opacity: var(--checkbox-checked-opacity)"
-                            ></i>
-                          </div>
-                        </label>
-                      </div>
-
-                      <div class="relative">
-                        <input
-                          type="checkbox"
-                          name="checkbox-3"
-                          id="checkbox-3"
-                          class="peer hidden"
-                        />
-                        <label
-                          for="checkbox-3"
-                          class="flex h-11 w-full cursor-pointer items-center justify-between border border-gray-200 bg-gray-100 px-2 text-sm text-gray-800 transition-all duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.700)] peer-checked:[--checkbox-border:theme(colors.primary.50)] peer-checked:[--checkbox-checked-opacity:1] peer-checked:[&>div>img.check-icon]:invert"
-                        >
-                          <div class="flex items-center gap-2">
-                            <img
-                              src="/assets/images/form-icons/7.svg"
-                              alt=""
-                              class="check-icon size-6 brightness-0"
-                            />
-                            <span class="text-sm">Seçenek 3</span>
-                          </div>
-                          <div
-                            class="flex size-6 items-center justify-center rounded-sm border transition-colors"
-                            style="
-                              background-color: var(--checkbox-bg);
-                              border-color: var(--checkbox-border);
-                            "
-                          >
-                            <i
-                              data-lucide="check"
-                              class="size-5 stroke-2 text-primary-50 transition-opacity"
-                              style="opacity: var(--checkbox-checked-opacity)"
-                            ></i>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- TextArea -->
-                  <div class="relative w-full">
-                    <textarea
-                      id="notes2"
-                      rows="5"
-                      name="notes"
-                      placeholder=" "
-                      class="peer w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                    ></textarea>
+                <!-- Kişisel Bilgi Alanları -->
+                <div class="mb-5 space-y-5">
+                  <!-- İsim Soyisim -->
+                  <div class="relative">
                     <label
-                      htmlFor="notes2"
-                      class="absolute -top-3 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
+                      for="fullname"
+                      class="mb-1.5 block text-sm font-medium text-gray-700"
+                    >
+                      İsim Soyisim <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="fullname"
+                      name="fullname"
+                      class="h-12 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                      placeholder="İsim Soyisim"
+                      required
+                    />
+                  </div>
+
+                  <!-- E-posta -->
+                  <div class="relative">
+                    <label
+                      for="email"
+                      class="mb-1.5 block text-sm font-medium text-gray-700"
+                    >
+                      E-posta Adresi <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="h-12 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                      placeholder="E-posta Adresi"
+                      required
+                    />
+                  </div>
+
+                  <!-- Telefon -->
+                  <div class="w-full space-y-2">
+                    <label
+                      for="phone-input"
+                      class="text-sm font-medium text-gray-700"
+                    >
+                      Telefon Numaranız
+                    </label>
+                    <div class="flex w-full">
+                      <div
+                        id="phone-container"
+                        class="group/focus relative w-full"
+                        data-focus="false"
+                      >
+                        <!-- Mevcut Telefon Input Yapısı -->
+                        <div class="flex">
+                          <div class="relative">
+                            <div
+                              id="phone-code-button"
+                              class="rtl:border-r-lg flex h-12 cursor-pointer items-center gap-1 rounded-l-lg border border-r-0 border-gray-200 bg-white pl-3 pr-6 text-xs hover:bg-gray-50 group-data-[focus=true]/focus:rounded-b-none rtl:rounded-l-none rtl:rounded-r rtl:border-l-0"
+                            >
+                              <img
+                                id="country-flag"
+                                src="https://flagcdn.com/us.svg"
+                                alt="flag"
+                                class="h-4 w-5 !rounded object-cover"
+                              />
+                              <span id="country-prefix" class="text-nowrap"
+                                >+1</span
+                              >
+                            </div>
+                            <!-- data-language= "TR" | "EN" -->
+                            <select
+                              id="country-code"
+                              name="country-code"
+                              data-language="EN"
+                              data-default="+44"
+                              disabled
+                              style="-webkit-border-radius: 0; border-radius: 0"
+                              class="pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                            >
+                              <option
+                                value="US"
+                                data-prefix="+1"
+                                data-flag="us"
+                              >
+                                United States (+1)
+                              </option>
+                            </select>
+                          </div>
+                          <input
+                            type="tel"
+                            id="phone-input"
+                            name="phone"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            style="-webkit-border-radius: 0; border-radius: 0"
+                            class="h-12 w-full !rounded-r-lg border border-gray-200 px-3 py-2 outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-200 group-data-[focus=true]/focus:!rounded-b-none rtl:!rounded-l-lg rtl:!rounded-r-none rtl:text-end"
+                            placeholder="Telefon numarası giriniz."
+                          />
+                        </div>
+
+                        <!-- Arama ve Öneri Modal/Dropdown -->
+                        <div
+                          id="phone-search-modal"
+                          class="pointer-events-none absolute left-0 right-0 top-[calc(100%)] z-[30] hidden w-full rounded rounded-t-none border border-t-0 border-gray-200 bg-white shadow-lg"
+                        >
+                          <!-- Search Input -->
+                          <div class="relative border-b border-gray-200">
+                            <input
+                              type="text"
+                              id="phone-search-input"
+                              class="h-12 w-full rounded-t px-3 py-2 outline-none"
+                              placeholder="Ülke Ara"
+                            />
+                            <button
+                              id="phone-clear-button"
+                              class="absolute right-2 top-1/2 hidden -translate-y-1/2 p-1"
+                            >
+                              <i
+                                data-lucide="x"
+                                class="size-4 text-gray-400"
+                              ></i>
+                            </button>
+                          </div>
+
+                          <!-- Suggestions List -->
+                          <div
+                            id="phone-suggestions"
+                            class="max-h-60 overflow-y-auto bg-gray-50"
+                            style="scrollbar-width: none"
+                          >
+                            <!-- Template elements -->
+                            <button
+                              type="button"
+                              class="suggestion-item group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start hover:bg-gray-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                              data-value="US"
+                              data-selected="false"
+                            >
+                              <img
+                                src="https://flagcdn.com/us.svg"
+                                alt="flag"
+                                class="h-4 w-5 object-cover"
+                              />
+                              <span class="flex-1">United States</span>
+                              <span
+                                class="text-xs text-gray-500 group-data-[selected=true]:text-white"
+                              >
+                                +1</span
+                              >
+                            </button>
+
+                            <!-- No Results Template -->
+                            <div class="no-results px-3 py-2.5 text-gray-500">
+                              Sonuç bulunamadı
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Konum -->
+                  <div class="relative">
+                    <label
+                      for="location"
+                      class="mb-1.5 block text-sm font-medium text-gray-700"
+                    >
+                      Alış/Bırakış Konumu <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      class="h-12 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                      placeholder="Otel adı veya konum"
+                      required
+                    />
+                  </div>
+
+                  <!-- Kişi Sayısı Seçimi -->
+                  <div class="mb-5">
+                    <div class="flex w-full justify-between gap-4">
+                      <!-- Yetişkin -->
+                      <div class="w-1/2">
+                        <div class="flex flex-col items-start gap-1.5">
+                          <label class="text-sm font-medium text-gray-700"
+                            >Yetişkin</label
+                          >
+                          <div
+                            class="person-counter-container w-full"
+                            data-min="1"
+                            data-max="10"
+                          >
+                            <div
+                              class="flex w-full items-center rounded-md border border-gray-200 bg-gray-50"
+                            >
+                              <button
+                                type="button"
+                                class="number-input-minus flex h-10 w-10 items-center justify-center text-gray-500 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              >
+                                <i data-lucide="minus" class="size-4"></i>
+                              </button>
+                              <input
+                                type="number"
+                                name="adult-count"
+                                id="adult-count"
+                                class="number-input-value h-10 w-full flex-1 border-x border-gray-200 bg-white text-center text-sm outline-none"
+                                value="1"
+                                readonly
+                              />
+                              <span class="number-input-display hidden">1</span>
+                              <button
+                                type="button"
+                                class="number-input-plus flex h-10 w-10 items-center justify-center text-gray-500 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              >
+                                <i data-lucide="plus" class="size-4"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Çocuk -->
+                      <div class="w-1/2">
+                        <div class="flex flex-col items-start gap-1.5">
+                          <label class="text-sm font-medium text-gray-700"
+                            >Çocuk</label
+                          >
+                          <div
+                            class="person-counter-container w-full"
+                            data-min="0"
+                            data-max="5"
+                          >
+                            <div
+                              class="flex w-full items-center rounded-md border border-gray-200 bg-gray-50"
+                            >
+                              <button
+                                type="button"
+                                class="number-input-minus flex h-10 w-10 items-center justify-center text-gray-500 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              >
+                                <i data-lucide="minus" class="size-4"></i>
+                              </button>
+                              <input
+                                type="number"
+                                name="child-count"
+                                id="child-count"
+                                class="number-input-value h-10 w-full flex-1 border-x border-gray-200 bg-white text-center text-sm outline-none"
+                                value="0"
+                                readonly
+                              />
+                              <span class="number-input-display hidden">0</span>
+                              <button
+                                type="button"
+                                class="number-input-plus flex h-10 w-10 items-center justify-center text-gray-500 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              >
+                                <i data-lucide="plus" class="size-4"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Notlar - Opsiyonel -->
+                  <div class="relative">
+                    <label
+                      for="notes"
+                      class="mb-1.5 block text-sm font-medium text-gray-700"
                     >
                       Notlar
+                      <span class="text-xs font-normal text-gray-500"
+                        >(Opsiyonel)</span
+                      >
                     </label>
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      rows="3"
+                      class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                      placeholder="Eklemek istediğiniz notlar"
+                    ></textarea>
                   </div>
+                </div>
 
-                  <!-- Error Message Area -->
-                  <div class="mt-4 flex items-center justify-center">
-                    <span
-                      id="error-message"
-                      class="-mt-1.5 w-full border border-rose-400 bg-rose-50 px-4 py-2 text-xs font-medium text-rose-700"
+                <!-- Kupon ve Fiyat Bölümü -->
+                <div class="mt-6 space-y-5">
+                  <!-- Ayrım Çizgisi -->
+                  <div class="h-px w-full bg-gray-200"></div>
+
+                  <!-- Kupon Kodu Alanı -->
+                  <div class="relative">
+                    <label
+                      for="coupon-code"
+                      class="mb-1.5 block text-sm font-medium text-gray-700"
+                      >İndirim Kuponu</label
                     >
-                      Lütfen * ile işaretli tüm alanları doldurun.
-                    </span>
-                  </div>
-
-                  <!-- Success Message Area -->
-                  <div class="mt-4 flex items-center justify-center">
-                    <span
-                      id="error-message"
-                      class="-mt-1.5 w-full border border-lime-400 bg-lime-50 px-4 py-2 text-xs font-medium text-lime-700"
-                    >
-                      Başarılı! Form başarıyla gönderildi.
-                    </span>
-                  </div>
-
-                  <div class="border-t pt-4">
-                    <div class="mb-4 space-y-2">
-                      <h2 class="text-sm font-semibold text-gray-950">
-                        İndirim Kuponu
-                      </h2>
-
-                      <div class="flex items-center gap-2">
-                        <div class="relative flex-1">
-                          <input
-                            type="text"
-                            id="coupon-code"
-                            name="coupon-code"
-                            placeholder=" "
-                            class="peer h-[44px] w-full border bg-transparent px-3 text-sm outline-none transition-all duration-200"
-                          />
-                          <label
-                            for="coupon-code"
-                            class="absolute -top-2 left-2 cursor-text text-nowrap bg-white px-1 text-xs transition-all peer-placeholder-shown:pointer-events-none peer-placeholder-shown:top-[13px] peer-placeholder-shown:text-sm peer-focus:pointer-events-auto peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 rtl:left-auto rtl:right-2"
-                          >
-                            Kupon Kodu
-                          </label>
-                        </div>
-                        <button
-                          type="button"
-                          id="apply-coupon"
-                          class="h-[44px] whitespace-nowrap rounded-sm border border-primary-400 bg-primary-500 px-4 py-1 text-sm font-medium text-white transition-all duration-300 hover:opacity-75 active:scale-95"
-                        >
-                          Uygula
-                        </button>
-                      </div>
-
-                      <!-- Success Bilgisi - -->
-                      <div
-                        id="discount-info"
-                        class="rounded-sm border border-lime-400 bg-lime-50 p-2"
-                      >
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center gap-2">
-                            <i
-                              data-lucide="check"
-                              class="size-4 text-lime-500"
-                            ></i>
-                            <span class="text-xs font-medium text-lime-700"
-                              >Kupon uygulandı!</span
-                            >
-                          </div>
-                          <span class="text-xs font-medium text-lime-700"
-                            >-<span id="discount-amount">50.00</span> AED</span
-                          >
-                        </div>
-                      </div>
-                      <!-- Hata Bilgisi -->
-                      <div
-                        id="discount-info"
-                        class="rounded-sm border border-rose-400 bg-rose-50 p-2"
-                      >
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center gap-2">
-                            <i
-                              data-lucide="alert-circle"
-                              class="size-4 text-rose-500"
-                            ></i>
-                            <span class="text-xs font-medium text-rose-700"
-                              >Lütfen geçerli bir kupon kodu girin.</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Fiyat Özeti - border-t pt-4 kısmı -->
-                    <div class="border-t pt-4">
-                      <div
-                        class="-mt-2 flex flex-col items-end justify-start px-2 pb-4"
-                      >
-                        <!-- Toplam -->
-                        <span class="text-xs font-bold text-primary-500"
-                          >Toplam</span
-                        >
-                        <span class="text-base font-semibold text-gray-800"
-                          ><span id="total-price">550</span> AED</span
-                        >
+                    <div class="flex items-center">
+                      <div class="relative flex-1">
+                        <input
+                          type="text"
+                          id="coupon-code"
+                          name="coupon-code"
+                          class="h-12 w-full rounded-l-md border border-r-0 border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-r focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                          placeholder="Kupon kodu girin"
+                        />
                       </div>
                       <button
-                        type="submit"
-                        id="purchase-submit-btn"
-                        class="group -mt-2 h-[52px] w-full border border-primary-400 bg-primary-500 text-lg font-semibold text-white transition-all duration-300 hover:opacity-75 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
-                        aria-label="Aktiviteyi Satın Al"
+                        type="button"
+                        id="apply-coupon"
+                        class="h-12 rounded-r-md border border-primary-400 bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-primary-600 active:scale-95"
                       >
-                        <span class="block group-disabled:hidden">
-                          Aktiviteyi Satın Al
-                        </span>
-
-                        <span
-                          class="hidden items-center justify-center gap-2 group-disabled:flex"
-                        >
-                          <span> İşlem Devam Ediyor </span>
-                          <img
-                            src="/assets/images/icons/loading-spinner.svg"
-                            alt="Loading"
-                            class="size-6 animate-spin brightness-0 invert !duration-[2500ms]"
-                          />
-                        </span>
+                        Uygula
                       </button>
                     </div>
+
+                    <!-- Kupon Başarı Mesajı (Normalde gizli, kupon uygulandığında gösterilir) -->
+                    <div
+                      id="discount-info"
+                      class="my-2 rounded-md border border-lime-200 bg-lime-50 p-3"
+                    >
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <i
+                            data-lucide="check"
+                            class="size-4 text-lime-600"
+                          ></i>
+                          <span class="text-sm font-medium text-lime-600"
+                            >Kupon uygulandı!</span
+                          >
+                        </div>
+                        <span class="text-sm font-medium text-lime-600"
+                          >-<span id="discount-amount">50.00</span> AED</span
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Kupon Hata Mesajı (Normalde gizli, hatalı kupon kodunda gösterilir) -->
+                    <div
+                      id="coupon-error"
+                      class="my-2 rounded-md border border-rose-200 bg-rose-50 p-3"
+                    >
+                      <div class="flex items-center gap-2">
+                        <i
+                          data-lucide="alert-circle"
+                          class="size-4 text-rose-600"
+                        ></i>
+                        <span class="text-sm font-medium text-rose-600"
+                          >Geçersiz kupon kodu.</span
+                        >
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- Fiyat Özeti -->
+                  <div class="rounded-md border border-gray-200 bg-gray-50 p-4">
+                    <h3 class="mb-3 text-base font-medium text-gray-800">
+                      Fiyat Özeti
+                    </h3>
+
+                    <div class="space-y-2">
+                      <!-- Birim Fiyat -->
+                      <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Birim Fiyat</span>
+                        <span class="text-sm font-medium text-gray-800"
+                          >450 AED</span
+                        >
+                      </div>
+
+                      <!-- Kişi Sayısı -->
+                      <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Kişi Sayısı</span>
+                        <span class="text-sm font-medium text-gray-800"
+                          >1 Yetişkin</span
+                        >
+                      </div>
+
+                      <!-- İndirim (Kupon uygulandığında gösterilir) -->
+                      <div
+                        id="discount-row"
+                        class="flex items-center justify-between"
+                      >
+                        <span class="text-sm text-gray-600">İndirim</span>
+                        <span class="text-sm font-medium text-lime-600"
+                          >-<span id="total-discount">0.00</span> AED</span
+                        >
+                      </div>
+
+                      <!-- Ayrım Çizgisi -->
+                      <div class="my-2 h-px w-full bg-gray-200"></div>
+
+                      <!-- Toplam Tutar - Vurgulanmış -->
+                      <div class="flex items-center justify-between pb-1 pt-1">
+                        <span class="text-base font-medium text-gray-800"
+                          >Toplam</span
+                        >
+                        <span class="text-xl font-bold text-primary-600"
+                          ><span id="total-price">450.00</span> AED</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Satın Al Butonu -->
+                  <button
+                    type="submit"
+                    id="purchase-submit-btn"
+                    class="group h-14 w-full rounded-md border border-primary-400 bg-primary-500 text-base font-semibold text-white transition-all duration-300 hover:bg-primary-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
+                    aria-label="Rezervasyonu Tamamla"
+                  >
+                    <span class="block group-disabled:hidden">
+                      Rezervasyonu Tamamla
+                    </span>
+                    <span
+                      class="hidden items-center justify-center gap-2 group-disabled:flex"
+                    >
+                      <span>İşlem Devam Ediyor</span>
+                      <img
+                        src="/assets/images/icons/loading-spinner.svg"
+                        alt="Loading"
+                        class="size-6 animate-spin brightness-0 invert !duration-[2500ms]"
+                      />
+                    </span>
+                  </button>
+
+                  <label
+                    class="group relative flex cursor-pointer items-start gap-2"
+                  >
+                    <input
+                      type="checkbox"
+                      class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                      name="terms"
+                      checked=""
+                      required=""
+                    />
+                    <span class="text-pretty text-xs">
+                      I consent to the transfer of my personal data abroad
+                      within the scope of the
+                      <a
+                        target="_blank"
+                        href="https://guideofdubai.com/privacy"
+                        class="underline hover:text-primary-500"
+                        >Privacy Policy</a
+                      >.
+                    </span>
+                  </label>
                 </div>
               </div>
             </form>
@@ -3168,7 +3281,7 @@
     <!-- Fixed Mobile Complete Purchase Button -->
     <div
       id="complete-purchase-container"
-      class="w-full overflow-hidden border-t border-gray-200 bg-white p-3 md:hidden"
+      class="fixed bottom-0 left-0 right-0 z-50 w-full overflow-hidden border-t border-gray-200 bg-white p-4 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] md:hidden"
     >
       <div class="flex items-center justify-between gap-4">
         <div class="flex flex-shrink-0 flex-col">
@@ -3177,18 +3290,26 @@
             <span class="text-xs font-medium text-gray-500 line-through"
               >650 AED</span
             >
-            <span class="text-lg font-semibold text-primary-500">550 AED</span>
+            <span class="text-xl font-bold text-primary-600">550 AED</span>
           </div>
         </div>
         <button
-          class="flex h-12 w-full max-w-[240px] items-center justify-center gap-2.5 rounded-full bg-primary-500 text-sm font-semibold text-white transition-all duration-300 active:scale-95"
+          type="submit"
+          form="purchase-form"
+          class="group flex h-12 w-full max-w-[240px] items-center justify-center gap-2 rounded-lg bg-primary-500 text-sm font-semibold text-white transition-all duration-300 hover:bg-primary-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
         >
-          <span class="-mb-[0.15rem]">Aktiviteyi Satın Al</span>
-
-          <i
-            data-lucide="shopping-cart"
-            class="size-5 scale-x-[-1] rtl:scale-x-[1]"
-          ></i>
+          <span class="block group-disabled:hidden">Rezervasyonu Tamamla</span>
+          <span
+            class="hidden items-center justify-center gap-2 group-disabled:flex"
+          >
+            <span>İşlem Devam Ediyor</span>
+            <img
+              src="/assets/images/icons/loading-spinner.svg"
+              alt="Loading"
+              class="size-5 animate-spin brightness-0 invert !duration-[2500ms]"
+            />
+          </span>
+          <i data-lucide="arrow-right" class="size-5 rtl:rotate-180"></i>
         </button>
       </div>
     </div>
