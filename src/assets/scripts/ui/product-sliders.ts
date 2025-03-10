@@ -320,3 +320,80 @@ const galleryConfig = {
   thumbnailClass: 'thumbnail',
   activeThumbnailClass: 'thumbnail-active',
 }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const mobileGalleryController = document.getElementById(
+//     'mobile-gallery-controller',
+//   )
+
+//   if (mobileGalleryController) {
+//     // Başlangıçta hepsini disable yap
+//     mobileGalleryController.setAttribute('data-active', '0')
+
+//     for (let i = 1; i <= 4; i++) {
+//       const mobileSlider = document.getElementById(`slider-${i}`)
+//       if (mobileSlider) mobileSlider.setAttribute('data-status', 'disable')
+//     }
+
+//     // Input değişikliklerini dinle - name değerini "campselection" olarak düzelttim
+//     const inputs = document.querySelectorAll('input[name="campselection"]')
+
+//     inputs.forEach(input => {
+//       input.addEventListener('change', e => {
+//         const target = e.target as HTMLInputElement
+//         let activeIndex = 0
+
+//         // Input ID'sine göre aktif index'i belirle - ID'ler HTML ile aynı
+//         switch (target.id) {
+//           case 'campselection-0':
+//             activeIndex = 1
+//             break
+//           case 'campselection-1':
+//             activeIndex = 2
+//             break
+//           case 'campselection-2':
+//             activeIndex = 3
+//             break
+//           case 'campselection-3':
+//             activeIndex = 4
+//             break
+//         }
+
+//         // Önceki aktif slider'ları disable et
+//         const currentMobileActive = parseInt(
+//           mobileGalleryController.getAttribute('data-active') || '0',
+//         )
+
+//         if (currentMobileActive > 0) {
+//           const currentMobileSlider = document.getElementById(
+//             `slider-${currentMobileActive}`,
+//           )
+//           if (currentMobileSlider) {
+//             currentMobileSlider.setAttribute('data-status', 'disable')
+//           }
+//         }
+
+//         mobileGalleryController.setAttribute(
+//           'data-active',
+//           activeIndex.toString(),
+//         )
+
+//         // Yeni slider'ları enable et - desktop-slider'ı kaldırdım çünkü HTML'de yok
+//         if (activeIndex > 0) {
+//           const newMobileSlider = document.getElementById(
+//             `slider-${activeIndex}`,
+//           )
+//           if (newMobileSlider) {
+//             newMobileSlider.setAttribute('data-status', 'enable')
+//           }
+//         }
+//       })
+//     })
+
+//     // Sayfa yüklendiğinde varsayılan olarak ilk input'u seç
+//     // HTML'de checked olan input bulunamadığından ilk input'u seçiyoruz
+//     const firstInput = document.querySelector(
+//       'input[name="campselection"]',
+//     ) as HTMLInputElement
+//   }
+// })

@@ -64,7 +64,6 @@
     <script type="module" src="/assets/scripts/layout.js"></script>
     <script type="module" src="/assets/scripts/product.js"></script>
     <script type="module" src="/assets/scripts/ui/product-sliders.js"></script>
-    <script type="module" src="/assets/scripts/ui/test-lazy-slider.js"></script>
     <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
 
     <script>
@@ -988,210 +987,6 @@
       </div>
     </header>
 
-    <!-- DatePicker Modal -->
-    <div
-      id="date-picker"
-      data-language="en"
-      data-timepicker="false"
-      class="group/modal absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
-    >
-      <div class="flex flex-col sm:flex-row">
-        <!-- Date Picker -->
-        <div
-          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white group-data-[timepicker=false]/modal:rounded-tr-lg sm:rounded-b-none sm:rounded-tr-none"
-        >
-          <!-- Ay Navigasyon Bar -->
-          <div
-            class="flex h-[52px] items-center justify-between border-b border-gray-300/60 bg-gray-50 px-4"
-          >
-            <button
-              id="prev-month"
-              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-              aria-label="Önceki ay"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="m15 18-6-6 6-6"></path>
-              </svg>
-            </button>
-            <div id="current-month" class="current-month">Mart 2025</div>
-            <button
-              id="next-month"
-              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-              aria-label="Sonraki ay"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="m9 18 6-6-6-6"></path>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Takvim İçeriği -->
-          <div class="calendar-container">
-            <div id="calendar-days"></div>
-          </div>
-        </div>
-
-        <!-- Time Picker -->
-        <div
-          id="time-container"
-          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-none border border-y-0 border-gray-300/60 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-y sm:border-l-0"
-        >
-          <div
-            class="flex h-[52px] items-center justify-between border-b border-gray-950/20 bg-gray-50 px-4"
-          >
-            <div class="time-title">Saat</div>
-            <!-- AM/PM Butonu (24 saat formatı kullanılmıyorsa görünecek) -->
-            <div class="ampm-container" id="ampm-container">
-              <button id="ampm-toggle" class="ampm-btn">AM</button>
-            </div>
-          </div>
-
-          <div
-            class="flex items-center justify-center gap-3 p-4"
-            id="time-picker-content"
-          >
-            <!-- Saat kolonu -->
-            <div class="time-column" id="hours-column">
-              <button
-                id="hour-up"
-                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-                aria-label="Saati arttır"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m18 15-6-6-6 6" />
-                </svg>
-              </button>
-              <div id="hour-display" class="time-display">12</div>
-              <button
-                id="hour-down"
-                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-                aria-label="Saati azalt"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-            </div>
-
-            <!-- Ayırıcı -->
-            <div class="time-separator">:</div>
-
-            <!-- Dakika kolonu -->
-            <div class="time-column" id="minutes-column">
-              <button
-                id="minute-up"
-                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-                aria-label="Dakikayı arttır"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m18 15-6-6-6 6" />
-                </svg>
-              </button>
-
-              <div id="minute-display" class="time-display">00</div>
-              <button
-                id="minute-down"
-                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
-                aria-label="Dakikayı azalt"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alt Düğmeler (Mobil için en altta olacak şekilde) -->
-      <div
-        class="w-full rounded-b-lg border border-gray-300/60 bg-gray-100 px-4 py-3 sm:w-[322px] sm:border-t-0"
-      >
-        <div class="flex w-full items-center justify-between">
-          <div class="flex gap-2">
-            <button
-              id="reset-date"
-              class="reset-btn rounded-lg border border-gray-950/20 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
-            >
-              Bugün
-            </button>
-            <button
-              id="reset-all"
-              class="reset-btn rounded-lg border border-gray-950/20 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
-            >
-              Temizle
-            </button>
-          </div>
-          <button
-            id="close-picker"
-            class="close-btn rounded-lg bg-primary-500 px-3 py-2 text-sm text-white transition-colors hover:bg-primary-600"
-          >
-            Kapat
-          </button>
-        </div>
-      </div>
-    </div>
-
     <main class="mx-auto max-w-7xl overflow-hidden pb-6 pt-0 lg:px-6">
       <!-- Breadcrumb -->
       <nav
@@ -1939,7 +1734,7 @@
             >
               <!-- Durum Bildirimleri - Müsaitlik varsa gösterilir -->
               <div
-                class=" border-b border-lime-200 bg-lime-50 px-4 py-3 lg:px-6"
+                class="border-b border-lime-200 bg-lime-50 px-4 py-3 lg:px-6"
               >
                 <div class="flex items-center justify-between gap-2">
                   <p class="text-sm font-medium text-lime-700">
@@ -1995,7 +1790,8 @@
                       />
                       <label
                         for="morning"
-                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:inve300                       >
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert"
+                      >
                         <img
                           src="/assets/images/form-icons/1.svg"
                           alt=""
@@ -2014,7 +1810,8 @@
                       />
                       <label
                         for="evening"
-                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:inve300                       >
+                        class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert"
+                      >
                         <img
                           src="/assets/images/form-icons/2.svg"
                           alt=""
@@ -2084,12 +1881,16 @@
                     <div class="relative">
                       <input
                         type="radio"
-                        id="silver"
-                        name="camp-type"
+                        id="campselection-0"
+                        name="campselection"
+                        value="0"
+                        data-gallery-id="3"
+                        data-priceinput="true"
+                        data-gallery="campselection"
                         class="peer hidden"
                       />
                       <label
-                        for="silver"
+                        for="campselection-0"
                         class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-300 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
                       >
                         <img
@@ -2104,12 +1905,16 @@
                     <div class="relative">
                       <input
                         type="radio"
-                        id="gold"
-                        name="camp-type"
+                        id="campselection-1"
+                        name="campselection"
+                        value="1"
                         class="peer hidden"
+                        data-gallery-id="3"
+                        data-priceinput="true"
+                        data-gallery="campselection"
                       />
                       <label
-                        for="gold"
+                        for="campselection-1"
                         class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-300 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
                       >
                         <img
@@ -2124,12 +1929,16 @@
                     <div class="relative">
                       <input
                         type="radio"
-                        id="premium"
-                        name="camp-type"
+                        id="campselection-2"
+                        name="campselection"
+                        value="2"
                         class="peer hidden"
+                        data-gallery-id="3"
+                        data-priceinput="true"
+                        data-gallery="campselection"
                       />
                       <label
-                        for="premium"
+                        for="campselection-2"
                         class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-300 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
                       >
                         <img
@@ -2144,12 +1953,16 @@
                     <div class="relative">
                       <input
                         type="radio"
-                        id="platinum"
-                        name="camp-type"
+                        id="campselection-3"
+                        name="campselection"
+                        value="3"
                         class="peer hidden"
+                        data-gallery-id="4"
+                        data-priceinput="true"
+                        data-gallery="campselection"
                       />
                       <label
-                        for="platinum"
+                        for="campselection-3"
                         class="flex h-12 cursor-pointer items-center justify-start gap-3 rounded-md border border-gray-950/20 bg-gray-100 px-3 transition-colors duration-300 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:cursor-not-allowed peer-disabled:border-gray-400 peer-disabled:bg-gray-400 peer-disabled:text-gray-800 peer-disabled:opacity-50 lg:hover:border-gray-400 peer-checked:[&>.size-6]:brightness-0 peer-checked:[&>.size-6]:invert peer-disabled:[&>.size-6]:brightness-0"
                       >
                         <img
@@ -2544,6 +2357,99 @@
                   </div>
                 </div>
 
+                <!-- Kamp Seçimi Gallery JavaScript -->
+                <script>
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const mobileGalleryController = document.getElementById(
+                      'mobile-gallery-controller',
+                    )
+
+                    if (mobileGalleryController) {
+                      // Başlangıçta hepsini disable yap
+                      mobileGalleryController.setAttribute('data-active', '0')
+
+                      for (let i = 1; i <= 4; i++) {
+                        const mobileSlider = document.getElementById(
+                          `slider-${i}`,
+                        )
+                        if (mobileSlider)
+                          mobileSlider.setAttribute('data-status', 'disable')
+                      }
+
+                      // Input değişikliklerini dinle - name değerini "campselection" olarak düzelttim
+                      const inputs = document.querySelectorAll(
+                        'input[name="campselection"]',
+                      )
+
+                      inputs.forEach(input => {
+                        input.addEventListener('change', e => {
+                          const target = e.target
+                          let activeIndex = 0
+
+                          // Input ID'sine göre aktif index'i belirle - ID'ler HTML ile aynı
+                          switch (target.id) {
+                            case 'campselection-0':
+                              activeIndex = 1
+                              break
+                            case 'campselection-1':
+                              activeIndex = 2
+                              break
+                            case 'campselection-2':
+                              activeIndex = 3
+                              break
+                            case 'campselection-3':
+                              activeIndex = 4
+                              break
+                          }
+
+                          // Önceki aktif slider'ları disable et
+                          const currentMobileActive = parseInt(
+                            mobileGalleryController.getAttribute(
+                              'data-active',
+                            ) || '0',
+                          )
+
+                          if (currentMobileActive > 0) {
+                            const currentMobileSlider = document.getElementById(
+                              `slider-${currentMobileActive}`,
+                            )
+                            if (currentMobileSlider) {
+                              currentMobileSlider.setAttribute(
+                                'data-status',
+                                'disable',
+                              )
+                            }
+                          }
+
+                          mobileGalleryController.setAttribute(
+                            'data-active',
+                            activeIndex.toString(),
+                          )
+
+                          // Yeni slider'ları enable et - desktop-slider'ı kaldırdım çünkü HTML'de yok
+                          if (activeIndex > 0) {
+                            const newMobileSlider = document.getElementById(
+                              `slider-${activeIndex}`,
+                            )
+                            if (newMobileSlider) {
+                              newMobileSlider.setAttribute(
+                                'data-status',
+                                'enable',
+                              )
+                            }
+                          }
+                        })
+                      })
+
+                      // Sayfa yüklendiğinde varsayılan olarak ilk input'u seç
+                      // HTML'de checked olan input bulunamadığından ilk input'u seçiyoruz
+                      const firstInput = document.querySelector(
+                        'input[name="campselection"]',
+                      )
+                    }
+                  })
+                </script>
+
                 <!-- Ekstra Hizmetler -->
                 <div class="mb-5">
                   <h2 class="mb-2 text-sm font-medium text-gray-700">
@@ -2560,7 +2466,7 @@
                       />
                       <label
                         for="checkbox-1"
-                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
                       >
                         <div class="flex items-center gap-2">
                           <img
@@ -2601,7 +2507,7 @@
                       />
                       <label
                         for="checkbox-2"
-                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
                       >
                         <div class="flex items-center gap-2">
                           <img
@@ -2642,7 +2548,7 @@
                       />
                       <label
                         for="checkbox-3"
-                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
                       >
                         <div class="flex items-center gap-2">
                           <img
@@ -2683,7 +2589,7 @@
                       />
                       <label
                         for="checkbox-4"
-                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200 hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
+                        class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-3 text-sm text-gray-800 transition-colors duration-200 [--checkbox-bg:white] [--checkbox-border:theme(colors.gray.400)] [--checkbox-checked-opacity:0] hover:bg-gray-200/60 peer-checked:border-primary-400 peer-checked:bg-primary-500 peer-checked:text-white peer-checked:[--checkbox-bg:theme(colors.primary.50)] peer-checked:[--checkbox-border:theme(colors.primary.700)] peer-checked:[--checkbox-checked-opacity:1] lg:hover:border-gray-400 peer-checked:[&>div>img.check-icon]:brightness-0 peer-checked:[&>div>img.check-icon]:invert"
                       >
                         <div class="flex items-center gap-2">
                           <img
@@ -3287,6 +3193,211 @@
         </div>
       </div>
     </main>
+
+    <!-- DatePicker Modal -->
+    <div
+      id="date-picker"
+      data-language="en"
+      data-timepicker="false"
+      class="group/modal absolute !z-[200000] flex flex-col overflow-hidden opacity-0"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col sm:flex-row">
+        <!-- Date Picker -->
+        <div
+          class="date-container relative overflow-hidden rounded-lg rounded-b-none border border-gray-300/60 bg-white group-data-[timepicker=false]/modal:rounded-tr-lg sm:rounded-b-none sm:rounded-tr-none"
+        >
+          <!-- Ay Navigasyon Bar -->
+          <div
+            class="flex h-[52px] items-center justify-between border-b border-gray-300/60 bg-gray-50 px-4"
+          >
+            <button
+              id="prev-month"
+              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Önceki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </button>
+            <div id="current-month" class="current-month">Mart 2025</div>
+            <button
+              id="next-month"
+              class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-x-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+              aria-label="Sonraki ay"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Takvim İçeriği -->
+          <div class="calendar-container">
+            <div id="calendar-days"></div>
+          </div>
+        </div>
+
+        <!-- Time Picker -->
+        <div
+          id="time-container"
+          class="relative flex h-fit min-w-fit flex-col overflow-hidden rounded-b-none border border-y-0 border-gray-300/60 bg-white sm:rounded-r-lg sm:rounded-bl-none sm:border-y sm:border-l-0"
+        >
+          <div
+            class="flex h-[52px] items-center justify-between border-b border-gray-950/20 bg-gray-50 px-4"
+          >
+            <div class="time-title">Saat</div>
+            <!-- AM/PM Butonu (24 saat formatı kullanılmıyorsa görünecek) -->
+            <div class="ampm-container" id="ampm-container">
+              <button id="ampm-toggle" class="ampm-btn">AM</button>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-center gap-3 p-4"
+            id="time-picker-content"
+          >
+            <!-- Saat kolonu -->
+            <div class="time-column" id="hours-column">
+              <button
+                id="hour-up"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati arttır"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+              </button>
+              <div id="hour-display" class="time-display">12</div>
+              <button
+                id="hour-down"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Saati azalt"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Ayırıcı -->
+            <div class="time-separator">:</div>
+
+            <!-- Dakika kolonu -->
+            <div class="time-column" id="minutes-column">
+              <button
+                id="minute-up"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[-5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı arttır"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+              </button>
+
+              <div id="minute-display" class="time-display">00</div>
+              <button
+                id="minute-down"
+                class="flex size-8 flex-col items-center justify-center rounded-full bg-gray-100 p-1 text-primary-500 transition-all duration-300 hover:translate-y-[5%] hover:bg-primary-100 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-50"
+                aria-label="Dakikayı azalt"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt Düğmeler (Mobil için en altta olacak şekilde) -->
+      <div
+        class="w-full rounded-b-lg border border-gray-300/60 bg-gray-100 px-4 py-3 sm:w-[322px] sm:border-t-0"
+      >
+        <div class="flex w-full items-center justify-between">
+          <div class="flex gap-2">
+            <button
+              id="reset-date"
+              class="reset-btn rounded-lg border border-gray-950/20 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Bugün
+            </button>
+            <button
+              id="reset-all"
+              class="reset-btn rounded-lg border border-gray-950/20 bg-white px-3 py-2 text-sm text-primary-500 transition-colors hover:bg-gray-50"
+            >
+              Temizle
+            </button>
+          </div>
+          <button
+            id="close-picker"
+            class="close-btn rounded-lg bg-primary-500 px-3 py-2 text-sm text-white transition-colors hover:bg-primary-600"
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Fixed Mobile Complete Purchase Button -->
     <div
