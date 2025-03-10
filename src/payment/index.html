@@ -1358,7 +1358,7 @@
                     class="flex cursor-pointer items-center gap-1 text-sm text-primary-600 lg:hidden"
                   >
                     <span
-                      style="--message-open: 'Detayları Göster'"
+                      style="--message-open: 'Kupon Tanımla'"
                       data-close="Detayları Gizle"
                       class="before:content-[var(--message-open)]"
                     ></span>
@@ -1372,6 +1372,30 @@
                   5,850.00 AED
                 </dd>
               </label>
+
+              <!-- Peer selector sorununu çözmek için style -->
+              <style>
+                /* Checkbox checked olduğunda içerik değişimi */
+                input[type='checkbox']#priceToggle:checked ~ label span:before {
+                  content: attr(data-close);
+                }
+
+                /* Checkbox checked olduğunda ikon dönüşü */
+                input[type='checkbox']#priceToggle:checked ~ label i {
+                  transform: rotate(180deg);
+                }
+
+                /* Grid rows değişimi */
+                input[type='checkbox']#priceToggle:checked ~ div {
+                  grid-template-rows: 1fr;
+                }
+
+                input[type='checkbox']#priceToggle:checked
+                  ~ label
+                  .detail-icon {
+                  transform: rotate(180deg);
+                }
+              </style>
             </div>
           </div>
         </div>
