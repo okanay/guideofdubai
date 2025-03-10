@@ -2961,7 +2961,7 @@
                   <div class="mt-4 flex items-center justify-center">
                     <span
                       id="error-message"
-                      class="-mt-1.5 w-full border border-primary-400 bg-primary-50 px-4 py-2 text-xs font-semibold text-primary-600"
+                      class="-mt-1.5 w-full border border-rose-400 bg-rose-50 px-4 py-2 text-xs font-medium text-rose-700"
                     >
                       Lütfen * ile işaretli tüm alanları doldurun.
                     </span>
@@ -2971,7 +2971,7 @@
                   <div class="mt-4 flex items-center justify-center">
                     <span
                       id="error-message"
-                      class="-mt-1.5 w-full border border-lime-400 bg-lime-50 px-4 py-2 text-xs font-semibold text-lime-500"
+                      class="-mt-1.5 w-full border border-lime-400 bg-lime-50 px-4 py-2 text-xs font-medium text-lime-700"
                     >
                       Başarılı! Form başarıyla gönderildi.
                     </span>
@@ -3008,7 +3008,7 @@
                         </button>
                       </div>
 
-                      <!-- İndirim Bilgisi - Kupon uygulandığında görünür -->
+                      <!-- Success Bilgisi - -->
                       <div
                         id="discount-info"
                         class="rounded-sm border border-lime-400 bg-lime-50 p-2"
@@ -3026,6 +3026,23 @@
                           <span class="text-xs font-medium text-lime-700"
                             >-<span id="discount-amount">50.00</span> AED</span
                           >
+                        </div>
+                      </div>
+                      <!-- Hata Bilgisi -->
+                      <div
+                        id="discount-info"
+                        class="rounded-sm border border-rose-400 bg-rose-50 p-2"
+                      >
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <i
+                              data-lucide="alert-circle"
+                              class="size-4 text-rose-500"
+                            ></i>
+                            <span class="text-xs font-medium text-rose-700"
+                              >Lütfen geçerli bir kupon kodu girin.</span
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>

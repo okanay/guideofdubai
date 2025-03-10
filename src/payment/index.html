@@ -1338,6 +1338,39 @@
                           Uygula
                         </button>
                       </div>
+                      <div class="mt-2 flex flex-col gap-2">
+                        <!-- Başarı Mesajı -->
+                        <div
+                          id="coupon-success"
+                          class="rounded border border-lime-100 bg-lime-50 p-2"
+                        >
+                          <div class="flex items-center gap-1.5 text-lime-600">
+                            <i
+                              data-lucide="check-circle"
+                              class="size-4 flex-shrink-0"
+                            ></i>
+                            <p class="text-xs">
+                              Kupon başarıyla uygulandı! %15 indirim tanımlandı.
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Hata Mesajı -->
+                        <div
+                          id="coupon-error"
+                          class="rounded border border-red-100 bg-red-50 p-2"
+                        >
+                          <div class="flex items-center gap-1.5 text-red-600">
+                            <i
+                              data-lucide="alert-circle"
+                              class="size-4 flex-shrink-0"
+                            ></i>
+                            <p class="text-xs">
+                              Geçersiz kupon kodu. Lütfen tekrar deneyin.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

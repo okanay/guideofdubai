@@ -553,6 +553,36 @@
             </button>
           </div>
 
+          <!-- Başarı Mesajı -->
+          <div
+            id="coupon-success"
+            class="rounded border border-green-200 bg-green-50 p-3"
+          >
+            <div class="flex items-start gap-2 text-green-600">
+              <i data-lucide="check-circle" class="size-5 flex-shrink-0"></i>
+              <div>
+                <p class="text-sm font-medium">Kupon başarıyla uygulandı!</p>
+                <p class="text-xs">%15 indirim hesabınıza tanımlanmıştır.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hata Mesajı -->
+          <div
+            id="coupon-error"
+            class="rounded border border-red-200 bg-red-50 p-3"
+          >
+            <div class="flex items-start gap-2 text-red-600">
+              <i data-lucide="alert-circle" class="size-5 flex-shrink-0"></i>
+              <div>
+                <p class="text-sm font-medium">Kupon tanımlanamadı</p>
+                <p class="text-xs">
+                  Girdiğiniz kupon kodu geçersiz veya süresi dolmuş.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <!-- Fiyat Özeti -->
           <div class="space-y-2 pt-2">
             <div class="flex items-center justify-between text-sm">
