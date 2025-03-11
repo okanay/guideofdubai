@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         right: '0px',
         bottom: '0px',
         width: '100%',
-        zIndex: '200',
+        zIndex: '5000',
         opacity: '1',
         transform: 'translateY(0%)',
         transition:
