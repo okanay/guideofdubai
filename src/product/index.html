@@ -1716,7 +1716,7 @@
             <div class="mb-2 bg-lime-500 shadow-sm lg:rounded-lg">
               <div class="flex items-center justify-between gap-3 px-4 py-4">
                 <span
-                  class="text-balance text-sm font-medium text-white lg:text-center"
+                  class="text-balance px-1 text-sm font-medium text-white lg:text-center"
                 >
                   For complete the booking please contact to our Whatsapp
                 </span>
@@ -1730,11 +1730,11 @@
 
             <form
               id="purchase-form"
-              class="-mt-1 overflow-hidden bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
+              class="-mt-2 overflow-hidden bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
             >
               <!-- Durum Bildirimleri - Müsaitlik varsa gösterilir -->
               <div
-                class="hidden border-b border-lime-200 bg-lime-50 px-5 py-3 lg:px-6"
+                class="border-b border-lime-200 bg-lime-50 px-5 py-3 lg:px-6"
               >
                 <div class="flex items-center justify-between gap-2">
                   <p class="text-sm font-medium text-lime-700">
@@ -1749,7 +1749,7 @@
 
               <!-- Durum Bildirimleri - Müsaitlik yoksa gösterilir  -->
               <div
-                class="hidden border-b border-rose-200 bg-rose-50 px-6 py-3 lg:px-6"
+                class="hidden border-b border-rose-200 bg-rose-50 px-5 py-3 lg:px-6"
               >
                 <div class="flex items-center justify-between gap-2">
                   <p class="text-sm font-medium text-rose-700">
@@ -1763,20 +1763,22 @@
               </div>
 
               <!-- Form İçeriği -->
-              <div class="px-2 py-5 lg:px-5">
+              <div class="px-2.5 py-5 lg:px-5">
                 <!-- Tur Paketi Bilgisi -->
                 <div
                   class="mb-6 rounded-lg border border-gray-950/20 bg-gray-50 p-3"
                 >
-                  <h3 class="text-sm font-medium text-gray-950">Tur Paketi</h3>
-                  <p class="mt-1 text-sm font-bold text-gray-950">
+                  <h3 class="text-sm font-semibold text-gray-800">
+                    Tur Paketi
+                  </h3>
+                  <p class="mt-1 text-sm font-bold text-primary-500">
                     Lüks Safari Platinium Heritage
                   </p>
                 </div>
 
                 <!-- Safari Saati Seçimi -->
                 <div class="mb-6">
-                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                  <h2 class="mb-2 text-sm font-semibold text-gray-800">
                     Safari Saati
                   </h2>
                   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -1825,7 +1827,7 @@
 
                 <!-- Araç Tahsisi -->
                 <div class="mb-6">
-                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                  <h2 class="mb-2 text-sm font-semibold text-gray-800">
                     Araç Tahsisi
                   </h2>
                   <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -1874,7 +1876,7 @@
 
                 <!-- Kamp Seçimi -->
                 <div class="mb-6">
-                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                  <h2 class="mb-2 text-sm font-semibold text-gray-800">
                     Kamp Seçimi
                   </h2>
                   <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -2452,7 +2454,7 @@
 
                 <!-- Ekstra Hizmetler -->
                 <div class="mb-6">
-                  <h2 class="mb-2 text-sm font-medium text-gray-700">
+                  <h2 class="mb-2 text-sm font-semibold text-gray-800">
                     Ekstra Hizmetler
                   </h2>
                   <div
@@ -2634,7 +2636,7 @@
                     <div class="relative">
                       <label
                         for="fullname"
-                        class="mb-1.5 block text-sm font-medium text-gray-700"
+                        class="mb-1.5 block text-sm font-semibold text-gray-800"
                       >
                         İsim Soyisim <span class="text-rose-500">*</span>
                       </label>
@@ -2652,7 +2654,7 @@
                     <div class="relative">
                       <label
                         for="email"
-                        class="mb-1.5 block text-sm font-medium text-gray-700"
+                        class="mb-1.5 block text-sm font-semibold text-gray-800"
                       >
                         E-posta Adresi <span class="text-rose-500">*</span>
                       </label>
@@ -2675,7 +2677,7 @@
                     <div class="group w-full space-y-2">
                       <label
                         for="phone-input"
-                        class="text-sm font-medium text-gray-700"
+                        class="text-sm font-semibold text-gray-800"
                       >
                         Telefon Numaranız
                       </label>
@@ -2803,7 +2805,7 @@
                     <div class="relative">
                       <label
                         for="location"
-                        class="mb-1.5 block text-sm font-medium text-gray-700"
+                        class="mb-1.5 block text-sm font-semibold text-gray-800"
                       >
                         Alış/Bırakış Konumu <span class="text-rose-500">*</span>
                       </label>
@@ -2828,7 +2830,7 @@
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
-                          <label class="text-sm font-medium text-gray-700"
+                          <label class="text-sm font-semibold text-gray-800"
                             >Yetişkin</label
                           >
                         </div>
@@ -2842,7 +2844,7 @@
                           >
                             <button
                               type="button"
-                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
@@ -2859,7 +2861,7 @@
                             >
                             <button
                               type="button"
-                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-500 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
                             </button>
@@ -2872,7 +2874,7 @@
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
-                          <label class="text-sm font-medium text-gray-700"
+                          <label class="text-sm font-semibold text-gray-800"
                             >Çocuk</label
                           >
                         </div>
@@ -2886,7 +2888,7 @@
                           >
                             <button
                               type="button"
-                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
@@ -2901,7 +2903,7 @@
                             <span class="number-input-display hidden">0</span>
                             <button
                               type="button"
-                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-500 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
                             </button>
@@ -2930,10 +2932,10 @@
                     <!-- Adult Seçimi -->
                     <div class="p-4">
                       <div class="mb-2 flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-700"
+                        <span class="text-sm font-semibold text-gray-800"
                           >Adult</span
                         >
-                        <span class="text-sm font-medium text-gray-700"
+                        <span class="text-sm font-semibold text-gray-800"
                           >$81.42</span
                         >
                       </div>
@@ -2945,11 +2947,11 @@
                         data-max="20"
                       >
                         <div
-                          class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                          class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 hover:border-gray-400 group-hover:border-gray-400"
                         >
                           <button
                             type="button"
-                            class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                           >
                             <i data-lucide="minus" class="size-4"></i>
                           </button>
@@ -2966,7 +2968,7 @@
                           >
                           <button
                             type="button"
-                            class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-500 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                           >
                             <i data-lucide="plus" class="size-4"></i>
                           </button>
@@ -2975,140 +2977,16 @@
 
                       <!-- Toggle Panel - CSS Variables ile -->
                       <div class="mt-4">
-                        <div data-checked="true" class="group/c relative">
+                        <div data-checked="false" class="group/c relative">
                           <input
                             type="checkbox"
                             id="details-toggle[0]"
                             class="hidden"
-                            checked
                             onchange="this.parentNode.setAttribute('data-checked', this.checked ? 'true' : 'false')"
                           />
                           <label
                             for="details-toggle[0]"
-                            class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-4 py-3 text-sm text-gray-800 transition-colors duration-200 hover:bg-gray-200/60"
-                          >
-                            <div class="flex items-center gap-2">
-                              <i
-                                data-lucide="info"
-                                class="size-5 text-primary-500"
-                              ></i>
-                              <span
-                                class="relative font-medium text-white/0 after:absolute after:left-0 after:h-full after:w-full after:text-nowrap after:text-gray-800 after:content-[var(--hide-on)] group-data-[checked=true]/c:after:content-[var(--hide-off)]"
-                                style="
-                                  --hide-off: 'Tur Detaylarını Gizle';
-                                  --hide-on: 'Tur Detaylarını Göster';
-                                "
-                              >
-                                Tur Detayları
-                              </span>
-                            </div>
-                            <div>
-                              <i
-                                data-lucide="chevron-down"
-                                class="size-5 transition-transform duration-300 group-data-[checked=true]/c:rotate-180 group-data-[checked=true]/c:text-primary-500"
-                              ></i>
-                            </div>
-                          </label>
-
-                          <div
-                            class="grid grid-rows-[0fr] overflow-hidden group-data-[checked=true]/c:grid-rows-[1fr]"
-                            style="transition: grid-template-rows 0.3s ease-out"
-                          >
-                            <div class="min-h-0">
-                              <div
-                                class="mt-2 rounded-md border border-gray-200 bg-white p-4 text-sm text-gray-600"
-                              >
-                                <p class="text-muted small mt-1">
-                                  Inclusion:<br /><br />🐠 Aquarium Tunnel<br />🌊
-                                  Underwater Zoo<br />🐧 Penguin Cove &amp;
-                                  Nursery<br />🚤 Glass Bottom Boat Tour<br />🐟
-                                  Aqua Feast (Fish Feeding) (Subject to
-                                  availability)<br /><br /><br />Exclusion:<br /><br />Pictures
-                                  are not allowed<br /><br />Terms &amp;
-                                  Conditions:<br /><br />👶 Children under 15
-                                  years must be accompanied by an adult (15+
-                                  years old)<br />❌ Not applicable for children
-                                  below 2 years of age<br />❌ Not applicable
-                                  for pregnant guests<br />📅 Subject to
-                                  availability
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Tur Başlığı ve Adult Seçimi -->
-                  <div
-                    class="overflow-hidden rounded-lg border border-gray-200 bg-gray-50"
-                  >
-                    <!-- Tur Başlığı -->
-                    <div class="border-b border-gray-200 bg-gray-100 px-4 py-3">
-                      <h3 class="text-base font-semibold text-gray-800">
-                        Ultimate Experience Admission
-                      </h3>
-                    </div>
-
-                    <!-- Adult Seçimi -->
-                    <div class="p-4">
-                      <div class="mb-2 flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-700"
-                          >Adult</span
-                        >
-                        <span class="text-sm font-medium text-gray-700"
-                          >$81.42</span
-                        >
-                      </div>
-
-                      <!-- Sayı Seçici -->
-                      <div
-                        class="person-counter-container w-full"
-                        data-min="0"
-                        data-max="20"
-                      >
-                        <div
-                          class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
-                        >
-                          <button
-                            type="button"
-                            class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
-                          >
-                            <i data-lucide="minus" class="size-4"></i>
-                          </button>
-                          <input
-                            type="text"
-                            name="adult-count"
-                            id="adult-count"
-                            class="number-input-value h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                            value="0"
-                            readonly
-                          />
-                          <span class="number-input-display hidden w-full"
-                            >0</span
-                          >
-                          <button
-                            type="button"
-                            class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-500 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
-                          >
-                            <i data-lucide="plus" class="size-4"></i>
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Toggle Panel - input checked değil data-checked="false" -->
-                      <div class="mt-4">
-                        <div data-checked="false" class="group/c relative">
-                          <input
-                            type="checkbox"
-                            id="details-toggle[1]"
-                            class="hidden"
-                            onchange="this.parentNode.setAttribute('data-checked', this.checked ? 'true' : 'false')"
-                          />
-                          <label
-                            for="details-toggle[1]"
-                            class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-4 py-3 text-sm text-gray-800 transition-colors duration-200 hover:bg-gray-200/60"
+                            class="flex h-12 w-full cursor-pointer items-center justify-between rounded-md border border-gray-950/20 bg-gray-100 px-4 py-3 text-sm text-gray-800 transition-colors duration-200 hover:border-gray-400 hover:bg-gray-200/60"
                           >
                             <div class="flex items-center gap-2">
                               <i
@@ -3169,7 +3047,7 @@
                   <label
                     for="date-input"
                     id="date-input-label"
-                    class="mb-1.5 block text-sm font-medium text-gray-700"
+                    class="mb-1.5 block text-sm font-semibold text-gray-800"
                   >
                     Tarih Seçimi <span class="text-rose-500">*</span>
                   </label>
@@ -3204,7 +3082,7 @@
                 <div class="group relative mb-6">
                   <label
                     for="notes"
-                    class="mb-1.5 block text-sm font-medium text-gray-700"
+                    class="mb-1.5 block text-sm font-semibold text-gray-800"
                   >
                     Notlar
                     <span class="text-xs font-normal text-gray-500"
@@ -3229,7 +3107,7 @@
                   <div class="group relative">
                     <label
                       for="coupon-code"
-                      class="mb-1.5 block text-sm font-medium text-gray-700"
+                      class="mb-1.5 block text-sm font-semibold text-gray-800"
                       >İndirim Kuponu</label
                     >
                     <div class="flex items-center">
@@ -3319,7 +3197,7 @@
                       <!-- Birim Fiyatlar -->
                       <div class="mb-3 space-y-1.5">
                         <div class="flex items-center justify-between">
-                          <span class="text-sm font-medium text-gray-700"
+                          <span class="text-sm font-semibold text-gray-800"
                             >Temel Paket</span
                           >
                           <span class="text-sm font-medium text-gray-800"
@@ -3346,11 +3224,11 @@
                             >
                               <i data-lucide="plus" class="size-2.5"></i>
                             </div>
-                            <span class="text-sm font-medium text-gray-700"
+                            <span class="text-sm font-semibold text-gray-800"
                               >Yetişkin</span
                             >
                             <span
-                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700"
+                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-800"
                               >× 2</span
                             >
                           </div>
@@ -3367,11 +3245,11 @@
                             >
                               <i data-lucide="plus" class="size-2.5"></i>
                             </div>
-                            <span class="text-sm font-medium text-gray-700"
+                            <span class="text-sm font-semibold text-gray-800"
                               >Çocuk</span
                             >
                             <span
-                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700"
+                              class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-800"
                               >× 3</span
                             >
                           </div>
@@ -3385,7 +3263,7 @@
                       <div class="space-y-2">
                         <!-- Ekstra Seçimler -->
                         <div class="flex items-center justify-between">
-                          <span class="text-sm text-gray-600"
+                          <span class="text-sm font-semibold text-gray-800"
                             >Ekstra Hizmetler</span
                           >
                           <span class="text-sm font-medium text-gray-800"
