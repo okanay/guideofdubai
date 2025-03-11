@@ -10,6 +10,7 @@ declare global {
   interface Window {
     DynamicSlider: DynamicSlider
     CarBrandSelectInput: SearchableSelect
+    FilterModalController: ModalController
   }
 }
 
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  new ModalController(
+  const filterModalController = new ModalController(
     [
       {
         id: 'filter-modal',
@@ -72,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
   )
+
+  window.FilterModalController = filterModalController
 })
 
 document.addEventListener('DOMContentLoaded', () => {
