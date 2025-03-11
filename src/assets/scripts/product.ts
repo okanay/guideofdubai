@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         right: '0px',
         bottom: '0px',
         width: '100%',
-        zIndex: '50',
+        zIndex: '200',
         opacity: '1',
         transform: 'translateY(0%)',
         transition:
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: '0%',
         transform: 'translateY(100%)',
         transition: 'all 0.3s ease-in-out',
-        zIndex: '60',
+        zIndex: '210',
       },
       showAnimation: {
         transition: 'all 0.3s ease-in-out',
