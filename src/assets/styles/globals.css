@@ -43,6 +43,21 @@
 }
 
 @layer base {
+  *:focus {
+    outline-color: rgb(var(--primary-500));
+    outline-offset: 0.4rem;
+  }
+
+  *::selection {
+    color: rgb(var(--primary-50));
+    background-color: rgb(var(--primary-600));
+  }
+
+  img::selection {
+    color: transparent;
+    background-color: transparent;
+  }
+
   body {
     @apply font-custom text-gray-800;
   }
