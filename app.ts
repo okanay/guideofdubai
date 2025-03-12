@@ -9,7 +9,7 @@ const app = new Hono()
 app.use(
   '/*',
   serveStatic({
-    root: './dist/',
+    root: './dist',
     getContent: path => {
       try {
         if (path.endsWith('.js') && !fs.existsSync(path)) {
@@ -51,107 +51,107 @@ app.use('*', async (c, next) => {
 })
 
 app.get('/', c => {
-  const html = Bun.file('./dist/main/index.html')
+  const html = Bun.file('./dist/pages/main/index.html')
   return c.html(html.text())
 })
 
 app.get('/product', c => {
-  const html = Bun.file('./dist/product/index.html')
+  const html = Bun.file('./dist/pages/product/index.html')
   return c.html(html.text())
 })
 
 app.get('/login', c => {
-  const html = Bun.file('./dist/login/index.html')
+  const html = Bun.file('./dist/pages/login/index.html')
   return c.html(html.text())
 })
 
 app.get('/register', c => {
-  const html = Bun.file('./dist/register/index.html')
+  const html = Bun.file('./dist/pages/register/index.html')
   return c.html(html.text())
 })
 
 app.get('/profile', c => {
-  const html = Bun.file('./dist/profile/index.html')
+  const html = Bun.file('./dist/pages/profile/index.html')
   return c.html(html.text())
 })
 
 app.get('/partner', c => {
-  const html = Bun.file('./dist/partner/index.html')
+  const html = Bun.file('./dist/pages/partner/index.html')
   return c.html(html.text())
 })
 
 app.get('/terms', c => {
-  const html = Bun.file('./dist/terms/index.html')
+  const html = Bun.file('./dist/pages/terms/index.html')
   return c.html(html.text())
 })
 
 app.get('/about', c => {
-  const html = Bun.file('./dist/about/index.html')
+  const html = Bun.file('./dist/pages/about/index.html')
   return c.html(html.text())
 })
 
 app.get('/about', c => {
-  const html = Bun.file('./dist/about-mobile/index.html')
+  const html = Bun.file('./dist/pages/about-mobile/index.html')
   return c.html(html.text())
 })
 
 app.get('/contact', c => {
-  const html = Bun.file('./dist/contact/index.html')
+  const html = Bun.file('./dist/pages/contact/index.html')
   return c.html(html.text())
 })
 
 app.get('/faq', c => {
-  const html = Bun.file('./dist/faq/index.html')
+  const html = Bun.file('./dist/pages/faq/index.html')
   return c.html(html.text())
 })
 
 app.get('/faq', c => {
-  const html = Bun.file('./dist/faq-mobile/index.html')
+  const html = Bun.file('./dist/pages/faq-mobile/index.html')
   return c.html(html.text())
 })
 
 app.get('/activities', c => {
-  const html = Bun.file('./dist/activities/index.html')
+  const html = Bun.file('./dist/pages/activities/index.html')
   return c.html(html.text())
 })
 
 app.get('/visa', c => {
-  const html = Bun.file('./dist/visa/index.html')
+  const html = Bun.file('./dist/pages/visa/index.html')
   return c.html(html.text())
 })
 
 app.get('/otel', c => {
-  const html = Bun.file('./dist/otel/index.html')
+  const html = Bun.file('./dist/pages/otel/index.html')
   return c.html(html.text())
 })
 
 app.get('/otel-details', c => {
-  const html = Bun.file('./dist/otel-details/index.html')
+  const html = Bun.file('./dist/pages/otel-details/index.html')
   return c.html(html.text())
 })
 
 app.get('/rent-a-car', c => {
-  const html = Bun.file('./dist/rent-a-car/index.html')
+  const html = Bun.file('./dist/pages/rent-a-car/index.html')
   return c.html(html.text())
 })
 
 app.get('/rent-a-car-payment', c => {
-  const html = Bun.file('./dist/rent-a-car-payment/index.html')
+  const html = Bun.file('./dist/pages/rent-a-car-payment/index.html')
   return c.html(html.text())
 })
 
 app.get('/payment', c => {
-  const html = Bun.file('./dist/payment/index.html')
+  const html = Bun.file('./dist/pages/payment/index.html')
   return c.html(html.text())
 })
 
 app.get('/purchase-status', c => {
-  const html = Bun.file('./dist/purchase-status/index.html')
+  const html = Bun.file('./dist/pages/purchase-status/index.html')
   return c.html(html.text())
 })
 
 app.get('/visa-ship', c => {
-  const html = Bun.file('./dist/visa-ship/index.html')
+  const html = Bun.file('./dist/pages/visa-ship/index.html')
   return c.html(html.text())
 })
 

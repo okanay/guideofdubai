@@ -13,6 +13,9 @@ import path from 'path'
 const DIRECTORIES = {
   src: './src',
   dist: './dist',
+  get pages() {
+    return path.join(this.src, 'pages') // Yeni pages dizini
+  },
   get assets() {
     return path.join(this.src, 'assets')
   },
@@ -300,11 +303,12 @@ async function buildAll() {
 function watchFiles() {
   console.log('Watch modu başlatıldı...')
 
+  // src klasörünü izle
   fsWatch(DIRECTORIES.src, { recursive: true }, async (event, filename) => {
     if (!filename) return
 
     const relativePath = filename.replace(/\\/g, '/')
-    console.log(`Değişiklik algılandı: ${relativePath}`)
+    console.log(`Değişiklik algılandı (src): ${relativePath}`)
 
     if (relativePath.includes('scripts/deps/')) {
       // External paketler için kontrol
@@ -326,8 +330,25 @@ function watchFiles() {
       copyStyles(path.basename(relativePath))
     } else if (relativePath.startsWith('assets/')) {
       copyAssets(relativePath.replace('assets/', ''))
+    } else if (relativePath.startsWith('pages/')) {
+      // Pages klasörü değişikliği için
+      copyHTML(path.basename(relativePath))
     }
   })
+
+  // pages klasörünü izle (eğer varsa)
+  if (existsSync(DIRECTORIES.pages)) {
+    fsWatch(DIRECTORIES.pages, { recursive: true }, async (event, filename) => {
+      if (!filename) return
+
+      const relativePath = filename.replace(/\\/g, '/')
+      console.log(`Değişiklik algılandı (pages): ${relativePath}`)
+
+      if (relativePath.endsWith('.html')) {
+        copyHTML(path.basename(relativePath))
+      }
+    })
+  }
 }
 
 // Copy fonksiyonları aynı kalabilir
@@ -377,28 +398,57 @@ function copyAssets(specificFile?: string) {
 
 function copyHTML(specificFile?: string) {
   PAGES.directories.forEach(dir => {
-    const srcDirPath = path.join(DIRECTORIES.src, dir)
-    if (!existsSync(srcDirPath)) return
+    // Önce pages klasöründe arayalım, yoksa eski yolda arayalım
+    const srcDirPath = path.join(DIRECTORIES.pages, dir)
+    const oldSrcDirPath = path.join(DIRECTORIES.src, dir)
 
-    const destDirPath = path.join(DIRECTORIES.dist, dir)
-    ensureDirectoryExists(destDirPath)
+    // Pages klasöründe bu dizin varsa oradan kopyala - dist/pages içine
+    if (existsSync(srcDirPath)) {
+      // dist/pages ve alt dizini oluştur
+      const destPagesDir = path.join(DIRECTORIES.dist, 'pages')
+      const destDirPath = path.join(destPagesDir, dir)
+      ensureDirectoryExists(destDirPath)
 
-    if (specificFile) {
-      const srcPath = path.join(srcDirPath, specificFile)
-      const destPath = path.join(destDirPath, specificFile)
-      if (copyFileIfChanged(srcPath, destPath)) {
-        console.log(`HTML güncellendi: ${specificFile}`)
+      if (specificFile) {
+        const srcPath = path.join(srcDirPath, specificFile)
+        const destPath = path.join(destDirPath, specificFile)
+        if (copyFileIfChanged(srcPath, destPath)) {
+          console.log(`HTML güncellendi (pages): ${specificFile}`)
+        }
+      } else {
+        readdirSync(srcDirPath)
+          .filter(file => file.endsWith('.html'))
+          .forEach(file => {
+            const srcPath = path.join(srcDirPath, file)
+            const destPath = path.join(destDirPath, file)
+            if (copyFileIfChanged(srcPath, destPath)) {
+              console.log(`HTML güncellendi (pages): ${file}`)
+            }
+          })
       }
-    } else {
-      readdirSync(srcDirPath)
-        .filter(file => file.endsWith('.html'))
-        .forEach(file => {
-          const srcPath = path.join(srcDirPath, file)
-          const destPath = path.join(destDirPath, file)
-          if (copyFileIfChanged(srcPath, destPath)) {
-            console.log(`HTML güncellendi: ${file}`)
-          }
-        })
+    }
+    // Eski yolda bu dizin varsa oradan kopyala (geriye dönük uyumluluk)
+    else if (existsSync(oldSrcDirPath)) {
+      const destDirPath = path.join(DIRECTORIES.dist, dir)
+      ensureDirectoryExists(destDirPath)
+
+      if (specificFile) {
+        const srcPath = path.join(oldSrcDirPath, specificFile)
+        const destPath = path.join(destDirPath, specificFile)
+        if (copyFileIfChanged(srcPath, destPath)) {
+          console.log(`HTML güncellendi (src): ${specificFile}`)
+        }
+      } else {
+        readdirSync(oldSrcDirPath)
+          .filter(file => file.endsWith('.html'))
+          .forEach(file => {
+            const srcPath = path.join(oldSrcDirPath, file)
+            const destPath = path.join(destDirPath, file)
+            if (copyFileIfChanged(srcPath, destPath)) {
+              console.log(`HTML güncellendi (src): ${file}`)
+            }
+          })
+      }
     }
   })
 }

@@ -2,9 +2,6 @@ import { ModalController } from './packages/modal.js'
 import { ScrollManager } from './packages/floating-elements.js'
 import { NavStickyManager } from './packages/scroll-style.js'
 import { DatePickerManager } from './packages/date-selector.js'
-import { DatePickerWithTime } from './packages/date-time-picker.js'
-import { languages } from '../constants/date-picker-languages.js'
-import { NumberInput } from './packages/number-input.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   new DatePickerManager({
@@ -154,65 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
       maxWidth: '1232px',
       margin: '0 auto',
     },
-  })
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  const datePicker = new DatePickerWithTime({
-    autoClose: false,
-    elements: {
-      container: 'date-picker',
-      monthContainer: 'current-month',
-      daysContainer: 'calendar-days',
-      timeContainer: 'time-container',
-      buttons: {
-        prev: 'prev-month',
-        next: 'next-month',
-        reset: 'reset-date',
-        resetAll: 'reset-all',
-        close: 'close-picker',
-      },
-    },
-    output: {
-      fullFormat: true,
-      between: ' & ',
-      slash: '-',
-      order: ['day', 'month', 'year'],
-      backendFormat: ['year', 'month', 'day'],
-    },
-    language: languages,
-    timePicker: {
-      enabled: true,
-      use24HourFormat: true,
-      minuteInterval: 30,
-      defaultHours: 12,
-      defaultMinutes: 0,
-    },
-  })
-
-  const date = datePicker.connect({
-    input: 'date-input',
-    label: 'date-input-label',
-    focusContainer: 'date-input-label',
-    onChange: (date: Date | null) => {}, // Boş callback
-  })
-})
-
-// Örnek kullanım:
-document.addEventListener('DOMContentLoaded', () => {
-  // Sayaçları kişi seçiciler için başlat
-  const personCounters = NumberInput.createFromSelectors(
-    '.person-counter-container',
-  )
-
-  // Her sayacın değişikliğini dinle
-  personCounters.forEach(counter => {
-    counter.container.addEventListener('numberinput:change', event => {
-      const customEvent = event as CustomEvent
-      console.log('Person count changed:', customEvent.detail.value)
-
-      // Burada ek işlemler yapabilirsiniz, ama NumberInput sınıfının kendisi
-      // sadece sayaç değerini yönetmekle sorumlu
-    })
   })
 })

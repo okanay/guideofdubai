@@ -1,9 +1,6 @@
 /**
  * Aşama 1: Interface ve Tip Tanımlamaları
  */
-
-import { Save } from 'lucide'
-
 // Default CSS sınıfları
 const DEFAULT_CLASSES = {
   calendar: {
@@ -106,6 +103,7 @@ interface DatePickerConnection {
   changeMaxDate: (date: Date, resetIfInvalid?: boolean) => boolean
   // Callback fonksiyonunu güncelleme için eklendi (YENİ)
   setOnChange: (callback: (date: Date | null) => void) => void
+  autoClose: boolean
 }
 
 /**
@@ -196,6 +194,7 @@ interface ConnectionState {
   minuteInterval?: number
   // Değişiklik callback'i (YENİ)
   onChange?: (date: Date | null) => void
+  autoClose?: boolean
 }
 
 interface ResetOptions {
@@ -284,10 +283,6 @@ class DatePickerWithTime {
     if (this.config.minDate) {
       try {
         this.config.minDate = this.stripTime(this.config.minDate)
-        console.log(
-          'Global minDate ayarlandı:',
-          this.formatDateForAttribute(this.config.minDate),
-        )
       } catch (error) {
         console.error('Geçersiz minDate formatı:', error)
         this.config.minDate = undefined
@@ -297,10 +292,6 @@ class DatePickerWithTime {
     if (this.config.maxDate) {
       try {
         this.config.maxDate = this.stripTime(this.config.maxDate)
-        console.log(
-          'Global maxDate ayarlandı:',
-          this.formatDateForAttribute(this.config.maxDate),
-        )
       } catch (error) {
         console.error('Geçersiz maxDate formatı:', error)
         this.config.maxDate = undefined
@@ -322,6 +313,7 @@ class DatePickerWithTime {
 
     // DatePicker'ı gizle
     this.hideDatePicker()
+    this.autoConnectAllInputs()
   }
 
   /**
@@ -332,6 +324,14 @@ class DatePickerWithTime {
   public connect(config: ConnectionConfig): DatePickerConnection {
     const connectionId = `connection-${this.nextConnectionId++}`
     const input = document.getElementById(config.input) as HTMLInputElement
+
+    const autoCloseAttr = input.getAttribute('data-auto-close')
+    let connectionAutoClose: boolean = this.autoClose
+
+    if (autoCloseAttr !== null) {
+      connectionAutoClose =
+        autoCloseAttr.toLowerCase() === 'true' ? true : false
+    }
 
     if (!input) {
       console.error(`"${config.input}" ID'li input elementi bulunamadı.`)
@@ -347,6 +347,7 @@ class DatePickerWithTime {
         changeMinDate: () => false,
         changeMaxDate: () => false,
         setOnChange: () => {},
+        autoClose: connectionAutoClose || this.autoClose,
       }
     }
 
@@ -379,10 +380,6 @@ class DatePickerWithTime {
       const parsedMinDate = this.parseDefaultDate(minDateAttr)
       if (parsedMinDate) {
         minDate = this.stripTime(parsedMinDate)
-        console.log(
-          'Min date attribute değeri:',
-          this.formatDateForAttribute(minDate),
-        )
       }
     } else if (this.config.minDate) {
       // Input attribute yoksa config değerini kullan
@@ -508,6 +505,7 @@ class DatePickerWithTime {
       minuteInterval: timePickerConfig.minuteInterval,
       // Callback'i ekle
       onChange: config.onChange,
+      autoClose: connectionAutoClose,
     }
 
     // Bağlantıyı kaydet
@@ -553,7 +551,91 @@ class DatePickerWithTime {
           conn.onChange = callback
         }
       },
+      autoClose: connectionAutoClose,
     }
+  }
+
+  // Class'ın üst kısmına bu alanı ekleyin
+  private inputsWithInitialRender: Set<string> = new Set()
+
+  /**
+   * DOM'daki tüm .date-picker-input sınıfına sahip elementleri bulup bağlantı oluşturur
+   */
+  private autoConnectAllInputs(): void {
+    // Tüm date-picker-input sınıfına sahip inputları bul
+    const inputs = document.querySelectorAll('.date-picker-input')
+
+    // Her bir input için bağlantı oluştur
+    inputs.forEach(input => {
+      if (input instanceof HTMLInputElement) {
+        // Input için id kontrolü yap
+        if (!input.id) {
+          // Id yoksa rastgele bir id oluştur
+          input.id = `date-input-${Math.random().toString(36).substring(2, 9)}`
+        }
+
+        // Zaten bağlı mı kontrol et
+        if (input.hasAttribute('data-datepicker-connected')) {
+          return
+        }
+
+        // Input'un üst elementi container olur
+        const container = input.closest('.date-picker-container')
+
+        // Label elementini bul
+        let label: HTMLElement | null = null
+        let labelId: string | undefined = undefined
+
+        if (container) {
+          // Container içinde .date-picker-label ara
+          label = container.querySelector('.date-picker-label')
+
+          if (label) {
+            // Label için id kontrolü
+            if (!label.id) {
+              label.id = `${input.id}-label`
+            }
+
+            // Label'ın for attribute'ünü input'a bağla
+            if (!label.getAttribute('for')) {
+              label.setAttribute('for', input.id)
+            }
+
+            labelId = label.id
+          }
+        }
+
+        // Focus container olarak label veya container kullan
+        let focusContainer: HTMLElement | null = null
+        let focusContainerId: string | undefined = undefined
+
+        if (label) {
+          focusContainer = label
+        } else if (container) {
+          focusContainer = container as HTMLElement
+        }
+
+        if (focusContainer) {
+          if (!focusContainer.id) {
+            focusContainer.id = `${input.id}-container`
+          }
+          focusContainerId = focusContainer.id
+        }
+
+        // İlk değer değişimini algılamak için
+        const initialValue = input.value
+
+        // Bağlantıyı oluştur - onChange callback olmadan
+        const connection = this.connect({
+          input: input.id,
+          label: labelId,
+          focusContainer: focusContainerId,
+        })
+
+        // Bağlandı olarak işaretle
+        input.setAttribute('data-datepicker-connected', 'true')
+      }
+    })
   }
 
   /**
@@ -696,17 +778,8 @@ class DatePickerWithTime {
     if (!targetDate && connection.minDate) {
       targetDate = this.stripTime(connection.minDate)
       // Minimum tarih bildirmek için log koy
-      console.log(
-        'Min date kullanılıyor:',
-        this.formatDateForAttribute(connection.minDate),
-      )
     } else if (!targetDate && this.config.minDate) {
       targetDate = this.stripTime(this.config.minDate)
-      // Global minimum tarih bildirmek için log koy
-      console.log(
-        'Global min date kullanılıyor:',
-        this.formatDateForAttribute(this.config.minDate),
-      )
     }
 
     // 4. Son öncelik: Bugün
@@ -2060,10 +2133,6 @@ class DatePickerWithTime {
       this.updateInputValue(activeConnection.id)
     } else if (!activeConnection.timePickerEnabled || this.autoClose) {
       this.updateInputValue(activeConnection.id)
-
-      if (this.autoClose) {
-        this.hideDatePicker()
-      }
     }
 
     // onChange callback'i çağır - değeri değişmişse
@@ -2076,6 +2145,224 @@ class DatePickerWithTime {
         activeConnection.onChange(fullDate)
       }
     }
+
+    if (activeConnection.autoClose) {
+      this.hideDatePicker()
+    }
+  }
+
+  /**
+   * DatePicker bağlantılarını yeniler, tüm data attribute'larını okur ve günceller
+   */
+  public refresh(): void {
+    console.log('DatePicker refresh başlatılıyor...')
+
+    // Görünür durumdaysa DatePicker'ı gizle
+    const wasVisible = this.isDatePickerVisible()
+    const activeId = this.activeConnectionId
+
+    if (wasVisible) {
+      this.hideDatePicker()
+    }
+
+    // Mevcut tüm bağlantıları güncelle
+    for (const [connectionId, connection] of this.connections.entries()) {
+      if (!connection.input || !connection.input.id) continue
+
+      const input = document.getElementById(
+        connection.input.id,
+      ) as HTMLInputElement
+      if (!input) continue
+
+      // 1. data-timepicker
+      const timePickerAttr = input.getAttribute('data-timepicker')
+      if (timePickerAttr !== null) {
+        connection.timePickerEnabled = timePickerAttr.toLowerCase() === 'true'
+      }
+
+      // 2. data-ampm
+      const ampmAttr = input.getAttribute('data-ampm')
+      if (ampmAttr !== null) {
+        connection.use24HourFormat = ampmAttr.toLowerCase() !== 'true'
+      }
+
+      // 3. data-minute-interval
+      const minuteIntervalAttr = input.getAttribute('data-minute-interval')
+      if (minuteIntervalAttr !== null) {
+        const parsedInterval = parseInt(minuteIntervalAttr)
+        if (!isNaN(parsedInterval) && parsedInterval > 0) {
+          connection.minuteInterval = parsedInterval
+        }
+      }
+
+      // 4. data-default-hours
+      const defaultHoursAttr = input.getAttribute('data-default-hours')
+      if (defaultHoursAttr !== null) {
+        const hours24 = parseInt(defaultHoursAttr)
+        if (!isNaN(hours24)) {
+          if (!connection.use24HourFormat) {
+            // 12 saat formatı
+            connection.isPM = hours24 >= 12
+            connection.hours = hours24 % 12
+            if (connection.hours === 0) connection.hours = 12
+          } else {
+            // 24 saat formatı
+            connection.hours = hours24
+          }
+        }
+      }
+
+      // 5. data-default-minute
+      const defaultMinuteAttr = input.getAttribute('data-default-minute')
+      if (defaultMinuteAttr !== null) {
+        const newMinutes = parseInt(defaultMinuteAttr)
+        if (!isNaN(newMinutes)) {
+          connection.minutes = this.getNearestValidMinute(
+            newMinutes,
+            connection.minuteInterval || 1,
+          )
+        }
+      }
+
+      // 6. data-min-date
+      const minDateAttr = input.getAttribute('data-min-date')
+      if (minDateAttr) {
+        const parsedMinDate = this.parseDefaultDate(minDateAttr)
+        if (parsedMinDate) {
+          connection.minDate = this.stripTime(parsedMinDate)
+        }
+      }
+
+      // 7. data-default-date
+      const defaultDateAttr = input.getAttribute('data-default-date')
+      if (defaultDateAttr) {
+        const defaultDate = this.parseDefaultDate(defaultDateAttr)
+        if (defaultDate) {
+          if (
+            connection.minDate &&
+            this.stripTime(defaultDate) < connection.minDate
+          ) {
+            // Min date'i aşmıyorsa, min date'e eşitle
+            connection.selectedDate = new Date(connection.minDate)
+          } else if (
+            connection.maxDate &&
+            this.stripTime(defaultDate) > connection.maxDate
+          ) {
+            // Max date'i aşmıyorsa, max date'e eşitle
+            connection.selectedDate = new Date(connection.maxDate)
+          } else {
+            connection.selectedDate = this.stripTime(defaultDate)
+          }
+        }
+      }
+
+      // 8. data-auto-close
+      const autoCloseAttr = input.getAttribute('data-auto-close')
+      if (autoCloseAttr !== null) {
+        connection.autoClose = autoCloseAttr.toLowerCase() === 'true'
+      }
+
+      // 9. data-selected
+      const selectedDateAttr = input.getAttribute('data-selected')
+      if (selectedDateAttr) {
+        const selectedDate = this.parseDefaultDate(selectedDateAttr)
+        if (selectedDate) {
+          // Min/Max date kontrolü yap
+          if (
+            connection.minDate &&
+            this.stripTime(selectedDate) < connection.minDate
+          ) {
+            connection.selectedDate = new Date(connection.minDate)
+          } else if (
+            connection.maxDate &&
+            this.stripTime(selectedDate) > connection.maxDate
+          ) {
+            connection.selectedDate = new Date(connection.maxDate)
+          } else {
+            connection.selectedDate = this.stripTime(selectedDate)
+          }
+        }
+      }
+
+      // 10. data-hours (mevcut seçili saat)
+      const hoursAttr = input.getAttribute('data-hours')
+      if (hoursAttr !== null) {
+        const hours24 = parseInt(hoursAttr)
+        if (!isNaN(hours24)) {
+          if (!connection.use24HourFormat) {
+            // 12 saat formatı
+            connection.isPM = hours24 >= 12
+            connection.hours = hours24 % 12
+            if (connection.hours === 0) connection.hours = 12
+          } else {
+            // 24 saat formatı
+            connection.hours = hours24
+          }
+        }
+      }
+
+      // 11. data-minutes (mevcut seçili dakika)
+      const minutesAttr = input.getAttribute('data-minutes')
+      if (minutesAttr !== null) {
+        const minutes = parseInt(minutesAttr)
+        if (!isNaN(minutes)) {
+          connection.minutes = this.getNearestValidMinute(
+            minutes,
+            connection.minuteInterval || 1,
+          )
+        }
+      }
+
+      // 12. data-ampm-state
+      const ampmStateAttr = input.getAttribute('data-ampm-state')
+      if (ampmStateAttr !== null) {
+        connection.isPM = ampmStateAttr.toUpperCase() === 'PM'
+      }
+
+      // 13. data-max-date (eğer varsa)
+      const maxDateAttr = input.getAttribute('data-max-date')
+      if (maxDateAttr) {
+        const parsedMaxDate = this.parseDefaultDate(maxDateAttr)
+        if (parsedMaxDate) {
+          connection.maxDate = this.stripTime(parsedMaxDate)
+        }
+      }
+
+      // Seçili tarih ve saat değerlerini input'a yansıt
+      if (connection.selectedDate) {
+        this.updateInputValue(connectionId)
+      }
+
+      // Input'a tüm data attribute'ları yansıt
+      this.reflectDataAttributesToInput(connection)
+    }
+
+    // Yeni input'ları tara ve bağla
+    this.autoConnectAllInputs()
+
+    // Eğer görünür durumdaysa, DatePicker'ı yeniden göster
+    if (wasVisible && activeId && this.connections.has(activeId)) {
+      const connection = this.connections.get(activeId)
+      if (connection) {
+        this.currentDate = connection.selectedDate
+          ? new Date(connection.selectedDate)
+          : this.stripTime(new Date())
+
+        this.renderMonthHeader()
+        this.renderCalendar()
+
+        if (connection.timePickerEnabled && this.timeContainer) {
+          this.renderTimePicker()
+          this.addTimePickerEventListeners()
+        }
+
+        this.updateNavigationState()
+        this.positionDatePickerUnderInput()
+        this.showDatePicker()
+      }
+    }
+
+    console.log('DatePicker refresh tamamlandı.')
   }
 
   /**
@@ -2128,6 +2415,10 @@ class DatePickerWithTime {
    * Format: YYYY-MM-DD (2025-05-06 gibi)
    */
   private parseDefaultDate(dateStr: string): Date | null {
+    if (dateStr && dateStr.toLowerCase() === 'today') {
+      return this.stripTime(new Date()) // Bugünün tarihini döndür
+    }
+
     // Tarih formatını kontrol et (YYYY-MM-DD)
     const dateRegex = /^(\d{4})-(\d{1,2})-(\d{1,2})$/
     const matches = dateStr.match(dateRegex)

@@ -65,6 +65,8 @@
     <script type="module" src="/assets/scripts/product.js"></script>
     <script type="module" src="/assets/scripts/ui/product-sliders.js"></script>
     <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
+    <script type="module" src="assets/scripts/ui/date-time-picker.js"></script>
+    <script type="module" src="assets/scripts/ui/counter-input.js"></script>
 
     <script>
       ;(function () {
@@ -1705,6 +1707,8 @@
               </div>
             </section>
           </div>
+
+          <!-- FORM -->
           <div class="-mt-1 w-full flex-shrink-0 lg:w-[420px]">
             <h2
               class="mb-4 px-4 text-xl font-bold text-gray-800 lg:text-center lg:text-2xl"
@@ -1730,7 +1734,7 @@
 
             <form
               id="purchase-form"
-              class="-mt-2 overflow-hidden bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
+              class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
             >
               <!-- Durum Bildirimleri - Müsaitlik varsa gösterilir -->
               <div
@@ -2458,7 +2462,7 @@
                     Ekstra Hizmetler
                   </h2>
                   <div
-                    class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-1"
+                    class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-2"
                   >
                     <!-- Checkbox 1 -->
                     <div class="relative">
@@ -2478,12 +2482,7 @@
                             alt=""
                             class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm"
-                            >Fotoğraf Paketi
-                            <span class="text-xs opacity-75"
-                              >(+50 AED)</span
-                            ></span
-                          >
+                          <span class="text-sm">Fotoğraf Paketi </span>
                         </div>
                         <div
                           class="flex size-6 items-center justify-center rounded-sm border transition-colors"
@@ -2519,12 +2518,7 @@
                             alt=""
                             class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm"
-                            >Su Oyunları
-                            <span class="text-xs opacity-75"
-                              >(+75 AED)</span
-                            ></span
-                          >
+                          <span class="text-sm">Su Oyunları </span>
                         </div>
                         <div
                           class="flex size-6 items-center justify-center rounded-sm border transition-colors"
@@ -2560,12 +2554,7 @@
                             alt=""
                             class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm"
-                            >Özel Rehber
-                            <span class="text-xs opacity-75"
-                              >(+100 AED)</span
-                            ></span
-                          >
+                          <span class="text-sm">Özel Rehber </span>
                         </div>
                         <div
                           class="flex size-6 items-center justify-center rounded-sm border transition-colors"
@@ -2601,12 +2590,7 @@
                             alt=""
                             class="check-icon size-6 brightness-0"
                           />
-                          <span class="text-sm"
-                            >VIP Deneyim
-                            <span class="text-xs opacity-75"
-                              >(+150 AED)</span
-                            ></span
-                          >
+                          <span class="text-sm">VIP Deneyim </span>
                         </div>
                         <div
                           class="flex size-6 items-center justify-center rounded-sm border transition-colors"
@@ -2824,6 +2808,7 @@
                 <!-- Kişi Sayısı Seçimi -->
                 <div class="mb-6 flex flex-col gap-4">
                   <div
+                    id="guests"
                     class="grid grid-cols-2 gap-4 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
                   >
                     <!-- Yetişkin -->
@@ -2834,34 +2819,30 @@
                             >Yetişkin</label
                           >
                         </div>
-                        <div
-                          class="person-counter-container w-full"
-                          data-min="1"
-                          data-max="10"
-                        >
+                        <div class="counter-input-container w-full">
                           <div
                             class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
                           >
                             <button
                               type="button"
-                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
                             <input
+                              readonly
                               type="text"
                               name="adult-count"
                               id="adult-count"
-                              class="number-input-value h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              data-min="1"
+                              data-max="10"
+                              data-step="1"
                               value="5"
-                              readonly
                             />
-                            <span class="number-input-display hidden w-full"
-                              >5</span
-                            >
                             <button
                               type="button"
-                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
                             </button>
@@ -2878,32 +2859,30 @@
                             >Çocuk</label
                           >
                         </div>
-                        <div
-                          class="person-counter-container w-full"
-                          data-min="0"
-                          data-max="5"
-                        >
+                        <div class="counter-input-container w-full">
                           <div
                             class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
                           >
                             <button
                               type="button"
-                              class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
                             <input
+                              readonly
                               type="text"
                               name="child-count"
                               id="child-count"
-                              class="number-input-value h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                              value="0"
-                              readonly
+                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              data-min="1"
+                              data-max="10"
+                              data-step="2"
+                              value="3"
                             />
-                            <span class="number-input-display hidden">0</span>
                             <button
                               type="button"
-                              class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
                             </button>
@@ -2913,6 +2892,86 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Test change event -->
+                <script>
+                  document
+                    .getElementById('adult-count')
+                    ?.addEventListener('change', e => {
+                      console.log(e.target.value)
+                    })
+                </script>
+
+                <!-- Test Refresh -->
+                <script>
+                  function addBabyCounter() {
+                    const guestsContainer = document.getElementById('guests')
+
+                    // Zaten bir bebek kutusu varsa, ekleme
+                    if (document.getElementById('baby-count')) {
+                      console.log('Bebek kutusu zaten mevcut')
+                      return
+                    }
+
+                    // Yeni bebek kutusu HTML'i
+                    const babyCounterHTML = `
+                    <!-- Bebek -->
+                    <div class="group w-full">
+                      <div class="flex flex-col items-start gap-1.5">
+                        <div class="flex w-full items-center justify-between">
+                          <label class="text-sm font-semibold text-gray-800">Bebek</label>
+                        </div>
+                        <div
+                          class="counter-input-container w-full"
+
+                        >
+                          <div
+                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                          >
+                            <button
+                              type="button"
+                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            >
+                              <i data-lucide="minus" class="size-4"></i>
+                            </button>
+                            <input
+                              readonly
+                              type="text"
+                              name="baby-count"
+                              id="baby-count"
+                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              data-min="1"
+                              data-max="10"
+                              data-step="2"
+                              value="3"
+                            />
+                            <button
+                              type="button"
+                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            >
+                              <i data-lucide="plus" class="size-4"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `
+
+                    // HTML'i guest container'a ekle
+                    guestsContainer.insertAdjacentHTML(
+                      'beforeend',
+                      babyCounterHTML,
+                    )
+                  }
+
+                  document.addEventListener('keydown', e => {
+                    if (e.key === 'p' || e.key === 'P') {
+                      addBabyCounter()
+                      window.CounterInputs.refresh()
+                      window.callIcons()
+                    }
+                  })
+                </script>
 
                 <!-- Bilgi Kutulu Kişi Sayısı Kartı -->
                 <div
@@ -2941,34 +3000,33 @@
                       </div>
 
                       <!-- Sayı Seçici -->
-                      <div
-                        class="person-counter-container w-full"
-                        data-min="0"
-                        data-max="20"
-                      >
+                      <div class="counter-input-container w-full">
                         <div
                           class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 hover:border-gray-400 group-hover:border-gray-400"
                         >
                           <button
                             type="button"
-                            class="number-input-minus flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            class="counter-input-minus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                           >
                             <i data-lucide="minus" class="size-4"></i>
                           </button>
                           <input
-                            type="text"
-                            name="adult-count"
-                            id="adult-count"
-                            class="number-input-value h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                            value="0"
                             readonly
+                            type="text"
+                            name="adult-extra-count"
+                            id="adult-extra-count"
+                            class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                            data-min="1"
+                            data-max="10"
+                            data-step="2"
+                            value="3"
                           />
-                          <span class="number-input-display hidden w-full"
+                          <span class="counter-input-display hidden w-full"
                             >0</span
                           >
                           <button
                             type="button"
-                            class="number-input-plus flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            class="counter-input-plus-btn flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                           >
                             <i data-lucide="plus" class="size-4"></i>
                           </button>
@@ -3047,7 +3105,7 @@
                   <label
                     for="date-input"
                     id="date-input-label"
-                    class="mb-1.5 block text-sm font-semibold text-gray-800"
+                    class="date-picker-label mb-1.5 block text-sm font-semibold text-gray-800"
                   >
                     Tarih Seçimi <span class="text-rose-500">*</span>
                   </label>
@@ -3057,16 +3115,18 @@
                       id="date-input"
                       name="date-input"
                       readonly=""
-                      data-timepicker="false"
+                      data-timepicker="true"
                       data-ampm="true"
                       data-minute-interval="15"
                       data-default-hours="15"
                       data-default-minute="00"
-                      data-min-date="2025-03-06"
-                      data-default-date="2025-03-06"
-                      class="h-12 w-full appearance-none rounded-lg border border-gray-950/20 bg-white px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-200 focus:ring-1 focus:ring-primary-400 group-hover:border-gray-400"
+                      data-min-date="today"
+                      data-default-date="today"
+                      data-auto-close="true"
+                      class="date-picker-input h-12 w-full appearance-none rounded-lg border border-gray-950/20 bg-white px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-200 focus:ring-1 focus:ring-primary-400 group-hover:border-gray-400"
                       placeholder="Select a Date"
                     />
+
                     <div
                       class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
                     >
@@ -3077,6 +3137,38 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Date Picker Change Event -->
+                <script>
+                  let render = 0
+                  let allowFirstRender = false
+
+                  document
+                    .getElementById('date-input')
+                    ?.addEventListener('change', e => {
+                      if (!allowFirstRender) {
+                        allowFirstRender = true
+                        return
+                      }
+
+                      const selectedDate =
+                        e.target.getAttribute('data-selected')
+                      console.log(
+                        `Input değeri değişti: ${selectedDate}, render: ${render}`,
+                      )
+                      render++
+                    })
+                </script>
+
+                <!-- Date Picker Refresh -->
+                <script>
+                  document.addEventListener('keydown', e => {
+                    if (e.key === 'r' || e.key === 'R') {
+                      window.DatePicker.refresh()
+                      // data değerlerinin hepsini yeniden tarıyor.
+                    }
+                  })
+                </script>
 
                 <!-- Notlar - Opsiyonel -->
                 <div class="group relative mb-6">

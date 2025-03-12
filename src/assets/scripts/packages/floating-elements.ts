@@ -68,8 +68,6 @@ export class ScrollManager {
     } else {
       this.currentDevice = 'mobile'
     }
-
-    console.log(`Current device type: ${this.currentDevice}`)
   }
 
   private initializeElements(elements: FixedElement[]) {
