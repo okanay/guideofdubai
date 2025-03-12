@@ -62,6 +62,7 @@
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/layout.js"></script>
+    <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
   </head>
   <body class="bg-white">
     <header class="h-fit w-full">
@@ -1139,35 +1140,105 @@
               <!-- Telefon -->
               <div class="flex flex-col gap-2">
                 <span class="text-base font-semibold">Telefon</span>
-                <div class="flex">
-                  <div class="relative">
-                    <div
-                      class="flex h-12 cursor-pointer items-center gap-1 rounded-l border border-r-0 border-gray-200 bg-white px-3 text-xs hover:bg-gray-50 rtl:rounded-l-none rtl:rounded-r rtl:border-l-0 rtl:border-r"
-                    >
-                      <img
-                        id="country-flag"
-                        src="https://flagcdn.com/us.svg"
-                        alt="flag"
-                        class="h-4 w-5 !rounded object-cover"
+                <div class="group flex w-full">
+                  <div
+                    class="phone-code-container group/focus relative w-full"
+                    data-focus="false"
+                  >
+                    <!-- Telefon Input Yapısı -->
+                    <div class="flex">
+                      <div class="relative">
+                        <div
+                          class="phone-code-button flex h-12 cursor-pointer items-center gap-1 rounded-l border border-r-0 border-gray-950/20 bg-white pl-3 pr-6 text-sm transition-colors duration-200 hover:bg-gray-50 group-focus-within:!border-r group-focus-within:!border-primary-200 group-focus-within:!ring-1 group-focus-within:!ring-primary-50 group-data-[focus=true]/focus:rounded-b-none rtl:rounded-l-none rtl:rounded-r rtl:border-l-0 rtl:border-r"
+                        >
+                          <img
+                            class="phone-code-flag h-4 w-5 !rounded object-cover"
+                            src="https://flagcdn.com/us.svg"
+                            alt="flag"
+                          />
+                          <span class="phone-code-prefix text-nowrap">+1</span>
+                        </div>
+                        <!-- data-language= "TR" | "EN" -->
+                        <select
+                          class="phone-code-select pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                          data-language="EN"
+                          data-default="+44"
+                          disabled
+                          style="-webkit-border-radius: 0; border-radius: 0"
+                        >
+                          <option value="US" data-prefix="+1" data-flag="us">
+                            United States (+1)
+                          </option>
+                        </select>
+                      </div>
+                      <input
+                        type="tel"
+                        name="phone-code-input"
+                        id="phone-code-input"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        data-max-length="10"
+                        placeholder="Telefon numarası giriniz."
+                        class="phone-code-input h-12 w-full !rounded-r border border-gray-950/20 px-3 py-2 text-sm outline-none transition-colors duration-200 focus:!border-primary-200 focus:ring-1 focus:ring-primary-50 group-data-[focus=true]/focus:!rounded-b-none rtl:!rounded-l rtl:!rounded-r-none rtl:text-end"
+                        style="-webkit-border-radius: 0; border-radius: 0"
                       />
-                      <span id="country-prefix">+1</span>
                     </div>
-                    <select
-                      id="country-code"
-                      style="-webkit-border-radius: 0; border-radius: 0"
-                      class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+
+                    <!-- Arama ve Öneri Modal/Dropdown -->
+                    <div
+                      class="phone-code-search-modal pointer-events-none absolute left-0 right-0 top-[calc(100%)] z-[30] hidden w-full rounded rounded-t-none border border-t-0 border-gray-950/20 bg-white shadow-lg"
                     >
-                      <option value="US" data-prefix="+1" data-flag="us">
-                        United States (+1)
-                      </option>
-                    </select>
+                      <!-- Search Input -->
+                      <div
+                        class="relative scale-x-[100.5%] border border-gray-950/20 ring-1 ring-primary-50 group-focus-within:!border-primary-200"
+                      >
+                        <input
+                          type="text"
+                          class="phone-code-search-input h-12 w-full rounded-t px-3 py-2 outline-none"
+                          placeholder="Ülke Ara"
+                        />
+                        <button
+                          type="button"
+                          class="phone-code-clear-button group/delete absolute right-2 top-1/2 hidden -translate-y-1/2 p-1"
+                        >
+                          <i
+                            data-lucide="x"
+                            class="size-4 text-gray-400 group-hover/delete:text-gray-800"
+                          ></i>
+                        </button>
+                      </div>
+
+                      <!-- Suggestions List -->
+                      <div
+                        class="phone-code-suggestions max-h-60 overflow-y-auto bg-gray-50"
+                        style="scrollbar-width: none"
+                      >
+                        <!-- Template elements -->
+                        <button
+                          type="button"
+                          class="suggestion-item group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start hover:bg-gray-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                          data-value="US"
+                          data-selected="false"
+                        >
+                          <img
+                            src="https://flagcdn.com/us.svg"
+                            alt="flag"
+                            class="h-4 w-5 object-cover"
+                          />
+                          <span class="flex-1">United States</span>
+                          <span
+                            class="text-xs text-gray-500 group-data-[selected=true]:text-white"
+                            >+1</span
+                          >
+                        </button>
+
+                        <!-- No Results Template -->
+                        <div class="no-results px-3 py-2.5 text-gray-500">
+                          Sonuç bulunamadı
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="tel"
-                    style="-webkit-border-radius: 0; border-radius: 0"
-                    class="h-12 flex-1 !rounded-r border border-gray-200 px-3 py-2 outline-none focus:border-primary-200 rtl:!rounded-l rtl:!rounded-r-none rtl:text-end"
-                    placeholder="Telefon numarası giriniz"
-                  />
                 </div>
               </div>
             </div>

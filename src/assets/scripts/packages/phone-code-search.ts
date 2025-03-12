@@ -365,7 +365,7 @@ class PhoneCodeSearch {
     // Paste event'i için kontrol
     this.elements.phoneInput.addEventListener('paste', (e: ClipboardEvent) => {
       // Clipboard verisi al
-      const clipboardData = e.clipboardData || window['clipboardData']
+      const clipboardData = e.clipboardData || (window as any)['clipboardData']
       const pastedData = clipboardData.getData('text')
 
       // Sayı pattern'i

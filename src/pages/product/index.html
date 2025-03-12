@@ -1735,7 +1735,7 @@
 
             <form
               id="purchase-form"
-              class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:max-h-[64rem] lg:rounded-lg lg:border lg:border-gray-950/20"
+              class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
             >
               <!-- Durum Bildirimleri - Müsaitlik varsa gösterilir -->
               <div
@@ -2366,99 +2366,6 @@
                   </div>
                 </div>
 
-                <!-- Kamp Seçimi Gallery JavaScript -->
-                <script>
-                  document.addEventListener('DOMContentLoaded', () => {
-                    const mobileGalleryController = document.getElementById(
-                      'mobile-gallery-controller',
-                    )
-
-                    if (mobileGalleryController) {
-                      // Başlangıçta hepsini disable yap
-                      mobileGalleryController.setAttribute('data-active', '0')
-
-                      for (let i = 1; i <= 4; i++) {
-                        const mobileSlider = document.getElementById(
-                          `slider-${i}`,
-                        )
-                        if (mobileSlider)
-                          mobileSlider.setAttribute('data-status', 'disable')
-                      }
-
-                      // Input değişikliklerini dinle - name değerini "campselection" olarak düzelttim
-                      const inputs = document.querySelectorAll(
-                        'input[name="campselection"]',
-                      )
-
-                      inputs.forEach(input => {
-                        input.addEventListener('change', e => {
-                          const target = e.target
-                          let activeIndex = 0
-
-                          // Input ID'sine göre aktif index'i belirle - ID'ler HTML ile aynı
-                          switch (target.id) {
-                            case 'campselection-0':
-                              activeIndex = 1
-                              break
-                            case 'campselection-1':
-                              activeIndex = 2
-                              break
-                            case 'campselection-2':
-                              activeIndex = 3
-                              break
-                            case 'campselection-3':
-                              activeIndex = 4
-                              break
-                          }
-
-                          // Önceki aktif slider'ları disable et
-                          const currentMobileActive = parseInt(
-                            mobileGalleryController.getAttribute(
-                              'data-active',
-                            ) || '0',
-                          )
-
-                          if (currentMobileActive > 0) {
-                            const currentMobileSlider = document.getElementById(
-                              `slider-${currentMobileActive}`,
-                            )
-                            if (currentMobileSlider) {
-                              currentMobileSlider.setAttribute(
-                                'data-status',
-                                'disable',
-                              )
-                            }
-                          }
-
-                          mobileGalleryController.setAttribute(
-                            'data-active',
-                            activeIndex.toString(),
-                          )
-
-                          // Yeni slider'ları enable et - desktop-slider'ı kaldırdım çünkü HTML'de yok
-                          if (activeIndex > 0) {
-                            const newMobileSlider = document.getElementById(
-                              `slider-${activeIndex}`,
-                            )
-                            if (newMobileSlider) {
-                              newMobileSlider.setAttribute(
-                                'data-status',
-                                'enable',
-                              )
-                            }
-                          }
-                        })
-                      })
-
-                      // Sayfa yüklendiğinde varsayılan olarak ilk input'u seç
-                      // HTML'de checked olan input bulunamadığından ilk input'u seçiyoruz
-                      const firstInput = document.querySelector(
-                        'input[name="campselection"]',
-                      )
-                    }
-                  })
-                </script>
-
                 <!-- Ekstra Hizmetler -->
                 <div class="mb-6">
                   <h2 class="mb-2 text-sm font-semibold text-gray-800">
@@ -2680,7 +2587,7 @@
                     </div>
 
                     <!-- Telefon -->
-                    <div class="group w-full space-y-2">
+                    <div class="group flex w-full flex-col gap-1.5">
                       <label
                         for="phone-code-input"
                         class="text-sm font-semibold text-gray-800"
@@ -2942,24 +2849,26 @@
                 <div class="mb-6 flex flex-col gap-4">
                   <div
                     id="guests"
-                    class="grid grid-cols-2 gap-4 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
+                    class="grid grid-cols-2 gap-4 lg:grid-cols-1 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
                   >
-                    <!-- Time Input TEST  -->
+                    <!-- Time Input  -->
                     <div class="group w-full">
-                      <div class="flex flex-col items-start gap-1.5">
+                      <div
+                        class="flex flex-col items-center justify-start gap-1.5 sm:flex-row"
+                      >
                         <div class="flex w-full items-center justify-between">
                           <label class="text-sm font-semibold text-gray-800">
-                            Saat</label
+                            Gidiş Saati</label
                           >
                         </div>
                         <div class="time-input-container w-full">
                           <div
-                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400 sm:w-[220px]"
                           >
                             <!-- Dakika Arttırma Butonu -->
                             <button
                               type="button"
-                              class="time-input-minutes-plus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                              class="time-input-minutes-plus-btn flex size-10 flex-shrink-0 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                             >
                               <i data-lucide="plus" class="size-[1.1rem]"></i>
                             </button>
@@ -2970,11 +2879,16 @@
                               inputmode="numeric"
                               pattern="[0-9]*"
                               maxlength="2"
-                              class="time-input-hours h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
                               data-min="0"
                               data-max="23"
                               data-step="1"
                               value="09"
+                              class="time-input-hours h-10 w-full border-x border-gray-950/20 bg-white text-center outline-none"
+                              style="
+                                -webkit-appearance: none;
+                                -webkit-border-radius: 0;
+                                border-radius: 0 0 0 0;
+                              "
                             />
 
                             <!-- Ayırıcı (:) -->
@@ -2990,17 +2904,22 @@
                               inputmode="numeric"
                               pattern="[0-9]*"
                               maxlength="2"
-                              class="time-input-minutes h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
                               data-min="0"
                               data-max="59"
                               data-step="15"
                               value="30"
+                              class="time-input-minutes h-10 w-full border-x border-gray-950/20 bg-white text-center outline-none"
+                              style="
+                                -webkit-appearance: none;
+                                -webkit-border-radius: 0;
+                                border-radius: 0 0 0 0;
+                              "
                             />
 
                             <!-- Dakika Azaltma Butonu -->
                             <button
                               type="button"
-                              class="time-input-minutes-minus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                              class="time-input-minutes-minus-btn flex size-10 flex-shrink-0 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                             >
                               <i data-lucide="minus" class="size-[1.1rem]"></i>
                             </button>
@@ -3011,7 +2930,9 @@
 
                     <!-- Kişi Sayısı -->
                     <div class="group w-full">
-                      <div class="flex flex-col items-start gap-1.5">
+                      <div
+                        class="flex flex-col items-center justify-start gap-1.5 sm:flex-row"
+                      >
                         <div class="flex w-full items-center justify-between">
                           <label class="text-sm font-semibold text-gray-800"
                             >Kişi Sayısı</label
@@ -3019,11 +2940,11 @@
                         </div>
                         <div class="counter-input-container w-full">
                           <div
-                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400 sm:w-[220px]"
                           >
                             <button
                               type="button"
-                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                              class="counter-input-minus-btn flex h-10 w-16 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                             >
                               <i data-lucide="minus" class="size-[1.1rem]"></i>
                             </button>
@@ -3031,17 +2952,22 @@
                               type="text"
                               name="child-count"
                               id="child-count"
-                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
                               value="9"
                               data-min="1"
                               data-max="10"
                               data-step="1"
                               inputmode="numeric"
                               pattern="[0-9]*"
+                              class="counter-input h-10 w-full border-x border-gray-950/20 bg-white text-center outline-none"
+                              style="
+                                -webkit-appearance: none;
+                                -webkit-border-radius: 0;
+                                border-radius: 0 0 0 0;
+                              "
                             />
                             <button
                               type="button"
-                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                              class="counter-input-plus-btn flex h-10 w-16 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                             >
                               <i data-lucide="plus" class="size-[1.1rem]"></i>
                             </button>
@@ -3052,86 +2978,62 @@
                   </div>
                 </div>
 
-                <!-- Test change event -->
-                <script>
-                  document
-                    .getElementById('child-count')
-                    ?.addEventListener('change', e => {
-                      console.log(e.target.value)
-                    })
-                </script>
-
-                <!-- Test Refresh -->
-                <script>
-                  function addBabyCounter() {
-                    const guestsContainer = document.getElementById('guests')
-
-                    // Zaten bir bebek kutusu varsa, ekleme
-                    if (document.getElementById('baby-count')) {
-                      console.log('Bebek kutusu zaten mevcut')
-                      return
-                    }
-
-                    // Yeni bebek kutusu HTML'i
-                    const babyCounterHTML = `
-                    <!-- Bebek -->
-                    <div class="group w-full">
-                      <div class="flex flex-col items-start gap-1.5">
-                        <div class="flex w-full items-center justify-between">
-                          <label class="text-sm font-semibold text-gray-800">Bebek</label>
-                        </div>
-                        <div
-                          class="counter-input-container w-full"
-
+                <div class="group mb-6 w-full">
+                  <div class="flex flex-col items-start gap-1.5">
+                    <div class="flex w-full items-center justify-between">
+                      <label class="text-sm font-semibold text-gray-800">
+                        Adult <span class="text-rose-500">*</span>
+                      </label>
+                    </div>
+                    <div class="counter-input-container w-full">
+                      <div
+                        class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                      >
+                        <button
+                          type="button"
+                          class="counter-input-minus-btn flex h-10 w-14 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                          disabled="disabled"
                         >
-                          <div
-                            class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
-                          >
-                            <button
-                              type="button"
-                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
-                            >
-                              <i data-lucide="minus" class="size-[1.1rem]"></i>
-                            </button>
-                            <input
-                              type="text"
-                              name="baby-count"
-                              id="baby-count"
-                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                              value="3"
-                              data-min="1"
-                              data-max="10"
-                              data-step="1"
-                              inputmode="numeric"
-                              pattern="[0-9]*"
-                            />
-                            <button
-                              type="button"
-                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
-                            >
-                              <i data-lucide="plus" class="size-[1.1rem]"></i>
-                            </button>
-                          </div>
-                        </div>
+                          <i
+                            data-lucide="minus"
+                            class="lucide lucide-minus size-4"
+                          ></i>
+                        </button>
+                        <input
+                          type="text"
+                          name="numberOfAdults"
+                          id="numberOfAdults"
+                          data-min="1"
+                          data-max="50"
+                          value="1"
+                          data-priceinput="true"
+                          required=""
+                          inputmode="numeric"
+                          pattern="[0-9]*"
+                          data-original-value="1"
+                          class="counter-input h-10 w-full border-x border-gray-950/20 bg-white text-center outline-none"
+                          style="
+                            -webkit-appearance: none;
+                            -webkit-border-radius: 0;
+                            border-radius: 0 0 0 0;
+                          "
+                        />
+                        <span class="number-input-display hidden w-full">
+                          1
+                        </span>
+                        <button
+                          type="button"
+                          class="counter-input-plus-btn flex h-10 w-14 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                        >
+                          <i
+                            data-lucide="plus"
+                            class="lucide lucide-plus size-4"
+                          ></i>
+                        </button>
                       </div>
                     </div>
-                  `
-
-                    // HTML'i guest container'a ekle
-                    guestsContainer.insertAdjacentHTML(
-                      'beforeend',
-                      babyCounterHTML,
-                    )
-                  }
-
-                  document.addEventListener('keydown', e => {
-                    if (e.key === 'p' || e.key === 'P') {
-                      addBabyCounter()
-                      window.CounterInputs.refresh()
-                      window.callIcons()
-                    }
-                  })
-                </script>
+                  </div>
+                </div>
 
                 <!-- Bilgi Kutulu Kişi Sayısı Kartı -->
                 <div
@@ -3166,7 +3068,7 @@
                         >
                           <button
                             type="button"
-                            class="counter-input-minus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                            class="counter-input-minus-btn flex h-10 w-12 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                           >
                             <i data-lucide="minus" class="size-[1.1rem]"></i>
                           </button>
@@ -3174,20 +3076,25 @@
                             type="text"
                             name="adult-extra-count"
                             id="adult-extra-count"
-                            class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
                             value="10"
                             data-min="0"
                             data-max="25"
                             data-step="1"
                             inputmode="numeric"
                             pattern="[0-9]*"
+                            class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                            style="
+                              -webkit-appearance: none;
+                              -webkit-border-radius: 0;
+                              border-radius: 0 0 0 0;
+                            "
                           />
                           <span class="counter-input-display hidden w-full"
                             >0</span
                           >
                           <button
                             type="button"
-                            class="counter-input-plus-btn flex h-10 w-10 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                            class="counter-input-plus-btn flex h-10 w-12 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
                           >
                             <i data-lucide="plus" class="size-[1.1rem]"></i>
                           </button>
@@ -3298,38 +3205,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Date Picker Change Event -->
-                <script>
-                  let render = 0
-                  let allowFirstRender = false
-
-                  document
-                    .getElementById('date-input')
-                    ?.addEventListener('change', e => {
-                      if (!allowFirstRender) {
-                        allowFirstRender = true
-                        return
-                      }
-
-                      const selectedDate =
-                        e.target.getAttribute('data-selected')
-                      console.log(
-                        `Input değeri değişti: ${selectedDate}, render: ${render}`,
-                      )
-                      render++
-                    })
-                </script>
-
-                <!-- Date Picker Refresh -->
-                <script>
-                  document.addEventListener('keydown', e => {
-                    if (e.key === 'r' || e.key === 'R') {
-                      window.DatePicker.refresh()
-                      // data değerlerinin hepsini yeniden tarıyor.
-                    }
-                  })
-                </script>
 
                 <!-- Select Input > Cinsiyet Seçimi -->
                 <div class="group mb-6 flex flex-col">
@@ -3660,6 +3535,201 @@
           </div>
         </article>
       </div>
+
+      <!-- Date Picker Change Event -->
+      <script>
+        let render = 0
+        let allowFirstRender = false
+
+        document.getElementById('date-input')?.addEventListener('change', e => {
+          if (!allowFirstRender) {
+            allowFirstRender = true
+            return
+          }
+
+          const selectedDate = e.target.getAttribute('data-selected')
+          console.log(
+            `Input değeri değişti: ${selectedDate}, render: ${render}`,
+          )
+          render++
+        })
+      </script>
+
+      <!-- Date Picker Refresh -->
+      <script>
+        document.addEventListener('keydown', e => {
+          if (e.key === 'r' || e.key === 'R') {
+            window.DatePicker.refresh()
+            // data değerlerinin hepsini yeniden tarıyor.
+          }
+        })
+      </script>
+
+      <!-- Kamp Seçimi Gallery JavaScript -->
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const mobileGalleryController = document.getElementById(
+            'mobile-gallery-controller',
+          )
+
+          if (mobileGalleryController) {
+            // Başlangıçta hepsini disable yap
+            mobileGalleryController.setAttribute('data-active', '0')
+
+            for (let i = 1; i <= 4; i++) {
+              const mobileSlider = document.getElementById(`slider-${i}`)
+              if (mobileSlider)
+                mobileSlider.setAttribute('data-status', 'disable')
+            }
+
+            // Input değişikliklerini dinle - name değerini "campselection" olarak düzelttim
+            const inputs = document.querySelectorAll(
+              'input[name="campselection"]',
+            )
+
+            inputs.forEach(input => {
+              input.addEventListener('change', e => {
+                const target = e.target
+                let activeIndex = 0
+
+                // Input ID'sine göre aktif index'i belirle - ID'ler HTML ile aynı
+                switch (target.id) {
+                  case 'campselection-0':
+                    activeIndex = 1
+                    break
+                  case 'campselection-1':
+                    activeIndex = 2
+                    break
+                  case 'campselection-2':
+                    activeIndex = 3
+                    break
+                  case 'campselection-3':
+                    activeIndex = 4
+                    break
+                }
+
+                // Önceki aktif slider'ları disable et
+                const currentMobileActive = parseInt(
+                  mobileGalleryController.getAttribute('data-active') || '0',
+                )
+
+                if (currentMobileActive > 0) {
+                  const currentMobileSlider = document.getElementById(
+                    `slider-${currentMobileActive}`,
+                  )
+                  if (currentMobileSlider) {
+                    currentMobileSlider.setAttribute('data-status', 'disable')
+                  }
+                }
+
+                mobileGalleryController.setAttribute(
+                  'data-active',
+                  activeIndex.toString(),
+                )
+
+                // Yeni slider'ları enable et - desktop-slider'ı kaldırdım çünkü HTML'de yok
+                if (activeIndex > 0) {
+                  const newMobileSlider = document.getElementById(
+                    `slider-${activeIndex}`,
+                  )
+                  if (newMobileSlider) {
+                    newMobileSlider.setAttribute('data-status', 'enable')
+                  }
+                }
+              })
+            })
+
+            // Sayfa yüklendiğinde varsayılan olarak ilk input'u seç
+            // HTML'de checked olan input bulunamadığından ilk input'u seçiyoruz
+            const firstInput = document.querySelector(
+              'input[name="campselection"]',
+            )
+          }
+        })
+      </script>
+
+      <!-- Test change event -->
+      <script>
+        document
+          .getElementById('child-count')
+          ?.addEventListener('change', e => {
+            console.log(e.target.value)
+          })
+      </script>
+
+      <!-- Test Refresh -->
+      <script>
+        function addBabyCounter() {
+          const guestsContainer = document.getElementById('guests')
+
+          // Zaten bir bebek kutusu varsa, ekleme
+          if (document.getElementById('baby-count')) {
+            console.log('Bebek kutusu zaten mevcut')
+            return
+          }
+
+          // Yeni bebek kutusu HTML'i
+          const babyCounterHTML = `
+          <!-- Bebek -->
+          <div class="group w-full">
+            <div class="flex flex-col items-start gap-1.5">
+              <div class="flex w-full items-center justify-between">
+                <label class="text-sm font-semibold text-gray-800">Bebek</label>
+              </div>
+              <div
+                class="counter-input-container w-full"
+
+              >
+                <div
+                  class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
+                >
+                  <button
+                    type="button"
+                    class="counter-input-minus-btn flex h-10 w-16 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                  >
+                    <i data-lucide="minus" class="size-[1.1rem]"></i>
+                  </button>
+                  <input
+                    type="text"
+                    name="baby-count"
+                    id="baby-count"
+                    value="3"
+                    data-min="1"
+                    data-max="10"
+                    data-step="1"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                    style="
+                      -webkit-appearance: none;
+                      -webkit-border-radius: 0;
+                      border-radius: 0 0 0 0;
+                    "
+                  />
+                  <button
+                    type="button"
+                    class="counter-input-plus-btn flex h-10 w-16 items-center justify-center text-gray-800 outline-primary-400 hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-950 disabled:text-gray-200 disabled:opacity-50 disabled:hover:bg-gray-950"
+                  >
+                    <i data-lucide="plus" class="size-[1.1rem]"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+
+          // HTML'i guest container'a ekle
+          guestsContainer.insertAdjacentHTML('beforeend', babyCounterHTML)
+        }
+
+        document.addEventListener('keydown', e => {
+          if (e.key === 'p' || e.key === 'P') {
+            addBabyCounter()
+            window.CounterInputs.refresh()
+            window.callIcons()
+          }
+        })
+      </script>
 
       <!-- Multi Group Image Gallery - DONT EDIT THIS ** AUTO -->
       <div

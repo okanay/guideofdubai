@@ -188,10 +188,10 @@ class CounterInput {
       // Değer değiştiyse güncelle
       if (oldValue !== newValue) {
         element.input.value = newValue
-
-        // Buton durumlarını güncelle
-        this.updateButtonStates(element)
       }
+
+      // Her durumda buton durumlarını güncelle (değer değişsin veya değişmesin)
+      this.updateButtonStates(element)
     })
 
     // Focus işlemi
