@@ -2816,8 +2816,8 @@
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
-                          <label class="text-sm font-semibold text-gray-800"
-                            >(TEST) : Saat</label
+                          <label class="text-sm font-semibold text-gray-800">
+                            Saat</label
                           >
                         </div>
                         <div class="time-input-container w-full">
@@ -2896,7 +2896,6 @@
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
                             <input
-                              readonly
                               type="text"
                               name="child-count"
                               id="child-count"
@@ -2905,6 +2904,8 @@
                               data-min="1"
                               data-max="10"
                               data-step="1"
+                              inputmode="numeric"
+                              pattern="[0-9]*"
                             />
                             <button
                               type="button"
@@ -2922,7 +2923,7 @@
                 <!-- Test change event -->
                 <script>
                   document
-                    .getElementById('adult-count')
+                    .getElementById('child-count')
                     ?.addEventListener('change', e => {
                       console.log(e.target.value)
                     })
@@ -2961,15 +2962,16 @@
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
                             <input
-                              readonly
                               type="text"
                               name="baby-count"
                               id="baby-count"
                               class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              value="3"
                               data-min="1"
                               data-max="10"
-                              data-step="2"
-                              value="3"
+                              data-step="1"
+                              inputmode="numeric"
+                              pattern="[0-9]*"
                             />
                             <button
                               type="button"
@@ -3037,15 +3039,16 @@
                             <i data-lucide="minus" class="size-4"></i>
                           </button>
                           <input
-                            readonly
                             type="text"
                             name="adult-extra-count"
                             id="adult-extra-count"
                             class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                            data-min="1"
-                            data-max="10"
-                            data-step="2"
-                            value="3"
+                            value="10"
+                            data-min="0"
+                            data-max="25"
+                            data-step="1"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                           />
                           <span class="counter-input-display hidden w-full"
                             >0</span

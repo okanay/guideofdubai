@@ -113,6 +113,10 @@ class TimeInput {
   private setupInputDefaults(element: TimeInputElement): void {
     const { hoursInput, minutesInput } = element
 
+    // Readonly özelliğini kaldır
+    hoursInput.removeAttribute('readonly')
+    minutesInput.removeAttribute('readonly')
+
     // Mobil uyumluluk için gerekli attribute'ları ekle
     hoursInput.setAttribute('inputmode', 'numeric')
     minutesInput.setAttribute('inputmode', 'numeric')
@@ -180,21 +184,42 @@ class TimeInput {
 
     // Saat inputu için event'ler
     hoursInput.addEventListener('focus', () => {
+      // Odaklanınca tüm metni seç
       hoursInput.select()
     })
 
     hoursInput.addEventListener('blur', () => {
+      // Değeri doğrula ve güncelle
       this.validateInput(hoursInput, 'hours')
       this.updateInputValues(element)
     })
 
-    hoursInput.addEventListener('input', () => {
+    hoursInput.addEventListener('input', e => {
+      // Input öncesi değer
+      const oldValue = hoursInput.value
+
       // Sadece sayı karakterlerine izin ver
-      hoursInput.value = hoursInput.value.replace(/[^\d]/g, '')
+      let newValue = hoursInput.value.replace(/[^\d]/g, '')
+
+      // Sınırları kontrol et
+      if (newValue !== '') {
+        const numValue = parseInt(newValue, 10)
+        const max = parseInt(hoursInput.getAttribute('data-max') || '23', 10)
+
+        // Maksimum değeri aşıyorsa, maksimuma sabitle
+        if (!isNaN(numValue) && numValue > max) {
+          newValue = max.toString()
+        }
+      }
+
+      // Değer değiştiyse güncelle
+      if (oldValue !== newValue) {
+        hoursInput.value = newValue
+      }
     })
 
     hoursInput.addEventListener('keydown', (e: KeyboardEvent) => {
-      this.handleKeyInput(e, hoursInput)
+      this.handleKeyInput(e, hoursInput, 'hours')
       if (e.key === 'Enter') {
         hoursInput.blur()
       }
@@ -202,21 +227,42 @@ class TimeInput {
 
     // Dakika inputu için event'ler
     minutesInput.addEventListener('focus', () => {
+      // Odaklanınca tüm metni seç
       minutesInput.select()
     })
 
     minutesInput.addEventListener('blur', () => {
+      // Değeri doğrula ve güncelle
       this.validateInput(minutesInput, 'minutes')
       this.updateInputValues(element)
     })
 
-    minutesInput.addEventListener('input', () => {
+    minutesInput.addEventListener('input', e => {
+      // Input öncesi değer
+      const oldValue = minutesInput.value
+
       // Sadece sayı karakterlerine izin ver
-      minutesInput.value = minutesInput.value.replace(/[^\d]/g, '')
+      let newValue = minutesInput.value.replace(/[^\d]/g, '')
+
+      // Sınırları kontrol et
+      if (newValue !== '') {
+        const numValue = parseInt(newValue, 10)
+        const max = parseInt(minutesInput.getAttribute('data-max') || '59', 10)
+
+        // Maksimum değeri aşıyorsa, maksimuma sabitle
+        if (!isNaN(numValue) && numValue > max) {
+          newValue = max.toString()
+        }
+      }
+
+      // Değer değiştiyse güncelle
+      if (oldValue !== newValue) {
+        minutesInput.value = newValue
+      }
     })
 
     minutesInput.addEventListener('keydown', (e: KeyboardEvent) => {
-      this.handleKeyInput(e, minutesInput)
+      this.handleKeyInput(e, minutesInput, 'minutes')
       if (e.key === 'Enter') {
         minutesInput.blur()
       }
@@ -224,6 +270,10 @@ class TimeInput {
 
     // Mobil cihazlarda dokunma desteği
     hoursInput.addEventListener('touchstart', (e: TouchEvent) => {
+      // Readonly özelliğini kontrol et ve varsa kaldır
+      if (hoursInput.hasAttribute('readonly')) {
+        hoursInput.removeAttribute('readonly')
+      }
       hoursInput.focus()
       setTimeout(() => {
         hoursInput.select()
@@ -231,6 +281,10 @@ class TimeInput {
     })
 
     minutesInput.addEventListener('touchstart', (e: TouchEvent) => {
+      // Readonly özelliğini kontrol et ve varsa kaldır
+      if (minutesInput.hasAttribute('readonly')) {
+        minutesInput.removeAttribute('readonly')
+      }
       minutesInput.focus()
       setTimeout(() => {
         minutesInput.select()
@@ -285,7 +339,11 @@ class TimeInput {
   /**
    * Klavye tuş girişlerini işler
    */
-  private handleKeyInput(event: KeyboardEvent, input: HTMLInputElement): void {
+  private handleKeyInput(
+    event: KeyboardEvent,
+    input: HTMLInputElement,
+    type: 'hours' | 'minutes',
+  ): void {
     // Sadece izin verilen tuşlara izin ver
     const allowedKeys = [
       '0',
@@ -314,6 +372,7 @@ class TimeInput {
     // Sadece izin verilen karakterlere izin ver
     if (!allowedKeys.includes(event.key)) {
       event.preventDefault()
+      return
     }
 
     // Maksimum 2 karakter sınırlaması
@@ -331,6 +390,60 @@ class TimeInput {
       // Eğer seçili metin varsa, değiştirmeye izin ver
       if (input.selectionStart === input.selectionEnd) {
         event.preventDefault()
+        return
+      }
+    }
+
+    // Minimum ve maksimum değer kontrolü
+    if (
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(event.key)
+    ) {
+      const selectionStart = input.selectionStart || 0
+      const selectionEnd = input.selectionEnd || 0
+      const currentValue = input.value
+
+      // Seçim varsa değer farklı olacak, yoksa karakter eklenecek
+      let newValueStr = ''
+      if (selectionStart !== selectionEnd) {
+        // Seçili kısmı yeni değerle değiştir
+        newValueStr =
+          currentValue.substring(0, selectionStart) +
+          event.key +
+          currentValue.substring(selectionEnd)
+      } else {
+        // İmleç pozisyonuna karakter ekle
+        newValueStr =
+          currentValue.substring(0, selectionStart) +
+          event.key +
+          currentValue.substring(selectionStart)
+      }
+
+      // Yeni değer oluşacak mı kontrol et
+      if (newValueStr !== '') {
+        const newValue = parseInt(newValueStr, 10)
+        const max = parseInt(
+          input.getAttribute('data-max') || (type === 'hours' ? '23' : '59'),
+          10,
+        )
+        const min = parseInt(input.getAttribute('data-min') || '0', 10)
+
+        // Eğer yeni değer max değeri aşacaksa tuşa basılmasını engelle
+        if (!isNaN(newValue) && newValue > max) {
+          event.preventDefault()
+          return
+        }
+
+        // Eğer değer minimum değerin altına düşecekse ve başka karakter yoksa
+        // (yani tamamen yeni bir değer giriliyor)
+        if (
+          !isNaN(newValue) &&
+          newValue < min &&
+          selectionStart === 0 &&
+          selectionEnd === currentValue.length
+        ) {
+          event.preventDefault()
+          return
+        }
       }
     }
   }
