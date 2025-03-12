@@ -67,6 +67,7 @@
     <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
     <script type="module" src="assets/scripts/ui/date-time-picker.js"></script>
     <script type="module" src="assets/scripts/ui/counter-input.js"></script>
+    <script type="module" src="assets/scripts/ui/time-input.js"></script>
 
     <script>
       ;(function () {
@@ -2811,52 +2812,73 @@
                     id="guests"
                     class="grid grid-cols-2 gap-4 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
                   >
-                    <!-- Yetişkin -->
+                    <!-- Time Input Component HTML Yapısı -->
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
                           <label class="text-sm font-semibold text-gray-800"
-                            >Yetişkin</label
-                          >
+                            >Saat
+                          </label>
                         </div>
-                        <div class="counter-input-container w-full">
+                        <div class="time-input-container w-full">
                           <div
                             class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
                           >
+                            <!-- Dakika Arttırma Butonu -->
                             <button
                               type="button"
-                              class="counter-input-minus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
-                            >
-                              <i data-lucide="minus" class="size-4"></i>
-                            </button>
-                            <input
-                              readonly
-                              type="text"
-                              name="adult-count"
-                              id="adult-count"
-                              class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
-                              data-min="1"
-                              data-max="10"
-                              data-step="1"
-                              value="5"
-                            />
-                            <button
-                              type="button"
-                              class="counter-input-plus-btn flex h-10 w-10 items-center justify-center rounded-r-lg border-primary-400 text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="time-input-minutes-plus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
+                            </button>
+
+                            <!-- Saat Input Alanı -->
+                            <input
+                              type="text"
+                              class="time-input-hours h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
+                              data-min="0"
+                              data-max="23"
+                              data-step="1"
+                              value="09"
+                              readonly
+                            />
+
+                            <!-- Ayırıcı (:) -->
+                            <div
+                              class="flex items-center justify-center px-2 font-medium text-gray-800"
+                            >
+                              :
+                            </div>
+
+                            <!-- Dakika Input Alanı -->
+                            <input
+                              type="text"
+                              class="time-input-minutes h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
+                              data-min="0"
+                              data-max="59"
+                              data-step="30"
+                              value="30"
+                              readonly
+                            />
+
+                            <!-- Dakika Azaltma Butonu -->
+                            <button
+                              type="button"
+                              class="time-input-minutes-minus-btn flex h-10 w-10 items-center justify-center rounded-r-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                            >
+                              <i data-lucide="minus" class="size-4"></i>
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <!-- Çocuk -->
+                    <!-- Kişi Sayısı -->
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
                           <label class="text-sm font-semibold text-gray-800"
-                            >Çocuk</label
+                            >Kişi Sayısı</label
                           >
                         </div>
                         <div class="counter-input-container w-full">
@@ -2875,10 +2897,10 @@
                               name="child-count"
                               id="child-count"
                               class="counter-input h-10 w-full flex-1 border-x border-gray-950/20 bg-white text-center outline-none"
+                              value="3"
                               data-min="1"
                               data-max="10"
-                              data-step="2"
-                              value="3"
+                              data-step="1"
                             />
                             <button
                               type="button"
@@ -3169,6 +3191,39 @@
                     }
                   })
                 </script>
+
+                <!-- Select Input > Cinsiyet Seçimi -->
+                <div class="group mb-6 flex flex-col">
+                  <label
+                    for="gender-select"
+                    class="mb-1.5 block text-sm font-semibold text-gray-800"
+                  >
+                    Cinsiyet <span class="text-rose-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <select
+                      id="gender-select"
+                      name="gender-select"
+                      class="h-12 w-full appearance-none rounded-lg border border-gray-950/20 bg-white px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 group-hover:border-gray-400"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Cinsiyet Seçiniz
+                      </option>
+                      <option value="male">Erkek</option>
+                      <option value="female">Kadın</option>
+                      <option value="other">Diğer</option>
+                    </select>
+                    <div
+                      class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rtl:left-3 rtl:right-auto"
+                    >
+                      <i
+                        data-lucide="chevron-down"
+                        class="size-4 text-gray-800"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- Notlar - Opsiyonel -->
                 <div class="group relative mb-6">
