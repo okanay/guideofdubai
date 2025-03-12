@@ -4,24 +4,35 @@
  */
 interface TimeInputOptions {
   container: string // CSS selektör - time input container'ları için
+  autoRefresh?: boolean // DOM'daki değişiklikleri izleyip otomatik güncelleme yapıp yapmayacağı
   onChange?: (
     time: { hours: number; minutes: number; formatted: string },
     element: HTMLElement,
   ) => void // Değişiklik olduğunda çalışacak callback
 }
 
+interface TimeInputElement {
+  container: HTMLElement
+  hoursInput: HTMLInputElement
+  minutesInput: HTMLInputElement
+  minutesPlusBtn: HTMLElement
+  minutesMinusBtn: HTMLElement
+  observer?: MutationObserver
+}
+
 class TimeInput {
-  private containers: HTMLElement[] = []
+  private containers: TimeInputElement[] = []
   private options: TimeInputOptions
-  private eventListeners: WeakMap<HTMLElement, Function[]> = new WeakMap()
 
   /**
    * TimeInput constructor
    * @param options Başlangıç ayarları
    */
   constructor(options: TimeInputOptions) {
+    // Varsayılan ayarlar ile kullanıcı ayarlarını birleştir
     this.options = {
       container: options.container,
+      autoRefresh: options.autoRefresh || false,
       onChange: options.onChange,
     }
 
@@ -35,47 +46,14 @@ class TimeInput {
   private init(): void {
     // DOM'dan elemanları yakala
     this.refresh()
-
-    // DOM değişikliklerini dinle (data-auto-refresh="true" varsa)
-    this.setupDOMObserver()
-  }
-
-  /**
-   * DOM değişikliklerini gözlemleyen observer kurulumu
-   */
-  private setupDOMObserver(): void {
-    // Sayfadaki tüm containerları kontrol et, eğer data-auto-refresh="true" varsa izle
-    document
-      .querySelectorAll<HTMLElement>(this.options.container)
-      .forEach(container => {
-        if (container.getAttribute('data-auto-refresh') === 'true') {
-          const observer = new MutationObserver(() => {
-            this.refresh()
-          })
-
-          observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-          })
-
-          // Sayfadan ayrılırken observer'ları temizle
-          window.addEventListener(
-            'beforeunload',
-            () => {
-              observer.disconnect()
-            },
-            { once: true },
-          )
-        }
-      })
   }
 
   /**
    * DOM'u yeniden tarayıp güncelleyen fonksiyon
    */
   public refresh(): void {
-    // Önce mevcut event listenerları temizle
-    this.removeAllEventListeners()
+    // Önce mevcut observer'ları temizle
+    this.clearObservers()
 
     // Containers'ı sıfırla
     this.containers = []
@@ -101,59 +79,47 @@ class TimeInput {
       )
 
       if (hoursInput && minutesInput && minutesPlusBtn && minutesMinusBtn) {
-        // Varsayılan değerleri data-attributes'dan al
-        this.setupInputDefaults(hoursInput, minutesInput, container)
-
-        // Event listener'ları ekle
-        this.setupInputEventListeners(
+        const timeElement: TimeInputElement = {
           container,
           hoursInput,
           minutesInput,
           minutesPlusBtn,
           minutesMinusBtn,
-        )
+        }
+
+        // Mobil uyumluluk için input ayarları
+        this.setupInputDefaults(timeElement)
+
+        // Event listener'ları ekle
+        this.setupEventListeners(timeElement)
+
+        // AutoRefresh aktifse, observer ekle
+        if (this.options.autoRefresh) {
+          this.setupObserver(timeElement)
+        }
 
         // Container'ı listeye ekle
-        this.containers.push(container)
+        this.containers.push(timeElement)
+
+        // İlk değeri ve durumları ayarla
+        this.updateInputValues(timeElement)
       }
     })
   }
 
   /**
-   * Input ve buton varsayılan değerlerini data attribute'lardan ayarla
+   * Input ve buton varsayılan değerlerini ayarla
    */
-  private setupInputDefaults(
-    hoursInput: HTMLInputElement,
-    minutesInput: HTMLInputElement,
-    container: HTMLElement,
-  ): void {
+  private setupInputDefaults(element: TimeInputElement): void {
+    const { hoursInput, minutesInput } = element
+
     // Mobil uyumluluk için gerekli attribute'ları ekle
-    if (!hoursInput.hasAttribute('inputmode')) {
-      hoursInput.setAttribute('inputmode', 'numeric')
-    }
-
-    if (!minutesInput.hasAttribute('inputmode')) {
-      minutesInput.setAttribute('inputmode', 'numeric')
-    }
-
-    if (!hoursInput.hasAttribute('pattern')) {
-      hoursInput.setAttribute('pattern', '[0-9]*')
-    }
-
-    if (!minutesInput.hasAttribute('pattern')) {
-      minutesInput.setAttribute('pattern', '[0-9]*')
-    }
-
-    if (!hoursInput.hasAttribute('maxlength')) {
-      hoursInput.setAttribute('maxlength', '2')
-    }
-
-    if (!minutesInput.hasAttribute('maxlength')) {
-      minutesInput.setAttribute('maxlength', '2')
-    }
-
-    // Container'dan ve input'lardan data-attribute'ları al
-    const is24Hour = container.getAttribute('data-is-24-hour') !== 'false' // Varsayılan true
+    hoursInput.setAttribute('inputmode', 'numeric')
+    minutesInput.setAttribute('inputmode', 'numeric')
+    hoursInput.setAttribute('pattern', '[0-9]*')
+    minutesInput.setAttribute('pattern', '[0-9]*')
+    hoursInput.setAttribute('maxlength', '2')
+    minutesInput.setAttribute('maxlength', '2')
 
     // Hours input için min-max-step değerlerini ayarla (eğer yoksa)
     if (!hoursInput.hasAttribute('data-min')) {
@@ -161,7 +127,7 @@ class TimeInput {
     }
 
     if (!hoursInput.hasAttribute('data-max')) {
-      hoursInput.setAttribute('data-max', is24Hour ? '23' : '12')
+      hoursInput.setAttribute('data-max', '23')
     }
 
     if (!hoursInput.hasAttribute('data-step')) {
@@ -193,211 +159,127 @@ class TimeInput {
     // Değerleri formatla
     this.formatInputValue(hoursInput)
     this.formatInputValue(minutesInput)
-
-    // Butonların durumlarını güncelle
-    const hoursValue = parseInt(hoursInput.value, 10)
-    const minutesValue = parseInt(minutesInput.value, 10)
-    const hoursMin = parseInt(hoursInput.getAttribute('data-min') || '0', 10)
-    const hoursMax = parseInt(hoursInput.getAttribute('data-max') || '23', 10)
-    const minutesMin = parseInt(
-      minutesInput.getAttribute('data-min') || '0',
-      10,
-    )
-    const minutesMax = parseInt(
-      minutesInput.getAttribute('data-max') || '59',
-      10,
-    )
-
-    // Container'a güncel saati data-attribute olarak ekle
-    container.setAttribute('data-hours', hoursValue.toString())
-    container.setAttribute('data-minutes', minutesValue.toString())
-    container.setAttribute(
-      'data-formatted-time',
-      `${hoursValue.toString().padStart(2, '0')}:${minutesValue.toString().padStart(2, '0')}`,
-    )
   }
 
   /**
-   * Event listener'ları ekle ve yönet
+   * Event listener'ları ayarlar
    */
-  private setupInputEventListeners(
-    container: HTMLElement,
-    hoursInput: HTMLInputElement,
-    minutesInput: HTMLInputElement,
-    minutesPlusBtn: HTMLElement,
-    minutesMinusBtn: HTMLElement,
-  ): void {
-    // WeakMap'de listeyi oluştur
-    if (!this.eventListeners.has(container)) {
-      this.eventListeners.set(container, [])
-    }
-
-    const listeners = this.eventListeners.get(container) || []
+  private setupEventListeners(element: TimeInputElement): void {
+    const { hoursInput, minutesInput, minutesPlusBtn, minutesMinusBtn } =
+      element
 
     // Dakika artırma butonu
-    const incrementListener = () => {
-      this.incrementMinutes(container, hoursInput, minutesInput)
-    }
-    minutesPlusBtn.addEventListener('click', incrementListener)
-    listeners.push(() =>
-      minutesPlusBtn.removeEventListener('click', incrementListener),
-    )
+    minutesPlusBtn.addEventListener('click', () => {
+      this.incrementMinutes(element)
+    })
 
     // Dakika azaltma butonu
-    const decrementListener = () => {
-      this.decrementMinutes(container, hoursInput, minutesInput)
-    }
-    minutesMinusBtn.addEventListener('click', decrementListener)
-    listeners.push(() =>
-      minutesMinusBtn.removeEventListener('click', decrementListener),
-    )
+    minutesMinusBtn.addEventListener('click', () => {
+      this.decrementMinutes(element)
+    })
 
-    // Saat input için event'ler
-    const hoursFocusListener = () => {
-      // Odaklanınca readonly'i kaldır
-      hoursInput.readOnly = false
-      setTimeout(() => {
-        hoursInput.select()
-      }, 0)
-    }
-    hoursInput.addEventListener('focus', hoursFocusListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('focus', hoursFocusListener),
-    )
+    // Saat inputu için event'ler
+    hoursInput.addEventListener('focus', () => {
+      hoursInput.select()
+    })
 
-    const hoursBlurListener = () => {
-      // Değeri doğrula ve formatla
-      this.validateInput(hoursInput, 'hours', container)
-      // Tekrar readonly yap
-      setTimeout(() => {
-        hoursInput.readOnly = true
-      }, 100)
-      this.triggerChangeEvent(container, hoursInput, minutesInput)
-    }
-    hoursInput.addEventListener('blur', hoursBlurListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('blur', hoursBlurListener),
-    )
+    hoursInput.addEventListener('blur', () => {
+      this.validateInput(hoursInput, 'hours')
+      this.updateInputValues(element)
+    })
 
-    // Dakika input için event'ler
-    const minutesFocusListener = () => {
-      // Odaklanınca readonly'i kaldır
-      minutesInput.readOnly = false
-      setTimeout(() => {
-        minutesInput.select()
-      }, 0)
-    }
-    minutesInput.addEventListener('focus', minutesFocusListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('focus', minutesFocusListener),
-    )
-
-    const minutesBlurListener = () => {
-      // Değeri doğrula ve formatla
-      this.validateInput(minutesInput, 'minutes', container)
-      // Tekrar readonly yap
-      setTimeout(() => {
-        minutesInput.readOnly = true
-      }, 100)
-      this.triggerChangeEvent(container, hoursInput, minutesInput)
-    }
-    minutesInput.addEventListener('blur', minutesBlurListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('blur', minutesBlurListener),
-    )
-
-    // Input sınırlamalar (sadece sayısal karakterlere izin ver)
-    const hoursKeydownListener = (e: KeyboardEvent) => {
-      this.handleKeyInput(e, hoursInput)
-    }
-    hoursInput.addEventListener('keydown', hoursKeydownListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('keydown', hoursKeydownListener),
-    )
-
-    const minutesKeydownListener = (e: KeyboardEvent) => {
-      this.handleKeyInput(e, minutesInput)
-    }
-    minutesInput.addEventListener('keydown', minutesKeydownListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('keydown', minutesKeydownListener),
-    )
-
-    // Input değişikliklerini takip et
-    const hoursInputListener = () => {
+    hoursInput.addEventListener('input', () => {
       // Sadece sayı karakterlerine izin ver
       hoursInput.value = hoursInput.value.replace(/[^\d]/g, '')
-    }
-    hoursInput.addEventListener('input', hoursInputListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('input', hoursInputListener),
-    )
+    })
 
-    const minutesInputListener = () => {
-      // Sadece sayı karakterlerine izin ver
-      minutesInput.value = minutesInput.value.replace(/[^\d]/g, '')
-    }
-    minutesInput.addEventListener('input', minutesInputListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('input', minutesInputListener),
-    )
-
-    // Enter tuşuna basıldığında blur'a neden ol
-    const hoursEnterListener = (e: KeyboardEvent) => {
+    hoursInput.addEventListener('keydown', (e: KeyboardEvent) => {
+      this.handleKeyInput(e, hoursInput)
       if (e.key === 'Enter') {
         hoursInput.blur()
       }
-    }
-    hoursInput.addEventListener('keydown', hoursEnterListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('keydown', hoursEnterListener),
-    )
+    })
 
-    const minutesEnterListener = (e: KeyboardEvent) => {
+    // Dakika inputu için event'ler
+    minutesInput.addEventListener('focus', () => {
+      minutesInput.select()
+    })
+
+    minutesInput.addEventListener('blur', () => {
+      this.validateInput(minutesInput, 'minutes')
+      this.updateInputValues(element)
+    })
+
+    minutesInput.addEventListener('input', () => {
+      // Sadece sayı karakterlerine izin ver
+      minutesInput.value = minutesInput.value.replace(/[^\d]/g, '')
+    })
+
+    minutesInput.addEventListener('keydown', (e: KeyboardEvent) => {
+      this.handleKeyInput(e, minutesInput)
       if (e.key === 'Enter') {
         minutesInput.blur()
       }
-    }
-    minutesInput.addEventListener('keydown', minutesEnterListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('keydown', minutesEnterListener),
-    )
+    })
 
     // Mobil cihazlarda dokunma desteği
-    const hoursTouchListener = (e: TouchEvent) => {
-      if (hoursInput.readOnly) {
-        // Only prevent default if readonly to allow standard behavior when editable
-        e.preventDefault()
-        hoursInput.readOnly = false
-        hoursInput.focus()
-        setTimeout(() => {
-          hoursInput.select()
-        }, 0)
-      }
-    }
-    hoursInput.addEventListener('touchstart', hoursTouchListener)
-    listeners.push(() =>
-      hoursInput.removeEventListener('touchstart', hoursTouchListener),
-    )
+    hoursInput.addEventListener('touchstart', (e: TouchEvent) => {
+      hoursInput.focus()
+      setTimeout(() => {
+        hoursInput.select()
+      }, 0)
+    })
 
-    const minutesTouchListener = (e: TouchEvent) => {
-      if (minutesInput.readOnly) {
-        // Only prevent default if readonly to allow standard behavior when editable
-        e.preventDefault()
-        minutesInput.readOnly = false
-        minutesInput.focus()
-        setTimeout(() => {
-          minutesInput.select()
-        }, 0)
-      }
-    }
-    minutesInput.addEventListener('touchstart', minutesTouchListener)
-    listeners.push(() =>
-      minutesInput.removeEventListener('touchstart', minutesTouchListener),
-    )
+    minutesInput.addEventListener('touchstart', (e: TouchEvent) => {
+      minutesInput.focus()
+      setTimeout(() => {
+        minutesInput.select()
+      }, 0)
+    })
+  }
 
-    // Event listenerları kaydet
-    this.eventListeners.set(container, listeners)
+  /**
+   * AutoRefresh için observer kurar
+   */
+  private setupObserver(element: TimeInputElement): void {
+    // Daha önce bir observer varsa temizle
+    if (element.observer) {
+      element.observer.disconnect()
+    }
+
+    // Yeni bir MutationObserver oluştur
+    const observer = new MutationObserver(mutations => {
+      let needsUpdate = false
+
+      mutations.forEach(mutation => {
+        if (
+          mutation.type === 'attributes' &&
+          (mutation.attributeName === 'data-min' ||
+            mutation.attributeName === 'data-max' ||
+            mutation.attributeName === 'data-step')
+        ) {
+          needsUpdate = true
+        }
+      })
+
+      if (needsUpdate) {
+        this.updateInputValues(element)
+      }
+    })
+
+    // Observer'ı başlat ve input'taki data attribute'larını izle
+    observer.observe(element.hoursInput, {
+      attributes: true,
+      attributeFilter: ['data-min', 'data-max', 'data-step'],
+    })
+
+    observer.observe(element.minutesInput, {
+      attributes: true,
+      attributeFilter: ['data-min', 'data-max', 'data-step'],
+    })
+
+    // Observer'ı element'e kaydet
+    element.observer = observer
   }
 
   /**
@@ -456,11 +338,9 @@ class TimeInput {
   /**
    * Dakika değerini artırır ve gerekirse saati de artırır
    */
-  private incrementMinutes(
-    container: HTMLElement,
-    hoursInput: HTMLInputElement,
-    minutesInput: HTMLInputElement,
-  ): void {
+  private incrementMinutes(element: TimeInputElement): void {
+    const { hoursInput, minutesInput } = element
+
     const minutesValue = parseInt(minutesInput.value, 10) || 0
     const step = parseInt(minutesInput.getAttribute('data-step') || '5', 10)
     const max = parseInt(minutesInput.getAttribute('data-max') || '59', 10)
@@ -474,11 +354,7 @@ class TimeInput {
 
       // Saati artır
       const hoursValue = parseInt(hoursInput.value, 10) || 0
-      const is24Hour = container.getAttribute('data-is-24-hour') !== 'false'
-      const hoursMax = parseInt(
-        hoursInput.getAttribute('data-max') || (is24Hour ? '23' : '12'),
-        10,
-      )
+      const hoursMax = parseInt(hoursInput.getAttribute('data-max') || '23', 10)
       const hoursMin = parseInt(hoursInput.getAttribute('data-min') || '0', 10)
 
       let newHoursValue = hoursValue + overflow
@@ -496,18 +372,16 @@ class TimeInput {
     // Dakikayı güncelle
     minutesInput.value = newMinutesValue.toString().padStart(2, '0')
 
-    // Değişiklik olayını tetikle
-    this.triggerChangeEvent(container, hoursInput, minutesInput)
+    // Input değerlerini güncelle
+    this.updateInputValues(element)
   }
 
   /**
    * Dakika değerini azaltır ve gerekirse saati de azaltır
    */
-  private decrementMinutes(
-    container: HTMLElement,
-    hoursInput: HTMLInputElement,
-    minutesInput: HTMLInputElement,
-  ): void {
+  private decrementMinutes(element: TimeInputElement): void {
+    const { hoursInput, minutesInput } = element
+
     const minutesValue = parseInt(minutesInput.value, 10) || 0
     const step = parseInt(minutesInput.getAttribute('data-step') || '5', 10)
     const min = parseInt(minutesInput.getAttribute('data-min') || '0', 10)
@@ -526,11 +400,7 @@ class TimeInput {
 
       // Saati azalt
       const hoursValue = parseInt(hoursInput.value, 10) || 0
-      const is24Hour = container.getAttribute('data-is-24-hour') !== 'false'
-      const hoursMax = parseInt(
-        hoursInput.getAttribute('data-max') || (is24Hour ? '23' : '12'),
-        10,
-      )
+      const hoursMax = parseInt(hoursInput.getAttribute('data-max') || '23', 10)
       const hoursMin = parseInt(hoursInput.getAttribute('data-min') || '0', 10)
 
       let newHoursValue = hoursValue - overflow
@@ -549,8 +419,8 @@ class TimeInput {
     // Dakikayı güncelle
     minutesInput.value = newMinutesValue.toString().padStart(2, '0')
 
-    // Değişiklik olayını tetikle
-    this.triggerChangeEvent(container, hoursInput, minutesInput)
+    // Input değerlerini güncelle
+    this.updateInputValues(element)
   }
 
   /**
@@ -559,7 +429,6 @@ class TimeInput {
   private validateInput(
     input: HTMLInputElement,
     type: 'hours' | 'minutes',
-    container: HTMLElement,
   ): void {
     // Sayısal olmayan karakterleri temizle
     let value = input.value.replace(/[^\d]/g, '')
@@ -573,10 +442,8 @@ class TimeInput {
 
     // Sınırları kontrol et
     const min = parseInt(input.getAttribute('data-min') || '0', 10)
-    const is24Hour = container.getAttribute('data-is-24-hour') !== 'false'
     const max = parseInt(
-      input.getAttribute('data-max') ||
-        (type === 'hours' ? (is24Hour ? '23' : '12') : '59'),
+      input.getAttribute('data-max') || (type === 'hours' ? '23' : '59'),
       10,
     )
 
@@ -589,6 +456,9 @@ class TimeInput {
 
     // Değeri formatla (2 basamaklı)
     input.value = numValue.toString().padStart(2, '0')
+
+    // Form değerini de güncelle
+    input.setAttribute('value', input.value)
   }
 
   /**
@@ -607,16 +477,21 @@ class TimeInput {
 
     // 2 basamaklı formatta göster
     input.value = numValue.toString().padStart(2, '0')
+
+    // Form değerini de güncelle
+    input.setAttribute('value', input.value)
   }
 
   /**
-   * Change event'i tetikle
+   * Tüm inputları ve container durumunu günceller
    */
-  private triggerChangeEvent(
-    container: HTMLElement,
-    hoursInput: HTMLInputElement,
-    minutesInput: HTMLInputElement,
-  ): void {
+  private updateInputValues(element: TimeInputElement): void {
+    const { container, hoursInput, minutesInput } = element
+
+    // Input'ları doğrula ve formatla
+    this.validateInput(hoursInput, 'hours')
+    this.validateInput(minutesInput, 'minutes')
+
     const hours = parseInt(hoursInput.value, 10) || 0
     const minutes = parseInt(minutesInput.value, 10) || 0
     const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
@@ -639,6 +514,16 @@ class TimeInput {
     // Event'i gönder
     container.dispatchEvent(timeChangeEvent)
 
+    // Native change event tetikle (input'lar için)
+    const changeEvent = new Event('change', { bubbles: true })
+    hoursInput.dispatchEvent(changeEvent)
+    minutesInput.dispatchEvent(changeEvent)
+
+    // Native input event tetikle
+    const inputEvent = new Event('input', { bubbles: true })
+    hoursInput.dispatchEvent(inputEvent)
+    minutesInput.dispatchEvent(inputEvent)
+
     // Callback fonksiyonu varsa çağır
     if (typeof this.options.onChange === 'function') {
       this.options.onChange(
@@ -658,19 +543,13 @@ class TimeInput {
    * @returns HH:MM formatında zaman
    */
   public getFormattedTime(indexOrContainer: number | HTMLElement = 0): string {
-    let container: HTMLElement | null = null
+    const element = this.getElement(indexOrContainer)
 
-    if (typeof indexOrContainer === 'number') {
-      container = this.containers[indexOrContainer] || null
-    } else {
-      container = indexOrContainer
-    }
-
-    if (!container) {
+    if (!element) {
       return '00:00'
     }
 
-    return container.getAttribute('data-formatted-time') || '00:00'
+    return element.container.getAttribute('data-formatted-time') || '00:00'
   }
 
   /**
@@ -682,20 +561,20 @@ class TimeInput {
     hours: number
     minutes: number
   } {
-    let container: HTMLElement | null = null
+    const element = this.getElement(indexOrContainer)
 
-    if (typeof indexOrContainer === 'number') {
-      container = this.containers[indexOrContainer] || null
-    } else {
-      container = indexOrContainer
-    }
-
-    if (!container) {
+    if (!element) {
       return { hours: 0, minutes: 0 }
     }
 
-    const hours = parseInt(container.getAttribute('data-hours') || '0', 10)
-    const minutes = parseInt(container.getAttribute('data-minutes') || '0', 10)
+    const hours = parseInt(
+      element.container.getAttribute('data-hours') || '0',
+      10,
+    )
+    const minutes = parseInt(
+      element.container.getAttribute('data-minutes') || '0',
+      10,
+    )
 
     return { hours, minutes }
   }
@@ -709,15 +588,9 @@ class TimeInput {
     time: string | { hours: number; minutes: number },
     indexOrContainer: number | HTMLElement = 0,
   ): void {
-    let container: HTMLElement | null = null
+    const element = this.getElement(indexOrContainer)
 
-    if (typeof indexOrContainer === 'number') {
-      container = this.containers[indexOrContainer] || null
-    } else {
-      container = indexOrContainer
-    }
-
-    if (!container) {
+    if (!element) {
       return
     }
 
@@ -738,48 +611,38 @@ class TimeInput {
       minutes = time.minutes
     }
 
-    // Input'ları bul
-    const hoursInput =
-      container.querySelector<HTMLInputElement>('.time-input-hours')
-    const minutesInput = container.querySelector<HTMLInputElement>(
-      '.time-input-minutes',
-    )
+    // Değerleri güncelle
+    element.hoursInput.value = hours.toString().padStart(2, '0')
+    element.minutesInput.value = minutes.toString().padStart(2, '0')
 
-    if (hoursInput && minutesInput) {
-      // Değerleri güncelle
-      hoursInput.value = hours.toString().padStart(2, '0')
-      minutesInput.value = minutes.toString().padStart(2, '0')
+    // Değişikliği uygula
+    this.updateInputValues(element)
+  }
 
-      // Değişiklik olayını tetikle
-      this.triggerChangeEvent(container, hoursInput, minutesInput)
+  /**
+   * Index veya HTMLElement'e göre container elementini bulur
+   */
+  private getElement(
+    indexOrContainer: number | HTMLElement,
+  ): TimeInputElement | null {
+    if (typeof indexOrContainer === 'number') {
+      return this.containers[indexOrContainer] || null
+    } else {
+      return (
+        this.containers.find(item => item.container === indexOrContainer) ||
+        null
+      )
     }
   }
 
   /**
-   * Belirli bir container için event listenerları temizler
+   * Tüm observer'ları temizler
    */
-  private removeEventListeners(container: HTMLElement): void {
-    const listeners = this.eventListeners.get(container)
-
-    if (listeners && listeners.length) {
-      // Her bir listener'ı çalıştır (cleanup)
-      listeners.forEach(cleanup => {
-        if (typeof cleanup === 'function') {
-          cleanup()
-        }
-      })
-
-      // Listeners listesini temizle
-      this.eventListeners.set(container, [])
-    }
-  }
-
-  /**
-   * Tüm containerlar için event listenerları temizler
-   */
-  private removeAllEventListeners(): void {
-    this.containers.forEach(container => {
-      this.removeEventListeners(container)
+  private clearObservers(): void {
+    this.containers.forEach(element => {
+      if (element.observer) {
+        element.observer.disconnect()
+      }
     })
   }
 
@@ -787,8 +650,8 @@ class TimeInput {
    * TimeInput instance'ını temizler ve kaynakları serbest bırakır
    */
   public destroy(): void {
-    // Tüm event listenerları temizle
-    this.removeAllEventListeners()
+    // Tüm observer'ları temizle
+    this.clearObservers()
 
     // Containers'ı temizle
     this.containers = []
