@@ -2813,21 +2813,26 @@
                     class="grid grid-cols-2 gap-4 [&>*:last-child:nth-child(odd)]:sm:col-span-2"
                   >
                     <!-- Time Input Component HTML Yapısı -->
+                    <!-- Time Input Bileşeni HTML Yapısı -->
                     <div class="group w-full">
                       <div class="flex flex-col items-start gap-1.5">
                         <div class="flex w-full items-center justify-between">
                           <label class="text-sm font-semibold text-gray-800"
-                            >Saat
-                          </label>
+                            >Saat</label
+                          >
                         </div>
-                        <div class="time-input-container w-full">
+                        <div
+                          class="time-input-container w-full"
+                          data-is-24-hour="false"
+                          data-auto-refresh="true"
+                        >
                           <div
                             class="relative flex w-full items-center overflow-hidden rounded-md border border-gray-950/20 bg-gray-50 transition-colors duration-200 group-hover:border-gray-400"
                           >
                             <!-- Dakika Arttırma Butonu -->
                             <button
                               type="button"
-                              class="time-input-minutes-plus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="time-input-minutes-plus-btn flex h-10 w-10 items-center justify-center rounded-l-lg text-gray-800 outline-primary-400 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="plus" class="size-4"></i>
                             </button>
@@ -2835,6 +2840,9 @@
                             <!-- Saat Input Alanı -->
                             <input
                               type="text"
+                              inputmode="numeric"
+                              pattern="[0-9]*"
+                              maxlength="2"
                               class="time-input-hours h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
                               data-min="0"
                               data-max="23"
@@ -2853,6 +2861,9 @@
                             <!-- Dakika Input Alanı -->
                             <input
                               type="text"
+                              inputmode="numeric"
+                              pattern="[0-9]*"
+                              maxlength="2"
                               class="time-input-minutes h-10 w-14 border-x border-gray-950/20 bg-white text-center outline-none"
                               data-min="0"
                               data-max="59"
@@ -2864,7 +2875,7 @@
                             <!-- Dakika Azaltma Butonu -->
                             <button
                               type="button"
-                              class="time-input-minutes-minus-btn flex h-10 w-10 items-center justify-center rounded-r-lg text-gray-800 outline-primary-400 disabled:text-gray-300 disabled:hover:bg-transparent"
+                              class="time-input-minutes-minus-btn flex h-10 w-10 items-center justify-center rounded-r-lg text-gray-800 outline-primary-400 hover:bg-gray-100 disabled:text-gray-300 disabled:hover:bg-transparent"
                             >
                               <i data-lucide="minus" class="size-4"></i>
                             </button>
