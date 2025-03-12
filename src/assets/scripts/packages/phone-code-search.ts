@@ -8,7 +8,7 @@ interface PhoneCodeElements {
   suggestions: string
   searchModal: string
   clearButton: string
-  afterFocusElement?: string // Yeni eklenen element ID'si
+  afterFocusElement?: string
 }
 
 interface PhoneCodeOption {
@@ -18,20 +18,19 @@ interface PhoneCodeOption {
 }
 
 interface PhoneCodeLanguage {
-  id: 'TR' | 'EN' // Desteklenen diller
+  id: 'TR' | 'EN' | string
   data: PhoneCodeOption[]
 }
 
-// Ana options interface'ini güncelleme
 interface PhoneCodeOptions {
-  elements: PhoneCodeElements
+  classNames: PhoneCodeElements // ID'ler yerine sınıf isimleri
   languages: PhoneCodeLanguage[]
   defaultLanguage?: 'TR' | 'EN'
-  defaultCountry?: string // Opsiyonel default ülke kodu
-  onSelect?: (option: PhoneCodeOption) => void
-  onPhoneChange?: (phone: string) => void
-  onModalOpen?: () => void
-  onModalClose?: () => void
+  defaultCountry?: string
+  onSelect?: (option: PhoneCodeOption, instance: PhoneCodeSearch) => void
+  onPhoneChange?: (phone: string, instance: PhoneCodeSearch) => void
+  onModalOpen?: (instance: PhoneCodeSearch) => void
+  onModalClose?: (instance: PhoneCodeSearch) => void
 }
 
 class PhoneCodeSearch {
@@ -55,52 +54,56 @@ class PhoneCodeSearch {
   private options: PhoneCodeOptions
   private allOptions: PhoneCodeOption[] = []
   private currentLanguage: 'TR' | 'EN'
+  private instanceId: string // Her instance için benzersiz ID
+  private static instances: Map<string, PhoneCodeSearch> = new Map() // Tüm instance'ları takip eden statik Map
 
-  constructor(options: PhoneCodeOptions) {
+  constructor(containerElement: HTMLElement, options: PhoneCodeOptions) {
     this.options = options
+    this.instanceId = this.generateUniqueId()
 
-    const container = document.getElementById(options.elements.container)
-    const select = document.getElementById(
-      options.elements.select,
-    ) as HTMLSelectElement
-    const flag = document.getElementById(
-      options.elements.flag,
-    ) as HTMLImageElement
-    const prefix = document.getElementById(options.elements.prefix)
-    const phoneInput = document.getElementById(
-      options.elements.phoneInput,
-    ) as HTMLInputElement
-    const searchInput = document.getElementById(
-      options.elements.searchInput,
-    ) as HTMLInputElement
-    const suggestions = document.getElementById(options.elements.suggestions)
-    const searchModal = document.getElementById(options.elements.searchModal)
-    const clearButton = document.getElementById(options.elements.clearButton)
-
-    if (
-      !container ||
-      !select ||
-      !flag ||
-      !prefix ||
-      !phoneInput ||
-      !searchInput ||
-      !suggestions ||
-      !searchModal ||
-      !clearButton
-    ) {
-      throw new Error('Required elements not found')
+    // Container elementi kaydet
+    this.elements = {
+      container: containerElement,
+      select: containerElement.querySelector(
+        `.${options.classNames.select}`,
+      ) as HTMLSelectElement,
+      flag: containerElement.querySelector(
+        `.${options.classNames.flag}`,
+      ) as HTMLImageElement,
+      prefix: containerElement.querySelector(
+        `.${options.classNames.prefix}`,
+      ) as HTMLElement,
+      phoneInput: containerElement.querySelector(
+        `.${options.classNames.phoneInput}`,
+      ) as HTMLInputElement,
+      searchInput: containerElement.querySelector(
+        `.${options.classNames.searchInput}`,
+      ) as HTMLInputElement,
+      suggestions: containerElement.querySelector(
+        `.${options.classNames.suggestions}`,
+      ) as HTMLElement,
+      searchModal: containerElement.querySelector(
+        `.${options.classNames.searchModal}`,
+      ) as HTMLElement,
+      clearButton: containerElement.querySelector(
+        `.${options.classNames.clearButton}`,
+      ) as HTMLElement,
     }
 
-    this.elements = {
-      container,
-      select,
-      flag,
-      prefix,
-      phoneInput,
-      searchInput,
-      suggestions,
-      searchModal,
-      clearButton,
+    // Gerekli elementlerin var olduğunu kontrol et
+    if (
+      !this.elements.select ||
+      !this.elements.flag ||
+      !this.elements.prefix ||
+      !this.elements.phoneInput ||
+      !this.elements.searchInput ||
+      !this.elements.suggestions ||
+      !this.elements.searchModal ||
+      !this.elements.clearButton
+    ) {
+      throw new Error(
+        `Required elements not found in container ${containerElement.className}`,
+      )
     }
 
     // HTML'den dil kontrolü
@@ -125,7 +128,7 @@ class PhoneCodeSearch {
     // Select elemente dil bilgisini ekle
     this.elements.select.setAttribute('data-language', this.currentLanguage)
 
-    // Template'leri yakala
+    // Template'leri yakala ve hazırla
     this.templates = this.captureTemplates()
 
     // Default ülke kontrolü (HTML > options > ilk ülke)
@@ -147,14 +150,27 @@ class PhoneCodeSearch {
       defaultOption = this.allOptions.find(opt => opt.code === 'GB')
     }
 
+    // Instance'ı global map'e ekle
+    PhoneCodeSearch.instances.set(this.instanceId, this)
+
+    // Container'a instance ID'sini ekle
+    this.elements.container.setAttribute('data-phone-code-id', this.instanceId)
+
     // Başlangıç değerlerini ayarla ve event listener'ları bağla
     this.initialize(defaultOption)
   }
 
+  private generateUniqueId(): string {
+    return 'phone-code-' + Math.random().toString(36).substring(2, 9)
+  }
+
   private handleCodeButtonClick(): void {
+    // Tüm açık modalları kapat (tek seferde bir modal açık olmalı)
     if (this.isOpen) {
       this.closeModal()
     } else {
+      // Diğer tüm açık modalları kapat
+      PhoneCodeSearch.closeAllModals()
       this.openModal()
     }
 
@@ -165,6 +181,15 @@ class PhoneCodeSearch {
 
     // Focus durumunu güncelle
     this.updateFocusState(this.isOpen)
+  }
+
+  // Tüm açık modalları kapatmak için statik metod
+  public static closeAllModals(): void {
+    PhoneCodeSearch.instances.forEach(instance => {
+      if (instance.isOpen) {
+        instance.closeModal()
+      }
+    })
   }
 
   public setLanguage(languageId: 'TR' | 'EN'): void {
@@ -213,6 +238,7 @@ class PhoneCodeSearch {
       )
     }
 
+    // Template alındıktan sonra suggestions konteynırını temizle
     this.elements.suggestions.innerHTML = ''
 
     return {
@@ -224,7 +250,7 @@ class PhoneCodeSearch {
   private setupEventListeners(): void {
     // Ülke kodu butonuna tıklanınca
     const codeButton =
-      this.elements.container.querySelector('#phone-code-button')
+      this.elements.container.querySelector('.phone-code-button')
     codeButton?.addEventListener('click', this.handleCodeButtonClick.bind(this))
 
     // Arama input'u için event listener
@@ -253,7 +279,7 @@ class PhoneCodeSearch {
 
     // Modal dışına tıklanınca kapanması için
     document.addEventListener('click', (e: MouseEvent) => {
-      if (!this.elements.container.contains(e.target as Node)) {
+      if (this.isOpen && !this.elements.container.contains(e.target as Node)) {
         this.closeModal()
       }
     })
@@ -272,9 +298,143 @@ class PhoneCodeSearch {
     this.elements.searchInput.focus()
   }
 
+  // handlePhoneInput metoduna validasyon eklemek için güncelleyelim
   private handlePhoneInput(e: Event): void {
-    const value = (e.target as HTMLInputElement).value
-    this.options.onPhoneChange?.(value)
+    const input = e.target as HTMLInputElement
+    const value = input.value
+
+    // Validasyon için regex pattern
+    // Latin rakamlar (0-9), Arapça rakamlar (٠-٩) ve Doğu Arapça rakamlar (۰-۹)
+    const numericPattern = /^[0-9٠-٩۰-۹]+$/
+
+    // Maksimum uzunluk kontrolü
+    const maxLength = input.getAttribute('data-max-length')
+    const maxLengthValue = maxLength ? parseInt(maxLength, 10) : null
+
+    // Değer kontrolü
+    if (value !== '') {
+      let newValue = value
+
+      // Sayı kontrolü
+      if (!numericPattern.test(newValue)) {
+        newValue = input.dataset.lastValidValue || ''
+      } else {
+        // Sayıları standartlaştır (Arapça rakamları Latin rakamlara çevir)
+        newValue = this.standardizeNumbers(newValue)
+      }
+
+      // Maksimum uzunluk kontrolü
+      if (maxLengthValue !== null && newValue.length > maxLengthValue) {
+        newValue = newValue.substring(0, maxLengthValue)
+      }
+
+      // Eğer değer değiştiyse, input değerini güncelle
+      if (newValue !== value) {
+        input.value = newValue
+      }
+
+      // Son geçerli değeri sakla
+      input.dataset.lastValidValue = input.value
+    } else {
+      // Değer boşsa, son geçerli değeri temizle
+      input.dataset.lastValidValue = ''
+    }
+
+    // Callback'i çağır
+    this.options.onPhoneChange?.(input.value, this)
+  }
+
+  // Sayıları standartlaştırma fonksiyonu
+  private standardizeNumbers(value: string): string {
+    // Arapça ve Doğu Arapça (Farsi) rakamları Latin rakamlara çevirme
+    return (
+      value
+        // Arapça rakamlar (٠-٩) → Latin rakamlar (0-9)
+        .replace(/[٠-٩]/g, d =>
+          String.fromCharCode(d.charCodeAt(0) - 1632 + 48),
+        )
+        // Doğu Arapça/Farsi rakamlar (۰-۹) → Latin rakamlar (0-9)
+        .replace(/[۰-۹]/g, d =>
+          String.fromCharCode(d.charCodeAt(0) - 1776 + 48),
+        )
+    )
+  }
+
+  // Telefon input'una validasyon eklemek için özel metod
+  private setupPhoneInputValidation(): void {
+    // Paste event'i için kontrol
+    this.elements.phoneInput.addEventListener('paste', (e: ClipboardEvent) => {
+      // Clipboard verisi al
+      const clipboardData = e.clipboardData || window['clipboardData']
+      const pastedData = clipboardData.getData('text')
+
+      // Sayı pattern'i
+      const numericPattern = /^[0-9٠-٩۰-۹]+$/
+
+      // Yapıştırılan veri sadece rakam değilse
+      if (!numericPattern.test(pastedData)) {
+        e.preventDefault()
+
+        // Sadece rakamları ayıkla
+        const numericOnly = pastedData.replace(/[^0-9٠-٩۰-۹]/g, '')
+
+        if (numericOnly) {
+          // Mevcut değere ekle
+          const input = e.target as HTMLInputElement
+          const currentValue = input.value
+          const selectionStart = input.selectionStart || 0
+          const selectionEnd = input.selectionEnd || 0
+
+          const newValue =
+            currentValue.substring(0, selectionStart) +
+            this.standardizeNumbers(numericOnly) +
+            currentValue.substring(selectionEnd)
+
+          input.value = newValue
+          input.dataset.lastValidValue = newValue
+
+          // Cursor'u doğru pozisyona ayarla
+          setTimeout(() => {
+            input.selectionStart = input.selectionEnd =
+              selectionStart + this.standardizeNumbers(numericOnly).length
+          }, 0)
+
+          // Callback'i çağır
+          this.options.onPhoneChange?.(input.value, this)
+        }
+      }
+    })
+
+    // Keydown event'i - izin verilmeyen karakterlerde event'i durdur
+    this.elements.phoneInput.addEventListener('keydown', (e: KeyboardEvent) => {
+      // Tab, backspace, delete, sol/sağ ok tuşları, home/end, ctrl+a, ctrl+c, ctrl+v gibi kontrol tuşları
+      const controlKeys = [
+        'Tab',
+        'Backspace',
+        'Delete',
+        'ArrowLeft',
+        'ArrowRight',
+        'Home',
+        'End',
+      ]
+
+      // Shift tuşuyla beraber sayı dışı karakterler girilemez
+      if (e.shiftKey && !controlKeys.includes(e.key)) {
+        e.preventDefault()
+        return
+      }
+
+      // Sayı tuşları (0-9) ve kontrol tuşları hariç diğer tuşları engelle
+      const isNumericKey = /^[0-9٠-٩۰-۹]$/.test(e.key)
+      const isControlKey =
+        controlKeys.includes(e.key) ||
+        ((e.ctrlKey || e.metaKey) &&
+          ['a', 'c', 'v', 'x', 'z'].includes(e.key.toLowerCase()))
+
+      if (!isNumericKey && !isControlKey) {
+        e.preventDefault()
+      }
+    })
   }
 
   private isMobileWidth(): boolean {
@@ -297,8 +457,9 @@ class PhoneCodeSearch {
       }
     })
 
+    // Önerileri ilk kez yükle
     this.filterAndRenderSuggestions('')
-    this.options.onModalOpen?.()
+    this.options.onModalOpen?.(this)
     this.updateFocusState(true)
   }
 
@@ -339,7 +500,11 @@ class PhoneCodeSearch {
       this.isOpen = false
       this.elements.searchModal.classList.add('hidden')
       this.elements.searchModal.classList.add('pointer-events-none')
-      this.options.onModalClose?.()
+
+      // Modal kapandığında suggestions DOM'dan temizle (performans için)
+      this.elements.suggestions.innerHTML = ''
+
+      this.options.onModalClose?.(this)
       this.updateFocusState(false)
     }
   }
@@ -468,7 +633,7 @@ class PhoneCodeSearch {
     this.elements.prefix.textContent = option.dial_code
 
     // Callback'i çağır
-    this.options.onSelect?.(option)
+    this.options.onSelect?.(option, this)
 
     // Focus işlemini en sona alıyoruz ve shouldFocus kontrolü yapıyoruz
     if (shouldFocus) {
@@ -480,13 +645,27 @@ class PhoneCodeSearch {
   }
 
   private focusAfterElement(): void {
-    // TODO:: focus yapılacak elementin ID'sini alıp focus yap
+    const afterElementClass = this.options.classNames.afterFocusElement
+    if (afterElementClass) {
+      const afterElement = this.elements.container.querySelector(
+        `.${afterElementClass}`,
+      ) as HTMLElement
+      if (afterElement) {
+        afterElement.focus()
+      } else {
+        this.elements.phoneInput.focus()
+      }
+    } else {
+      this.elements.phoneInput.focus()
+    }
   }
 
-  // initialize metodunu da güncelliyoruz
   private initialize(defaultOption?: PhoneCodeOption): void {
     this.setupEventListeners()
     this.updateSelectOptions()
+
+    // Telefon input validasyonunu kur
+    this.setupPhoneInputValidation()
 
     // Default ülkeyi ayarla - initialize'da focus yapma
     if (defaultOption) {
@@ -500,7 +679,6 @@ class PhoneCodeSearch {
     return this.allOptions.find(opt => opt.code === code)
   }
 
-  // setValue metodunu da güncelliyoruz
   public setValue(code: string, shouldFocus: boolean = false): void {
     const option = this.allOptions.find(opt => opt.code === code)
     if (option) {
@@ -530,6 +708,82 @@ class PhoneCodeSearch {
     // Telefon input'unu temizle
     this.elements.phoneInput.value = ''
   }
+
+  // Tüm telefon kodu arama inputlarını aktifleştiren statik metod
+  public static init(options: PhoneCodeOptions): void {
+    const containers = document.querySelectorAll(
+      `.${options.classNames.container}`,
+    )
+    containers.forEach(container => {
+      // Eğer bu container zaten bir instance'a sahipse tekrar oluşturma
+      if (!container.hasAttribute('data-phone-code-id')) {
+        new PhoneCodeSearch(container as HTMLElement, options)
+      }
+    })
+  }
+
+  // Yeni eklenen elementleri taramak için refresh metodu
+  public static refresh(): void {
+    console.log('Refreshing phone code search...')
+    // Yeni eklenen phone-code-container elementleri için kontrol yap
+    document
+      .querySelectorAll('[class*="phone-code-container"]')
+      .forEach(container => {
+        // Eğer bu container henüz bir instance'a sahip değilse oluştur
+        if (!container.hasAttribute('data-phone-code-id')) {
+          // Hangi instance'ın option'larını kullanacağız bulmak için
+          const lastUsedOptions = PhoneCodeSearch.getLastUsedOptions()
+          if (lastUsedOptions) {
+            new PhoneCodeSearch(container as HTMLElement, lastUsedOptions)
+          } else {
+            console.warn(
+              'No existing PhoneCodeSearch instance found to get options from.',
+            )
+          }
+        }
+      })
+  }
+
+  // Son kullanılan options değerini almak için yardımcı metod
+  private static getLastUsedOptions(): PhoneCodeOptions | null {
+    if (PhoneCodeSearch.instances.size === 0) {
+      return null
+    }
+
+    // Map'teki ilk instance'ı al
+    const firstInstance = PhoneCodeSearch.instances.values().next().value
+
+    // Instance varsa options değerini döndür, yoksa null döndür
+    if (firstInstance) {
+      return firstInstance.options
+    }
+
+    return null
+  }
+
+  // Instance'ı kaldırmak için
+  public destroy(): void {
+    PhoneCodeSearch.instances.delete(this.instanceId)
+    this.elements.container.removeAttribute('data-phone-code-id')
+    // Event listener'ları kaldır...
+  }
+
+  // Belirli bir container'a ait instance'ı bulmak için
+  public static getInstance(
+    container: HTMLElement,
+  ): PhoneCodeSearch | undefined {
+    const instanceId = container.getAttribute('data-phone-code-id')
+    if (instanceId) {
+      return PhoneCodeSearch.instances.get(instanceId)
+    }
+    return undefined
+  }
 }
 
-export default PhoneCodeSearch
+export { PhoneCodeSearch }
+export type {
+  PhoneCodeOption,
+  PhoneCodeLanguage,
+  PhoneCodeElements,
+  PhoneCodeOptions,
+}

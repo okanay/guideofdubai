@@ -1,19 +1,30 @@
 import { phoneCodesTR, phoneCodesEN } from '../../constants/phone-code.js'
-import PhoneCodeSearch from '../packages/phone-code-search.js'
+import {
+  PhoneCodeSearch,
+  type PhoneCodeOption,
+  type PhoneCodeOptions,
+} from '../packages/phone-code-search.js'
+
+declare global {
+  interface Window {
+    RefreshPhone: () => void
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  new PhoneCodeSearch({
-    elements: {
-      container: 'phone-container',
-      select: 'country-code',
-      flag: 'country-flag',
-      prefix: 'country-prefix',
-      phoneInput: 'phone-input', // telefon input id'sini eklemeniz gerekiyor
-      searchInput: 'phone-search-input',
-      suggestions: 'phone-suggestions',
-      searchModal: 'phone-search-modal',
-      clearButton: 'phone-clear-button',
-      afterFocusElement: 'phone-input',
+  // Global yapılandırma
+  const phoneCodeConfig = {
+    classNames: {
+      container: 'phone-code-container',
+      select: 'phone-code-select',
+      flag: 'phone-code-flag',
+      prefix: 'phone-code-prefix',
+      phoneInput: 'phone-code-input',
+      searchInput: 'phone-code-search-input',
+      suggestions: 'phone-code-suggestions',
+      searchModal: 'phone-code-search-modal',
+      clearButton: 'phone-code-clear-button',
+      afterFocusElement: 'phone-code-input',
     },
     languages: [
       {
@@ -26,5 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     ],
     defaultLanguage: 'EN',
-  })
+    onSelect: (option: PhoneCodeOption, instance: PhoneCodeSearch) => {},
+    onPhoneChange: (phone: string, instance: PhoneCodeSearch) => {},
+  }
+
+  PhoneCodeSearch.init(phoneCodeConfig as PhoneCodeOptions)
+  window.RefreshPhone = () => PhoneCodeSearch.refresh()
 })
