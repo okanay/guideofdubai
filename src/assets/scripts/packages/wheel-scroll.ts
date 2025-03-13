@@ -1,6 +1,7 @@
 /**
  * WheelScroll sınıfı, mouse tekerleği ile dikey scroll hareketlerini
  * belirli elementlerde yumuşak (smooth) yatay scroll hareketine dönüştürür.
+ * Mobil cihazlarda otomatik olarak devre dışı kalır.
  */
 class WheelScroll {
   private scrollElements: HTMLElement[] = []
@@ -9,23 +10,14 @@ class WheelScroll {
     smoothness: 0.15, // Yumuşaklık faktörü (0-1 arası, düşük değer daha yumuşak)
     acceleration: 0.95, // İvmelenme faktörü (0-1 arası)
     maxSpeed: 30, // Maksimum piksel hızı
-    touchSensitivity: 1.0, // Touch olayları için özel hassasiyet
+    enableOnMobile: false, // Mobil cihazlarda etkinleştirme durumu
   }
 
   // Animasyon değişkenleri
   private animationFrames: Map<HTMLElement, number> = new Map()
   private velocities: Map<HTMLElement, number> = new Map()
   private isScrolling: Map<HTMLElement, boolean> = new Map()
-
-  // Touch olay referanslarını saklamak için
-  private touchListeners: Map<
-    HTMLElement,
-    {
-      start: (e: TouchEvent) => void
-      move: (e: TouchEvent) => void
-      end: (e: TouchEvent) => void
-    }
-  > = new Map()
+  private isMobileDevice: boolean = false
 
   /**
    * WheelScroll sınıfı yapılandırıcısı
@@ -36,7 +28,45 @@ class WheelScroll {
       this.scrollOptions = { ...this.scrollOptions, ...options }
     }
 
+    // Cihazın mobil olup olmadığını kontrol et
+    this.isMobileDevice = this.detectMobileDevice()
+
+    // Mobil cihazda ve mobil desteği kapalıysa, hiçbir şey yapma
+    if (this.isMobileDevice && !this.scrollOptions.enableOnMobile) {
+      console.log(
+        'WheelScroll: Mobil cihaz tespit edildi, özellik devre dışı bırakıldı.',
+      )
+      return
+    }
+
     this.init()
+  }
+
+  /**
+   * Cihazın mobil olup olmadığını tespit eder
+   * @returns {boolean} - Cihaz mobilse true, değilse false döner
+   */
+  private detectMobileDevice(): boolean {
+    // userAgent kontrolü yaptık
+    const userAgent =
+      navigator.userAgent || navigator.vendor || (window as any).opera
+
+    // Ekran genişliği kontrolü (tablet cihazları da mobil olarak kabul ediyoruz)
+    const screenWidth =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+
+    // Dokunmatik özelliği kontrolü
+    const hasTouchScreen =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+    // Mobil cihaz regex kontrolleri
+    const mobileRegex =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+
+    // Eğer bu koşullardan biri sağlanıyorsa mobil cihaz kabul ediyoruz
+    return mobileRegex.test(userAgent) || screenWidth <= 768 || hasTouchScreen
   }
 
   /**
@@ -77,11 +107,13 @@ class WheelScroll {
    * Tekil eleman için gereken kurulumu yapar
    */
   private setupElement(element: HTMLElement): void {
-    // Wheel event listener için bind kullanarak this bağlamını koru
-    const wheelHandler = this.handleWheelEvent.bind(this)
+    // Eğer mobil cihazda ve mobil desteği kapalıysa, hiçbir şey yapma
+    if (this.isMobileDevice && !this.scrollOptions.enableOnMobile) {
+      return
+    }
 
     // Passive: false kullanarak daha iyi performans sağlar
-    element.addEventListener('wheel', wheelHandler, {
+    element.addEventListener('wheel', this.handleWheelEvent.bind(this), {
       passive: false,
     })
 
@@ -91,98 +123,17 @@ class WheelScroll {
     // Yeni bir element eklendiğinde animasyon durumlarını başlat
     this.velocities.set(element, 0)
     this.isScrolling.set(element, false)
-
-    // Touch desteği ekle
-    this.setupTouchSupport(element)
-  }
-
-  /**
-   * Touch ekranlar için kaydırma desteği ekler
-   */
-  private setupTouchSupport(element: HTMLElement): void {
-    let startX: number
-    let currentX: number
-    let touchVelocity = 0
-    let lastMoveTime = 0
-    let isTouching = false
-
-    // Touch event listenerları oluştur ve saklayalım (destroy için)
-    const touchStartHandler = (e: TouchEvent) => {
-      if (e.touches.length !== 1) return // Sadece tek parmak dokunuşunu işle
-
-      isTouching = true
-      startX = e.touches[0].clientX
-      currentX = startX
-      touchVelocity = 0
-      lastMoveTime = Date.now()
-
-      // Mevcut animasyonu durdur, çünkü kullanıcı aktif olarak dokunuyor
-      this.velocities.set(element, 0)
-      this.isScrolling.set(element, false)
-      const frame = this.animationFrames.get(element)
-      if (frame) {
-        cancelAnimationFrame(frame)
-      }
-    }
-
-    const touchMoveHandler = (e: TouchEvent) => {
-      if (!isTouching || e.touches.length !== 1) return
-
-      const previousX = currentX
-      currentX = e.touches[0].clientX
-
-      const dx = previousX - currentX
-
-      // Yön kontrolü: dx pozitifse sola kaydırma (içerik sağa kayar)
-      // dx negatifse sağa kaydırma (içerik sola kayar)
-      element.scrollLeft += dx
-
-      const currentTime = Date.now()
-      const timeElapsed = currentTime - lastMoveTime
-
-      // Hız hesabı - yön önemli!
-      if (timeElapsed > 0) {
-        // Hızı, scrollLeft'in nasıl değişeceğini yansıtacak şekilde hesapla
-        // Burada dx'i kullanıyoruz ki, scrollLeft ile aynı yönde olsun
-        touchVelocity =
-          (dx / timeElapsed) * this.scrollOptions.touchSensitivity * 20
-      }
-
-      lastMoveTime = currentTime
-    }
-
-    const touchEndHandler = () => {
-      if (!isTouching) return
-
-      isTouching = false
-
-      // Momentum scrolling aktivasyonu için hızı ayarla
-      // touchVelocity zaten doğru yönde (scrollLeft ile uyumlu)
-      this.velocities.set(element, touchVelocity)
-
-      // Hız yeterince büyükse, smooth scrolling başlat
-      if (Math.abs(touchVelocity) > 0.5) {
-        this.startSmoothScrolling(element)
-      }
-    }
-
-    // Event listenerları ekle
-    element.addEventListener('touchstart', touchStartHandler, { passive: true })
-    element.addEventListener('touchmove', touchMoveHandler, { passive: true })
-    element.addEventListener('touchend', touchEndHandler, { passive: true })
-
-    // Temizlik için referansları sakla
-    this.touchListeners.set(element, {
-      start: touchStartHandler,
-      move: touchMoveHandler,
-      end: touchEndHandler,
-    })
   }
 
   /**
    * DOM'daki wheel-scroll elementlerini günceller
    */
   private updateElements(): void {
+    // Eğer mobil cihazda ve mobil desteği kapalıysa, hiçbir şey yapma
+    if (this.isMobileDevice && !this.scrollOptions.enableOnMobile) {
+      return
+    }
+
     const currentElements = Array.from(
       document.querySelectorAll('.wheel-scroll'),
     ) as HTMLElement[]
@@ -275,6 +226,17 @@ class WheelScroll {
    */
   public updateOptions(options: Partial<ScrollOptions>): void {
     this.scrollOptions = { ...this.scrollOptions, ...options }
+
+    // Eğer enableOnMobile seçeneği değiştiyse ve şu an mobil cihazda isek:
+    if ('enableOnMobile' in options && this.isMobileDevice) {
+      if (options.enableOnMobile) {
+        // Mobilde aktifleştirildi, event listenerları ekle
+        this.setupElements()
+      } else {
+        // Mobilde devre dışı bırakıldı, event listenerları kaldır
+        this.destroy()
+      }
+    }
   }
 
   /**
@@ -282,6 +244,11 @@ class WheelScroll {
    * @param {HTMLElement|string} element - Eklenecek element veya seçici
    */
   public addElement(element: HTMLElement | string): void {
+    // Eğer mobil cihazda ve mobil desteği kapalıysa, hiçbir şey yapma
+    if (this.isMobileDevice && !this.scrollOptions.enableOnMobile) {
+      return
+    }
+
     if (typeof element === 'string') {
       const elements = Array.from(
         document.querySelectorAll(element),
@@ -302,20 +269,19 @@ class WheelScroll {
   }
 
   /**
+   * Cihaz türünü döndürür
+   * @returns {boolean} - Cihaz mobilse true, değilse false döner
+   */
+  public isMobile(): boolean {
+    return this.isMobileDevice
+  }
+
+  /**
    * Tüm event listener'ları kaldırır ve sınıfı temizler
    */
   public destroy(): void {
     this.scrollElements.forEach(element => {
-      // Wheel event listener'ı kaldır
       element.removeEventListener('wheel', this.handleWheelEvent.bind(this))
-
-      // Touch event listener'ları kaldır
-      const touchHandlers = this.touchListeners.get(element)
-      if (touchHandlers) {
-        element.removeEventListener('touchstart', touchHandlers.start)
-        element.removeEventListener('touchmove', touchHandlers.move)
-        element.removeEventListener('touchend', touchHandlers.end)
-      }
 
       // Animasyonları durdur
       const frame = this.animationFrames.get(element)
@@ -328,7 +294,6 @@ class WheelScroll {
     this.velocities.clear()
     this.isScrolling.clear()
     this.animationFrames.clear()
-    this.touchListeners.clear()
   }
 }
 
@@ -336,11 +301,11 @@ class WheelScroll {
  * Scroll seçenekleri arayüzü
  */
 interface ScrollOptions {
-  sensitivity: number // Wheel scroll hassasiyeti (1.0 = normal)
+  sensitivity: number // Scroll hassasiyeti (1.0 = normal)
   smoothness: number // Yumuşaklık faktörü (0-1 arası, düşük değer daha yumuşak)
   acceleration: number // İvmelenme faktörü (0-1 arası)
   maxSpeed: number // Maksimum piksel hızı
-  touchSensitivity: number // Touch olayları için hassasiyet çarpanı
+  enableOnMobile: boolean // Mobil cihazlarda etkinleştirme durumu
 }
 
 export { WheelScroll }
