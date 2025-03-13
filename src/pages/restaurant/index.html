@@ -2360,672 +2360,560 @@
         </div>
       </section>
 
-      <!-- Product Information -->
-      <div id="product-content" class="flex flex-col gap-4">
-        <!-- Navigation Tabs -->
-        <div
-          id="product-nav"
-          class="flex w-full items-center justify-between border-b bg-white"
-        >
-          <nav class="flex w-full items-center justify-between bg-white py-3">
-            <div
-              class="wheel-scroll flex w-full items-center justify-start gap-8 overflow-y-hidden px-3.5 lg:w-3/4 lg:gap-16 lg:px-0"
-            >
-              <a
-                href="#info"
-                class="h-full text-nowrap border-primary-500 text-sm font-bold lg:text-base"
-              >
-                Genel Bilgiler
-              </a>
-              <a
-                href="#about"
-                class="h-full text-nowrap border-primary-500 text-sm font-bold lg:text-base"
-              >
-                Hakkında
-              </a>
-              <a
-                href="#services"
-                class="h-full text-nowrap border-primary-500 text-sm font-bold lg:text-base"
-              >
-                Hizmetler
-              </a>
-              <a
-                href="#map"
-                class="h-full text-nowrap border-primary-500 text-sm font-bold lg:text-base"
-              >
-                Harita
-              </a>
-            </div>
-
-            <div class="hidden items-center justify-center gap-4 lg:flex">
-              <button
-                class="relative z-20 size-[28px] rounded-full border border-gray-950/20 bg-white p-1 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-50"
-              >
-                <i
-                  data-lucide="heart"
-                  data-like="true"
-                  class="size-full transition-all duration-300 data-[like=true]:fill-primary-600 data-[like=true]:stroke-primary-500/10"
-                ></i>
-              </button>
-            </div>
-          </nav>
-        </div>
-        <!-- Restoran Bilgileri ve İletişim Formu -->
-        <article class="flex flex-col gap-6">
+      <!-- Restoran Bilgileri ve İletişim Formu -->
+      <article class="flex flex-col gap-6 pt-6 lg:flex-row">
+        <!-- Restoran Bilgileri İçeriği -->
+        <div class="flex flex-col gap-8 px-3.5 lg:px-0">
           <!-- Restoran Başlık Bölümü -->
-          <div class="flex flex-col gap-0 px-3.5 lg:px-0">
-            <div
-              class="flex flex-col items-start gap-0.5 text-pretty text-start"
+          <section class="flex flex-row items-center gap-2.5">
+            <button
+              data-mobile-hidden="true"
+              class="relative z-20 size-7 translate-y-[-5%] rounded-full border border-gray-950/20 bg-white p-1 transition-[opacity,transform] duration-500 hover:scale-105 hover:opacity-50 data-[mobile-hidden=true]:hidden lg:!block"
             >
-              <p class="flex w-fit items-center gap-2 text-xs font-medium">
-                <i
-                  data-lucide="chef-hat"
-                  class="size-3 flex-shrink-0 translate-y-[-5%] text-primary-500"
-                ></i>
-                <span class="line-clamp-1"> AED 500+ Restaurant </span>
+              <i
+                data-lucide="heart"
+                data-like="true"
+                class="size-full transition-all duration-300 data-[like=true]:fill-primary-600 data-[like=true]:stroke-primary-500/10"
+              ></i>
+            </button>
+
+            <h1
+              id="main-title"
+              itemprop="name"
+              class="text-xl font-bold lg:text-2xl"
+            >
+              Urla Restaurant & Lounge
+            </h1>
+          </section>
+          <!-- Genel Tanıtım -->
+          <section id="about" class="scroll-mt-20">
+            <h2
+              class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
+            >
+              Hakkında
+            </h2>
+            <div class="flex flex-col gap-4 text-sm lg:text-base">
+              <p>
+                Platinum Heritage, Dubai çölünde benzersiz bir lüks safari
+                deneyimi sunar. Çölün eşsiz güzelliklerini keşfederken, kültürel
+                ve çevresel sorumluluklarla hazırlanan bu deneyim, sizi modern
+                dünyanın karmaşasından uzaklaştırır. Retro Land Rover araçlarla
+                yapılan turlar, sizi geçmişin büyüsüne taşır.
               </p>
-              <h1
-                id="main-title"
-                itemprop="name"
-                class="text-xl font-bold lg:text-2xl"
-              >
-                Urla Restaurant & Lounge
-              </h1>
+              <p>
+                Safariler, Bedevi kültürünü yakından tanıma, geleneksel
+                yemeklerin tadını çıkarma ve yıldızların altında çöl atmosferini
+                yaşama fırsatı sunar. Sürdürülebilirlik odaklı yaklaşımıyla
+                Platinum Heritage, Dubai'nin doğal ve kültürel mirasını
+                keşfetmek isteyenler için mükemmel bir seçenektir.
+              </p>
             </div>
-            <!-- Puan ve Toplam Değerlendirme Sayısı-->
-            <div class="flex items-center gap-2.5">
-              <div class="rounded-custom bg-lime-500 px-4 py-1.5 text-white">
-                <span
-                  class="text-base font-bold lg:text-xl"
-                  itemprop="ratingValue"
-                  >4.6</span
-                >
-                <span class="text-sm" itemprop="bestRating">/5</span>
-              </div>
-              <div>
-                <div>
-                  <span class="cursor-pointer text-xl text-yellow-400">★</span>
-                  <span class="cursor-pointer text-xl text-yellow-400">★</span>
-                  <span class="cursor-pointer text-xl text-yellow-400">★</span>
-                  <span class="cursor-pointer text-xl text-yellow-400">★</span>
-                  <span class="cursor-pointer text-xl text-yellow-400">★</span>
-                </div>
-                <h4
-                  class="-mt-1 text-sm font-semibold text-lime-500 lg:text-base"
-                >
-                  Mükemmel
-                </h4>
-              </div>
-            </div>
-          </div>
+          </section>
 
-          <div class="flex flex-col gap-x-12 gap-y-4 lg:flex-row">
-            <!-- Restoran Bilgileri İçeriği -->
-            <div class="w-full px-3.5 lg:w-2/3 lg:px-0">
-              <div class="flex flex-col gap-8">
-                <!-- Genel Tanıtım -->
-                <section id="about" class="scroll-mt-20">
-                  <h2
-                    class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
-                  >
-                    Hakkında
-                  </h2>
-                  <div class="flex flex-col gap-4 text-sm lg:text-base">
-                    <p>
-                      Platinum Heritage, Dubai çölünde benzersiz bir lüks safari
-                      deneyimi sunar. Çölün eşsiz güzelliklerini keşfederken,
-                      kültürel ve çevresel sorumluluklarla hazırlanan bu
-                      deneyim, sizi modern dünyanın karmaşasından uzaklaştırır.
-                      Retro Land Rover araçlarla yapılan turlar, sizi geçmişin
-                      büyüsüne taşır.
-                    </p>
-                    <p>
-                      Safariler, Bedevi kültürünü yakından tanıma, geleneksel
-                      yemeklerin tadını çıkarma ve yıldızların altında çöl
-                      atmosferini yaşama fırsatı sunar. Sürdürülebilirlik odaklı
-                      yaklaşımıyla Platinum Heritage, Dubai'nin doğal ve
-                      kültürel mirasını keşfetmek isteyenler için mükemmel bir
-                      seçenektir.
-                    </p>
-                  </div>
-                </section>
-
-                <!-- Servis Özellikleri -->
-                <section id="services" class="scroll-mt-20">
-                  <h2
-                    class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
-                  >
-                    Restoran Hizmetleri
-                  </h2>
-                  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                    <div class="flex items-start gap-2 text-sm">
-                      <i
-                        data-lucide="check"
-                        class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
-                      ></i>
-                      <span class="text-sm text-gray-600 lg:text-base">
-                        Rezervasyon gereklidir</span
-                      >
-                    </div>
-                    <div class="flex items-start gap-2 text-sm">
-                      <i
-                        data-lucide="check"
-                        class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
-                      ></i>
-                      <span class="text-sm text-gray-600 lg:text-base"
-                        >Dış mekan oturma alanı mevcut</span
-                      >
-                    </div>
-                    <div class="flex items-start gap-2 text-sm">
-                      <i
-                        data-lucide="check"
-                        class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
-                      ></i>
-                      <span class="text-sm text-gray-600 lg:text-base"
-                        >Vegan yemekler sunuluyor</span
-                      >
-                    </div>
-                    <div class="flex items-start gap-2 text-sm">
-                      <i
-                        data-lucide="check"
-                        class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
-                      ></i>
-                      <span class="text-sm text-gray-600 lg:text-base"
-                        >Alkollü içecekler mevcut</span
-                      >
-                    </div>
-                  </div>
-                </section>
-
-                <!-- Adres Bölümü -->
-                <section id="map" class="scroll-mt-20">
-                  <h2
-                    class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
-                  >
-                    Harita
-                  </h2>
-                  <!-- Harita -->
-                  <div
-                    id="location-map"
-                    data-layer="watercolor"
-                    data-coordinate="25.069506,55.12812"
-                    class="relative h-[472px] w-full flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-200 shadow-2xl shadow-gray-200"
-                  >
-                    <div class="map-container relative h-full w-full">
-                      <div
-                        class="absolute inset-0 flex items-center justify-center bg-gray-100"
-                      >
-                        <span class="text-gray-500">Loading map...</span>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-
-            <!-- Sağ Kenar Çubuğu - Rezervasyon Formu -->
-            <div
-              id="info"
-              class="mt-2 w-full flex-shrink-0 scroll-mt-20 lg:-mt-[108px] lg:w-[420px]"
+          <!-- Servis Özellikleri -->
+          <section id="services" class="scroll-mt-20">
+            <h2
+              class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
             >
-              <h2
-                class="mb-4 px-4 text-xl font-bold lg:mb-4 lg:text-center lg:text-2xl"
-              >
-                Rezervasyon Bilgileri
-              </h2>
-
-              <!-- WhatsApp İletişim Kartı -->
-              <div
-                class="mb-2 border-y border-lime-600 bg-lime-500 shadow-sm lg:rounded-lg lg:border-y-0"
-              >
-                <div class="flex items-center justify-between gap-3 px-4 py-4">
-                  <span
-                    class="text-balance px-1 text-sm font-semibold text-white lg:text-center"
-                  >
-                    Rezervasyon için lütfen WhatsApp üzerinden iletişime geçin
-                  </span>
-                  <img
-                    src="/assets/images/icons/whatsapp.svg"
-                    alt="Whatsapp"
-                    class="size-9"
-                  />
-                </div>
+              Restoran Hizmetleri
+            </h2>
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div class="flex items-start gap-2 text-sm">
+                <i
+                  data-lucide="check"
+                  class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
+                ></i>
+                <span class="text-sm text-gray-600 lg:text-base">
+                  Rezervasyon gereklidir</span
+                >
               </div>
+              <div class="flex items-start gap-2 text-sm">
+                <i
+                  data-lucide="check"
+                  class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
+                ></i>
+                <span class="text-sm text-gray-600 lg:text-base"
+                  >Dış mekan oturma alanı mevcut</span
+                >
+              </div>
+              <div class="flex items-start gap-2 text-sm">
+                <i
+                  data-lucide="check"
+                  class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
+                ></i>
+                <span class="text-sm text-gray-600 lg:text-base"
+                  >Vegan yemekler sunuluyor</span
+                >
+              </div>
+              <div class="flex items-start gap-2 text-sm">
+                <i
+                  data-lucide="check"
+                  class="mt-px size-4 flex-shrink-0 rounded-full border border-gray-950/20 p-0.5 lg:size-5 lg:p-1"
+                ></i>
+                <span class="text-sm text-gray-600 lg:text-base"
+                  >Alkollü içecekler mevcut</span
+                >
+              </div>
+            </div>
+          </section>
 
-              <!-- Bilgi Kartı -->
-              <div
-                class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
-              >
-                <!-- Restoran Bilgileri -->
-                <div class="flex flex-col gap-4 px-4 pb-2 pt-2 lg:pb-5">
-                  <!-- Etkileşim Butonları -->
-                  <section
-                    class="wheel-scroll flex flex-nowrap gap-3 overflow-x-auto px-0.5 py-1 sm:flex-wrap"
-                  >
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="globe" class="size-4 text-gray-50"></i>
-                      <span>Website</span>
-                    </button>
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="map-pin" class="size-4 text-gray-50"></i>
-                      <span>Directions</span>
-                    </button>
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="star" class="size-4 text-gray-50"></i>
-                      <span>Reviews</span>
-                    </button>
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="bookmark" class="size-4 text-gray-50"></i>
-                      <span>Save</span>
-                    </button>
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="share-2" class="size-4 text-gray-50"></i>
-                      <span>Share</span>
-                    </button>
-                    <button
-                      class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
-                    >
-                      <i data-lucide="phone" class="size-4 text-gray-50"></i>
-                      <span>Call</span>
-                    </button>
-                  </section>
-
-                  <!-- Fiyat Bilgisi -->
-                  <section
-                    class="rounded-lg border border-gray-950/20 bg-gray-50 p-4"
-                  >
-                    <h4 class="text-sm font-semibold text-gray-800">
-                      Ortalama Fiyat
-                    </h4>
-                    <p class="mt-1 text-lg font-bold text-primary-600">
-                      AED 500+
-                      <span class="text-sm font-normal text-gray-600"
-                        >/ kişi başı</span
-                      >
-                    </p>
-                    <p class="mt-2 text-xs text-gray-600">
-                      *Fiyatlar seçilen menü ve içeceklere göre değişiklik
-                      gösterebilir.
-                    </p>
-                  </section>
-
-                  <!-- Adres Bölümü -->
-                  <section
-                    class="flex flex-col gap-1.5 text-sm leading-relaxed"
-                  >
-                    <div>
-                      <span class="text-sm font-semibold text-gray-800"
-                        >Service options:</span
-                      >
-                      <span
-                        >Reservations required · Has outdoor seating · Serves
-                        vegan dishes</span
-                      >
-                    </div>
-                    <div>
-                      <span class="text-sm font-semibold text-gray-800"
-                        >Located in:</span
-                      >
-                      <a
-                        href="#"
-                        class="font-semibold text-blue-600 hover:underline"
-                        >Address Downtown</a
-                      >
-                    </div>
-                    <div>
-                      <span class="text-sm font-semibold text-gray-800"
-                        >Address:</span
-                      >
-                      <span
-                        >Address Downtown Hotel, Lobby Level - Sheikh Mohammed
-                        bin Rashid Blvd - Downtown Dubai - Dubai</span
-                      >
-                    </div>
-                    <div>
-                      <span class="text-sm font-semibold text-gray-800"
-                        >Hours:</span
-                      >
-                      <span
-                        data-status="closed"
-                        class="font-semibold text-lime-600 data-[status=closed]:text-rose-600"
-                        >Closed</span
-                      >
-                      <span>· Opens 3 PM</span>
-                    </div>
-                    <div class="flex items-start gap-1">
-                      <span class="text-sm font-semibold text-gray-800"
-                        >Phone:</span
-                      >
-                      <a
-                        href="tel:+97145549967"
-                        class="font-semibold text-blue-600 hover:underline"
-                        >052 554 9967</a
-                      >
-                    </div>
-                  </section>
-
-                  <!-- Sosyal Profiller -->
-                  <section class="border-t border-gray-200 pt-4">
-                    <h3 class="mb-4 text-lg font-semibold text-gray-800">
-                      Profiles
-                    </h3>
-                    <div class="wheel-scroll flex gap-10 overflow-x-auto">
-                      <a href="#" class="flex flex-col items-center gap-2">
-                        <div
-                          class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
-                        >
-                          <svg
-                            width="256"
-                            height="256"
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="xMidYMid"
-                            viewBox="0 0 256 256"
-                            class="size-[2rem]"
-                          >
-                            <path
-                              d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
-                              fill="#0A66C2"
-                            />
-                          </svg>
-                        </div>
-                        <span class="text-sm font-medium">LinkedIn</span>
-                      </a>
-                      <a href="#" class="flex flex-col items-center gap-2">
-                        <div
-                          class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
-                        >
-                          <img
-                            src="/assets/images/icons/instagram.svg"
-                            alt="instagram-svg"
-                            class="size-[2]"
-                          />
-                        </div>
-                        <span class="text-sm font-medium">Instagram</span>
-                      </a>
-                      <a href="#" class="flex flex-col items-center gap-2">
-                        <div
-                          class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
-                        >
-                          <svg
-                            viewBox="0 0 256 180"
-                            width="256"
-                            height="180"
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="xMidYMid"
-                            class="size-[2rem]"
-                          >
-                            <path
-                              d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134Z"
-                              fill="red"
-                            />
-                            <path
-                              fill="#FFF"
-                              d="m102.421 128.06 66.328-38.418-66.328-38.418z"
-                            />
-                          </svg>
-                        </div>
-                        <span class="text-sm font-medium">Youtube</span>
-                      </a>
-                      <a href="#" class="flex flex-col items-center gap-2">
-                        <div
-                          class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 36 36"
-                            fill="url(#a)"
-                            height="40"
-                            width="40"
-                            class="size-[2rem]"
-                          >
-                            <defs>
-                              <linearGradient
-                                x1="50%"
-                                x2="50%"
-                                y1="97.078%"
-                                y2="0%"
-                                id="a"
-                              >
-                                <stop offset="0%" stop-color="#0062E0" />
-                                <stop offset="100%" stop-color="#19AFFF" />
-                              </linearGradient>
-                            </defs>
-                            <path
-                              d="M15 35.8C6.5 34.3 0 26.9 0 18 0 8.1 8.1 0 18 0s18 8.1 18 18c0 8.9-6.5 16.3-15 17.8l-1-.8h-4l-1 .8z"
-                            />
-                            <path
-                              fill="#FFF"
-                              d="m25 23 .8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15v12.7c1 .2 2 .3 3 .3s2-.1 3-.3V23h4z"
-                            />
-                          </svg>
-                        </div>
-                        <span class="text-sm font-medium">Facebook</span>
-                      </a>
-                    </div>
-                  </section>
-
-                  <!-- Benzer Aramalar -->
-                  <section class="border-t border-gray-200 pt-4">
-                    <h3 class="mb-4 text-lg font-semibold text-gray-800">
-                      People also search for
-                    </h3>
-                    <div class="relative">
-                      <div
-                        class="wheel-scroll flex gap-5 overflow-x-auto pb-4 pt-2"
-                      >
-                        <!-- August Restaurant & Lounge -->
-                        <div class="w-36 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div class="overflow-hidden rounded-xl">
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1544148103-0773bf10d330"
-                                  alt="August Restaurant & Lounge"
-                                  class="h-28 w-full object-cover"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="rounded-b-xl bg-white py-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
-                                >
-                                  August Lounge
-                                </p>
-                                <div class="mt-1 flex items-center">
-                                  <span class="text-xs text-gray-500"
-                                    >Mediterranean</span
-                                  >
-                                  <div class="ml-auto flex items-center">
-                                    <i
-                                      data-lucide="star"
-                                      class="size-2.5 fill-yellow-400 text-yellow-500"
-                                    ></i>
-                                    <span class="ml-1 text-xs text-gray-500"
-                                      >4.8</span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                        <!-- GAL Dubai Restaurant -->
-                        <div class="w-36 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div class="overflow-hidden rounded-xl">
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1552566626-52f8b828add9"
-                                  alt="GAL Dubai Restaurant"
-                                  class="h-28 w-full object-cover"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="rounded-b-xl bg-white py-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
-                                >
-                                  GAL Dubai Restaurant
-                                </p>
-                                <div class="mt-1 flex items-center">
-                                  <span class="text-xs text-gray-500"
-                                    >Restaurant</span
-                                  >
-                                  <div class="ml-auto flex items-center">
-                                    <i
-                                      data-lucide="star"
-                                      class="size-2.5 fill-yellow-400 text-yellow-500"
-                                    ></i>
-                                    <span class="ml-1 text-xs text-gray-500"
-                                      >4.8</span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                        <!-- Krasota Dubai Restaurant -->
-                        <div class="w-36 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div class="overflow-hidden rounded-xl">
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
-                                  alt="Krasota Dubai Restaurant"
-                                  class="h-28 w-full object-cover"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="rounded-b-xl bg-white py-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
-                                >
-                                  Krasota Dubai
-                                </p>
-                                <div class="mt-1 flex items-center">
-                                  <span class="text-xs text-gray-500"
-                                    >Restaurant</span
-                                  >
-                                  <div class="ml-auto flex items-center">
-                                    <i
-                                      data-lucide="star"
-                                      class="size-2.5 fill-yellow-400 text-yellow-500"
-                                    ></i>
-                                    <span class="ml-1 text-xs text-gray-500"
-                                      >4.7</span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                        <!-- CE LA VI Restaurant -->
-                        <div class="w-36 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div class="overflow-hidden rounded-xl">
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
-                                  alt="CE LA VI Restaurant"
-                                  class="h-28 w-full object-cover"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="rounded-b-xl bg-white py-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
-                                >
-                                  CE LA VI
-                                </p>
-                                <div class="mt-1 flex items-center">
-                                  <span class="text-xs text-gray-500"
-                                    >Restaurant</span
-                                  >
-                                  <div class="ml-auto flex items-center">
-                                    <i
-                                      data-lucide="star"
-                                      class="size-2.5 fill-yellow-400 text-yellow-500"
-                                    ></i>
-                                    <span class="ml-1 text-xs text-gray-500"
-                                      >4.9</span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                        <!-- The Restaurant at Address -->
-                        <div class="w-36 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div class="overflow-hidden rounded-xl">
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1559339352-11d035aa65de"
-                                  alt="The Restaurant at Address"
-                                  class="h-28 w-full object-cover"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="rounded-b-xl bg-white py-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
-                                >
-                                  Address Restaurant
-                                </p>
-                                <div class="mt-1 flex items-center">
-                                  <span class="text-xs text-gray-500"
-                                    >Restaurant</span
-                                  >
-                                  <div class="ml-auto flex items-center">
-                                    <i
-                                      data-lucide="star"
-                                      class="size-2.5 fill-yellow-400 text-yellow-500"
-                                    ></i>
-                                    <span class="ml-1 text-xs text-gray-500"
-                                      >4.5</span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
+          <!-- Adres Bölümü -->
+          <section id="map" class="scroll-mt-20">
+            <h2
+              class="mb-4 text-lg font-semibold text-gray-800 lg:text-xl lg:font-bold"
+            >
+              Harita
+            </h2>
+            <!-- Harita -->
+            <div
+              id="location-map"
+              data-layer="watercolor"
+              data-coordinate="25.069506,55.12812"
+              class="relative h-[472px] w-full flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-200 shadow-2xl shadow-gray-200"
+            >
+              <div class="map-container relative h-full w-full">
+                <div
+                  class="absolute inset-0 flex items-center justify-center bg-gray-100"
+                >
+                  <span class="text-gray-500">Loading map...</span>
                 </div>
               </div>
             </div>
+          </section>
+        </div>
+
+        <!-- Sağ Kenar Çubuğu - Rezervasyon Formu -->
+        <div id="info" class="w-full flex-shrink-0 scroll-mt-20 lg:w-[420px]">
+          <!-- Bilgi Kartı -->
+          <div
+            class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
+          >
+            <!-- Restoran Bilgileri -->
+            <div class="flex flex-col gap-4 px-4 pb-2 pt-2 lg:pb-5">
+              <!-- Etkileşim Butonları -->
+              <section
+                class="wheel-scroll flex flex-nowrap gap-3 overflow-x-auto px-0.5 py-1 sm:flex-wrap"
+              >
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="globe" class="size-4 text-gray-50"></i>
+                  <span>Website</span>
+                </button>
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="map-pin" class="size-4 text-gray-50"></i>
+                  <span>Directions</span>
+                </button>
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="star" class="size-4 text-gray-50"></i>
+                  <span>Reviews</span>
+                </button>
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="bookmark" class="size-4 text-gray-50"></i>
+                  <span>Save</span>
+                </button>
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="share-2" class="size-4 text-gray-50"></i>
+                  <span>Share</span>
+                </button>
+                <button
+                  class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
+                >
+                  <i data-lucide="phone" class="size-4 text-gray-50"></i>
+                  <span>Call</span>
+                </button>
+              </section>
+
+              <!-- Fiyat Bilgisi -->
+              <section
+                class="rounded-lg border border-gray-950/20 bg-gray-50 p-4"
+              >
+                <h4 class="text-sm font-semibold text-gray-800">
+                  Ortalama Fiyat
+                </h4>
+                <p class="mt-1 text-lg font-bold text-primary-600">
+                  AED 500+
+                  <span class="text-sm font-normal text-gray-600"
+                    >/ kişi başı</span
+                  >
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                  *Fiyatlar seçilen menü ve içeceklere göre değişiklik
+                  gösterebilir.
+                </p>
+              </section>
+
+              <!-- Adres Bölümü -->
+              <section class="flex flex-col gap-1.5 text-sm leading-relaxed">
+                <div>
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Service options:</span
+                  >
+                  <span
+                    >Reservations required · Has outdoor seating · Serves vegan
+                    dishes</span
+                  >
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Located in:</span
+                  >
+                  <a
+                    href="#"
+                    class="font-semibold text-blue-600 hover:underline"
+                    >Address Downtown</a
+                  >
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Address:</span
+                  >
+                  <span
+                    >Address Downtown Hotel, Lobby Level - Sheikh Mohammed bin
+                    Rashid Blvd - Downtown Dubai - Dubai</span
+                  >
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Hours:</span
+                  >
+                  <span
+                    data-status="closed"
+                    class="font-semibold text-lime-600 data-[status=closed]:text-rose-600"
+                    >Closed</span
+                  >
+                  <span>· Opens 3 PM</span>
+                </div>
+                <div class="flex items-start gap-1">
+                  <span class="text-sm font-semibold text-gray-800"
+                    >Phone:</span
+                  >
+                  <a
+                    href="tel:+97145549967"
+                    class="font-semibold text-blue-600 hover:underline"
+                    >052 554 9967</a
+                  >
+                </div>
+              </section>
+
+              <!-- Sosyal Profiller -->
+              <section class="border-t border-gray-200 pt-4">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                  Profiles
+                </h3>
+                <div class="wheel-scroll flex gap-10 overflow-x-auto">
+                  <a href="#" class="flex flex-col items-center gap-2">
+                    <div
+                      class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
+                    >
+                      <svg
+                        width="256"
+                        height="256"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid"
+                        viewBox="0 0 256 256"
+                        class="size-[2rem]"
+                      >
+                        <path
+                          d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
+                          fill="#0A66C2"
+                        />
+                      </svg>
+                    </div>
+                    <span class="text-sm font-medium">LinkedIn</span>
+                  </a>
+                  <a href="#" class="flex flex-col items-center gap-2">
+                    <div
+                      class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
+                    >
+                      <img
+                        src="/assets/images/icons/instagram.svg"
+                        alt="instagram-svg"
+                        class="size-[2]"
+                      />
+                    </div>
+                    <span class="text-sm font-medium">Instagram</span>
+                  </a>
+                  <a href="#" class="flex flex-col items-center gap-2">
+                    <div
+                      class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
+                    >
+                      <svg
+                        viewBox="0 0 256 180"
+                        width="256"
+                        height="180"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid"
+                        class="size-[2rem]"
+                      >
+                        <path
+                          d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134Z"
+                          fill="red"
+                        />
+                        <path
+                          fill="#FFF"
+                          d="m102.421 128.06 66.328-38.418-66.328-38.418z"
+                        />
+                      </svg>
+                    </div>
+                    <span class="text-sm font-medium">Youtube</span>
+                  </a>
+                  <a href="#" class="flex flex-col items-center gap-2">
+                    <div
+                      class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 36 36"
+                        fill="url(#a)"
+                        height="40"
+                        width="40"
+                        class="size-[2rem]"
+                      >
+                        <defs>
+                          <linearGradient
+                            x1="50%"
+                            x2="50%"
+                            y1="97.078%"
+                            y2="0%"
+                            id="a"
+                          >
+                            <stop offset="0%" stop-color="#0062E0" />
+                            <stop offset="100%" stop-color="#19AFFF" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M15 35.8C6.5 34.3 0 26.9 0 18 0 8.1 8.1 0 18 0s18 8.1 18 18c0 8.9-6.5 16.3-15 17.8l-1-.8h-4l-1 .8z"
+                        />
+                        <path
+                          fill="#FFF"
+                          d="m25 23 .8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15v12.7c1 .2 2 .3 3 .3s2-.1 3-.3V23h4z"
+                        />
+                      </svg>
+                    </div>
+                    <span class="text-sm font-medium">Facebook</span>
+                  </a>
+                </div>
+              </section>
+
+              <!-- Benzer Aramalar -->
+              <section class="border-t border-gray-200 pt-4">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                  People also search for
+                </h3>
+                <div class="relative">
+                  <div
+                    class="wheel-scroll flex gap-5 overflow-x-auto pb-4 pt-2"
+                  >
+                    <!-- August Restaurant & Lounge -->
+                    <div class="w-36 shrink-0 snap-center overflow-hidden">
+                      <a href="#" class="group block">
+                        <div class="overflow-hidden rounded-xl">
+                          <div class="relative">
+                            <img
+                              src="https://images.unsplash.com/photo-1544148103-0773bf10d330"
+                              alt="August Restaurant & Lounge"
+                              class="h-28 w-full object-cover"
+                            />
+                            <div
+                              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            ></div>
+                          </div>
+                          <div class="rounded-b-xl bg-white py-2">
+                            <p
+                              class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                            >
+                              August Lounge
+                            </p>
+                            <div class="mt-1 flex items-center">
+                              <span class="text-xs text-gray-500"
+                                >Mediterranean</span
+                              >
+                              <div class="ml-auto flex items-center">
+                                <i
+                                  data-lucide="star"
+                                  class="size-2.5 fill-yellow-400 text-yellow-500"
+                                ></i>
+                                <span class="ml-1 text-xs text-gray-500"
+                                  >4.8</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <!-- GAL Dubai Restaurant -->
+                    <div class="w-36 shrink-0 snap-center overflow-hidden">
+                      <a href="#" class="group block">
+                        <div class="overflow-hidden rounded-xl">
+                          <div class="relative">
+                            <img
+                              src="https://images.unsplash.com/photo-1552566626-52f8b828add9"
+                              alt="GAL Dubai Restaurant"
+                              class="h-28 w-full object-cover"
+                            />
+                            <div
+                              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            ></div>
+                          </div>
+                          <div class="rounded-b-xl bg-white py-2">
+                            <p
+                              class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                            >
+                              GAL Dubai Restaurant
+                            </p>
+                            <div class="mt-1 flex items-center">
+                              <span class="text-xs text-gray-500"
+                                >Restaurant</span
+                              >
+                              <div class="ml-auto flex items-center">
+                                <i
+                                  data-lucide="star"
+                                  class="size-2.5 fill-yellow-400 text-yellow-500"
+                                ></i>
+                                <span class="ml-1 text-xs text-gray-500"
+                                  >4.8</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <!-- Krasota Dubai Restaurant -->
+                    <div class="w-36 shrink-0 snap-center overflow-hidden">
+                      <a href="#" class="group block">
+                        <div class="overflow-hidden rounded-xl">
+                          <div class="relative">
+                            <img
+                              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
+                              alt="Krasota Dubai Restaurant"
+                              class="h-28 w-full object-cover"
+                            />
+                            <div
+                              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            ></div>
+                          </div>
+                          <div class="rounded-b-xl bg-white py-2">
+                            <p
+                              class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                            >
+                              Krasota Dubai
+                            </p>
+                            <div class="mt-1 flex items-center">
+                              <span class="text-xs text-gray-500"
+                                >Restaurant</span
+                              >
+                              <div class="ml-auto flex items-center">
+                                <i
+                                  data-lucide="star"
+                                  class="size-2.5 fill-yellow-400 text-yellow-500"
+                                ></i>
+                                <span class="ml-1 text-xs text-gray-500"
+                                  >4.7</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <!-- CE LA VI Restaurant -->
+                    <div class="w-36 shrink-0 snap-center overflow-hidden">
+                      <a href="#" class="group block">
+                        <div class="overflow-hidden rounded-xl">
+                          <div class="relative">
+                            <img
+                              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
+                              alt="CE LA VI Restaurant"
+                              class="h-28 w-full object-cover"
+                            />
+                            <div
+                              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            ></div>
+                          </div>
+                          <div class="rounded-b-xl bg-white py-2">
+                            <p
+                              class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                            >
+                              CE LA VI
+                            </p>
+                            <div class="mt-1 flex items-center">
+                              <span class="text-xs text-gray-500"
+                                >Restaurant</span
+                              >
+                              <div class="ml-auto flex items-center">
+                                <i
+                                  data-lucide="star"
+                                  class="size-2.5 fill-yellow-400 text-yellow-500"
+                                ></i>
+                                <span class="ml-1 text-xs text-gray-500"
+                                  >4.9</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <!-- The Restaurant at Address -->
+                    <div class="w-36 shrink-0 snap-center overflow-hidden">
+                      <a href="#" class="group block">
+                        <div class="overflow-hidden rounded-xl">
+                          <div class="relative">
+                            <img
+                              src="https://images.unsplash.com/photo-1559339352-11d035aa65de"
+                              alt="The Restaurant at Address"
+                              class="h-28 w-full object-cover"
+                            />
+                            <div
+                              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            ></div>
+                          </div>
+                          <div class="rounded-b-xl bg-white py-2">
+                            <p
+                              class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                            >
+                              Address Restaurant
+                            </p>
+                            <div class="mt-1 flex items-center">
+                              <span class="text-xs text-gray-500"
+                                >Restaurant</span
+                              >
+                              <div class="ml-auto flex items-center">
+                                <i
+                                  data-lucide="star"
+                                  class="size-2.5 fill-yellow-400 text-yellow-500"
+                                ></i>
+                                <span class="ml-1 text-xs text-gray-500"
+                                  >4.5</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
 
       <!-- Multi Group Image Gallery - DONT EDIT THIS ** AUTO -->
       <div

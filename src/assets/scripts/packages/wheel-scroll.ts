@@ -33,9 +33,6 @@ class WheelScroll {
 
     // Mobil cihazda ve mobil desteği kapalıysa, hiçbir şey yapma
     if (this.isMobileDevice && !this.scrollOptions.enableOnMobile) {
-      console.log(
-        'WheelScroll: Mobil cihaz tespit edildi, özellik devre dışı bırakıldı.',
-      )
       return
     }
 
