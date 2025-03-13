@@ -47,26 +47,49 @@ class WheelScroll {
    * @returns {boolean} - Cihaz mobilse true, değilse false döner
    */
   private detectMobileDevice(): boolean {
-    // userAgent kontrolü yaptık
+    // UserAgent üzerinden mobil işletim sistemi kontrolü
     const userAgent =
       navigator.userAgent || navigator.vendor || (window as any).opera
 
-    // Ekran genişliği kontrolü (tablet cihazları da mobil olarak kabul ediyoruz)
-    const screenWidth =
-      window.innerWidth ||
-      document.documentElement.clientWidth ||
-      document.body.clientWidth
+    // Özel mobil tarayıcı ve işletim sistemi kontrolleri
+    if (
+      /android/i.test(userAgent) ||
+      /iPhone|iPad|iPod/i.test(userAgent) ||
+      /IEMobile|Windows Phone/i.test(userAgent) ||
+      /BlackBerry/i.test(userAgent) ||
+      /Opera Mini|Opera Mobi/i.test(userAgent)
+    ) {
+      return true
+    }
 
-    // Dokunmatik özelliği kontrolü
-    const hasTouchScreen =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0
+    // iOS tespiti için ek kontrol
+    if (/iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream) {
+      return true
+    }
 
-    // Mobil cihaz regex kontrolleri
-    const mobileRegex =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+    // iOS 13+ iPad tespiti (userAgent'ta artık iPad görünmüyor)
+    if (
+      /Mac/.test(userAgent) &&
+      navigator.maxTouchPoints &&
+      navigator.maxTouchPoints > 2
+    ) {
+      return true
+    }
 
-    // Eğer bu koşullardan biri sağlanıyorsa mobil cihaz kabul ediyoruz
-    return mobileRegex.test(userAgent) || screenWidth <= 768 || hasTouchScreen
+    // Daha güvenilir mobil cihaz tespiti
+    // Dokunmatik özellikler kontrolü
+    const hasTouchCapability =
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      (navigator as any).msMaxTouchPoints > 0
+
+    // Sadece dokunmatik özelliğe sahip olmak mobil cihaz anlamına gelmez,
+    // bu yüzden userAgent ile birlikte değerlendiriyoruz
+    return (
+      /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent,
+      ) && hasTouchCapability
+    )
   }
 
   /**
