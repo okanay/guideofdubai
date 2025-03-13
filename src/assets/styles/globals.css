@@ -47,6 +47,14 @@
     scroll-behavior: smooth;
   }
 
+  .snap-x::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-x {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   *:focus {
     outline-color: rgb(var(--primary-500));
     outline-offset: 0.4rem;
@@ -77,6 +85,7 @@
   /* Doğru selector yapısı */
   .sidebar::-webkit-scrollbar {
     width: 3px;
+    height: 3px;
   }
 
   .sidebar::-webkit-scrollbar-track {

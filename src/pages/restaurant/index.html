@@ -1300,7 +1300,7 @@
             </p>
           </div>
 
-          <div class="flex flex-col gap-8 lg:flex-row">
+          <div class="flex flex-col gap-x-12 gap-y-4 lg:flex-row">
             <!-- Restoran Bilgileri İçeriği -->
             <div class="order-2 w-full px-3.5 lg:order-none lg:w-2/3 lg:px-0">
               <div class="flex flex-col gap-8">
@@ -1401,7 +1401,7 @@
             <!-- Sağ Kenar Çubuğu - Rezervasyon Formu -->
             <div
               id="info"
-              class="order-1 w-full flex-shrink-0 lg:order-none lg:-mt-[124px] lg:w-[420px]"
+              class="order-1 mt-2 w-full flex-shrink-0 lg:order-none lg:-mt-[124px] lg:w-[420px]"
             >
               <h2
                 class="mb-4 px-4 text-xl font-bold text-gray-800 lg:text-center lg:text-2xl"
@@ -1410,7 +1410,9 @@
               </h2>
 
               <!-- WhatsApp İletişim Kartı -->
-              <div class="mb-2 bg-lime-500 shadow-sm lg:rounded-lg">
+              <div
+                class="mb-2 border-y border-lime-600 bg-lime-500 shadow-sm lg:rounded-lg lg:border-y-0"
+              >
                 <div class="flex items-center justify-between gap-3 px-4 py-4">
                   <span
                     class="text-balance px-1 text-sm font-medium text-white lg:text-center"
@@ -1429,25 +1431,12 @@
               <div
                 class="sidebar -mt-2 overflow-hidden overflow-y-auto bg-white shadow-sm lg:mt-0 lg:rounded-lg lg:border lg:border-gray-950/20"
               >
-                <!-- Durum Bildirimleri -->
-                <div
-                  class="border-b border-lime-200 bg-lime-50 px-5 py-3 lg:px-6"
-                >
-                  <div class="flex items-center justify-between gap-2">
-                    <p class="text-sm font-medium text-lime-700">
-                      Şu anda rezervasyon alınmaktadır.
-                    </p>
-                    <i
-                      data-lucide="check-circle"
-                      class="size-4 text-lime-600"
-                    ></i>
-                  </div>
-                </div>
-
                 <!-- Restoran Bilgileri -->
-                <div class="px-4 pb-2 pt-5 lg:pb-5">
+                <div class="flex flex-col gap-4 px-4 pb-2 pt-2 lg:pb-5">
                   <!-- Etkileşim Butonları -->
-                  <section class="mb-6 flex flex-wrap gap-3">
+                  <section
+                    class="sidebar flex snap-x flex-nowrap gap-3 overflow-x-auto px-0.5 py-1 sm:flex-wrap"
+                  >
                     <button
                       class="flex items-center gap-2 rounded-lg border border-primary-50 bg-primary-500 px-4 py-2 text-sm font-medium text-gray-50 shadow shadow-primary-400/20 ring-1 ring-primary-400 transition-colors hover:bg-primary-600"
                     >
@@ -1487,8 +1476,8 @@
                   </section>
 
                   <!-- Fiyat Bilgisi -->
-                  <div
-                    class="mb-6 rounded-lg border border-gray-950/20 bg-gray-50 p-4"
+                  <section
+                    class="rounded-lg border border-gray-950/20 bg-gray-50 p-4"
                   >
                     <h3 class="text-sm font-semibold text-gray-800">
                       Ortalama Fiyat
@@ -1503,11 +1492,11 @@
                       *Fiyatlar seçilen menü ve içeceklere göre değişiklik
                       gösterebilir.
                     </p>
-                  </div>
+                  </section>
 
                   <!-- Adres Bölümü -->
                   <section
-                    class="mb-4 flex flex-col gap-1.5 text-sm leading-relaxed"
+                    class="flex flex-col gap-1.5 text-sm leading-relaxed"
                   >
                     <div>
                       <span class="font-semibold text-gray-800"
@@ -1549,7 +1538,7 @@
                   </section>
 
                   <!-- Sosyal Profiller -->
-                  <section class="mb-8 border-t border-gray-200 pt-4">
+                  <section class="border-t border-gray-200 pt-4">
                     <h3 class="mb-4 text-base font-semibold text-gray-800">
                       Profiles
                     </h3>
@@ -1649,7 +1638,7 @@
                   </section>
 
                   <!-- Benzer Aramalar -->
-                  <section class="mb-8 border-t border-gray-200 pt-4">
+                  <section class="border-t border-gray-200 pt-4">
                     <h3 class="mb-4 text-lg font-semibold text-gray-800">
                       People also search for
                     </h3>
