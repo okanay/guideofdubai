@@ -224,6 +224,7 @@ class PhoneCodeSearch {
   }
 
   // Şablon elementlerini yakala
+  // PhoneCodeSearch sınıfındaki captureTemplates metodu değişikliği
   private captureTemplates(): {
     suggestionItem: HTMLElement
     noResults: HTMLElement
@@ -238,13 +239,27 @@ class PhoneCodeSearch {
       )
     }
 
-    // Template alındıktan sonra suggestions konteynırını temizle
-    this.elements.suggestions.innerHTML = ''
-
-    return {
+    // Template öğelerini klonla
+    const templates = {
       suggestionItem: suggestionItem.cloneNode(true) as HTMLElement,
       noResults: noResults.cloneNode(true) as HTMLElement,
     }
+
+    // Bu satırı değiştiriyoruz - içeriği tamamen silmek yerine,
+    // içeriği koruyalım ya da template öğelerini tekrar ekleyelim
+    this.elements.suggestions.innerHTML = ''
+
+    // Klonlama sonrası tekrar template öğelerini ekleyelim
+    // bu sayede DOM'da her zaman template öğeleri bulunur
+    this.elements.suggestions.appendChild(suggestionItem.cloneNode(true))
+    this.elements.suggestions.appendChild(noResults.cloneNode(true))
+
+    // Bu öğeleri gizleyelim ama DOM'dan silmeyelim
+    const addedItems = this.elements.suggestions.querySelectorAll(
+      '.suggestion-item, .no-results',
+    )
+
+    return templates
   }
 
   private setupEventListeners(): void {

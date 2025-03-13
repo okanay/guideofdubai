@@ -181,6 +181,17 @@
           </button>
         </div>
 
+        <script>
+          document
+            .getElementById('add-person')
+            .addEventListener('click', function () {
+              window.Repeater('#person-1', '#persons', {
+                removeAttr: ['data-phone-code-id'],
+              })
+              window.RefreshPhone()
+            })
+        </script>
+
         <!-- Kişiler -->
         <ul
           id="persons"

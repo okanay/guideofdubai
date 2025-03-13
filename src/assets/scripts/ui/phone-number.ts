@@ -1,9 +1,6 @@
+// prettier-ignore
+import { PhoneCodeSearch, type PhoneCodeOption, type PhoneCodeOptions } from '../packages/phone-code-search.js'
 import { phoneCodesTR, phoneCodesEN } from '../../constants/phone-code.js'
-import {
-  PhoneCodeSearch,
-  type PhoneCodeOption,
-  type PhoneCodeOptions,
-} from '../packages/phone-code-search.js'
 
 declare global {
   interface Window {

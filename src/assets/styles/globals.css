@@ -43,6 +43,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   *:focus {
     outline-color: rgb(var(--primary-500));
     outline-offset: 0.4rem;

@@ -105,6 +105,11 @@ app.get('/faq', c => {
   return c.html(html.text())
 })
 
+app.get('/restaurant', c => {
+  const html = Bun.file('./dist/pages/restaurant/index.html')
+  return c.html(html.text())
+})
+
 app.get('/faq', c => {
   const html = Bun.file('./dist/pages/faq-mobile/index.html')
   return c.html(html.text())
