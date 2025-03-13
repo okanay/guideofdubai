@@ -2550,7 +2550,7 @@
                     id="location-map"
                     data-layer="watercolor"
                     data-coordinate="25.069506,55.12812"
-                    class="relative h-[424px] w-full flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-200 shadow-2xl shadow-gray-200"
+                    class="relative h-[472px] w-full flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-200 shadow-2xl shadow-gray-200"
                   >
                     <div class="map-container relative h-full w-full">
                       <div
@@ -2581,7 +2581,7 @@
               >
                 <div class="flex items-center justify-between gap-3 px-4 py-4">
                   <span
-                    class="text-balance px-1 text-sm font-medium text-white lg:text-center"
+                    class="text-balance px-1 text-sm font-semibold text-white lg:text-center"
                   >
                     Rezervasyon için lütfen WhatsApp üzerinden iletişime geçin
                   </span>
@@ -2720,7 +2720,7 @@
                     <h3 class="mb-4 text-lg font-semibold text-gray-800">
                       Profiles
                     </h3>
-                    <div class="flex gap-8">
+                    <div class="wheel-scroll flex gap-10 overflow-x-auto">
                       <a href="#" class="flex flex-col items-center gap-2">
                         <div
                           class="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 p-2.5"
@@ -2821,144 +2821,199 @@
                       People also search for
                     </h3>
                     <div class="relative">
-                      <div class="flex snap-x space-x-4 overflow-x-auto pb-2">
-                        <!-- GAL Dubai Restaurant -->
-                        <div class="w-32 shrink-0 snap-center overflow-hidden">
+                      <div
+                        class="wheel-scroll flex gap-5 overflow-x-auto pb-4 pt-2"
+                      >
+                        <!-- August Restaurant & Lounge -->
+                        <div class="w-36 shrink-0 snap-center overflow-hidden">
                           <a href="#" class="group block">
-                            <div
-                              class="overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-md"
-                            >
+                            <div class="overflow-hidden rounded-xl">
+                              <div class="relative">
+                                <img
+                                  src="https://images.unsplash.com/photo-1544148103-0773bf10d330"
+                                  alt="August Restaurant & Lounge"
+                                  class="h-28 w-full object-cover"
+                                />
+                                <div
+                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                ></div>
+                              </div>
+                              <div class="rounded-b-xl bg-white py-2">
+                                <p
+                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
+                                >
+                                  August Lounge
+                                </p>
+                                <div class="mt-1 flex items-center">
+                                  <span class="text-xs text-gray-500"
+                                    >Mediterranean</span
+                                  >
+                                  <div class="ml-auto flex items-center">
+                                    <i
+                                      data-lucide="star"
+                                      class="size-2.5 fill-yellow-400 text-yellow-500"
+                                    ></i>
+                                    <span class="ml-1 text-xs text-gray-500"
+                                      >4.8</span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+
+                        <!-- GAL Dubai Restaurant -->
+                        <div class="w-36 shrink-0 snap-center overflow-hidden">
+                          <a href="#" class="group block">
+                            <div class="overflow-hidden rounded-xl">
                               <div class="relative">
                                 <img
                                   src="https://images.unsplash.com/photo-1552566626-52f8b828add9"
                                   alt="GAL Dubai Restaurant"
-                                  class="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                  class="h-28 w-full object-cover"
                                 />
                                 <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                                 ></div>
                               </div>
-                              <div class="pt-2">
+                              <div class="rounded-b-xl bg-white py-2">
                                 <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-600"
+                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
                                 >
                                   GAL Dubai Restaurant
                                 </p>
-                                <p class="text-xs text-gray-500">Restaurant</p>
+                                <div class="mt-1 flex items-center">
+                                  <span class="text-xs text-gray-500"
+                                    >Restaurant</span
+                                  >
+                                  <div class="ml-auto flex items-center">
+                                    <i
+                                      data-lucide="star"
+                                      class="size-2.5 fill-yellow-400 text-yellow-500"
+                                    ></i>
+                                    <span class="ml-1 text-xs text-gray-500"
+                                      >4.8</span
+                                    >
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </a>
                         </div>
 
                         <!-- Krasota Dubai Restaurant -->
-                        <div class="w-32 shrink-0 snap-center overflow-hidden">
+                        <div class="w-36 shrink-0 snap-center overflow-hidden">
                           <a href="#" class="group block">
-                            <div
-                              class="overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-md"
-                            >
+                            <div class="overflow-hidden rounded-xl">
                               <div class="relative">
                                 <img
                                   src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
                                   alt="Krasota Dubai Restaurant"
-                                  class="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                  class="h-28 w-full object-cover"
                                 />
                                 <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                                 ></div>
                               </div>
-                              <div class="pt-2">
+                              <div class="rounded-b-xl bg-white py-2">
                                 <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-600"
+                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
                                 >
-                                  Krasota Dubai Restaurant
+                                  Krasota Dubai
                                 </p>
-                                <p class="text-xs text-gray-500">Restaurant</p>
+                                <div class="mt-1 flex items-center">
+                                  <span class="text-xs text-gray-500"
+                                    >Restaurant</span
+                                  >
+                                  <div class="ml-auto flex items-center">
+                                    <i
+                                      data-lucide="star"
+                                      class="size-2.5 fill-yellow-400 text-yellow-500"
+                                    ></i>
+                                    <span class="ml-1 text-xs text-gray-500"
+                                      >4.7</span
+                                    >
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </a>
                         </div>
 
                         <!-- CE LA VI Restaurant -->
-                        <div class="w-32 shrink-0 snap-center overflow-hidden">
+                        <div class="w-36 shrink-0 snap-center overflow-hidden">
                           <a href="#" class="group block">
-                            <div
-                              class="overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-md"
-                            >
+                            <div class="overflow-hidden rounded-xl">
                               <div class="relative">
                                 <img
                                   src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
                                   alt="CE LA VI Restaurant"
-                                  class="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                  class="h-28 w-full object-cover"
                                 />
                                 <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                                 ></div>
                               </div>
-                              <div class="pt-2">
+                              <div class="rounded-b-xl bg-white py-2">
                                 <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-600"
+                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
                                 >
-                                  CE LA VI Restaurant
+                                  CE LA VI
                                 </p>
-                                <p class="text-xs text-gray-500">Restaurant</p>
+                                <div class="mt-1 flex items-center">
+                                  <span class="text-xs text-gray-500"
+                                    >Restaurant</span
+                                  >
+                                  <div class="ml-auto flex items-center">
+                                    <i
+                                      data-lucide="star"
+                                      class="size-2.5 fill-yellow-400 text-yellow-500"
+                                    ></i>
+                                    <span class="ml-1 text-xs text-gray-500"
+                                      >4.9</span
+                                    >
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </a>
                         </div>
 
                         <!-- The Restaurant at Address -->
-                        <div class="w-32 shrink-0 snap-center overflow-hidden">
+                        <div class="w-36 shrink-0 snap-center overflow-hidden">
                           <a href="#" class="group block">
-                            <div
-                              class="overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-md"
-                            >
+                            <div class="overflow-hidden rounded-xl">
                               <div class="relative">
                                 <img
                                   src="https://images.unsplash.com/photo-1559339352-11d035aa65de"
                                   alt="The Restaurant at Address"
-                                  class="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                  class="h-28 w-full object-cover"
                                 />
                                 <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                  class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                                 ></div>
                               </div>
-                              <div class="pt-2">
+                              <div class="rounded-b-xl bg-white py-2">
                                 <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-600"
+                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-500"
                                 >
-                                  The Restaurant at Address
+                                  Address Restaurant
                                 </p>
-                                <p class="text-xs text-gray-500">Restaurant</p>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                        <!-- August Restaurant & Lounge -->
-                        <div class="w-32 shrink-0 snap-center overflow-hidden">
-                          <a href="#" class="group block">
-                            <div
-                              class="overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-md"
-                            >
-                              <div class="relative">
-                                <img
-                                  src="https://images.unsplash.com/photo-1544148103-0773bf10d330"
-                                  alt="August Restaurant & Lounge"
-                                  class="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div
-                                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                                ></div>
-                              </div>
-                              <div class="pt-2">
-                                <p
-                                  class="text-sm font-medium text-gray-800 transition-colors duration-300 group-hover:text-primary-600"
-                                >
-                                  August Restaurant & Lounge
-                                </p>
-                                <p class="text-xs text-gray-500">
-                                  Mediterranean
-                                </p>
+                                <div class="mt-1 flex items-center">
+                                  <span class="text-xs text-gray-500"
+                                    >Restaurant</span
+                                  >
+                                  <div class="ml-auto flex items-center">
+                                    <i
+                                      data-lucide="star"
+                                      class="size-2.5 fill-yellow-400 text-yellow-500"
+                                    ></i>
+                                    <span class="ml-1 text-xs text-gray-500"
+                                      >4.5</span
+                                    >
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </a>

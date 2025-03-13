@@ -55,6 +55,15 @@
     scrollbar-width: none;
   }
 
+  .wheel-scroll {
+    scrollbar-width: none; /* Firefox için */
+    -ms-overflow-style: none; /* IE ve Edge için */
+  }
+
+  .wheel-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari ve Opera için */
+  }
+
   *:focus {
     outline-color: rgb(var(--primary-500));
     outline-offset: 0.4rem;

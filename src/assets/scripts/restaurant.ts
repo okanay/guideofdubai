@@ -6,6 +6,7 @@ import {
 import { NavStickyManager } from './packages/scroll-style.js'
 import { Slider } from './packages/slider.js'
 import { TouchDirectionDetector } from './packages/touch-event.js'
+import { WheelScroll } from './packages/wheel-scroll.js'
 
 // Görseldeki ürünlerin sayısını otomatik olarak hesaplar ve slider'ın data-items değerini günceller
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+  const wheelScroll = new WheelScroll({ sensitivity: 1.2, smoothness: 0.1 })
+
   new NavStickyManager({
     navId: '#product-nav',
     contentId: '#product-content',
