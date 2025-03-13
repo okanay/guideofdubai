@@ -1,9 +1,5 @@
 /**
  * WheelScroll sınıfı, mouse tekerleği ile dikey scroll hareketlerini
- * belirli elementlerde yatay scroll hareketine dönüştürür.
- */
-/**
- * WheelScroll sınıfı, mouse tekerleği ile dikey scroll hareketlerini
  * belirli elementlerde yumuşak (smooth) yatay scroll hareketine dönüştürür.
  */
 class WheelScroll {
@@ -13,12 +9,23 @@ class WheelScroll {
     smoothness: 0.15, // Yumuşaklık faktörü (0-1 arası, düşük değer daha yumuşak)
     acceleration: 0.95, // İvmelenme faktörü (0-1 arası)
     maxSpeed: 30, // Maksimum piksel hızı
+    touchSensitivity: 1.0, // Touch olayları için özel hassasiyet
   }
 
   // Animasyon değişkenleri
   private animationFrames: Map<HTMLElement, number> = new Map()
   private velocities: Map<HTMLElement, number> = new Map()
   private isScrolling: Map<HTMLElement, boolean> = new Map()
+
+  // Touch olay referanslarını saklamak için
+  private touchListeners: Map<
+    HTMLElement,
+    {
+      start: (e: TouchEvent) => void
+      move: (e: TouchEvent) => void
+      end: (e: TouchEvent) => void
+    }
+  > = new Map()
 
   /**
    * WheelScroll sınıfı yapılandırıcısı
@@ -70,8 +77,11 @@ class WheelScroll {
    * Tekil eleman için gereken kurulumu yapar
    */
   private setupElement(element: HTMLElement): void {
+    // Wheel event listener için bind kullanarak this bağlamını koru
+    const wheelHandler = this.handleWheelEvent.bind(this)
+
     // Passive: false kullanarak daha iyi performans sağlar
-    element.addEventListener('wheel', this.handleWheelEvent.bind(this), {
+    element.addEventListener('wheel', wheelHandler, {
       passive: false,
     })
 
@@ -94,47 +104,79 @@ class WheelScroll {
     let currentX: number
     let touchVelocity = 0
     let lastMoveTime = 0
+    let isTouching = false
 
-    element.addEventListener(
-      'touchstart',
-      (e: TouchEvent) => {
-        startX = e.touches[0].clientX
-        currentX = startX
-        touchVelocity = 0
-        lastMoveTime = Date.now()
-      },
-      { passive: true },
-    )
+    // Touch event listenerları oluştur ve saklayalım (destroy için)
+    const touchStartHandler = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return // Sadece tek parmak dokunuşunu işle
 
-    element.addEventListener(
-      'touchmove',
-      (e: TouchEvent) => {
-        const previousX = currentX
-        currentX = e.touches[0].clientX
+      isTouching = true
+      startX = e.touches[0].clientX
+      currentX = startX
+      touchVelocity = 0
+      lastMoveTime = Date.now()
 
-        const currentTime = Date.now()
-        const timeElapsed = currentTime - lastMoveTime
+      // Mevcut animasyonu durdur, çünkü kullanıcı aktif olarak dokunuyor
+      this.velocities.set(element, 0)
+      this.isScrolling.set(element, false)
+      const frame = this.animationFrames.get(element)
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+    }
 
-        // Hız hesabı
-        if (timeElapsed > 0) {
-          touchVelocity = ((previousX - currentX) / timeElapsed) * 30 // Hız faktörü
-        }
+    const touchMoveHandler = (e: TouchEvent) => {
+      if (!isTouching || e.touches.length !== 1) return
 
-        lastMoveTime = currentTime
-        element.scrollLeft += previousX - currentX
-      },
-      { passive: true },
-    )
+      const previousX = currentX
+      currentX = e.touches[0].clientX
 
-    element.addEventListener(
-      'touchend',
-      () => {
-        // Touchend sonrası momentum scrolling aktivasyonu
-        this.velocities.set(element, touchVelocity)
+      const dx = previousX - currentX
+
+      // Yön kontrolü: dx pozitifse sola kaydırma (içerik sağa kayar)
+      // dx negatifse sağa kaydırma (içerik sola kayar)
+      element.scrollLeft += dx
+
+      const currentTime = Date.now()
+      const timeElapsed = currentTime - lastMoveTime
+
+      // Hız hesabı - yön önemli!
+      if (timeElapsed > 0) {
+        // Hızı, scrollLeft'in nasıl değişeceğini yansıtacak şekilde hesapla
+        // Burada dx'i kullanıyoruz ki, scrollLeft ile aynı yönde olsun
+        touchVelocity =
+          (dx / timeElapsed) * this.scrollOptions.touchSensitivity * 20
+      }
+
+      lastMoveTime = currentTime
+    }
+
+    const touchEndHandler = () => {
+      if (!isTouching) return
+
+      isTouching = false
+
+      // Momentum scrolling aktivasyonu için hızı ayarla
+      // touchVelocity zaten doğru yönde (scrollLeft ile uyumlu)
+      this.velocities.set(element, touchVelocity)
+
+      // Hız yeterince büyükse, smooth scrolling başlat
+      if (Math.abs(touchVelocity) > 0.5) {
         this.startSmoothScrolling(element)
-      },
-      { passive: true },
-    )
+      }
+    }
+
+    // Event listenerları ekle
+    element.addEventListener('touchstart', touchStartHandler, { passive: true })
+    element.addEventListener('touchmove', touchMoveHandler, { passive: true })
+    element.addEventListener('touchend', touchEndHandler, { passive: true })
+
+    // Temizlik için referansları sakla
+    this.touchListeners.set(element, {
+      start: touchStartHandler,
+      move: touchMoveHandler,
+      end: touchEndHandler,
+    })
   }
 
   /**
@@ -264,7 +306,16 @@ class WheelScroll {
    */
   public destroy(): void {
     this.scrollElements.forEach(element => {
+      // Wheel event listener'ı kaldır
       element.removeEventListener('wheel', this.handleWheelEvent.bind(this))
+
+      // Touch event listener'ları kaldır
+      const touchHandlers = this.touchListeners.get(element)
+      if (touchHandlers) {
+        element.removeEventListener('touchstart', touchHandlers.start)
+        element.removeEventListener('touchmove', touchHandlers.move)
+        element.removeEventListener('touchend', touchHandlers.end)
+      }
 
       // Animasyonları durdur
       const frame = this.animationFrames.get(element)
@@ -277,6 +328,7 @@ class WheelScroll {
     this.velocities.clear()
     this.isScrolling.clear()
     this.animationFrames.clear()
+    this.touchListeners.clear()
   }
 }
 
@@ -284,10 +336,11 @@ class WheelScroll {
  * Scroll seçenekleri arayüzü
  */
 interface ScrollOptions {
-  sensitivity: number // Scroll hassasiyeti (1.0 = normal)
+  sensitivity: number // Wheel scroll hassasiyeti (1.0 = normal)
   smoothness: number // Yumuşaklık faktörü (0-1 arası, düşük değer daha yumuşak)
   acceleration: number // İvmelenme faktörü (0-1 arası)
   maxSpeed: number // Maksimum piksel hızı
+  touchSensitivity: number // Touch olayları için hassasiyet çarpanı
 }
 
 export { WheelScroll }
