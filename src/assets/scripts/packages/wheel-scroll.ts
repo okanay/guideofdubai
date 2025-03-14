@@ -9,6 +9,7 @@ interface WheelScrollOptions {
   debugMode?: boolean
   scrollStep?: number // Kaydırma miktarı (piksel)
   scrollDuration?: number // Kaydırma animasyon süresi (ms)
+  disableTouchInterception?: boolean // Mobil dokunma olaylarının araya girip girmeyeceğini kontrol eder
 }
 
 // Her container için alt elementleri ve bilgileri saklayan arayüz
@@ -37,6 +38,7 @@ class WheelScroll {
       debugMode: options.debugMode ?? true,
       scrollStep: options.scrollStep ?? 300,
       scrollDuration: options.scrollDuration ?? 300,
+      disableTouchInterception: options.disableTouchInterception ?? true, // Varsayılan olarak mobilde native scroll kullan
     }
 
     this.debugMode = this.options.debugMode
@@ -297,11 +299,11 @@ class WheelScroll {
       const elements = this.containerElementsCache.get(container)
       if (!elements) return
 
-      // Masaüstü cihazlarda wheel event'i
+      // Masaüstü cihazlarda wheel event'i - mobil cihazlarda UYGULANMAZ
       if (!this.isMobile) {
         this.attachWheelEvent(elements)
-      } else {
-        // Mobil cihazlarda touch event'leri
+      } else if (!this.options.disableTouchInterception) {
+        // Sadece disableTouchInterception false ise touch olaylarını ekle
         this.setupTouchEvents(elements)
       }
 
@@ -326,7 +328,8 @@ class WheelScroll {
   }
 
   private setupTouchEvents(elements: ContainerElements): void {
-    if (!this.isMobile) return
+    // Eğer options.disableTouchInterception true ise veya mobil değilse, touch olaylarını ekleme
+    if (this.options.disableTouchInterception || !this.isMobile) return
 
     const { scrollElement } = elements
     let startX: number
@@ -660,6 +663,10 @@ class WheelScroll {
     })
   }
 
+  /**
+   * İyileştirilmiş scroll işlevi
+   * Mobil vs masaüstü ayrımı daha net yapılıyor
+   */
   private scrollContainer(
     container: HTMLElement,
     direction: 'left' | 'right',
@@ -698,8 +705,52 @@ class WheelScroll {
       `Scroll hedefi: ${targetScrollLeft}, mevcut: ${scrollElement.scrollLeft}`,
     )
 
-    // Scroll elementi için smooth scroll
-    this.smoothScrollTo(scrollElement, targetScrollLeft)
+    // Mobil vs masaüstü için farklı scroll davranışları
+    if (this.isMobile) {
+      // Mobil cihazlar için basit scroll
+      this.scrollToWithAnimation(scrollElement, targetScrollLeft)
+    } else {
+      // Masaüstü için smooth scroll
+      this.smoothScrollTo(scrollElement, targetScrollLeft)
+    }
+  }
+
+  /**
+   * Mobil cihazlar için daha uygun scroll animasyonu
+   * Özellikle iOS için daha iyi çalışır
+   */
+  private scrollToWithAnimation(
+    element: HTMLElement,
+    targetScrollLeft: number,
+  ): void {
+    // İlk olarak CSS tabanlı scroll-behavior'u kaldır (iOS uyumluluk için)
+    const originalScrollBehavior = element.style.scrollBehavior
+    element.style.scrollBehavior = 'auto'
+
+    // requestAnimationFrame ile scroll işlemini yap
+    const startScrollLeft = element.scrollLeft
+    const distance = targetScrollLeft - startScrollLeft
+    const duration = 300 // ms
+    const startTime = performance.now()
+
+    const animateScroll = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime
+      const progress = Math.min(elapsedTime / duration, 1)
+
+      // Easing fonksiyonu (ease-out cubic)
+      const easedProgress = 1 - Math.pow(1 - progress, 3)
+
+      element.scrollLeft = startScrollLeft + distance * easedProgress
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll)
+      } else {
+        // Animasyon tamamlandıktan sonra orijinal scroll davranışını geri yükle
+        element.style.scrollBehavior = originalScrollBehavior
+      }
+    }
+
+    requestAnimationFrame(animateScroll)
   }
 
   private smoothScrollTo(element: HTMLElement, targetScrollLeft: number): void {

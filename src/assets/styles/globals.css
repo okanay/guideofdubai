@@ -50,6 +50,7 @@
   .snap-x::-webkit-scrollbar {
     display: none;
   }
+
   .snap-x {
     -ms-overflow-style: none;
     scrollbar-width: none;
