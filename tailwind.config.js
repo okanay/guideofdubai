@@ -33,7 +33,12 @@ const tailwind = {
     },
   },
   plugins: [],
-  safelist: ['group/query', 'sm:hover:border-primary-200', 'lg:max-h-[64rem]'],
+  safelist: [
+    'group/query',
+    'sm:hover:border-primary-200',
+    'lg:max-h-[64rem]',
+    'h-[472px]',
+  ],
 }
 
 function setColors(color) {
