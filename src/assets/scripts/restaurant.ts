@@ -8,7 +8,7 @@ import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const wheel = new WheelScroll()
+  const wheel = new WheelScroll({ debugMode: false })
 })
 
 document.addEventListener('DOMContentLoaded', () => {

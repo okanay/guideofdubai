@@ -3515,6 +3515,31 @@
                     </span>
                   </button>
 
+                  <button
+                    type="submit"
+                    id="add-shopping-cart"
+                    class="group flex h-14 w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white text-base font-semibold text-gray-800 transition-all duration-300 hover:bg-gray-100 focus:border focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-75"
+                    aria-label="Sepete Ekle"
+                  >
+                    <i
+                      data-lucide="shopping-cart"
+                      class="block size-5 translate-y-[-5%] group-disabled:hidden"
+                    ></i>
+                    <span class="block group-disabled:hidden">
+                      Sepete Ekle
+                    </span>
+
+                    <span
+                      class="hidden items-center justify-center gap-2 group-disabled:flex"
+                    >
+                      <span>İşlem Devam Ediyor</span>
+                      <i
+                        data-lucide="loader-circle"
+                        class="size-6 animate-spin !duration-[2500ms]"
+                      ></i>
+                    </span>
+                  </button>
+
                   <!-- Checkbox -->
                   <label
                     class="group relative flex cursor-pointer items-start gap-2"
