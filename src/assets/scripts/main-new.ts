@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollDistance: 'view',
     scrollDuration: 500,
     enableOnMobile: true,
-    debug: false,
+    debug: true,
   })
 
   const slider = new Slider({

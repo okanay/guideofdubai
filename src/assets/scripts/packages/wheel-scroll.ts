@@ -29,40 +29,43 @@ interface WheelScrollOptions {
   debug?: boolean
 }
 
+// Container için gerekli tüm veri ve dinleyicileri tutan yapı
+interface ContainerData {
+  buttons: { left: HTMLElement; right: HTMLElement } | null
+  listeners: {
+    wheel: EventListener | null
+    scroll: EventListener | null
+    touchStart: EventListener | null
+    touchMove: EventListener | null
+    touchEnd: EventListener | null
+  }
+  touch: {
+    startX: number
+    startY: number
+    lastX: number
+    lastY: number
+    isVerticalScroll: boolean | null // null = henüz belirlenmemiş
+  }
+}
+
 class WheelScroll {
   private options: Required<WheelScrollOptions>
+  // Aktif container'lar kümesi
   private scrollContainers: Set<HTMLElement> = new Set()
-  private buttonPairs: Map<
-    HTMLElement,
-    { left: HTMLElement; right: HTMLElement }
-  > = new Map()
-  private observers: Map<HTMLElement, IntersectionObserver> = new Map()
-  private scrollListeners: Map<HTMLElement, EventListener> = new Map()
-  private wheelListeners: Map<HTMLElement, EventListener> = new Map()
-  private touchStartListeners: Map<HTMLElement, EventListener> = new Map()
-  private touchMoveListeners: Map<HTMLElement, EventListener> = new Map()
-  private touchEndListeners: Map<HTMLElement, EventListener> = new Map()
+  // Container başına tüm verileri tutacak tek bir yapı
+  private containerData: Map<HTMLElement, ContainerData> = new Map()
   private resizeObserver: ResizeObserver | null = null
   private mutationObserver: MutationObserver | null = null
+  private domUpdateTimer: number | null = null
   private isMobileDevice: boolean
-  private isPreventingDefault: Map<HTMLElement, boolean> = new Map()
-  private touchStartX: Map<HTMLElement, number> = new Map()
-  private touchStartY: Map<HTMLElement, number> = new Map()
-  private lastTouchX: Map<HTMLElement, number> = new Map()
-  private lastTouchY: Map<HTMLElement, number> = new Map()
-  private isVerticalScroll: Map<HTMLElement, boolean | null> = new Map() // null = henüz belirlenmemiş
 
-  /**
-   * WheelScroll bileşenini oluşturur
-   * @param options Seçenekler
-   */
   constructor(options: WheelScrollOptions = {}) {
     // Varsayılan seçenekler
     this.options = {
       sensitivity: options.sensitivity ?? 1.0,
       scrollDistance: options.scrollDistance ?? 'view',
       scrollDuration: options.scrollDuration ?? 50,
-      enableOnMobile: options.enableOnMobile ?? true,
+      enableOnMobile: options.enableOnMobile ?? false, // Varsayılanı false yapıyoruz
       buttonSelectors: options.buttonSelectors ?? {
         left: '.wheel-btn-left',
         right: '.wheel-btn-right',
@@ -78,9 +81,9 @@ class WheelScroll {
     this.isMobileDevice = this.detectMobileDevice()
 
     // Mobil cihazda ve mobil desteği kapalıysa, sadece buton kontrolleri aktif olacak
-    if (this.isMobileDevice && !this.options.enableOnMobile) {
+    if (this.isMobileDevice) {
       this.log(
-        'Mobil cihaz tespit edildi ve enableOnMobile kapalı, sadece buton kontrolleri aktif edilecek',
+        'Mobil cihaz tespit edildi, sadece buton kontrolleri aktif edilecek',
       )
     }
 
@@ -121,11 +124,24 @@ class WheelScroll {
       if (!this.scrollContainers.has(container)) {
         this.scrollContainers.add(container)
 
-        // Başlangıçta preventDefault true olarak ayarla
-        this.isPreventingDefault.set(container, true)
-
-        // Touch başlangıç durumunu null olarak ayarla
-        this.isVerticalScroll.set(container, null)
+        // Container verisi oluştur
+        this.containerData.set(container, {
+          buttons: null,
+          listeners: {
+            wheel: null,
+            scroll: null,
+            touchStart: null,
+            touchMove: null,
+            touchEnd: null,
+          },
+          touch: {
+            startX: 0,
+            startY: 0,
+            lastX: 0,
+            lastY: 0,
+            isVerticalScroll: null,
+          },
+        })
 
         // Scroll bar'ı gizle
         this.hideScrollbar(container)
@@ -133,13 +149,16 @@ class WheelScroll {
         // Butonları bul ve eşleştir
         this.findAndBindButtons(container)
 
-        // Wheel olayı ekleyici
-        this.addWheelEventListener(container)
+        // Mobil cihaz kontrolü - Sadece mobil cihazda değilse wheel ve touch eventleri ekle
+        if (!this.isMobileDevice || this.options.enableOnMobile) {
+          // Wheel olayı ekleyici
+          this.addWheelEventListener(container)
 
-        // Touch olayları ekleyici (mobil cihazlar için)
-        this.addTouchEventListeners(container)
+          // Touch olayları ekleyici (mobil cihazlar için)
+          this.addTouchEventListeners(container)
+        }
 
-        // Scroll olayı ekleyici (butonları güncellemek için)
+        // Scroll olayı ekleyici (butonları güncellemek için) - Bunlar her durumda gerekli
         if (this.options.autoUpdateButtons) {
           this.addScrollEventListener(container)
         }
@@ -148,125 +167,151 @@ class WheelScroll {
   }
 
   /**
-   * Container'a wheel olayı ekle
+   * Container'a wheel olayı ekle - optimize edilmiş
    */
   private addWheelEventListener(container: HTMLElement): void {
+    // Container verilerini al
+    const containerInfo = this.containerData.get(container)!
+
     // Eğer zaten bir wheel olayı dinleyicisi varsa kaldır
-    if (this.wheelListeners.has(container)) {
-      container.removeEventListener(
-        'wheel',
-        this.wheelListeners.get(container)!,
-      )
+    if (containerInfo.listeners.wheel) {
+      container.removeEventListener('wheel', containerInfo.listeners.wheel)
+    }
+
+    // Wheel handler için optimizasyon değişkenleri
+    let cachedScrollWidth = container.scrollWidth
+    let cachedClientWidth = container.clientWidth
+    let requestID: number | null = null
+
+    // Scroll genişliği hesaplamalarını animasyon çerçevesinde yap
+    const updateScrollDimensions = () => {
+      cachedScrollWidth = container.scrollWidth
+      cachedClientWidth = container.clientWidth
+      requestID = null
     }
 
     // Yeni wheel olayı dinleyicisi oluştur
     const wheelHandler = (event: WheelEvent) => {
-      // Mobil cihazda ve mobil desteği kapalıysa, işlem yapma
-      if (this.isMobileDevice && !this.options.enableOnMobile) return
+      // Erken çıkış koşulları
+      if (
+        (this.isMobileDevice && !this.options.enableOnMobile) ||
+        event.ctrlKey
+      ) {
+        return
+      }
 
-      // Ctrl tuşu basılıyken yakınlaştırma/uzaklaştırma işlemine izin ver
-      if (event.ctrlKey) return
-
-      // Y ekseni geçişi kontrolü
+      // Y ekseni geçişi kontrolü - daha verimli hesaplama
       if (this.options.enableYAxisPassthrough) {
-        const isAtStart = container.scrollLeft <= 1
+        const scrollLeft = container.scrollLeft
+        const isAtStart = scrollLeft <= 1
         const isAtEnd =
-          Math.abs(
-            container.scrollWidth -
-              container.clientWidth -
-              container.scrollLeft,
-          ) <= 1
+          Math.abs(cachedScrollWidth - cachedClientWidth - scrollLeft) <= 1
 
         // Dikey kaydırma yönünü tespit et
         const isScrollingUp = event.deltaY < 0
         const isScrollingDown = event.deltaY > 0
 
-        // Scroll limitleri kontrol edilir ve yön ile birlikte değerlendirilir
-        // Sınırlardayız ve doğru yöne scroll ediyoruz
+        // Geçiş için koşul kontrolü
         if ((isAtStart && isScrollingUp) || (isAtEnd && isScrollingDown)) {
-          this.log('Dikey scroll geçişi aktif', {
-            isAtStart,
-            isAtEnd,
-            isScrollingUp,
-            isScrollingDown,
-          })
-          // Olayı tamamen incelenmeden bırak, tarayıcının doğal scroll davranışını kullan
+          // Y ekseninde geçiş yapma
           return
         }
       }
 
-      // Bu noktaya kadar geldiyse, yatay scroll üzerinde kontrol sağlanacak
       // Varsayılan davranışı engelle
       event.preventDefault()
 
-      // Delta hesapla (tarayıcı farklılıklarını yönet)
-      let deltaX = event.deltaX
-      let deltaY = event.deltaY
+      // Delta hesaplama optimizasyonu
+      const primaryDelta =
+        Math.abs(event.deltaY) > Math.abs(event.deltaX)
+          ? event.deltaY
+          : event.deltaX
 
-      // DeltaMode kontrolü (satır/sayfa bazlı scroll için)
+      // DeltaMode için optimize edilmiş faktör
       const factor =
-        event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? 400 : 1
+        event.deltaMode === 1
+          ? 20 // Satır modu
+          : event.deltaMode === 2
+            ? 400 // Sayfa modu
+            : 1 // Piksel modu
 
-      // Dikey hareketi yataya çevir (dikey scroll > yatay scroll)
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        deltaX = deltaY
-      }
-
-      // Hassasiyet ve faktörü uygula
-      const scrollAmount = deltaX * factor * this.options.sensitivity
-
-      // Scroll yap
+      // Scroll miktarını hesapla ve uygula
+      const scrollAmount = primaryDelta * factor * this.options.sensitivity
       container.scrollLeft += scrollAmount
+
+      // Boyutları güncelle - ama sadece gerektiğinde
+      if (!requestID) {
+        requestID = requestAnimationFrame(updateScrollDimensions)
+      }
     }
 
     // Wheel olayı ekle ve referansı sakla
     container.addEventListener('wheel', wheelHandler as EventListener, {
       passive: false,
     })
-    this.wheelListeners.set(container, wheelHandler as EventListener)
+    containerInfo.listeners.wheel = wheelHandler as EventListener
+
+    // İlk boyut hesaplamalarını yap
+    updateScrollDimensions()
   }
 
   /**
-   * Container'a scroll olayı ekle (butonları güncellemek için)
+   * Container'a scroll olayı ekle (butonları güncellemek için) - optimize edilmiş
    */
   private addScrollEventListener(container: HTMLElement): void {
+    // Container verilerini al
+    const containerInfo = this.containerData.get(container)!
+
     // Eğer zaten bir scroll olayı dinleyicisi varsa kaldır
-    if (this.scrollListeners.has(container)) {
-      container.removeEventListener(
-        'scroll',
-        this.scrollListeners.get(container)!,
-      )
+    if (containerInfo.listeners.scroll) {
+      container.removeEventListener('scroll', containerInfo.listeners.scroll)
     }
 
-    // Yeni scroll olayı dinleyicisi oluştur
+    // Scroll için throttling değişkenleri
+    let lastScrollTime = 0
+    const THROTTLE_MS = 100 // 100ms throttle
+    let scrolling = false
+    let lastKnownScrollLeft = container.scrollLeft
+
+    // Yeni scroll olayı dinleyicisi oluştur - throttled
     const scrollHandler = () => {
-      this.updateButtonStates(container)
+      const now = Date.now()
+      const currentScrollLeft = container.scrollLeft
 
-      // Y ekseni geçişi için scroll durumunu kontrol et
-      if (this.options.enableYAxisPassthrough) {
-        const isAtStart = container.scrollLeft <= 1
-        const isAtEnd =
-          Math.abs(
-            container.scrollWidth -
-              container.clientWidth -
-              container.scrollLeft,
-          ) <= 1
+      // Scroll pozisyonu değişmediyse hiçbir şey yapma
+      if (currentScrollLeft === lastKnownScrollLeft) {
+        return
+      }
 
-        // Scroll durumunu logla (gerekirse)
-        this.log('Scroll durumu güncellendi', { isAtStart, isAtEnd })
+      // Pozisyonu güncelle
+      lastKnownScrollLeft = currentScrollLeft
+
+      // Throttling ile sadece belirli aralıklarla işlem yap
+      if (now - lastScrollTime > THROTTLE_MS) {
+        this.updateButtonStates(container)
+        lastScrollTime = now
+        scrolling = false
+      } else if (!scrolling) {
+        // Eğer zaten planlanmış bir güncelleme yoksa, planla
+        scrolling = true
+        setTimeout(() => {
+          this.updateButtonStates(container)
+          lastScrollTime = Date.now()
+          scrolling = false
+        }, THROTTLE_MS)
       }
     }
 
-    // Scroll olayı ekle ve referansı sakla
+    // Scroll olayı ekle ve referansı sakla - passive: true ile performans artışı
     container.addEventListener('scroll', scrollHandler, { passive: true })
-    this.scrollListeners.set(container, scrollHandler)
+    containerInfo.listeners.scroll = scrollHandler
 
     // Başlangıç durumunu kontrol et
     this.updateButtonStates(container)
   }
 
   /**
-   * DOM değişikliklerini izle
+   * DOM değişikliklerini izle - optimize edilmiş
    */
   private observeDOMChanges(): void {
     // Önceki observer'ı temizle
@@ -278,24 +323,54 @@ class WheelScroll {
     this.mutationObserver = new MutationObserver(mutations => {
       let shouldUpdate = false
 
-      // DOM değişikliklerini kontrol et
-      mutations.forEach(mutation => {
-        if (
-          mutation.type === 'childList' ||
-          (mutation.type === 'attributes' && mutation.attributeName === 'class')
-        ) {
-          shouldUpdate = true
-        }
-      })
+      // DOM değişikliklerini kontrol et - sadece gerekli değişiklikleri işle
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList') {
+          // Eklenen node'lar içinde wheel-scroll class'ına sahip olanları veya içerenleri kontrol et
+          const hasScrollNodes = Array.from(mutation.addedNodes).some(node => {
+            if (node instanceof HTMLElement) {
+              return (
+                node.matches(this.options.scrollSelector) ||
+                (node.querySelector &&
+                  node.querySelector(this.options.scrollSelector))
+              )
+            }
+            return false
+          })
 
-      // Güncelleme gerekiyorsa
+          if (hasScrollNodes) {
+            shouldUpdate = true
+            break
+          }
+        } else if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'class' &&
+          mutation.target instanceof HTMLElement
+        ) {
+          // Class değişikliği wheel-scroll ile ilgili mi kontrol et
+          if (mutation.target.matches(this.options.scrollSelector)) {
+            shouldUpdate = true
+            break
+          }
+        }
+      }
+
+      // Güncelleme gerekiyorsa, debounce et
       if (shouldUpdate) {
-        this.findScrollContainers()
+        if (this.domUpdateTimer) {
+          clearTimeout(this.domUpdateTimer)
+        }
+
+        this.domUpdateTimer = window.setTimeout(() => {
+          this.findScrollContainers()
+          this.domUpdateTimer = null
+        }, 200) // 200ms bekle
       }
     })
 
-    // DOM ağacını izle
-    this.mutationObserver.observe(document.body, {
+    // Optimize edilmiş şekilde DOM'u izle - sadece gerekli kısmı
+    const mainContent = document.querySelector('main') || document.body
+    this.mutationObserver.observe(mainContent, {
       childList: true,
       subtree: true,
       attributes: true,
@@ -304,7 +379,7 @@ class WheelScroll {
   }
 
   /**
-   * Boyut değişikliklerini izle
+   * Pencere boyutu değişikliklerini izle
    */
   private observeResizeEvents(): void {
     // Önceki observer'ı temizle
@@ -354,21 +429,42 @@ class WheelScroll {
 
     // Her iki buton da mevcutsa
     if (leftButton && rightButton) {
-      // Buton çiftini kaydet
-      this.buttonPairs.set(container, { left: leftButton, right: rightButton })
+      // Container verilerini al
+      const containerInfo = this.containerData.get(container)!
 
-      // Butonlara tıklama olayları ekle
-      leftButton.addEventListener('click', () =>
+      // Buton çiftini kaydet
+      containerInfo.buttons = { left: leftButton, right: rightButton }
+
+      // Butonlara tıklama olayları ekle - önce onceki olayları kaldır (clone ile)
+      const newLeftButton = leftButton.cloneNode(true) as HTMLElement
+      const newRightButton = rightButton.cloneNode(true) as HTMLElement
+
+      if (leftButton.parentNode) {
+        leftButton.parentNode.replaceChild(newLeftButton, leftButton)
+      }
+      if (rightButton.parentNode) {
+        rightButton.parentNode.replaceChild(newRightButton, rightButton)
+      }
+
+      // Yeni butonlara event listener ekle
+      newLeftButton.addEventListener('click', () =>
         this.scrollContainerTo(container, 'left'),
       )
-      rightButton.addEventListener('click', () =>
+      newRightButton.addEventListener('click', () =>
         this.scrollContainerTo(container, 'right'),
       )
+
+      // Container verisini güncelle
+      containerInfo.buttons = { left: newLeftButton, right: newRightButton }
 
       // Başlangıç buton durumlarını ayarla
       this.updateButtonStates(container)
 
-      this.log('Butonlar bağlandı', { container, leftButton, rightButton })
+      this.log('Butonlar bağlandı', {
+        container,
+        left: newLeftButton,
+        right: newRightButton,
+      })
     } else {
       this.log('Bazı butonlar bulunamadı', {
         container,
@@ -420,7 +516,7 @@ class WheelScroll {
   ): boolean {
     // Container'ı bul
     let container: HTMLElement | null = null
-    console.log('Focus işlemi için container seçicisi:', containerSelector)
+    this.log('Focus işlemi için container seçicisi:', containerSelector)
 
     if (typeof containerSelector === 'string') {
       container = document.querySelector<HTMLElement>(containerSelector)
@@ -483,17 +579,34 @@ class WheelScroll {
   }
 
   /**
-   * Smooth scroll animasyonu
+   * Smooth scroll animasyonu - optimize edilmiş
    */
   private smoothScrollTo(element: HTMLElement, targetPosition: number): void {
     // Scroll sınırlarını kontrol et
     const maxScrollLeft = element.scrollWidth - element.clientWidth
     targetPosition = Math.max(0, Math.min(targetPosition, maxScrollLeft))
 
+    // Başlangıç değerlerini al
     const startPosition = element.scrollLeft
     const distance = targetPosition - startPosition
     const duration = this.options.scrollDuration
     const startTime = performance.now()
+
+    // Containerı temin et
+    const containerInfo = this.containerData.get(element)
+    if (!containerInfo) return
+
+    // Eski scroll dinleyiciyi sakla
+    const oldScrollListener = containerInfo.listeners.scroll
+
+    // Geçici olarak scroll dinleyiciyi kaldır (animasyon süresince)
+    if (oldScrollListener) {
+      element.removeEventListener('scroll', oldScrollListener)
+      containerInfo.listeners.scroll = null
+    }
+
+    // Animasyon kontrolü için zamanlayıcı ID
+    let animFrameId: number
 
     // Scroll animasyonu
     const animateScroll = (currentTime: number) => {
@@ -503,7 +616,7 @@ class WheelScroll {
         // Easing fonksiyonu (ease-out)
         const progress = this.easeOutCubic(elapsedTime / duration)
         element.scrollLeft = startPosition + distance * progress
-        requestAnimationFrame(animateScroll)
+        animFrameId = requestAnimationFrame(animateScroll)
       } else {
         // Animasyon tamamlandı, kesin pozisyona git
         element.scrollLeft = targetPosition
@@ -512,10 +625,19 @@ class WheelScroll {
         if (this.options.autoUpdateButtons) {
           this.updateButtonStates(element)
         }
+
+        // Animasyon bitti, eski scroll dinleyiciyi geri ekle (varsa)
+        if (oldScrollListener) {
+          element.addEventListener('scroll', oldScrollListener, {
+            passive: true,
+          })
+          containerInfo.listeners.scroll = oldScrollListener
+        }
       }
     }
 
-    requestAnimationFrame(animateScroll)
+    // Animasyonu başlat
+    animFrameId = requestAnimationFrame(animateScroll)
   }
 
   /**
@@ -529,10 +651,10 @@ class WheelScroll {
    * Buton durumlarını güncelle (scroll pozisyonuna göre)
    */
   private updateButtonStates(container: HTMLElement): void {
-    const buttonPair = this.buttonPairs.get(container)
-    if (!buttonPair) return
+    const containerInfo = this.containerData.get(container)
+    if (!containerInfo || !containerInfo.buttons) return
 
-    const { left: leftButton, right: rightButton } = buttonPair
+    const { left: leftButton, right: rightButton } = containerInfo.buttons
 
     // Scroll durumunu hesapla
     const isAtStart = container.scrollLeft <= 1
@@ -564,13 +686,17 @@ class WheelScroll {
     container.style.scrollbarWidth = 'none' // Firefox
 
     // WebKit tarayıcılar için CSS
-    const style = document.createElement('style')
-    style.textContent = `
-      ${this.options.scrollSelector}::-webkit-scrollbar {
-        display: none;
-      }
-    `
-    document.head.appendChild(style)
+    const styleId = 'wheel-scroll-style'
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style')
+      style.id = styleId
+      style.textContent = `
+        ${this.options.scrollSelector}::-webkit-scrollbar {
+          display: none;
+        }
+      `
+      document.head.appendChild(style)
+    }
   }
 
   /**
@@ -593,14 +719,143 @@ class WheelScroll {
   }
 
   /**
+   * Container'a dokunmatik olayları ekle (mobil cihazlar için) - optimize edilmiş
+   */
+  private addTouchEventListeners(container: HTMLElement): void {
+    // Mobil cihazda ve mobil desteği kapalıysa, touch event'leri ekleme
+    if (this.isMobileDevice && !this.options.enableOnMobile) {
+      return
+    }
+
+    // Container verilerini al
+    const containerInfo = this.containerData.get(container)!
+
+    // Önceki touch event listener'ları kaldır
+    if (containerInfo.listeners.touchStart) {
+      container.removeEventListener(
+        'touchstart',
+        containerInfo.listeners.touchStart,
+      )
+    }
+    if (containerInfo.listeners.touchMove) {
+      container.removeEventListener(
+        'touchmove',
+        containerInfo.listeners.touchMove,
+      )
+    }
+    if (containerInfo.listeners.touchEnd) {
+      container.removeEventListener(
+        'touchend',
+        containerInfo.listeners.touchEnd,
+      )
+    }
+
+    // TouchStart olay işleyicisi
+    const touchStartHandler = (event: TouchEvent) => {
+      if (event.touches.length === 1) {
+        const touch = event.touches[0]
+
+        // Touch bilgilerini kaydet
+        containerInfo.touch.startX = touch.clientX
+        containerInfo.touch.startY = touch.clientY
+        containerInfo.touch.lastX = touch.clientX
+        containerInfo.touch.lastY = touch.clientY
+        containerInfo.touch.isVerticalScroll = null // Yön henüz belli değil
+      }
+    }
+
+    // TouchMove olay işleyicisi - optimize edilmiş
+    const touchMoveHandler = (event: TouchEvent) => {
+      // Erken çıkış kontrolü
+      if (event.touches.length !== 1) {
+        return
+      }
+
+      const touch = event.touches[0]
+      const currentX = touch.clientX
+      const currentY = touch.clientY
+      const startX = containerInfo.touch.startX
+      const startY = containerInfo.touch.startY
+
+      // X ve Y eksenindeki hareketleri hesapla
+      const deltaX = startX - currentX
+      const deltaY = startY - currentY
+
+      // Yön henüz belirlenmedi ve yeterli mesafe kat edildi mi?
+      if (containerInfo.touch.isVerticalScroll === null) {
+        const absX = Math.abs(deltaX)
+        const absY = Math.abs(deltaY)
+
+        // Yön belirleme eşik değerini aştık mı?
+        if (
+          absX > this.options.touchDirectionThreshold ||
+          absY > this.options.touchDirectionThreshold
+        ) {
+          // Yönü belirle
+          containerInfo.touch.isVerticalScroll = absY > absX
+        } else {
+          // Henüz eşik aşılmadı, işlem yapma
+          return
+        }
+      }
+
+      // Dikey mi yatay mı?
+      const isVertical = containerInfo.touch.isVerticalScroll
+
+      // Y ekseni geçişi aktif ve dikey kaydırma ise, sayfanın doğal davranışını kullan
+      if (this.options.enableYAxisPassthrough && isVertical) {
+        return // Olayı işleme - doğal scroll davranışı
+      }
+
+      // Yatay kaydırma ise
+      if (!isVertical) {
+        // Son konum kaydet
+        containerInfo.touch.lastX = currentX
+        containerInfo.touch.lastY = currentY
+
+        // Yatay scroll için durumu güncelle
+        container.scrollLeft += deltaX * 0.5 // Daha yumuşak bir scroll için çarpan
+
+        // Touch hareket başlangıç noktasını güncelle
+        containerInfo.touch.startX = currentX
+        containerInfo.touch.startY = currentY
+      }
+    }
+
+    // TouchEnd olay işleyicisi
+    const touchEndHandler = () => {
+      // Touch hareketinin sonunda, yön bilgisini sıfırla
+      containerInfo.touch.isVerticalScroll = null
+    }
+
+    // Touch olaylarını ekle ve referansları sakla - Her zaman passive: true ile performansı artır
+    container.addEventListener(
+      'touchstart',
+      touchStartHandler as EventListener,
+      { passive: true },
+    )
+    container.addEventListener('touchmove', touchMoveHandler as EventListener, {
+      passive: true,
+    })
+    container.addEventListener('touchend', touchEndHandler as EventListener, {
+      passive: true,
+    })
+
+    // Listener referanslarını sakla
+    containerInfo.listeners.touchStart = touchStartHandler as EventListener
+    containerInfo.listeners.touchMove = touchMoveHandler as EventListener
+    containerInfo.listeners.touchEnd = touchEndHandler as EventListener
+  }
+
+  /**
    * Cihazın mobil olup olmadığını tespit et
    */
   private detectMobileDevice(): boolean {
-    // UserAgent kontrolü
+    // UserAgent kontrolü - optimize edilmiş
     const userAgent =
       navigator.userAgent || navigator.vendor || (window as any).opera
 
-    // Mobil işletim sistemi kontrolü
+    // Mobil işletim sistemi kontrolü - tek bir regex ile birleştirilmiş
     if (
       /android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
     ) {
@@ -635,36 +890,54 @@ class WheelScroll {
   public addContainer(container: HTMLElement | string): void {
     if (typeof container === 'string') {
       document.querySelectorAll<HTMLElement>(container).forEach(element => {
-        if (!this.scrollContainers.has(element)) {
-          this.scrollContainers.add(element)
-          this.hideScrollbar(element)
-          this.findAndBindButtons(element)
-          this.addWheelEventListener(element)
-          this.addTouchEventListeners(element)
-
-          if (this.options.autoUpdateButtons) {
-            this.addScrollEventListener(element)
-          }
-
-          // ResizeObserver'a ekle
-          this.resizeObserver?.observe(element)
-        }
+        this.addSingleContainer(element)
       })
     } else if (container instanceof HTMLElement) {
-      if (!this.scrollContainers.has(container)) {
-        this.scrollContainers.add(container)
-        this.hideScrollbar(container)
-        this.findAndBindButtons(container)
+      this.addSingleContainer(container)
+    }
+  }
+
+  /**
+   * Tek bir container'ı ekle (addContainer yardımcı metodu)
+   */
+  private addSingleContainer(container: HTMLElement): void {
+    if (!this.scrollContainers.has(container)) {
+      this.scrollContainers.add(container)
+
+      // Container verisi oluştur
+      this.containerData.set(container, {
+        buttons: null,
+        listeners: {
+          wheel: null,
+          scroll: null,
+          touchStart: null,
+          touchMove: null,
+          touchEnd: null,
+        },
+        touch: {
+          startX: 0,
+          startY: 0,
+          lastX: 0,
+          lastY: 0,
+          isVerticalScroll: null,
+        },
+      })
+
+      this.hideScrollbar(container)
+      this.findAndBindButtons(container)
+
+      // Mobil cihaz kontrolü
+      if (!this.isMobileDevice || this.options.enableOnMobile) {
         this.addWheelEventListener(container)
         this.addTouchEventListeners(container)
-
-        if (this.options.autoUpdateButtons) {
-          this.addScrollEventListener(container)
-        }
-
-        // ResizeObserver'a ekle
-        this.resizeObserver?.observe(container)
       }
+
+      if (this.options.autoUpdateButtons) {
+        this.addScrollEventListener(container)
+      }
+
+      // ResizeObserver'a ekle
+      this.resizeObserver?.observe(container)
     }
   }
 
@@ -684,142 +957,6 @@ class WheelScroll {
     })
 
     this.log('Y ekseni geçişi ayarlandı:', enabled)
-  }
-
-  /**
-   * Container'a dokunmatik olayları ekle (mobil cihazlar için)
-   */
-  private addTouchEventListeners(container: HTMLElement): void {
-    // Önceki touch event listener'ları kaldır
-    if (this.touchStartListeners.has(container)) {
-      container.removeEventListener(
-        'touchstart',
-        this.touchStartListeners.get(container)!,
-      )
-    }
-    if (this.touchMoveListeners.has(container)) {
-      container.removeEventListener(
-        'touchmove',
-        this.touchMoveListeners.get(container)!,
-      )
-    }
-    if (this.touchEndListeners.has(container)) {
-      container.removeEventListener(
-        'touchend',
-        this.touchEndListeners.get(container)!,
-      )
-    }
-
-    // TouchStart olay işleyicisi
-    const touchStartHandler = (event: TouchEvent) => {
-      if (event.touches.length === 1) {
-        const touch = event.touches[0]
-        this.touchStartX.set(container, touch.clientX)
-        this.touchStartY.set(container, touch.clientY)
-        this.lastTouchX.set(container, touch.clientX)
-        this.lastTouchY.set(container, touch.clientY)
-        this.isVerticalScroll.set(container, null) // Henüz yön belli değil
-      }
-    }
-
-    // TouchMove olay işleyicisi
-    const touchMoveHandler = (event: TouchEvent) => {
-      if (event.touches.length === 1) {
-        const touch = event.touches[0]
-        const currentX = touch.clientX
-        const currentY = touch.clientY
-        const startX = this.touchStartX.get(container) || 0
-        const startY = this.touchStartY.get(container) || 0
-        const lastX = this.lastTouchX.get(container) || 0
-        const lastY = this.lastTouchY.get(container) || 0
-
-        // Yatay ve dikey mesafeleri hesapla
-        const deltaX = currentX - startX
-        const deltaY = currentY - startY
-
-        // Mevcut hareketin yatay ve dikey bileşenleri
-        const moveX = currentX - lastX
-        const moveY = currentY - lastY
-
-        // Yön henüz belirlenmemişse, eşik değerine göre belirle
-        if (this.isVerticalScroll.get(container) === null) {
-          if (
-            Math.abs(deltaX) > this.options.touchDirectionThreshold ||
-            Math.abs(deltaY) > this.options.touchDirectionThreshold
-          ) {
-            // Dikey hareket daha fazlaysa, dikey scroll olarak belirle
-            this.isVerticalScroll.set(
-              container,
-              Math.abs(deltaY) > Math.abs(deltaX),
-            )
-            this.log('Touch yönü belirlendi:', {
-              isVertical: this.isVerticalScroll.get(container),
-            })
-          }
-        }
-
-        const isVertical = this.isVerticalScroll.get(container)
-
-        // Y-ekseni geçiş kontrolü
-        if (this.options.enableYAxisPassthrough && isVertical === true) {
-          const isAtStart = container.scrollLeft <= 1
-          const isAtEnd =
-            Math.abs(
-              container.scrollWidth -
-                container.clientWidth -
-                container.scrollLeft,
-            ) <= 1
-
-          // Eğer yatay scroll sınırlarında değilsek veya dikey scroll yapılacaksa
-          // olayın varsayılan davranışına izin ver
-          if (!isAtStart && !isAtEnd) {
-            // Ne yatay başlangıçta ne de sonda değiliz, dikey scroll izni ver
-            this.log('Orta konumda dikey scroll izni verildi')
-            return
-          }
-
-          if ((isAtStart && moveY !== 0) || (isAtEnd && moveY !== 0)) {
-            // Sınırlardayız ve dikey hareket var, dikey scroll izni ver
-            this.log('Sınırda dikey scroll izni verildi')
-            return
-          }
-        }
-
-        // Eğer dikey scroll değilse (yatay scroll) veya Y-ekseni geçişi devre dışıysa
-        if (isVertical === false || !this.options.enableYAxisPassthrough) {
-          // Varsayılan davranışı engelle ve yatay scroll yap
-          event.preventDefault()
-          container.scrollLeft -= moveX
-        }
-
-        // Son pozisyonu güncelle
-        this.lastTouchX.set(container, currentX)
-        this.lastTouchY.set(container, currentY)
-      }
-    }
-
-    // TouchEnd olay işleyicisi
-    const touchEndHandler = (event: TouchEvent) => {
-      // Touch hareketinin sonunda, yön bilgisini sıfırla
-      this.isVerticalScroll.set(container, null)
-    }
-
-    // Touch olaylarını ekle ve referansları sakla
-    container.addEventListener(
-      'touchstart',
-      touchStartHandler as EventListener,
-      { passive: true },
-    )
-    container.addEventListener('touchmove', touchMoveHandler as EventListener, {
-      passive: false,
-    })
-    container.addEventListener('touchend', touchEndHandler as EventListener, {
-      passive: true,
-    })
-
-    this.touchStartListeners.set(container, touchStartHandler as EventListener)
-    this.touchMoveListeners.set(container, touchMoveHandler as EventListener)
-    this.touchEndListeners.set(container, touchEndHandler as EventListener)
   }
 
   /**
@@ -871,28 +1008,99 @@ class WheelScroll {
   }
 
   /**
+   * Mobil desteğini ayarla
+   */
+  public setMobileSupport(enabled: boolean): void {
+    this.options.enableOnMobile = enabled
+
+    this.scrollContainers.forEach(container => {
+      if (this.isMobileDevice) {
+        // Container verilerini al
+        const containerInfo = this.containerData.get(container)
+        if (!containerInfo) return
+
+        if (enabled) {
+          // Mobil cihazda ve destek etkinleştirildi, event listener'ları ekle
+          this.addWheelEventListener(container)
+          this.addTouchEventListeners(container)
+        } else {
+          // Mobil cihazda ve destek devre dışı, event listener'ları kaldır
+          if (containerInfo.listeners.wheel) {
+            container.removeEventListener(
+              'wheel',
+              containerInfo.listeners.wheel,
+            )
+            containerInfo.listeners.wheel = null
+          }
+
+          if (containerInfo.listeners.touchStart) {
+            container.removeEventListener(
+              'touchstart',
+              containerInfo.listeners.touchStart,
+            )
+            containerInfo.listeners.touchStart = null
+          }
+
+          if (containerInfo.listeners.touchMove) {
+            container.removeEventListener(
+              'touchmove',
+              containerInfo.listeners.touchMove,
+            )
+            containerInfo.listeners.touchMove = null
+          }
+
+          if (containerInfo.listeners.touchEnd) {
+            container.removeEventListener(
+              'touchend',
+              containerInfo.listeners.touchEnd,
+            )
+            containerInfo.listeners.touchEnd = null
+          }
+        }
+      }
+    })
+
+    this.log('Mobil cihaz desteği ayarlandı:', enabled)
+  }
+
+  /**
    * Bileşeni yok et ve tüm event listener'ları temizle
    */
   public destroy(): void {
-    // Wheel olayı dinleyicilerini kaldır
-    this.wheelListeners.forEach((listener, container) => {
-      container.removeEventListener('wheel', listener)
-    })
+    // Tüm containerlar için event listener'ları kaldır
+    this.scrollContainers.forEach(container => {
+      const containerInfo = this.containerData.get(container)
+      if (!containerInfo) return
 
-    // Touch olayı dinleyicilerini kaldır
-    this.touchStartListeners.forEach((listener, container) => {
-      container.removeEventListener('touchstart', listener)
-    })
-    this.touchMoveListeners.forEach((listener, container) => {
-      container.removeEventListener('touchmove', listener)
-    })
-    this.touchEndListeners.forEach((listener, container) => {
-      container.removeEventListener('touchend', listener)
-    })
+      // Wheel olayı dinleyicisini kaldır
+      if (containerInfo.listeners.wheel) {
+        container.removeEventListener('wheel', containerInfo.listeners.wheel)
+      }
 
-    // Scroll olayı dinleyicilerini kaldır
-    this.scrollListeners.forEach((listener, container) => {
-      container.removeEventListener('scroll', listener)
+      // Touch olayı dinleyicilerini kaldır
+      if (containerInfo.listeners.touchStart) {
+        container.removeEventListener(
+          'touchstart',
+          containerInfo.listeners.touchStart,
+        )
+      }
+      if (containerInfo.listeners.touchMove) {
+        container.removeEventListener(
+          'touchmove',
+          containerInfo.listeners.touchMove,
+        )
+      }
+      if (containerInfo.listeners.touchEnd) {
+        container.removeEventListener(
+          'touchend',
+          containerInfo.listeners.touchEnd,
+        )
+      }
+
+      // Scroll olayı dinleyicisini kaldır
+      if (containerInfo.listeners.scroll) {
+        container.removeEventListener('scroll', containerInfo.listeners.scroll)
+      }
     })
 
     // ResizeObserver temizle
@@ -907,30 +1115,15 @@ class WheelScroll {
       this.mutationObserver = null
     }
 
-    // Buton event listener'ları kaldır
-    this.buttonPairs.forEach(({ left, right }, container) => {
-      const newLeft = left.cloneNode(true) as HTMLElement
-      const newRight = right.cloneNode(true) as HTMLElement
-
-      left.parentNode?.replaceChild(newLeft, left)
-      right.parentNode?.replaceChild(newRight, right)
-    })
+    // Zamanlayıcıyı temizle
+    if (this.domUpdateTimer) {
+      clearTimeout(this.domUpdateTimer)
+      this.domUpdateTimer = null
+    }
 
     // Tüm koleksiyonları temizle
     this.scrollContainers.clear()
-    this.buttonPairs.clear()
-    this.wheelListeners.clear()
-    this.touchStartListeners.clear()
-    this.touchMoveListeners.clear()
-    this.touchEndListeners.clear()
-    this.scrollListeners.clear()
-    this.observers.clear()
-    this.isPreventingDefault.clear()
-    this.touchStartX.clear()
-    this.touchStartY.clear()
-    this.lastTouchX.clear()
-    this.lastTouchY.clear()
-    this.isVerticalScroll.clear()
+    this.containerData.clear()
   }
 
   /**
