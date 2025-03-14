@@ -4,7 +4,7 @@ import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const heroSliders = new WheelScroll()
+  // const heroSliders = new WheelScroll()
 
   const slider = new Slider({
     container: '#hero-slider-container',
