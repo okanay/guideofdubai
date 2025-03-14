@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sensitivity: 1.2,
     scrollDistance: 'view',
     scrollDuration: 500,
-    enableOnMobile: true,
     debug: true,
   })
 
