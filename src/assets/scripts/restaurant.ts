@@ -3,12 +3,73 @@ import {
   UpdateElementInnerHTMLById,
   UpdateProductSliderDataItems,
 } from './packages/multi-group-gallery.js'
-import { NavStickyManager } from './packages/scroll-style.js'
 import { Slider } from './packages/slider.js'
 import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
-// Görseldeki ürünlerin sayısını otomatik olarak hesaplar ve slider'ın data-items değerini günceller
+document.addEventListener('DOMContentLoaded', () => {
+  new WheelScroll({
+    sensitivity: 1.2,
+    scrollDistance: 'view',
+    scrollDuration: 500,
+    enableOnMobile: true,
+    debug: false,
+  })
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const mainSlider = new Slider({
+    container: '#product-slider-container',
+    slideSelector: '.product-slide',
+    buttonSelector: '.product-slider-btn',
+    nextButtonSelector: '#slider-next',
+    prevButtonSelector: '#slider-prev',
+    defaultActiveIndex: 0,
+    activeButtonClass: 'product-slider-active-btn',
+    activeButtonClassTarget: '.product-slider-btn-item',
+    responsive: {
+      enabled: true,
+      minWidth: 0,
+      maxWidth: 1024,
+    },
+    ...config,
+  })
+
+  new TouchDirectionDetector('product-slider-container', {
+    threshold: 50,
+    onSwipe: direction => {
+      if (direction === 'right') {
+        return mainSlider.prev()
+      }
+      if (direction === 'left') {
+        return mainSlider.next()
+      }
+    },
+  })
+
+  const multiGroupGallery = new MultiGroupImageGallery({
+    groups: [
+      {
+        containerId: 'product-slider',
+        slideItemClass: 'product-slide',
+      },
+    ],
+    ...galleryConfig,
+  })
+
+  new TouchDirectionDetector('multi-gallery-main-image-container', {
+    threshold: 50,
+    onSwipe: direction => {
+      if (direction === 'right') {
+        return multiGroupGallery.navigateGallery('prev')
+      }
+      if (direction === 'left') {
+        return multiGroupGallery.navigateGallery('next')
+      }
+    },
+  })
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   const productSliderElement = document.getElementById('product-slider')
   const childCount = productSliderElement
@@ -24,70 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'product-slider-image-count',
     childCount.toString(),
   )
-})
-
-// Main slider
-document.addEventListener('DOMContentLoaded', () => {
-  const mainSlider = new Slider({
-    container: '#product-slider-container',
-    slideSelector: '.product-slide',
-    buttonSelector: '.product-slider-btn',
-    nextButtonSelector: '#slider-next',
-    prevButtonSelector: '#slider-prev',
-    defaultActiveIndex: 0,
-    activeButtonClass: 'product-slider-active-btn',
-    activeButtonClassTarget: '.product-slider-btn-item',
-    ...mainConfig,
-    ...config,
-  })
-  new TouchDirectionDetector('product-slider-container', {
-    threshold: 50,
-    onSwipe: direction => {
-      if (direction === 'right') {
-        return mainSlider.prev()
-      }
-      if (direction === 'left') {
-        return mainSlider.next()
-      }
-    },
-  })
-  const multiGroupGallery = new MultiGroupImageGallery({
-    groups: [
-      {
-        containerId: 'product-slider',
-        slideItemClass: 'product-slide',
-      },
-    ],
-    ...galleryConfig,
-  })
-  new TouchDirectionDetector('multi-gallery-main-image-container', {
-    threshold: 50,
-    onSwipe: direction => {
-      if (direction === 'right') {
-        return multiGroupGallery.navigateGallery('prev')
-      }
-      if (direction === 'left') {
-        return multiGroupGallery.navigateGallery('next')
-      }
-    },
-  })
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  const wheelScroll = new WheelScroll({ sensitivity: 1.2, smoothness: 0.1 })
-
-  new NavStickyManager({
-    navId: '#product-nav',
-    contentId: '#product-content',
-    mobileOnly: true,
-    mobileBreakpoint: 768,
-    threshold: 50,
-    fixedStyles: {
-      zIndex: '100',
-      maxWidth: '1232px',
-      margin: '0 auto',
-    },
-  })
 })
 
 var config = {
@@ -117,14 +114,6 @@ var config = {
       selected: 2,
       notSelected: 1,
     },
-  },
-}
-
-var mainConfig = {
-  responsive: {
-    enabled: true,
-    minWidth: 0,
-    maxWidth: 1024,
   },
 }
 
