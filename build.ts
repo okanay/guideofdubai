@@ -44,6 +44,7 @@ const PAGES = {
     'layout',
     'main',
     'main-new',
+    'main-v2',
     'product',
     'login',
     'register',
@@ -70,6 +71,7 @@ const PAGES = {
   directories: [
     'main',
     'main-new',
+    'main-v2',
     'product',
     'login',
     'register',

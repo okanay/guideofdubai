@@ -55,6 +55,11 @@ app.get('/', c => {
   return c.html(html.text())
 })
 
+app.get('/v2', c => {
+  const html = Bun.file('./dist/pages/main-v2/index.html')
+  return c.html(html.text())
+})
+
 app.get('/product', c => {
   const html = Bun.file('./dist/pages/product/index.html')
   return c.html(html.text())

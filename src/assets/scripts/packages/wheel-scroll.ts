@@ -529,25 +529,106 @@ class WheelScroll {
   }
 
   /**
-   * Wheel event'ini container'a ekler (sadece masaüstü)
+   * Geliştirilmiş wheel event yönetimi
+   * Yatay scrollun sonuna gelindiğinde dikey scrolla doğal bir geçiş sağlar
    */
   private attachWheelEvent(elements: ContainerElements): void {
-    const { scrollElement } = elements
+    const { scrollElement, container } = elements
+
+    // Eşik değerleri - bunları ihtiyaca göre ayarlayabilirsiniz
+    const OVERFLOW_THRESHOLD = 0.08 // %15'lik bir eşik değeri
+
+    // Son "aşırı" scroll miktarını takip etmek için değişken
+    let overscrollAmount = 0
+    let isOverscrolling = false
+    let lastWheelTime = 0
+
+    // Scroll olayında kullanacağımız debounced fonksiyon
+    // Tarayıcı kendi scroll davranışını sürdürse bile, buton durumlarını güncellememiz gerekiyor
+    const debouncedUpdateButtonState = this.debounce(() => {
+      this.updateButtonStates(container)
+    }, 100)
 
     scrollElement.addEventListener('wheel', e => {
-      e.preventDefault()
-      const delta = e.deltaY
+      // Şu anki zaman
+      const now = performance.now()
 
-      // Scroll elementi kaydır
+      // Mevcut scroll durumunu kontrol et
+      const currentScrollLeft = scrollElement.scrollLeft
+      const maxScrollLeft =
+        scrollElement.scrollWidth - scrollElement.clientWidth
+
+      // Scroll yönünü belirle
+      const isScrollingRight = e.deltaY > 0
+
+      // En sağdayız ve sağa kaydırmaya çalışıyoruz veya
+      // En soldayız ve sola kaydırmaya çalışıyoruz
+      const isAtRightEdge =
+        Math.abs(currentScrollLeft - maxScrollLeft) < 2 && isScrollingRight
+      const isAtLeftEdge = currentScrollLeft <= 2 && !isScrollingRight
+
+      // Kenardayız ve kenara doğru kaydırmaya çalışıyoruz
+      if (isAtRightEdge || isAtLeftEdge) {
+        // Eğer zaten aşırı kaydırma modundaysak veya yeterince zaman geçtiyse overscroll miktarını sıfırla
+        if (!isOverscrolling || now - lastWheelTime > 300) {
+          overscrollAmount = 0
+          isOverscrolling = true
+        }
+
+        // Aşırı kaydırma miktarını artır
+        // E.deltaY'nin mutlak değerini alarak, her iki yöndeki overscroll için de aynı mantığı kullanıyoruz
+        overscrollAmount += Math.abs(e.deltaY)
+
+        // Eşik değerinin hesaplanması - scroll alanının genişliğine göre orantılı
+        const thresholdPixels = scrollElement.clientWidth * OVERFLOW_THRESHOLD
+
+        this.debug(
+          `Aşırı kaydırma: ${overscrollAmount.toFixed(2)}px, Eşik: ${thresholdPixels.toFixed(2)}px`,
+        )
+
+        // Eşik değeri aşıldıysa, tarayıcının normal scroll davranışına izin ver
+        if (overscrollAmount > thresholdPixels) {
+          // Tarayıcının kendi scrollunu uygulasın
+          // preventDefault() çağırmadan devam ediyoruz
+          this.debug('Eşik aşıldı, dikey scrolla geçiliyor')
+
+          // Buton durumlarını güncelleyelim
+          debouncedUpdateButtonState()
+
+          // Aşağıdaki satırları "devam ettir"
+          lastWheelTime = now
+          return
+        }
+      } else {
+        // Kenarda değiliz, normal yatay kaydırma yapalım
+        isOverscrolling = false
+        overscrollAmount = 0
+      }
+
+      // Normal yatay kaydırma davranışını uygula (kenarlarda değilsek veya eşik aşılmadıysa)
+      e.preventDefault()
+
+      // Kaydırma miktarı - direction değişkeni pozitif değer için sağa, negatif değer için sola kaydırır
+      const scrollAmount = e.deltaY
+
+      // Kaydırmayı uygula
       scrollElement.scrollBy({
-        left: delta,
-        behavior: 'smooth',
+        left: scrollAmount,
+        behavior: 'smooth', // Tarayıcı desteği varsa smooth scroll kullan
       })
 
       this.debug(
-        `Wheel event: ${elements.container.dataset.wheelScroll || elements.container.className}`,
+        `Wheel event: ${container.dataset.wheelScroll || container.className}, deltaY: ${e.deltaY}`,
       )
+
+      // Son wheel zamanını güncelle
+      lastWheelTime = now
+
+      // Buton durumlarını güncelle
+      this.throttledUpdateButtonStates(container)
     })
+
+    // Touch olaylarını engellemiyoruz - mobil cihazlarda varsayılan davranışı koruyoruz
   }
 
   /**
