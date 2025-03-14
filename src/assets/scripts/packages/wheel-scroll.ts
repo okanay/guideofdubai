@@ -9,7 +9,6 @@ interface WheelScrollOptions {
   debugMode?: boolean
   scrollStep?: number // Kaydırma miktarı (piksel)
   scrollDuration?: number // Kaydırma animasyon süresi (ms)
-  disableTouchInterception?: boolean // Mobil dokunma olaylarının araya girip girmeyeceğini kontrol eder
 }
 
 // Her container için alt elementleri ve bilgileri saklayan arayüz
@@ -38,7 +37,6 @@ class WheelScroll {
       debugMode: options.debugMode ?? true,
       scrollStep: options.scrollStep ?? 300,
       scrollDuration: options.scrollDuration ?? 300,
-      disableTouchInterception: options.disableTouchInterception ?? true, // Varsayılan olarak mobilde native scroll kullan
     }
 
     this.debugMode = this.options.debugMode
@@ -299,12 +297,10 @@ class WheelScroll {
       const elements = this.containerElementsCache.get(container)
       if (!elements) return
 
-      // Masaüstü cihazlarda wheel event'i - mobil cihazlarda UYGULANMAZ
+      // Sadece masaüstü cihazlarda wheel event'i ekle
+      // Mobil cihazlarda dokunma olaylarına hiç müdahale etmiyoruz, varsayılan tarayıcı davranışını koruyoruz
       if (!this.isMobile) {
         this.attachWheelEvent(elements)
-      } else if (!this.options.disableTouchInterception) {
-        // Sadece disableTouchInterception false ise touch olaylarını ekle
-        this.setupTouchEvents(elements)
       }
 
       // Hem masaüstü hem mobil için buton event'leri
@@ -705,10 +701,11 @@ class WheelScroll {
       `Scroll hedefi: ${targetScrollLeft}, mevcut: ${scrollElement.scrollLeft}`,
     )
 
-    // Mobil vs masaüstü için farklı scroll davranışları
+    // Mobil cihazlarda çok daha basit bir scroll kullan - native deneyimi korumak için
     if (this.isMobile) {
-      // Mobil cihazlar için basit scroll
-      this.scrollToWithAnimation(scrollElement, targetScrollLeft)
+      // Mobil cihazlar için çok basit, anlık scroll - animasyon olmadan
+      // Bu, mobil cihazlarda native scroll deneyimini bozmaz
+      scrollElement.scrollLeft = targetScrollLeft
     } else {
       // Masaüstü için smooth scroll
       this.smoothScrollTo(scrollElement, targetScrollLeft)
