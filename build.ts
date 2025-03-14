@@ -43,6 +43,7 @@ const PAGES = {
   scripts: [
     'layout',
     'main',
+    'main-new',
     'product',
     'login',
     'register',
@@ -68,6 +69,7 @@ const PAGES = {
   ],
   directories: [
     'main',
+    'main-new',
     'product',
     'login',
     'register',
