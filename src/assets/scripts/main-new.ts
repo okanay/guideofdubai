@@ -4,12 +4,7 @@ import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const heroSliders = new WheelScroll({
-    sensitivity: 1.2,
-    scrollDistance: 'view',
-    scrollDuration: 500,
-    debug: true,
-  })
+  const heroSliders = new WheelScroll()
 
   const slider = new Slider({
     container: '#hero-slider-container',
@@ -46,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
     onIndexChange: index => {
-      heroSliders.focus('#hero-slider-btn-list', index ? index : 0)
+      // #hero-slider-btn-list
     },
   })
 

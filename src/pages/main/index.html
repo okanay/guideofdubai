@@ -2511,31 +2511,26 @@
 
       <!-- Slider Control Buttons -->
       <section
-        class="wheel-container relative mx-auto flex max-w-7xl justify-center overflow-hidden"
+        class="wheel-container relative mx-auto flex max-w-7xl justify-center"
       >
-        <!-- Carousel Buttons -->
-        <div
-          class="pointer-events-none absolute top-0 z-[99] flex h-full w-full max-w-[100vw] items-center justify-between px-1.5"
+        <button
+          id="prev-hero-slider-btn"
+          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
         >
-          <button
-            id="prev-hero-slider-btn"
-            class="wheel-btn-left pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-left"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-          <button
-            id="next-hero-slider-btn"
-            class="wheel-btn-right pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-right"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-        </div>
+          <i
+            data-lucide="chevron-left"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
+        <button
+          id="next-hero-slider-btn"
+          class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+        >
+          <i
+            data-lucide="chevron-right"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
 
         <!-- Slider Buttons -->
         <nav
