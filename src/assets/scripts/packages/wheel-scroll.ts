@@ -323,115 +323,6 @@ class WheelScroll {
     })
   }
 
-  private setupTouchEvents(elements: ContainerElements): void {
-    // Eğer options.disableTouchInterception true ise veya mobil değilse, touch olaylarını ekleme
-    if (this.options.disableTouchInterception || !this.isMobile) return
-
-    const { scrollElement } = elements
-    let startX: number
-    let startY: number
-    let initialScrollLeft: number
-    let isScrollingHorizontally = false
-    let isTouchActive = false
-    let lastTouchX = 0
-    let lastTouchY = 0
-    let preventNextTouchmove = false
-
-    // touchstart - kaydırma işleminin başlangıcı
-    scrollElement.addEventListener(
-      'touchstart',
-      e => {
-        startX = e.touches[0].clientX
-        startY = e.touches[0].clientY
-        lastTouchX = startX
-        lastTouchY = startY
-        initialScrollLeft = scrollElement.scrollLeft
-        isScrollingHorizontally = false
-        isTouchActive = true
-        preventNextTouchmove = false
-      },
-      { passive: true },
-    )
-
-    // touchmove - kaydırma işlemi devam ediyor
-    scrollElement.addEventListener(
-      'touchmove',
-      e => {
-        if (!isTouchActive) return
-
-        const currentX = e.touches[0].clientX
-        const currentY = e.touches[0].clientY
-
-        // Hareket mesafelerini hesapla
-        const deltaX = lastTouchX - currentX
-        const deltaY = lastTouchY - currentY
-
-        // Başlangıçtan toplam mesafeler
-        const totalDeltaX = startX - currentX
-        const totalDeltaY = startY - currentY
-
-        // Son pozisyonu güncelle
-        lastTouchX = currentX
-        lastTouchY = currentY
-
-        // Kaydırma yönünü belirle (hareketin ilk 10px'i önemli)
-        if (
-          !isScrollingHorizontally &&
-          Math.abs(totalDeltaX) + Math.abs(totalDeltaY) > 10
-        ) {
-          // Yön belirleme eşiği (1.5x daha fazla yatay hareket = yatay scroll)
-          isScrollingHorizontally =
-            Math.abs(totalDeltaX) > Math.abs(totalDeltaY) * 1.5
-
-          // İlk hareket dikey ise, preventDefault yapmayı deneme
-          if (!isScrollingHorizontally) {
-            return
-          }
-
-          // İlk hareket yatay ise ve preventDefault hala yapılabiliyorsa
-          if (e.cancelable && isScrollingHorizontally) {
-            preventNextTouchmove = true
-            e.preventDefault()
-          }
-        }
-
-        // Eğer yatay kaydırma yapıyorsak ve hareket yatay olarak devam ediyorsa
-        if (isScrollingHorizontally) {
-          // Manuel kaydırma işlemi
-          scrollElement.scrollLeft += deltaX
-
-          // Eğer hareketi durdurabiliyorsak ve belli bir eşiği geçtiysek
-          if (
-            e.cancelable &&
-            preventNextTouchmove &&
-            Math.abs(deltaX) > Math.abs(deltaY) * 1.2
-          ) {
-            try {
-              e.preventDefault()
-            } catch (error) {
-              // Önleme başarısız olursa, sessizce devam et
-            }
-          }
-        }
-      },
-      { passive: false }, // preventDefault kullanabilmek için passive: false
-    )
-
-    // touchend / touchcancel - dokunma işlemi bitti
-    const endTouchHandler = () => {
-      isTouchActive = false
-      isScrollingHorizontally = false
-      preventNextTouchmove = false
-    }
-
-    scrollElement.addEventListener('touchend', endTouchHandler, {
-      passive: true,
-    })
-    scrollElement.addEventListener('touchcancel', endTouchHandler, {
-      passive: true,
-    })
-  }
-
   /**
    * Container için scroll bilgilerini hesaplar
    * Bu fonksiyon sadece resize olayında ve başlangıçta çağrılmalı
@@ -701,11 +592,27 @@ class WheelScroll {
       `Scroll hedefi: ${targetScrollLeft}, mevcut: ${scrollElement.scrollLeft}`,
     )
 
-    // Mobil cihazlarda çok daha basit bir scroll kullan - native deneyimi korumak için
+    // Hem mobil hem masaüstü için yumuşak scroll kullan
     if (this.isMobile) {
-      // Mobil cihazlar için çok basit, anlık scroll - animasyon olmadan
-      // Bu, mobil cihazlarda native scroll deneyimini bozmaz
-      scrollElement.scrollLeft = targetScrollLeft
+      try {
+        // İlk olarak native smooth scrollTo deneyin
+        scrollElement.scrollTo({
+          left: targetScrollLeft,
+          behavior: 'smooth',
+        })
+
+        // Eğer scrollTo işe yaramazsa, basit bir animasyon kullan
+        const initialScrollLeft = scrollElement.scrollLeft
+        setTimeout(() => {
+          // Eğer pozisyon değişmediyse, manuel fakat hafif bir animasyon uygula
+          if (Math.abs(scrollElement.scrollLeft - initialScrollLeft) < 5) {
+            this.simpleMobileScroll(scrollElement, targetScrollLeft)
+          }
+        }, 50)
+      } catch (error) {
+        // Herhangi bir hata durumunda basit animasyona geri dön
+        this.simpleMobileScroll(scrollElement, targetScrollLeft)
+      }
     } else {
       // Masaüstü için smooth scroll
       this.smoothScrollTo(scrollElement, targetScrollLeft)
@@ -716,34 +623,38 @@ class WheelScroll {
    * Mobil cihazlar için daha uygun scroll animasyonu
    * Özellikle iOS için daha iyi çalışır
    */
-  private scrollToWithAnimation(
+  /**
+   * Mobil cihazlar için basit ve hafif bir scroll animasyonu
+   * Tarayıcının doğal davranışını bozmadan yumuşak bir geçiş sağlar
+   */
+  private simpleMobileScroll(
     element: HTMLElement,
     targetScrollLeft: number,
   ): void {
-    // İlk olarak CSS tabanlı scroll-behavior'u kaldır (iOS uyumluluk için)
-    const originalScrollBehavior = element.style.scrollBehavior
-    element.style.scrollBehavior = 'auto'
-
-    // requestAnimationFrame ile scroll işlemini yap
     const startScrollLeft = element.scrollLeft
     const distance = targetScrollLeft - startScrollLeft
-    const duration = 300 // ms
+
+    // Mesafe çok kısaysa, doğrudan atla
+    if (Math.abs(distance) < 5) {
+      element.scrollLeft = targetScrollLeft
+      return
+    }
+
+    // Mobil için daha kısa bir animasyon süresi kullan (performans için)
+    const duration = 200 // ms
     const startTime = performance.now()
 
     const animateScroll = (currentTime: number) => {
       const elapsedTime = currentTime - startTime
       const progress = Math.min(elapsedTime / duration, 1)
 
-      // Easing fonksiyonu (ease-out cubic)
-      const easedProgress = 1 - Math.pow(1 - progress, 3)
+      // Basit bir ease-out fonksiyonu (mobil performans için optimize)
+      const easedProgress = progress * (2 - progress)
 
       element.scrollLeft = startScrollLeft + distance * easedProgress
 
       if (progress < 1) {
         requestAnimationFrame(animateScroll)
-      } else {
-        // Animasyon tamamlandıktan sonra orijinal scroll davranışını geri yükle
-        element.style.scrollBehavior = originalScrollBehavior
       }
     }
 
