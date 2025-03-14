@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="/assets/styles/globals-out.css" />
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/layout.js"></script>
-    <script type="module" src="/assets/scripts/main.js"></script>
+    <script type="module" src="/assets/scripts/main-new.js"></script>
   </head>
   <body class="bg-white">
     <header class="h-fit w-full">
@@ -2511,7 +2511,7 @@
 
       <!-- Slider Control Buttons -->
       <section
-        class="relative mx-auto flex max-w-7xl justify-center overflow-hidden"
+        class="wheel-container relative mx-auto flex max-w-7xl justify-center overflow-hidden"
       >
         <!-- Carousel Buttons -->
         <div
@@ -2519,7 +2519,7 @@
         >
           <button
             id="prev-hero-slider-btn"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-left pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
           >
             <i
               data-lucide="chevron-left"
@@ -2528,7 +2528,7 @@
           </button>
           <button
             id="next-hero-slider-btn"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-right pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
           >
             <i
               data-lucide="chevron-right"
@@ -2540,7 +2540,7 @@
         <!-- Slider Buttons -->
         <nav
           id="hero-slider-btn-list"
-          class="hide-scrollbar pointer-events-auto flex w-full touch-pan-x justify-between gap-6 overflow-x-auto px-4 lg:px-6"
+          class="hide-scrollbar wheel-scroll pointer-events-auto flex w-full touch-pan-x justify-between gap-6 overflow-x-auto px-4 lg:px-6"
           aria-label="Dubai Aktiviteleri"
         >
           <button
@@ -2843,10 +2843,10 @@
           </li>
 
           <!-- Mobilde yatay kaydırılabilir alan 3,4,5,6... kart-->
-          <div class="relative col-span-2 md:hidden">
+          <div class="wheel-container relative col-span-2 md:hidden">
             <div
               id="activity-list"
-              class="hide-scrollbar flex gap-4 overflow-x-auto pb-4"
+              class="wheel-scroll hide-scrollbar flex gap-4 overflow-x-auto pb-4"
             >
               <li class="group w-1/2 min-w-[220px] flex-shrink-0">
                 <a href="/">
@@ -3114,7 +3114,7 @@
             >
               <button
                 id="activity-prev-btn"
-                class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+                class="wheel-btn-left pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
               >
                 <i
                   data-lucide="chevron-left"
@@ -3123,7 +3123,7 @@
               </button>
               <button
                 id="activity-next-btn"
-                class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+                class="wheel-btn-right pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
               >
                 <i
                   data-lucide="chevron-right"
@@ -3283,36 +3283,33 @@
 
       <!--  Opportunity List  -->
       <section
-        class="relative mx-auto block max-w-7xl overflow-hidden pb-2 pt-4 lg:hidden"
+        class="wheel-container relative mx-auto flex max-w-7xl overflow-x-auto pb-2 pt-4 lg:hidden"
       >
-        <!-- Carousel Section -->
-        <div
-          class="pointer-events-none absolute top-0 z-[99] flex h-full w-full max-w-[100vw] items-center justify-between"
+        <button
+          id="prev-opportunity-list"
+          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
         >
-          <button
-            id="prev-opportunity-list"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-left"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-          <button
-            id="next-opportunity-list"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-right"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-        </div>
+          <i
+            data-lucide="chevron-left"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
+        <button
+          id="next-opportunity-list"
+          class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+        >
+          <i
+            data-lucide="chevron-right"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
 
-        <div class="relative mx-auto w-full overflow-hidden rounded-xl px-3.5">
+        <div
+          class="relative mx-auto flex w-full overflow-x-auto rounded-xl px-3.5"
+        >
           <ul
             id="opportunity-list"
-            class="hide-scrollbar pointer-events-auto flex touch-pan-x gap-x-6 overflow-x-auto"
+            class="wheel-scroll relative flex gap-x-6 overflow-x-auto"
             aria-label="Popüler Tatil Seçenekleri"
             role="region"
           >
@@ -3387,7 +3384,7 @@
       </section>
 
       <!-- Most Popular Search -->
-      <section class="mx-auto max-w-7xl space-y-4">
+      <section class="wheel-container mx-auto max-w-7xl space-y-4">
         <h2 class="-mb-1 px-3.5 text-2xl font-semibold text-gray-800">
           En Çok Arananlar
         </h2>
@@ -3395,31 +3392,27 @@
         <div
           class="relative mx-auto flex max-w-7xl justify-center overflow-hidden"
         >
-          <div
-            class="pointer-events-none absolute top-0 z-[99] flex h-full w-full max-w-[100vw] items-center justify-between"
+          <button
+            id="prev-most-popular"
+            class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
           >
-            <button
-              id="prev-most-popular"
-              class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-            >
-              <i
-                data-lucide="chevron-left"
-                class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-              ></i>
-            </button>
-            <button
-              id="next-most-popular"
-              class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-            >
-              <i
-                data-lucide="chevron-right"
-                class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-              ></i>
-            </button>
-          </div>
+            <i
+              data-lucide="chevron-left"
+              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            ></i>
+          </button>
+          <button
+            id="next-most-popular"
+            class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          >
+            <i
+              data-lucide="chevron-right"
+              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            ></i>
+          </button>
           <nav
             id="most-popular"
-            class="hide-scrollbar pointer-events-auto flex w-full touch-pan-x justify-between gap-6 overflow-x-auto px-3.5"
+            class="wheel-scroll flex w-full touch-pan-x justify-between gap-6 overflow-x-auto px-3.5"
             aria-label="Dubai Aktiviteleri"
             role="region"
           >
@@ -3587,38 +3580,37 @@
       </section>
 
       <!-- Popular Holiday Options -->
-      <section class="relative mx-auto max-w-7xl space-y-4 overflow-hidden">
+      <section
+        class="wheel-container relative mx-auto max-w-7xl space-y-4 overflow-hidden"
+      >
         <h2 class="px-3.5 text-2xl font-semibold text-gray-800">
           Popüler Tatil Seçenekleri
         </h2>
         <!-- Carousel Section -->
-        <div
-          class="pointer-events-none absolute top-0 z-[99] flex h-full w-full max-w-[100vw] items-center justify-between"
+
+        <button
+          id="prev-popular-list"
+          class="wheel-btn-left absolute left-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
         >
-          <button
-            id="prev-popular-list"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-left"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-          <button
-            id="next-popular-list"
-            class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-          >
-            <i
-              data-lucide="chevron-right"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-            ></i>
-          </button>
-        </div>
+          <i
+            data-lucide="chevron-left"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
+        <button
+          id="next-popular-list"
+          class="wheel-btn-right absolute right-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+        >
+          <i
+            data-lucide="chevron-right"
+            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+          ></i>
+        </button>
 
         <div class="relative mx-auto w-full overflow-hidden rounded-xl px-3.5">
           <nav
             id="popular-list"
-            class="hide-scrollbar pointer-events-auto flex touch-pan-x justify-between gap-x-2 overflow-x-auto md:gap-x-6"
+            class="wheel-scroll flex touch-pan-x justify-between gap-x-2 overflow-x-auto md:gap-x-6"
             aria-label="Popüler Tatil Seçenekleri"
             role="region"
           >
@@ -3767,37 +3759,33 @@
 
         <!-- Kartlar -->
         <div
-          class="absolute bottom-6 left-0 w-full overflow-hidden px-0 lg:px-12"
+          class="wheel-container absolute bottom-6 left-0 w-full overflow-hidden px-0 lg:px-12"
         >
-          <div
-            class="pointer-events-none absolute left-0 top-0 z-[99] flex h-full w-full max-w-[calc(100%-0px)] items-center justify-between lg:px-2"
+          <button
+            id="prev-holiday-list"
+            class="wheel-btn-left absolute left-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
           >
-            <button
-              id="prev-holiday-list"
-              class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-            >
-              <i
-                data-lucide="chevron-left"
-                class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-              ></i>
-            </button>
-            <button
-              id="next-holiday-list"
-              class="pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
-            >
-              <i
-                data-lucide="chevron-right"
-                class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
-              ></i>
-            </button>
-          </div>
+            <i
+              data-lucide="chevron-left"
+              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            ></i>
+          </button>
+          <button
+            id="next-holiday-list"
+            class="wheel-btn-right absolute right-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          >
+            <i
+              data-lucide="chevron-right"
+              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            ></i>
+          </button>
 
           <div
             class="relative w-full overflow-hidden border border-gray-200 bg-white px-2 py-1 lg:rounded-2xl"
           >
             <nav
               id="holiday-list"
-              class="hide-scrollbar pointer-events-auto relative z-[88] flex w-full touch-pan-x justify-start gap-x-2 overflow-x-auto rounded-lg"
+              class="wheel-scroll relative z-[88] flex w-full touch-pan-x justify-start gap-x-2 overflow-x-auto rounded-lg"
               role="region"
             >
               <a

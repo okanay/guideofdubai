@@ -165,30 +165,22 @@ class WheelScroll {
         const isScrollingDown = event.deltaY > 0
 
         // Scroll limitleri kontrol edilir ve yön ile birlikte değerlendirilir
-        const shouldPreventDefault = !(
-          (isAtStart && isScrollingUp) ||
-          (isAtEnd && isScrollingDown)
-        )
-
-        this.isPreventingDefault.set(container, shouldPreventDefault)
-
-        // Eğer scroll sınırlarına ulaştıysa ve uygun yönde hareket ediyorsa,
-        // varsayılan davranışı engelleme (sayfa scrolluna izin ver)
-        if (!shouldPreventDefault) {
+        // Sınırlardayız ve doğru yöne scroll ediyoruz
+        if ((isAtStart && isScrollingUp) || (isAtEnd && isScrollingDown)) {
           this.log('Dikey scroll geçişi aktif', {
             isAtStart,
             isAtEnd,
             isScrollingUp,
             isScrollingDown,
           })
-          return // Varsayılan davranışa izin ver
+          // Olayı tamamen incelenmeden bırak, tarayıcının doğal scroll davranışını kullan
+          return
         }
       }
 
-      // Varsayılan davranışı engelle (Y ekseni geçişi etkin değilse veya sınırlarda değilse)
-      if (this.isPreventingDefault.get(container)) {
-        event.preventDefault()
-      }
+      // Bu noktaya kadar geldiyse, yatay scroll üzerinde kontrol sağlanacak
+      // Varsayılan davranışı engelle
+      event.preventDefault()
 
       // Delta hesapla (tarayıcı farklılıklarını yönet)
       let deltaX = event.deltaX
