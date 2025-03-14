@@ -23,6 +23,8 @@ interface WheelScrollOptions {
   autoUpdateButtons?: boolean
   /** Y ekseni geçişini etkinleştir (varsayılan: true) */
   enableYAxisPassthrough?: boolean
+  /** Touch yönü belirleme mesafesi (piksel) (varsayılan: 10) */
+  touchDirectionThreshold?: number
   /** Debug modu (varsayılan: false) */
   debug?: boolean
 }
@@ -37,10 +39,18 @@ class WheelScroll {
   private observers: Map<HTMLElement, IntersectionObserver> = new Map()
   private scrollListeners: Map<HTMLElement, EventListener> = new Map()
   private wheelListeners: Map<HTMLElement, EventListener> = new Map()
+  private touchStartListeners: Map<HTMLElement, EventListener> = new Map()
+  private touchMoveListeners: Map<HTMLElement, EventListener> = new Map()
+  private touchEndListeners: Map<HTMLElement, EventListener> = new Map()
   private resizeObserver: ResizeObserver | null = null
   private mutationObserver: MutationObserver | null = null
   private isMobileDevice: boolean
   private isPreventingDefault: Map<HTMLElement, boolean> = new Map()
+  private touchStartX: Map<HTMLElement, number> = new Map()
+  private touchStartY: Map<HTMLElement, number> = new Map()
+  private lastTouchX: Map<HTMLElement, number> = new Map()
+  private lastTouchY: Map<HTMLElement, number> = new Map()
+  private isVerticalScroll: Map<HTMLElement, boolean | null> = new Map() // null = henüz belirlenmemiş
 
   /**
    * WheelScroll bileşenini oluşturur
@@ -60,6 +70,7 @@ class WheelScroll {
       scrollSelector: options.scrollSelector ?? '.wheel-scroll',
       autoUpdateButtons: options.autoUpdateButtons ?? true,
       enableYAxisPassthrough: options.enableYAxisPassthrough ?? true,
+      touchDirectionThreshold: options.touchDirectionThreshold ?? 10,
       debug: options.debug ?? false,
     }
 
@@ -113,6 +124,9 @@ class WheelScroll {
         // Başlangıçta preventDefault true olarak ayarla
         this.isPreventingDefault.set(container, true)
 
+        // Touch başlangıç durumunu null olarak ayarla
+        this.isVerticalScroll.set(container, null)
+
         // Scroll bar'ı gizle
         this.hideScrollbar(container)
 
@@ -121,6 +135,9 @@ class WheelScroll {
 
         // Wheel olayı ekleyici
         this.addWheelEventListener(container)
+
+        // Touch olayları ekleyici (mobil cihazlar için)
+        this.addTouchEventListeners(container)
 
         // Scroll olayı ekleyici (butonları güncellemek için)
         if (this.options.autoUpdateButtons) {
@@ -623,6 +640,7 @@ class WheelScroll {
           this.hideScrollbar(element)
           this.findAndBindButtons(element)
           this.addWheelEventListener(element)
+          this.addTouchEventListeners(element)
 
           if (this.options.autoUpdateButtons) {
             this.addScrollEventListener(element)
@@ -638,6 +656,7 @@ class WheelScroll {
         this.hideScrollbar(container)
         this.findAndBindButtons(container)
         this.addWheelEventListener(container)
+        this.addTouchEventListeners(container)
 
         if (this.options.autoUpdateButtons) {
           this.addScrollEventListener(container)
@@ -660,9 +679,147 @@ class WheelScroll {
     this.scrollContainers.forEach(container => {
       // Wheel event listener'ı yeniden ekle (yeni ayarla)
       this.addWheelEventListener(container)
+      // Touch event listener'ları yeniden ekle
+      this.addTouchEventListeners(container)
     })
 
     this.log('Y ekseni geçişi ayarlandı:', enabled)
+  }
+
+  /**
+   * Container'a dokunmatik olayları ekle (mobil cihazlar için)
+   */
+  private addTouchEventListeners(container: HTMLElement): void {
+    // Önceki touch event listener'ları kaldır
+    if (this.touchStartListeners.has(container)) {
+      container.removeEventListener(
+        'touchstart',
+        this.touchStartListeners.get(container)!,
+      )
+    }
+    if (this.touchMoveListeners.has(container)) {
+      container.removeEventListener(
+        'touchmove',
+        this.touchMoveListeners.get(container)!,
+      )
+    }
+    if (this.touchEndListeners.has(container)) {
+      container.removeEventListener(
+        'touchend',
+        this.touchEndListeners.get(container)!,
+      )
+    }
+
+    // TouchStart olay işleyicisi
+    const touchStartHandler = (event: TouchEvent) => {
+      if (event.touches.length === 1) {
+        const touch = event.touches[0]
+        this.touchStartX.set(container, touch.clientX)
+        this.touchStartY.set(container, touch.clientY)
+        this.lastTouchX.set(container, touch.clientX)
+        this.lastTouchY.set(container, touch.clientY)
+        this.isVerticalScroll.set(container, null) // Henüz yön belli değil
+      }
+    }
+
+    // TouchMove olay işleyicisi
+    const touchMoveHandler = (event: TouchEvent) => {
+      if (event.touches.length === 1) {
+        const touch = event.touches[0]
+        const currentX = touch.clientX
+        const currentY = touch.clientY
+        const startX = this.touchStartX.get(container) || 0
+        const startY = this.touchStartY.get(container) || 0
+        const lastX = this.lastTouchX.get(container) || 0
+        const lastY = this.lastTouchY.get(container) || 0
+
+        // Yatay ve dikey mesafeleri hesapla
+        const deltaX = currentX - startX
+        const deltaY = currentY - startY
+
+        // Mevcut hareketin yatay ve dikey bileşenleri
+        const moveX = currentX - lastX
+        const moveY = currentY - lastY
+
+        // Yön henüz belirlenmemişse, eşik değerine göre belirle
+        if (this.isVerticalScroll.get(container) === null) {
+          if (
+            Math.abs(deltaX) > this.options.touchDirectionThreshold ||
+            Math.abs(deltaY) > this.options.touchDirectionThreshold
+          ) {
+            // Dikey hareket daha fazlaysa, dikey scroll olarak belirle
+            this.isVerticalScroll.set(
+              container,
+              Math.abs(deltaY) > Math.abs(deltaX),
+            )
+            this.log('Touch yönü belirlendi:', {
+              isVertical: this.isVerticalScroll.get(container),
+            })
+          }
+        }
+
+        const isVertical = this.isVerticalScroll.get(container)
+
+        // Y-ekseni geçiş kontrolü
+        if (this.options.enableYAxisPassthrough && isVertical === true) {
+          const isAtStart = container.scrollLeft <= 1
+          const isAtEnd =
+            Math.abs(
+              container.scrollWidth -
+                container.clientWidth -
+                container.scrollLeft,
+            ) <= 1
+
+          // Eğer yatay scroll sınırlarında değilsek veya dikey scroll yapılacaksa
+          // olayın varsayılan davranışına izin ver
+          if (!isAtStart && !isAtEnd) {
+            // Ne yatay başlangıçta ne de sonda değiliz, dikey scroll izni ver
+            this.log('Orta konumda dikey scroll izni verildi')
+            return
+          }
+
+          if ((isAtStart && moveY !== 0) || (isAtEnd && moveY !== 0)) {
+            // Sınırlardayız ve dikey hareket var, dikey scroll izni ver
+            this.log('Sınırda dikey scroll izni verildi')
+            return
+          }
+        }
+
+        // Eğer dikey scroll değilse (yatay scroll) veya Y-ekseni geçişi devre dışıysa
+        if (isVertical === false || !this.options.enableYAxisPassthrough) {
+          // Varsayılan davranışı engelle ve yatay scroll yap
+          event.preventDefault()
+          container.scrollLeft -= moveX
+        }
+
+        // Son pozisyonu güncelle
+        this.lastTouchX.set(container, currentX)
+        this.lastTouchY.set(container, currentY)
+      }
+    }
+
+    // TouchEnd olay işleyicisi
+    const touchEndHandler = (event: TouchEvent) => {
+      // Touch hareketinin sonunda, yön bilgisini sıfırla
+      this.isVerticalScroll.set(container, null)
+    }
+
+    // Touch olaylarını ekle ve referansları sakla
+    container.addEventListener(
+      'touchstart',
+      touchStartHandler as EventListener,
+      { passive: true },
+    )
+    container.addEventListener('touchmove', touchMoveHandler as EventListener, {
+      passive: false,
+    })
+    container.addEventListener('touchend', touchEndHandler as EventListener, {
+      passive: true,
+    })
+
+    this.touchStartListeners.set(container, touchStartHandler as EventListener)
+    this.touchMoveListeners.set(container, touchMoveHandler as EventListener)
+    this.touchEndListeners.set(container, touchEndHandler as EventListener)
   }
 
   /**
@@ -691,6 +848,7 @@ class WheelScroll {
     if (this.scrollContainers.has(container)) {
       // Event listener'ları yeniden ekle
       this.addWheelEventListener(container)
+      this.addTouchEventListeners(container)
 
       if (this.options.autoUpdateButtons) {
         this.addScrollEventListener(container)
@@ -719,6 +877,17 @@ class WheelScroll {
     // Wheel olayı dinleyicilerini kaldır
     this.wheelListeners.forEach((listener, container) => {
       container.removeEventListener('wheel', listener)
+    })
+
+    // Touch olayı dinleyicilerini kaldır
+    this.touchStartListeners.forEach((listener, container) => {
+      container.removeEventListener('touchstart', listener)
+    })
+    this.touchMoveListeners.forEach((listener, container) => {
+      container.removeEventListener('touchmove', listener)
+    })
+    this.touchEndListeners.forEach((listener, container) => {
+      container.removeEventListener('touchend', listener)
     })
 
     // Scroll olayı dinleyicilerini kaldır
@@ -751,9 +920,17 @@ class WheelScroll {
     this.scrollContainers.clear()
     this.buttonPairs.clear()
     this.wheelListeners.clear()
+    this.touchStartListeners.clear()
+    this.touchMoveListeners.clear()
+    this.touchEndListeners.clear()
     this.scrollListeners.clear()
     this.observers.clear()
     this.isPreventingDefault.clear()
+    this.touchStartX.clear()
+    this.touchStartY.clear()
+    this.lastTouchX.clear()
+    this.lastTouchY.clear()
+    this.isVerticalScroll.clear()
   }
 
   /**
