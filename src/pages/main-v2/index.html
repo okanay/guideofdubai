@@ -2126,7 +2126,7 @@
       </div>
     </header>
 
-    <main class="space-y-10 pb-6">
+    <main class="space-y-8 pb-6">
       <!-- Slider Cards -->
       <section
         class="mx-auto -mb-6 flex w-full max-w-7xl flex-col gap-8 lg:mt-[32px]"
@@ -2515,20 +2515,20 @@
       >
         <button
           id="prev-hero-slider-btn"
-          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-left"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
         <button
           id="next-hero-slider-btn"
-          class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-right"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
 
@@ -3109,20 +3109,20 @@
             >
               <button
                 id="activity-prev-btn"
-                class="wheel-btn-left pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+                class="wheel-btn-left pointer-events-auto rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <i
                   data-lucide="chevron-left"
-                  class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+                  class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
                 ></i>
               </button>
               <button
                 id="activity-next-btn"
-                class="wheel-btn-right pointer-events-auto rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+                class="wheel-btn-right pointer-events-auto rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <i
                   data-lucide="chevron-right"
-                  class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+                  class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
                 ></i>
               </button>
             </div>
@@ -3278,33 +3278,36 @@
 
       <!--  Opportunity List  -->
       <section
-        class="wheel-container relative mx-auto flex max-w-7xl overflow-x-auto pb-2 pt-4 lg:hidden"
+        class="wheel-container relative mx-auto flex max-w-7xl overflow-x-auto pb-2 pt-0 lg:hidden"
       >
         <button
           id="prev-opportunity-list"
-          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-left"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
         <button
           id="next-opportunity-list"
-          class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-right absolute right-1.5 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-right"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
 
         <div
-          class="relative mx-auto flex w-full overflow-x-auto rounded-xl px-3.5"
+          class="relative mx-auto flex w-full flex-col gap-y-6 overflow-x-auto rounded-xl"
         >
+          <h2 class="-mb-1 px-3.5 text-2xl font-semibold text-gray-800">
+            En Çok Arananlar
+          </h2>
           <ul
             id="opportunity-list"
-            class="wheel-scroll relative flex gap-x-6 overflow-x-auto"
+            class="wheel-scroll relative flex gap-x-6 overflow-x-auto px-3.5"
             aria-label="Popüler Tatil Seçenekleri"
             role="region"
           >
@@ -3389,20 +3392,20 @@
         >
           <button
             id="prev-most-popular"
-            class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-left absolute left-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
           >
             <i
               data-lucide="chevron-left"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+              class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
             ></i>
           </button>
           <button
             id="next-most-popular"
-            class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-right absolute right-2 top-[50%] z-[100] translate-y-[-50%] rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
           >
             <i
               data-lucide="chevron-right"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+              class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
             ></i>
           </button>
           <nav
@@ -3585,20 +3588,20 @@
 
         <button
           id="prev-popular-list"
-          class="wheel-btn-left absolute left-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-left absolute left-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-left"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
         <button
           id="next-popular-list"
-          class="wheel-btn-right absolute right-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+          class="wheel-btn-right absolute right-2 top-1/2 z-[100] -translate-y-1/2 rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           <i
             data-lucide="chevron-right"
-            class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+            class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
           ></i>
         </button>
 
@@ -3758,20 +3761,20 @@
         >
           <button
             id="prev-holiday-list"
-            class="wheel-btn-left absolute left-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-left absolute left-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
           >
             <i
               data-lucide="chevron-left"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+              class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
             ></i>
           </button>
           <button
             id="next-holiday-list"
-            class="wheel-btn-right absolute right-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-200 bg-white p-1.5 hover:bg-gray-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-20"
+            class="wheel-btn-right absolute right-2 top-[50%] z-[100] -translate-y-1/2 rounded-full border border-gray-900 bg-gray-950 p-1.5 hover:bg-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
           >
             <i
               data-lucide="chevron-right"
-              class="size-[16px] sm:size-[24px] rtl:scale-x-[-1]"
+              class="size-[20px] text-white sm:size-[24px] rtl:scale-x-[-1]"
             ></i>
           </button>
 
@@ -3897,7 +3900,9 @@
             style="transition: filter 0.3s ease"
           />
 
-          <ul class="flex flex-col gap-y-4 px-3.5 text-sm text-gray-600">
+          <ul
+            class="flex flex-col gap-y-4 px-3.5 text-base text-gray-600 sm:text-sm"
+          >
             <li class="lg:leading-tight">
               MBD Travel, seyahati sadece bir ulaşım aracı değil, bir deneyim
               olarak gören ve bu anlayışla her yolculuğu unutulmaz kılmayı
@@ -3933,489 +3938,7 @@
           </ul>
         </div>
       </section>
-
-      <!-- Frequently Asked Questions -->
-      <section
-        class="relative mx-auto flex w-full max-w-7xl flex-col overflow-hidden lg:px-3.5"
-      >
-        <input
-          id="faq-control-input"
-          class="peer hidden"
-          type="checkbox"
-          checked
-          aria-expanded="true"
-          aria-controls="faq-content"
-        />
-        <label
-          for="faq-control-input"
-          class="mx-auto flex h-11 w-fit cursor-pointer items-center rounded border border-primary-500 bg-white px-4 text-center font-semibold text-primary-500 transition-colors duration-300 hover:border-gray-200 hover:bg-primary-500 hover:text-white [&_.less-text]:block peer-checked:[&_.less-text]:hidden [&_.more-text]:hidden peer-checked:[&_.more-text]:block"
-          role="button"
-          aria-label="İçeriği kontrol et"
-        >
-          <span class="more-text" aria-hidden="true"> Daha Fazla Göster </span>
-          <span class="less-text" aria-hidden="true"> Daha Az Göster </span>
-        </label>
-        <div
-          class="mt-8 grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out peer-checked:grid-rows-[0fr] md:mt-2"
-        >
-          <div
-            class="space-y-4 overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
-          >
-            <h2
-              class="mb-4 px-3.5 text-2xl font-semibold text-gray-800 lg:px-0"
-            >
-              Sıkça Sorulan Sorular
-            </h2>
-            <div
-              class="grid grid-cols-1 grid-rows-1 gap-4 lg:grid-cols-2 lg:grid-rows-2 lg:gap-6"
-            >
-              <!-- Desktop FAQ -->
-              <ul
-                class="order-2 row-span-2 hidden list-decimal flex-col gap-y-4 text-sm lg:flex"
-              >
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    1. MBD Travel hangi destinasyonlara turlar düzenliyor?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    MBD Travel, Dubai başta olmak üzere birçok benzersiz
-                    destinasyona turlar düzenlemektedir. Dubai’nin lüks ve
-                    modern yapılarından, kültürel turlara, çöl safarilerinden
-                    helikopter turlarına kadar geniş bir yelpazede hizmet
-                    sunuyoruz. Ayrıca, Abu Dhabi, Limuzin Turları, Yat Kiralama,
-                    Gökyüzünde Yemek gibi özel turlarımız da bulunmaktadır.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    2. MBD Travel turları kişiye özel mi düzenleniyor?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    Evet, MBD Travel olarak her misafirimizin ihtiyaçlarına göre
-                    kişiselleştirilmiş turlar düzenliyoruz. Seyahatinizin
-                    başlangıcından bitişine kadar, ilgi alanlarınıza ve
-                    taleplerinize uygun olarak özel turlar ve aktiviteler
-                    hazırlıyoruz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    3. MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    Evet, MBD Travel, Dubai'ye seyahat etmek isteyen
-                    misafirlerimiz için vize başvuru işlemleri konusunda
-                    yardımcı olmaktadır. Vize başvurunuzun kolay ve hızlı bir
-                    şekilde işleme alınmasını sağlıyoruz. Detaylar için bizimle
-                    iletişime geçebilirsiniz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    4. MBD Travel turlarında rehberlik hizmeti var mı?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    Tüm turlarımızda deneyimli ve profesyonel rehberlerimiz
-                    misafirlerimize eşlik eder. Rehberlerimiz, gittiğiniz yerler
-                    hakkında yerel tarih, kültür ve gezi noktaları hakkında
-                    bilgiler sunar.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    5. Seyahat sigortası hizmeti sunuyor musunuz?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    MBD Travel, seyahatiniz için seyahat sigortası hizmeti
-                    sunmaktadır. Seyahatiniz sırasında meydana gelebilecek
-                    olumsuz durumlara karşı güvence sağlayan sigorta seçenekleri
-                    hakkında bilgi almak için bizimle iletişime geçebilirsiniz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    6. MBD Travel, transfer hizmeti sunuyor mu?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    MBD Travel, Dubai'deki otellerden havaalanına veya
-                    turlarımız arasında VIP transfer hizmetleri sunmaktadır. Hem
-                    grup hem de özel transfer seçenekleriyle seyahatinizde rahat
-                    bir deneyim yaşamanızı sağlıyoruz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    7. Turlar için ödeme seçenekleri nelerdir?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    MBD Travel, kredi kartı, banka havalesi ve diğer güvenli
-                    ödeme yöntemlerini kabul etmektedir. Seyahatinizi güvenli
-                    bir şekilde rezerve edebilmeniz için çeşitli ödeme
-                    seçenekleri sunuyoruz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    8. MBD Travel turlarında çocuklar için özel hizmetler var
-                    mı?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    Çocuklar için aile dostu turlar ve aktiviteler düzenliyoruz.
-                    Ailelerin rahatça katılabileceği turlarımızda çocuklar için
-                    özel etkinlikler, çocuk dostu oteller ve aktiviteler
-                    sağlıyoruz.
-                  </p>
-                </li>
-                <li class="flex flex-col gap-4">
-                  <h5 class="font-semibold text-gray-950">
-                    9. Hamileler için turlarınız mevcut mu?
-                  </h5>
-                  <p class="leading-tight text-gray-600">
-                    MBD Travel, hamile misafirlerimiz için güvenli ve konforlu
-                    seyahat deneyimleri sunmayı önemsemektedir. Ancak, her
-                    hamilelik farklıdır, bu nedenle seyahate çıkmadan önce
-                    doktorunuza danışmanız önemlidir. Hamilelik sürecinizde
-                    rahat edeceğiniz turlar ve aktiviteler önererek, sağlıklı
-                    bir seyahat deneyimi yaşamanızı sağlıyoruz. Ayrıca, seyahat
-                    esnasında ekstra bakım ve rahatlık sağlayacak özel
-                    düzenlemeler yap
-                  </p>
-                </li>
-              </ul>
-
-              <!-- Image - 1 -->
-              <img
-                src="/assets/images/gray-placeholder.webp"
-                data-src="https://images.project-test.info/28.webp"
-                loading="lazy"
-                alt="Burj Khalifa"
-                class="lazy-image order-1 h-[180px] w-full object-cover lg:order-2 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
-                style="transition: filter 0.3s ease"
-              />
-
-              <!-- Image - 2 -->
-              <img
-                src="/assets/images/gray-placeholder.webp"
-                data-src="https://images.project-test.info/29.webp"
-                loading="lazy"
-                alt="Dubai"
-                class="lazy-image order-4 h-[180px] w-full object-cover lg:order-3 lg:h-full lg:rounded-xl rtl:scale-x-[-1]"
-                style="transition: filter 0.3s ease"
-              />
-
-              <!-- Mobile FAQ - 1 -->
-              <ul
-                class="order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
-                id="faq-container-1"
-              >
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel hangi destinasyonlara turlar düzenliyor?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">
-                        MBD Travel, Dubai başta olmak üzere birçok benzersiz
-                        destinasyona turlar düzenlemektedir. Dubai’nin lüks ve
-                        modern yapılarından, kültürel turlara, çöl
-                        safarilerinden helikopter turlarına kadar geniş bir
-                        yelpazede hizmet sunuyoruz. Ayrıca, Abu Dhabi, Limuzin
-                        Turları, Yat Kiralama, Gökyüzünde Yemek gibi özel
-                        turlarımız da bulunmaktadır.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel turları kişiye özel mi düzenliyor?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                    </div>
-                  </div>
-                </li>
-
-                <li
-                  class="faq group border-b border-solid border-gray-200 pb-2"
-                >
-                  <button
-                    class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                  >
-                    <h5 class="text-start font-semibold text-gray-950">
-                      MBD Travel, vize işlemleri konusunda yardımcı oluyor mu?
-                    </h5>
-                    <i
-                      data-lucide="chevron-down"
-                      class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                    ></i>
-                  </button>
-                  <div
-                    style="height: 0px"
-                    class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                  >
-                    <div class="pt-2">
-                      <p class="text-sm font-normal text-gray-600">Açıklama</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-
-              <!-- Hidden Mobile FAQ -->
-              <ul
-                class="order-3 flex flex-col lg:hidden"
-                id="faq-hidden-container"
-              >
-                <li
-                  class="faq-2 group flex flex-col space-y-4 overflow-hidden lg:h-full"
-                >
-                  <!--  Control Button -->
-                  <button
-                    class="faq-toggle-2 inline-flex items-center justify-start gap-2.5 px-3.5 text-lg font-semibold text-gray-800 lg:hidden"
-                  >
-                    <span
-                      style="
-                        --message-open: 'Daha Fazla Göster';
-                        --message-close: 'Daha Az Göster';
-                      "
-                      class="after:content-[var(--message-open)] group-data-[state=open]:after:content-[var(--message-close)]"
-                    >
-                    </span>
-                  </button>
-                  <!-- Mobile FAQ Show More -->
-                  <ul
-                    class="faq-content-2 order-2 flex flex-col gap-6 px-3.5 text-sm font-medium lg:hidden"
-                  >
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          MBD Travel turlarında rehberlik hizmeti var mı?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Tüm turlarımızda deneyimli ve profesyonel
-                            rehberlerimiz misafirlerimize eşlik eder.
-                            Rehberlerimiz, gittiğiniz yerler hakkında yerel
-                            tarih, kültür ve gezi noktaları hakkında bilgiler
-                            sunar.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          Seyahat sigortası hizmeti sunuyor musunuz?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Açıklama
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          MBD Travel, transfer hizmeti sunuyor mu?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Açıklama
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          Turlar için ödeme seçenekleri nelerdir?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Açıklama
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          MBD Travel turlarında çocuklar için özel hizmetler var
-                          mı?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Açıklama
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      class="faq group border-b border-solid border-gray-200 pb-2"
-                    >
-                      <button
-                        class="faq-toggle inline-flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-600 transition-colors duration-300 hover:text-primary-600"
-                      >
-                        <h5 class="text-start font-semibold text-gray-950">
-                          Hamileler için turlarınız mevcut mu?
-                        </h5>
-                        <i
-                          data-lucide="chevron-down"
-                          class="faq-icon size-[24px] transition-transform duration-300 group-data-[state=open]:rotate-180"
-                        ></i>
-                      </button>
-                      <div
-                        style="height: 0px"
-                        class="faq-content w-full overflow-hidden px-0 pr-4 rtl:pr-0"
-                      >
-                        <div class="pt-2">
-                          <p class="text-sm font-normal text-gray-600">
-                            Açıklama
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
-
-    <button
-      id="whatsapp-button"
-      class="fixed bottom-4 right-4 z-[8000] rtl:!left-2 rtl:!right-auto"
-    >
-      <a
-        href="https://wa.me/97152521419"
-        aria-label="WhatsApp ile mesaj gönder"
-        class="group relative flex items-center gap-2 p-2"
-      >
-        <!-- Araç ipucu (tooltip) -->
-        <span
-          class="pointer-events-none absolute right-full mr-3 text-nowrap rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 opacity-0 shadow-lg transition-all duration-300 ease-out before:absolute before:-right-2 before:top-1/2 before:-translate-y-1/2 before:border-8 before:border-transparent before:border-l-white before:content-[''] group-hover:-translate-x-1 group-hover:scale-100 group-hover:opacity-100"
-        >
-          Bize WhatsApp'tan ulaşın
-        </span>
-
-        <!-- Hareketli arka plan efekti -->
-        <div
-          class="pointer-events-none absolute inset-0 animate-ping rounded-full bg-lime-500 opacity-20 group-hover:opacity-30"
-        ></div>
-
-        <!-- WhatsApp ikonu -->
-        <div
-          class="relative rounded-full bg-white p-2 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
-        >
-          <img
-            src="/assets/images/icons/whatsapp.svg"
-            alt="WhatsApp ile İletişime Geç"
-            class="size-8 transition-transform duration-300 ease-out group-hover:rotate-12 md:size-12"
-          />
-        </div>
-      </a>
-    </button>
 
     <footer class="relative w-full overflow-hidden text-gray-900">
       <!-- Main Content with z-index to appear above background -->
@@ -4552,8 +4075,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Otel Konaklama</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Otel Konaklama
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai'nin en konforlu otellerini keşfedin.
                     </p>
                   </div>
@@ -4586,8 +4111,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Araç Kiralama</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Araç Kiralama
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai'de konfor ve güvene şehri keşfedin.
                     </p>
                   </div>
@@ -4649,8 +4176,8 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Dubai Visa</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">Dubai Visa</h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai vizesi alma sürecini kolaylaştırın.
                     </p>
                   </div>
@@ -4687,8 +4214,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Yat Kiralama</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Yat Kiralama
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Yakında Hizmete Sunulacaktır.
                     </p>
                   </div>
@@ -4761,8 +4290,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Dubai City Tour</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Dubai City Tour
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai'nin büyüleyici noktalarını keşfedin.
                     </p>
                   </div>
@@ -4807,8 +4338,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Dubai Museums</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Dubai Museums
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Şehrin zengin tarihini ve kültürünü yakından tanıyın.
                     </p>
                   </div>
@@ -5005,8 +4538,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Dubai Helikopter Turu</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Dubai Helikopter Turu
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai'nin büyüleyici noktalarına gökyüzünden keşfedin.
                     </p>
                   </div>
@@ -5169,8 +4704,10 @@
                     </svg>
                   </div>
                   <div>
-                    <h4 class="mb-0.5 font-medium">Jetski Aktivite</h4>
-                    <p class="text-sm text-gray-400">
+                    <h4 class="mb-0.5 line-clamp-1 font-medium">
+                      Jetski Aktivite
+                    </h4>
+                    <p class="line-clamp-2 text-sm text-gray-400">
                       Dubai'nin sularında hız ve eğlence.
                     </p>
                   </div>
@@ -5317,7 +4854,9 @@
               </div>
               <div>
                 <h3 class="mb-0.5 font-medium">Bize Mesaj Gönderin</h3>
-                <p class="text-sm text-gray-400">7/24 yanıt garantisi</p>
+                <p class="line-clamp-2 text-sm text-gray-400">
+                  7/24 yanıt garantisi
+                </p>
               </div>
             </a>
 
@@ -5345,7 +4884,9 @@
               </div>
               <div>
                 <h3 class="mb-0.5 font-medium">Rezervasyonlarım</h3>
-                <p class="text-sm text-gray-400">Rezervasyonlarınızı yönetin</p>
+                <p class="line-clamp-2 text-sm text-gray-400">
+                  Rezervasyonlarınızı yönetin
+                </p>
               </div>
             </a>
 
@@ -5372,7 +4913,7 @@
               </div>
               <div>
                 <h3 class="mb-0.5 font-medium">Sıkça Sorulan Sorular</h3>
-                <p class="text-sm text-gray-400">
+                <p class="line-clamp-2 text-sm text-gray-400">
                   Aradığınız cevapları hızlıca bulun.
                 </p>
               </div>
@@ -5403,7 +4944,7 @@
               </div>
               <div>
                 <h3 class="mb-0.5 font-medium">Müşteri Hizmetleri</h3>
-                <p class="text-sm text-gray-400">
+                <p class="line-clamp-2 text-sm text-gray-400">
                   Size yardımcı olmaktan memnuniyet duyarız
                 </p>
               </div>
@@ -5503,5 +5044,39 @@
         </div>
       </div>
     </footer>
+
+    <button
+      id="whatsapp-button"
+      class="fixed bottom-4 right-4 z-[8000] rtl:!left-2 rtl:!right-auto"
+    >
+      <a
+        href="https://wa.me/97152521419"
+        aria-label="WhatsApp ile mesaj gönder"
+        class="group relative flex items-center gap-2 p-2"
+      >
+        <!-- Araç ipucu (tooltip) -->
+        <span
+          class="pointer-events-none absolute right-full mr-3 text-nowrap rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 opacity-0 shadow-lg transition-all duration-300 ease-out before:absolute before:-right-2 before:top-1/2 before:-translate-y-1/2 before:border-8 before:border-transparent before:border-l-white before:content-[''] group-hover:-translate-x-1 group-hover:scale-100 group-hover:opacity-100"
+        >
+          Bize WhatsApp'tan ulaşın
+        </span>
+
+        <!-- Hareketli arka plan efekti -->
+        <div
+          class="pointer-events-none absolute inset-0 animate-ping rounded-full bg-lime-500 opacity-20 group-hover:opacity-30"
+        ></div>
+
+        <!-- WhatsApp ikonu -->
+        <div
+          class="relative rounded-full bg-white p-2 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+        >
+          <img
+            src="/assets/images/icons/whatsapp.svg"
+            alt="WhatsApp ile İletişime Geç"
+            class="size-8 transition-transform duration-300 ease-out group-hover:rotate-12 md:size-12"
+          />
+        </div>
+      </a>
+    </button>
   </body>
 </html>
