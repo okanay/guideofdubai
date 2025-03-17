@@ -1,4 +1,3 @@
-import { AccordionController } from './packages/accordion.js'
 import { ModalController } from './packages/modal.js'
 import { PictureLazyLoadController } from './packages/picture-lazy-load.js'
 import { LazyImageLoadController } from './packages/lazy-load.js'
@@ -7,13 +6,10 @@ declare global {
   interface Window {
     LayoutModals: ModalController
     openCart: () => void
-    callIcons: () => void
   }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  window.callIcons()
-
   new PictureLazyLoadController({
     imageSelector: '.lazy-picture',
     rootMargin: '50px 0px',

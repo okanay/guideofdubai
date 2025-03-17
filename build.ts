@@ -42,6 +42,7 @@ const DIRECTORIES = {
 const PAGES = {
   scripts: [
     'layout',
+    'layout-new',
     'main',
     'main-new',
     'main-v2',
@@ -73,6 +74,7 @@ const PAGES = {
     'main-new',
     'main-v2',
     'product',
+    'layout-new',
     'login',
     'register',
     'profile',

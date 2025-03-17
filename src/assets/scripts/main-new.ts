@@ -4,7 +4,7 @@ import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const heroSliders = new WheelScroll()
+  new WheelScroll({ debugMode: false })
 
   const slider = new Slider({
     container: '#hero-slider-container',
@@ -55,53 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (direction === 'left') {
         return slider.next()
       }
-    },
-  })
-
-  const hiddenFAQ = new AccordionController({
-    container: '#faq-hidden-container',
-    accordionSelector: '.faq-2',
-    toggleButtonSelector: '.faq-toggle-2',
-    contentSelector: '.faq-content-2',
-    iconSelector: '.faq-icon-2',
-    defaultOpenIndex: -1,
-    closeOthersOnOpen: true,
-    animation: {
-      enabled: true,
-      duration: 300,
-      timingFunction: 'ease',
-    },
-    attributes: {
-      stateAttribute: 'data-state',
-    },
-    classes: {
-      activeClass: 'faq-active',
-      inactiveClass: 'faq-inactive',
-    },
-  })
-
-  new AccordionController({
-    container: '#faq-container-1',
-    accordionSelector: '.faq',
-    toggleButtonSelector: '.faq-toggle',
-    contentSelector: '.faq-content',
-    iconSelector: '.faq-icon',
-    defaultOpenIndex: 0,
-    closeOthersOnOpen: true,
-    animation: {
-      enabled: true,
-      duration: 300,
-      timingFunction: 'ease',
-    },
-    attributes: {
-      stateAttribute: 'data-state',
-    },
-    classes: {
-      activeClass: 'faq-active',
-      inactiveClass: 'faq-inactive',
-    },
-    onToggle: () => {
-      hiddenFAQ.recalculate()
     },
   })
 })
