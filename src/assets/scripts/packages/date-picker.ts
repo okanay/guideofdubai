@@ -208,6 +208,8 @@ class DatePicker {
   private betweenStartDate: Date | null = null
   private betweenEndDate: Date | null = null
   private closeButton: HTMLElement | null = null
+  private hoveredDate: Date | null = null
+  private hoverElements: HTMLElement[] = []
 
   constructor(config: DatePickerConfig) {
     this.config = config
@@ -1226,6 +1228,17 @@ class DatePicker {
       })
     }
 
+    // Hover işlevselliği için event delegation kullan
+    this.daysContainer?.addEventListener(
+      'mouseenter',
+      this.handleDayHover,
+      true,
+    )
+    this.daysContainer?.addEventListener(
+      'mouseleave',
+      this.handleCalendarMouseLeave,
+    )
+
     document.addEventListener('click', e => {
       const target = e.target as HTMLElement
       const isDateInput = Array.from(this.registeredInputs.values()).some(
@@ -1238,6 +1251,98 @@ class DatePicker {
 
       if (isOutsideClick && this.isDatePickerVisible()) {
         this.safeClose()
+      }
+    })
+  }
+
+  private handleDayHover = (e: Event) => {
+    const target = e.target as HTMLElement
+
+    // Sadece gün elementlerine ve between modunda işlem yap
+    if (
+      !target.classList.contains(this.classes.day.base ?? '') ||
+      this.config.input.type !== 'between' ||
+      !this.betweenStartDate ||
+      this.betweenEndDate // Halihazırda bitiş tarihi seçiliyse hover gösterme
+    ) {
+      return
+    }
+
+    const dateStr = target.getAttribute('data-date')
+    if (!dateStr) return
+
+    const date = this.stripTime(new Date(dateStr))
+
+    // Eğer bu gün, başlangıç tarihinden önceki bir tarihe aitse,
+    // veya disabled bir gün ise hover etmeyi durdur
+    if (date < this.betweenStartDate || !this.isDateValid(date)) {
+      return
+    }
+
+    // Önceki hover'ları temizle
+    this.clearHoverState()
+
+    // Yeni hover tarihini ayarla
+    this.hoveredDate = date
+
+    // Başlangıç tarihi ile hover tarihi arasındaki tüm günleri bul
+    this.applyHoverBetweenDates(this.betweenStartDate, date)
+
+    // Hover edilen günün kendisine de hover sınıfı ekle
+    if (this.classes.day.between) {
+      target.classList.add(this.classes.day.between)
+    }
+    this.hoverElements.push(target)
+
+    // Hover edilen günün bitiş noktalı olduğunu belirt
+    if (this.classes.day.betweenEnd) {
+      target.classList.add(this.classes.day.betweenEnd)
+    }
+  }
+
+  // Yeni metod: Takvimden çıkıldığında hover temizleme
+  private handleCalendarMouseLeave = () => {
+    this.clearHoverState()
+  }
+
+  // Yeni metod: Hover durumunu temizle
+  private clearHoverState() {
+    // Daha önce hover eklenen elementleri temizle
+    this.hoverElements.forEach(element => {
+      if (this.classes.day.between) {
+        element.classList.remove(this.classes.day.between)
+      }
+      if (this.classes.day.betweenEnd) {
+        element.classList.remove(this.classes.day.betweenEnd)
+      }
+    })
+
+    this.hoverElements = []
+    this.hoveredDate = null
+  }
+
+  // Yeni metod: İki tarih arasındaki günleri hover efekti ile işaretle
+  private applyHoverBetweenDates(startDate: Date, endDate: Date) {
+    if (!this.daysContainer) return
+
+    // Takvim görünümündeki tüm günleri seç
+    const dayElements = this.daysContainer.querySelectorAll(
+      `.${this.classes.day.base}`,
+    )
+
+    // Her gün elementi için kontrol et
+    dayElements.forEach(dayElement => {
+      const dateStr = dayElement.getAttribute('data-date')
+      if (!dateStr) return
+
+      const date = this.stripTime(new Date(dateStr))
+
+      // Tarih aralığı içinde mi kontrol et (başlangıç tarihi hariç, o zaten seçili)
+      if (date > startDate && date <= endDate) {
+        if (this.classes.day.between) {
+          dayElement.classList.add(this.classes.day.between)
+        }
+        this.hoverElements.push(dayElement as HTMLElement)
       }
     })
   }
@@ -1382,6 +1487,7 @@ class DatePicker {
   }
 
   private selectDate(date: Date) {
+    this.clearHoverState()
     if (!this.activeInput || !this.isDatePickerVisible()) return
 
     const inputConfig = this.registeredInputs.get(this.activeInput.id)
@@ -1535,6 +1641,7 @@ class DatePicker {
   }
 
   private safeClose() {
+    this.clearHoverState()
     if (!this.activeInput) return
     const inputConfig = this.registeredInputs.get(this.activeInput.id)
     if (!inputConfig) return
@@ -1885,6 +1992,17 @@ class DatePicker {
 
   public destroy() {
     window.removeEventListener('resize', this.handleWindowResize)
+
+    // Hover event listener'larını temizle
+    this.daysContainer?.removeEventListener(
+      'mouseenter',
+      this.handleDayHover,
+      true,
+    )
+    this.daysContainer?.removeEventListener(
+      'mouseleave',
+      this.handleCalendarMouseLeave,
+    )
   }
 }
 

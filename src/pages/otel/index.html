@@ -1608,12 +1608,8 @@
                   </div>
 
                   <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                      window.SetCountryNameOptions(
-                        'country-select-input',
-                        'not-selected',
-                        'EN',
-                      )
+                    window.addEventListener('CountrySelectReady', () => {
+                      window.SetCountryNameOptions('TR', 'TR')
                     })
 
                     document.addEventListener('keydown', e => {
