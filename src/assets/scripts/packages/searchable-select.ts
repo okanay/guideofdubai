@@ -623,4 +623,11 @@ class SearchableSelect {
   }
 }
 
+// Modül yüklendiğinde searchableSelectLoaded olayını tetikle
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    window.dispatchEvent(new CustomEvent('searchableSelectLoaded'))
+  }, 0)
+}
+
 export default SearchableSelect

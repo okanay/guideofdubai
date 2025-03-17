@@ -3,10 +3,10 @@ import SearchableSelect from '../packages/searchable-select.js'
 declare global {
   interface Window {
     CountrySelectInput: SearchableSelect
+    SetCountryNameOptions: (defaultValue: string, language: string) => void
   }
 }
 
-// Initialization
 document.addEventListener('DOMContentLoaded', () => {
   const CountrySelectInput = new SearchableSelect({
     elements: {
@@ -14,57 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
       select: 'country-select-input',
       input: 'country-search-input',
       suggestions: 'country-suggestions',
-      clearButton: 'clear-button', // opsiyonel
+      clearButton: 'clear-button',
     },
   })
 
   window.CountrySelectInput = CountrySelectInput
+
+  // SetCountryNameOptions fonksiyonunu yeniden tanımla
+  window.SetCountryNameOptions = (defaultValue, language) => {
+    const codes = language.toLowerCase() === 'tr' ? trCodes : enCodes
+
+    // Ülke seçeneklerini güncelle
+    window.CountrySelectInput.updateOptions(
+      codes.map(code => ({ text: code.name, value: code.value })),
+    )
+
+    window.CountrySelectInput.setValue(defaultValue.toUpperCase())
+  }
+
+  // CountrySelectInput hazır olduğunda özel bir event tetikle
+  window.dispatchEvent(new CustomEvent('CountrySelectReady'))
 })
-
-function SetOptions(
-  containerID: string,
-  defaultSelectedValue: string,
-  lang: 'TR' | 'EN',
-) {
-  const container = document.getElementById(
-    containerID,
-  ) as HTMLSelectElement | null
-  if (container) {
-    let codes
-    switch (lang) {
-      case 'TR':
-        codes = trCodes
-        break
-      case 'EN':
-        codes = enCodes
-        break
-      default:
-        codes = enCodes
-    }
-    codes.forEach(option => {
-      const optionElement = document.createElement('option')
-      optionElement.value = option.value
-      optionElement.text = option.name
-      container.appendChild(optionElement)
-    })
-
-    if (defaultSelectedValue) {
-      container.value = defaultSelectedValue
-    }
-  }
-}
-
-declare global {
-  interface Window {
-    SetCountryNameOptions: (
-      containerID: string,
-      defaultSelectedValue: string,
-      lang: 'TR' | 'EN',
-    ) => void
-  }
-}
-
-window.SetCountryNameOptions = SetOptions
 
 const enCodes = [
   { name: 'Afghanistan', value: 'AF' },
