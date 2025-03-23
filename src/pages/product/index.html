@@ -3569,25 +3569,6 @@
         </article>
       </div>
 
-      <!-- Date Picker Change Event -->
-      <script>
-        let render = 0
-        let allowFirstRender = false
-
-        document.getElementById('date-input')?.addEventListener('change', e => {
-          if (!allowFirstRender) {
-            allowFirstRender = true
-            return
-          }
-
-          const selectedDate = e.target.getAttribute('data-selected')
-          console.log(
-            `Input değeri değişti: ${selectedDate}, render: ${render}`,
-          )
-          render++
-        })
-      </script>
-
       <!-- Date Picker Refresh -->
       <script>
         document.addEventListener('keydown', e => {
