@@ -2497,6 +2497,17 @@
           </section>
         </div>
       </div>
+
+      <script defer>
+        document.addEventListener('keydown', e => {
+          if (e.key === 'o' || e.key === 'O') {
+            const modal = document.getElementById('complete-register-modal')
+            const isClosed = modal.getAttribute('data-state') === 'closed'
+            modal.setAttribute('data-state', isClosed ? 'open' : 'closed')
+            document.body.style.overflow = isClosed ? 'hidden' : ''
+          }
+        })
+      </script>
     </header>
 
     <main class="space-y-10 pb-6">
