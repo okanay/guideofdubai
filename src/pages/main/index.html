@@ -63,6 +63,11 @@
     <script type="module" src="/assets/scripts/deps/lucide-icons.js"></script>
     <script type="module" src="/assets/scripts/layout.js"></script>
     <script type="module" src="/assets/scripts/main.js"></script>
+    <script
+      type="module"
+      src="/assets/scripts/ui/country-select-input.js"
+    ></script>
+    <script type="module" src="/assets/scripts/ui/phone-number.js"></script>
   </head>
   <body class="bg-white">
     <header class="h-fit w-full">
@@ -2122,6 +2127,374 @@
               <span class="text-white">Proceed to Payment</span>
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Registration Modal -->
+      <div
+        id="complete-register-modal"
+        data-state="closed"
+        class="fixed inset-0 z-[8001] flex bg-gray-500/60 backdrop-blur-sm data-[state=closed]:pointer-events-none data-[state=closed]:hidden"
+      >
+        <div
+          class="sidebar flex h-full w-full flex-col sm:items-center sm:overflow-y-auto sm:p-4"
+        >
+          <section
+            id="complete-register-modal-content"
+            class="flex h-full w-full flex-col bg-white pb-0 transition-transform duration-300 data-[state=closed]:translate-y-full sm:h-auto sm:max-w-[500px] sm:rounded-xl"
+          >
+            <!-- Modal Header -->
+            <div class="flex-shrink-0 border-b border-gray-100 p-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-primary-600">
+                  Kayıt Formunu Tamamla
+                </h4>
+              </div>
+              <p class="mt-2 text-sm text-gray-600">
+                Rezervasyonunuzu kolayca oluşturmak ve kampanyalardan haberdar
+                olmak için eksik bilgilerinizi tamamlayın.
+              </p>
+            </div>
+
+            <!-- Form Container -->
+            <div class="flex-1 overflow-y-auto py-4">
+              <form class="flex flex-col gap-4">
+                <!-- Name -->
+                <div class="flex flex-col gap-2 px-4">
+                  <label
+                    for="reg-name"
+                    class="text-xs font-medium text-gray-700"
+                    >İsim</label
+                  >
+                  <input
+                    type="text"
+                    id="reg-name"
+                    class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none transition-colors focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 lg:hover:border-gray-400"
+                    placeholder="Adınız"
+                  />
+                </div>
+
+                <!-- Surname -->
+                <div class="flex flex-col gap-2 px-4">
+                  <label
+                    for="reg-surname"
+                    class="text-xs font-medium text-gray-700"
+                    >Soyisim</label
+                  >
+                  <input
+                    type="text"
+                    id="reg-surname"
+                    class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none transition-colors focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 lg:hover:border-gray-400"
+                    placeholder="Soyadınız"
+                  />
+                </div>
+
+                <!-- Nationality -->
+                <div class="flex flex-col gap-2 px-4">
+                  <label
+                    for="country-search-input"
+                    class="text-xs font-medium text-gray-700"
+                    >Uyruk</label
+                  >
+                  <div id="country-container">
+                    <div
+                      id="country-select"
+                      class="group relative flex items-center gap-2"
+                    >
+                      <!-- Hidden Observer Select Input -->
+                      <select id="country-select-input" class="hidden"></select>
+
+                      <!-- Search Input -->
+                      <input
+                        type="text"
+                        id="country-search-input"
+                        name="country-search-input"
+                        aria-autocomplete="off"
+                        autocomplete="new-password"
+                        class="peer h-12 w-full rounded border border-gray-200 px-3 pe-9 outline-none transition-colors focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 lg:hover:border-gray-400"
+                        placeholder="Ülke"
+                      />
+
+                      <!--  Clear Button -->
+                      <button
+                        class="absolute right-4 top-[50%] flex h-full -translate-y-1/2 items-center justify-center outline-offset-1 peer-placeholder-shown:hidden peer-focus:visible"
+                        id="clear-button"
+                        type="button"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="size-3.5"
+                        >
+                          <path d="M18 6 6 18" />
+                          <path d="m6 6 12 12" />
+                        </svg>
+                      </button>
+
+                      <!-- Suggestion Dropdown -->
+                      <div
+                        id="country-suggestions"
+                        style="scrollbar-width: none"
+                        class="pointer-events-none absolute left-0 right-0 top-full z-[30] mt-1 flex max-h-64 flex-col overflow-y-auto rounded border border-gray-200 bg-white opacity-0 shadow-lg transition-all duration-300 peer-focus:pointer-events-auto peer-focus:opacity-100"
+                      >
+                        <!-- None Item -->
+                        <button
+                          type="button"
+                          class="none-item cursor-pointer bg-gray-200 px-3 py-2 text-start opacity-75 transition-opacity duration-300 hover:opacity-100 data-[hide=true]:hidden"
+                          data-value="not-selected"
+                          data-hide="false"
+                        >
+                          Seçim Yok
+                        </button>
+                        <!-- Template elements -->
+                        <button
+                          type="button"
+                          class="suggestion-item cursor-pointer px-3 py-2 text-start hover:bg-primary-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                          data-value="suggestion"
+                          data-selected="false"
+                        >
+                          Suggestion
+                        </button>
+                        <!-- No Results -->
+                        <div class="no-results px-3 py-2 text-gray-500">
+                          Sonuç bulunamadı
+                        </div>
+                      </div>
+                      <script>
+                        window.addEventListener('CountrySelectReady', () => {
+                          window.SetCountryNameOptions('TR', 'TR')
+                        })
+                      </script>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="group flex flex-col gap-2 px-4">
+                  <label
+                    for="phone-code-input"
+                    class="text-xs font-medium text-gray-700"
+                    >Telefon Numarası</label
+                  >
+                  <div class="flex w-full">
+                    <div
+                      class="phone-code-container group/focus relative w-full"
+                      data-focus="false"
+                    >
+                      <!-- Telefon Input Yapısı -->
+                      <div class="flex">
+                        <div class="relative">
+                          <div
+                            class="phone-code-button flex h-12 cursor-pointer items-center gap-1 rounded-l border border-r-0 border-gray-950/20 bg-white pl-3 pr-6 text-sm transition-colors duration-200 hover:bg-gray-50 group-focus-within:!border-r group-focus-within:!border-primary-400 group-focus-within:!ring-1 group-focus-within:!ring-primary-200 group-hover:border-gray-400 group-data-[focus=true]/focus:rounded-b-none rtl:rounded-l-none rtl:rounded-r rtl:border-l-0 rtl:border-r"
+                          >
+                            <img
+                              class="phone-code-flag h-4 w-5 !rounded object-cover"
+                              src="https://flagcdn.com/us.svg"
+                              alt="flag"
+                            />
+                            <span class="phone-code-prefix text-nowrap"
+                              >+1</span
+                            >
+                          </div>
+                          <!-- data-language= "TR" | "EN" -->
+                          <select
+                            class="phone-code-select pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                            data-language="EN"
+                            data-default="+44"
+                            disabled
+                            style="-webkit-border-radius: 0; border-radius: 0"
+                          >
+                            <option value="US" data-prefix="+1" data-flag="us">
+                              United States (+1)
+                            </option>
+                          </select>
+                        </div>
+                        <input
+                          type="tel"
+                          id="phone-code-input"
+                          name="phone-code-input"
+                          autocomplete="tel"
+                          inputmode="tel"
+                          data-max-length="10"
+                          placeholder="Telefon numarası giriniz."
+                          class="phone-code-input h-12 w-full !rounded-r border border-gray-950/20 px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-400 focus:ring-1 focus:!ring-primary-200 group-hover:border-gray-400 group-data-[focus=true]/focus:!rounded-b-none rtl:!rounded-l rtl:!rounded-r-none rtl:text-end"
+                          style="-webkit-border-radius: 0; border-radius: 0"
+                        />
+                      </div>
+
+                      <!-- Arama ve Öneri Modal/Dropdown -->
+                      <div
+                        class="phone-code-search-modal pointer-events-none absolute left-0 right-0 top-[calc(100%)] z-[30] hidden w-full rounded rounded-t-none border border-t-0 border-gray-950/20 bg-white shadow-lg"
+                      >
+                        <!-- Search Input -->
+                        <div
+                          class="relative scale-x-[100.5%] border border-gray-950/20 ring-1 ring-primary-200 group-focus-within:!border-primary-400"
+                        >
+                          <input
+                            type="text"
+                            class="phone-code-search-input h-12 w-full rounded-t px-3 py-2 outline-none"
+                            placeholder="Ülke Ara"
+                          />
+                          <button
+                            type="button"
+                            class="phone-code-clear-button group/delete absolute right-2 top-1/2 hidden -translate-y-1/2 p-1"
+                          >
+                            <i
+                              data-lucide="x"
+                              class="size-4 text-gray-400 group-hover/delete:text-gray-800"
+                            ></i>
+                          </button>
+                        </div>
+
+                        <!-- Suggestions List -->
+                        <div
+                          class="phone-code-suggestions max-h-60 overflow-y-auto bg-gray-50"
+                          style="scrollbar-width: none"
+                        >
+                          <!-- Template elements -->
+                          <button
+                            type="button"
+                            class="suggestion-item group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start hover:bg-gray-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                            data-value="US"
+                            data-selected="false"
+                          >
+                            <img
+                              src="https://flagcdn.com/us.svg"
+                              alt="flag"
+                              class="h-4 w-5 object-cover"
+                            />
+                            <span class="flex-1">United States</span>
+                            <span
+                              class="text-xs text-gray-500 group-data-[selected=true]:text-white"
+                              >+1</span
+                            >
+                          </button>
+
+                          <!-- No Results Template -->
+                          <div class="no-results px-3 py-2.5 text-gray-500">
+                            Sonuç bulunamadı
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="flex flex-col gap-2 px-4">
+                  <label
+                    for="reg-email"
+                    class="text-xs font-medium text-gray-700"
+                    >E-posta</label
+                  >
+                  <input
+                    type="email"
+                    id="reg-email"
+                    class="h-12 w-full rounded border border-gray-200 px-3 py-2 outline-none transition-colors focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 lg:hover:border-gray-400"
+                    placeholder="E-posta adresiniz"
+                  />
+                </div>
+
+                <!-- Terms Checkbox -->
+                <label class="mt-2 flex cursor-pointer items-start gap-2 px-4">
+                  <input
+                    type="checkbox"
+                    class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-500"
+                  />
+                  <span class="text-pretty text-xs">
+                    Kişisel verilerimin
+                    <a href="#" class="underline hover:text-primary-500"
+                      >Gizlilik Politikası</a
+                    >
+                    ve
+                    <a href="#" class="underline hover:text-primary-500"
+                      >Aydınlatma Metni</a
+                    >'nde belirtilen kapsamda işlenmesine onay veriyorum.
+                  </span>
+                </label>
+
+                <!-- Marketing Checkbox -->
+                <label class="flex cursor-pointer items-start gap-2 px-4">
+                  <input
+                    type="checkbox"
+                    class="peer relative grid size-[18px] flex-shrink-0 cursor-pointer appearance-none place-content-center rounded border-2 border-gray-300 bg-white transition-colors duration-200 before:h-[0.65em] before:w-[0.65em] before:origin-bottom-left before:scale-0 before:bg-white before:transition-transform before:duration-200 before:ease-in-out before:content-[''] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)] checked:border-primary-500 checked:bg-primary-500 checked:before:scale-100 hover:border-primary-400"
+                  />
+                  <span class="text-pretty text-xs">
+                    Kampanya ve fırsatlardan haberdar olmak istiyorum.
+                  </span>
+                </label>
+
+                <!-- Button Section -->
+                <div class="border-t border-gray-200 px-4 py-3">
+                  <!-- Success Message Area -->
+                  <div
+                    id="success-message"
+                    class="mb-4 flex items-start rounded-lg border-l-4 border-lime-400 bg-lime-50 p-3 text-lime-800"
+                    style="display: flex"
+                  >
+                    <i
+                      data-lucide="check-circle"
+                      class="size-3.5 flex-shrink-0"
+                    ></i>
+                    <div class="ms-2 text-xs font-medium">
+                      İşleminiz başarıyla tamamlandı. Yönlendiriliyorsunuz...
+                    </div>
+                  </div>
+
+                  <!-- Error Message Area -->
+                  <div
+                    id="error-message"
+                    class="mb-4 flex items-start rounded-lg border-l-4 border-red-400 bg-red-50 p-3 text-red-800"
+                    style="display: flex"
+                  >
+                    <i
+                      data-lucide="alert-circle"
+                      class="size-3.5 flex-shrink-0"
+                    ></i>
+                    <div class="ms-2 text-xs font-medium">
+                      İşlem sırasında bir hata oluştu. Lütfen tekrar deneyiniz.
+                    </div>
+                  </div>
+
+                  <!-- Warning Message Area -->
+                  <div
+                    id="warning-message"
+                    class="mb-4 flex items-start rounded-lg border-l-4 border-yellow-400 bg-yellow-50 p-3 text-yellow-800"
+                    style="display: flex"
+                  >
+                    <i
+                      data-lucide="alert-triangle"
+                      class="size-3.5 flex-shrink-0"
+                    ></i>
+                    <div class="ms-2 text-xs font-medium">
+                      Lütfen tüm zorunlu alanları doldurunuz.
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    id="submit-button"
+                    class="group h-12 w-full rounded bg-primary-500 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-75"
+                  >
+                    <span class="block group-disabled:hidden">Kayıt Ol</span>
+                    <span
+                      class="hidden items-center justify-center gap-2 group-disabled:flex"
+                    >
+                      <span>İşlem Devam Ediyor</span>
+                      <i data-lucide="loader" class="size-4 animate-spin"></i>
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
         </div>
       </div>
     </header>
