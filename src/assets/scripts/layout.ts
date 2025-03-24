@@ -1,4 +1,3 @@
-import { AccordionController } from './packages/accordion.js'
 import { ModalController } from './packages/modal.js'
 import { PictureLazyLoadController } from './packages/picture-lazy-load.js'
 import { LazyImageLoadController } from './packages/lazy-load.js'
@@ -103,49 +102,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   )
 
   window.LayoutModals = layoutModals
-
-  const completeRegisterModal = new ModalController(
-    [
-      {
-        id: 'register',
-        toggleElements: [],
-        openElements: [],
-        contentElement: '#complete-register-modal',
-        closeElements: [],
-        containers: ['#complete-register-modal-content'],
-      },
-    ],
-    {
-      outsideClickClose: true,
-      escapeClose: true,
-      preserveModalHistory: true,
-      attributes: {
-        stateAttribute: 'data-state',
-        values: {
-          open: 'open',
-          preserved: 'open',
-          hidden: 'closed',
-        },
-      },
-      scrollLock: {
-        enabled: true,
-        styles: {
-          hidden: {
-            overflow: 'hidden',
-            position: 'fixed',
-            width: '100%',
-          },
-          visible: {
-            overflow: 'auto',
-            position: 'static',
-            width: 'auto',
-          },
-        },
-      },
-    },
-  )
-
-  window.CompleteRegisterModal = completeRegisterModal
 })
 
 document.addEventListener('DOMContentLoaded', async () => {
