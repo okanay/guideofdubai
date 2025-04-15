@@ -2510,7 +2510,6 @@
             id="chat-container"
             class="sidebar pointer-events-auto flex h-[100vh] max-h-[100vh] w-screen flex-col justify-start overflow-y-auto bg-white shadow shadow-gray-950/20 lg:w-[440px]"
           >
-            <!-- Header - Sabit -->
             <div
               class="z-10 flex w-full items-center justify-between border-b border-gray-100/80 bg-gradient-to-r from-primary-600 to-primary-500 px-4 py-3 text-white backdrop-blur-md lg:px-5"
             >
@@ -2568,86 +2567,89 @@
                 </button>
               </div>
             </div>
-
-            <!-- Sohbeti Kapatma Onay Modali -->
-            <div
-              id="close-chat-modal"
-              class="fixed inset-0 z-[10000] hidden items-center justify-center bg-gray-950/50"
-            >
-              <div class="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-                <div class="mb-4 flex flex-col items-center text-center">
-                  <div
-                    class="mb-3 flex size-16 items-center justify-center rounded-full bg-red-100 text-red-500"
-                  >
-                    <i data-lucide="alert-triangle" class="size-8"></i>
+            <div class="flex flex-col justify-end">
+              <!-- Sohbeti Kapatma Onay Modali -->
+              <div
+                id="close-chat-modal"
+                class="fixed inset-0 z-[10000] hidden items-center justify-center bg-gray-950/50"
+              >
+                <div
+                  class="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+                >
+                  <div class="mb-4 flex flex-col items-center text-center">
+                    <div
+                      class="mb-3 flex size-16 items-center justify-center rounded-full bg-red-100 text-red-500"
+                    >
+                      <i data-lucide="alert-triangle" class="size-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">
+                      Sohbeti Kapatmak İstiyor musunuz?
+                    </h3>
+                    <p class="mt-2 text-gray-600">
+                      Bu işlem mevcut sohbeti sonlandıracak ve tüm mesajlar
+                      kaybolacak.
+                    </p>
                   </div>
-                  <h3 class="text-xl font-semibold text-gray-800">
-                    Sohbeti Kapatmak İstiyor musunuz?
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Bu işlem mevcut sohbeti sonlandıracak ve tüm mesajlar
-                    kaybolacak.
-                  </p>
-                </div>
-                <div class="flex gap-3">
-                  <button
-                    id="close-chat-cancel"
-                    class="flex-1 rounded-xl border border-gray-200 bg-white py-3 font-medium text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
-                  >
-                    İptal
-                  </button>
-                  <button
-                    id="close-chat-confirm"
-                    class="flex-1 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 font-medium text-white shadow-md transition-all hover:shadow-lg active:scale-95"
-                  >
-                    Kapat
-                  </button>
+                  <div class="flex gap-3">
+                    <button
+                      id="close-chat-cancel"
+                      class="flex-1 rounded-xl border border-gray-200 bg-white py-3 font-medium text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+                    >
+                      İptal
+                    </button>
+                    <button
+                      id="close-chat-confirm"
+                      class="flex-1 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 font-medium text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+                    >
+                      Kapat
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Yeni Sohbet Onay Modalı -->
-            <div
-              id="new-chat-modal"
-              class="fixed inset-0 z-[10000] hidden items-center justify-center bg-gray-950/50"
-            >
-              <div class="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-                <div class="mb-4 flex flex-col items-center text-center">
-                  <div
-                    class="mb-3 flex size-16 items-center justify-center rounded-full bg-primary-100 text-primary-500"
-                  >
-                    <i data-lucide="refresh-cw" class="size-8"></i>
+              <!-- Yeni Sohbet Onay Modalı -->
+              <div
+                id="new-chat-modal"
+                class="fixed inset-0 z-[10000] hidden items-center justify-center bg-gray-950/50"
+              >
+                <div
+                  class="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+                >
+                  <div class="mb-4 flex flex-col items-center text-center">
+                    <div
+                      class="mb-3 flex size-16 items-center justify-center rounded-full bg-primary-100 text-primary-500"
+                    >
+                      <i data-lucide="refresh-cw" class="size-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">
+                      Yeni Sohbet Başlatılsın mı?
+                    </h3>
+                    <p class="mt-2 text-gray-600">
+                      Bu işlem mevcut sohbeti sonlandıracak ve yeni bir sohbet
+                      başlatacak.
+                    </p>
                   </div>
-                  <h3 class="text-xl font-semibold text-gray-800">
-                    Yeni Sohbet Başlatılsın mı?
-                  </h3>
-                  <p class="mt-2 text-gray-600">
-                    Bu işlem mevcut sohbeti sonlandıracak ve yeni bir sohbet
-                    başlatacak.
-                  </p>
-                </div>
-                <div class="flex gap-3">
-                  <button
-                    id="new-chat-cancel"
-                    class="flex-1 rounded-xl border border-gray-200 bg-white py-3 font-medium text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
-                  >
-                    İptal
-                  </button>
-                  <button
-                    id="new-chat-confirm"
-                    class="flex-1 rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 py-3 font-medium text-white shadow-md transition-all hover:shadow-lg active:scale-95"
-                  >
-                    Yeni Sohbet
-                  </button>
+                  <div class="flex gap-3">
+                    <button
+                      id="new-chat-cancel"
+                      class="flex-1 rounded-xl border border-gray-200 bg-white py-3 font-medium text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+                    >
+                      İptal
+                    </button>
+                    <button
+                      id="new-chat-confirm"
+                      class="flex-1 rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 py-3 font-medium text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+                    >
+                      Yeni Sohbet
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div>
               <!-- Form -->
               <div
                 id="ai-step-form"
-                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=form]:flex"
+                class="hidden h-full w-full flex-col group-data-[step=form]:flex"
               >
                 <!-- Başlık kısmı -->
                 <div class="px-4 pt-5 lg:px-5">
@@ -3002,7 +3004,7 @@
               <!-- Loading -->
               <div
                 id="ai-step-loading"
-                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=loading]:flex"
+                class="hidden h-full w-full flex-col group-data-[step=loading]:flex"
               >
                 <div class="flex h-full flex-col items-center justify-center">
                   <div class="relative mb-8">
@@ -3040,7 +3042,7 @@
               <!-- Chat -->
               <div
                 id="ai-step-chat"
-                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=chat]:flex"
+                class="hidden h-full w-full flex-col group-data-[step=chat]:flex"
               >
                 <!-- Mesaj Listeleme Alanı -->
                 <div class="flex flex-1 flex-col overflow-hidden bg-gray-50/80">
