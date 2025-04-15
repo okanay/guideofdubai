@@ -2508,7 +2508,7 @@
         >
           <div
             id="chat-container"
-            class="sidebar pointer-events-auto flex h-[100vh] max-h-[100vh] w-screen flex-col bg-white shadow shadow-gray-950/20 lg:w-[440px]"
+            class="sidebar pointer-events-auto flex h-[100vh] max-h-[100vh] w-screen flex-col justify-start overflow-y-auto bg-white shadow shadow-gray-950/20 lg:w-[440px]"
           >
             <!-- Header - Sabit -->
             <div
@@ -2643,531 +2643,540 @@
               </div>
             </div>
 
-            <!-- Form -->
-            <div
-              id="ai-step-form"
-              class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=form]:flex"
-            >
-              <!-- Başlık kısmı -->
-              <div class="px-4 pt-5 lg:px-5">
-                <h3 class="text-2xl font-semibold text-gray-800">
-                  Sohbete Başlayın
-                </h3>
-                <p class="mt-2 text-base font-light text-gray-600">
-                  Size özelleştirilmiş yardım sunabilmemiz için bilgilerinizi
-                  girin.
-                </p>
-              </div>
-
-              <!-- Form kısmı -->
+            <div>
+              <!-- Form -->
               <div
-                id="chat-start-form"
-                class="flex flex-1 flex-col gap-4 px-4 py-5 lg:px-5"
+                id="ai-step-form"
+                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=form]:flex"
               >
-                <!-- Isim -->
-                <div class="flex flex-col gap-2">
-                  <label
-                    for="chat-name"
-                    class="text-xs font-medium text-gray-700"
-                    >Adınız</label
-                  >
-                  <div class="relative">
-                    <input
-                      type="text"
-                      id="chat-name"
-                      class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
-                      placeholder="Adınızı girin"
-                    />
-                    <i
-                      data-lucide="user"
-                      class="absolute left-3.5 top-3.5 size-5 text-gray-400"
-                    ></i>
-                  </div>
+                <!-- Başlık kısmı -->
+                <div class="px-4 pt-5 lg:px-5">
+                  <h3 class="text-2xl font-semibold text-gray-800">
+                    Sohbete Başlayın
+                  </h3>
+                  <p class="mt-2 text-base font-light text-gray-600">
+                    Size özelleştirilmiş yardım sunabilmemiz için bilgilerinizi
+                    girin.
+                  </p>
                 </div>
 
-                <!-- E-Mail -->
-                <div class="flex flex-col gap-2">
-                  <label
-                    for="chat-email"
-                    class="text-xs font-medium text-gray-700"
-                    >E-posta Adresi</label
-                  >
-                  <div class="relative">
-                    <input
-                      type="email"
-                      id="chat-email"
-                      class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
-                      placeholder="E-posta adresinizi girin"
-                    />
-                    <i
-                      data-lucide="mail"
-                      class="absolute left-3.5 top-3.5 size-5 text-gray-400"
-                    ></i>
-                  </div>
-                </div>
-
-                <!-- Telefon -->
-                <div class="group/phone flex w-full flex-col gap-1.5">
-                  <label
-                    for="ai-form-phone"
-                    class="text-xs font-medium text-gray-700"
-                  >
-                    Telefon Numaranız</label
-                  >
-
-                  <div class="flex w-full">
-                    <div
-                      class="phone-code-container group/focus relative w-full"
-                      data-focus="false"
+                <!-- Form kısmı -->
+                <div
+                  id="chat-start-form"
+                  class="flex flex-1 flex-col gap-4 px-4 py-5 lg:px-5"
+                >
+                  <!-- Isim -->
+                  <div class="flex flex-col gap-2">
+                    <label
+                      for="chat-name"
+                      class="text-xs font-medium text-gray-700"
+                      >Adınız</label
                     >
-                      <!-- Telefon Input Yapısı -->
-                      <div class="flex">
-                        <div class="relative">
-                          <div
-                            class="phone-code-button flex h-12 cursor-pointer items-center gap-1 border border-gray-950/20 bg-gray-50 pl-3 pr-6 text-sm transition-colors duration-200 hover:bg-gray-50 group-focus-within/focus:!border-primary-400 group-focus-within/focus:!ring-1 group-focus-within/focus:!ring-primary-200 group-hover/focus:border-gray-400 rtl:border-l-0"
-                          >
-                            <img
-                              class="phone-code-flag h-4 w-5 object-cover"
-                              src="https://flagcdn.com/us.svg"
-                              alt="flag"
-                            />
-                            <span class="phone-code-prefix text-nowrap"
-                              >+1</span
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="chat-name"
+                        class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
+                        placeholder="Adınızı girin"
+                      />
+                      <i
+                        data-lucide="user"
+                        class="absolute left-3.5 top-3.5 size-5 text-gray-400"
+                      ></i>
+                    </div>
+                  </div>
+
+                  <!-- E-Mail -->
+                  <div class="flex flex-col gap-2">
+                    <label
+                      for="chat-email"
+                      class="text-xs font-medium text-gray-700"
+                      >E-posta Adresi</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="email"
+                        id="chat-email"
+                        class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
+                        placeholder="E-posta adresinizi girin"
+                      />
+                      <i
+                        data-lucide="mail"
+                        class="absolute left-3.5 top-3.5 size-5 text-gray-400"
+                      ></i>
+                    </div>
+                  </div>
+
+                  <!-- Telefon -->
+                  <div class="group/phone flex w-full flex-col gap-1.5">
+                    <label
+                      for="ai-form-phone"
+                      class="text-xs font-medium text-gray-700"
+                    >
+                      Telefon Numaranız</label
+                    >
+
+                    <div class="flex w-full">
+                      <div
+                        class="phone-code-container group/focus relative w-full"
+                        data-focus="false"
+                      >
+                        <!-- Telefon Input Yapısı -->
+                        <div class="flex">
+                          <div class="relative">
+                            <div
+                              class="phone-code-button flex h-12 cursor-pointer items-center gap-1 border border-gray-950/20 bg-gray-50 pl-3 pr-6 text-sm transition-colors duration-200 hover:bg-gray-50 group-focus-within/focus:!border-primary-400 group-focus-within/focus:!ring-1 group-focus-within/focus:!ring-primary-200 group-hover/focus:border-gray-400 rtl:border-l-0"
                             >
+                              <img
+                                class="phone-code-flag h-4 w-5 object-cover"
+                                src="https://flagcdn.com/us.svg"
+                                alt="flag"
+                              />
+                              <span class="phone-code-prefix text-nowrap"
+                                >+1</span
+                              >
+                            </div>
+                            <!-- data-language= "TR" | "EN" -->
+                            <select
+                              class="phone-code-select pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0 outline-none"
+                              data-language="EN"
+                              data-default="+44"
+                              disabled
+                              style="-webkit-border-radius: 0; border-radius: 0"
+                            >
+                              <option
+                                value="US"
+                                data-prefix="+1"
+                                data-flag="us"
+                              >
+                                United States (+1)
+                              </option>
+                            </select>
                           </div>
-                          <!-- data-language= "TR" | "EN" -->
-                          <select
-                            class="phone-code-select pointer-events-none absolute inset-0 h-full w-full cursor-pointer opacity-0 outline-none"
-                            data-language="EN"
-                            data-default="+44"
-                            disabled
+                          <input
+                            type="tel"
+                            name="ai-form-phone"
+                            id="ai-form-phone"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            data-max-length="10"
+                            placeholder="Telefon numarası giriniz."
+                            class="phone-code-input h-12 w-full border border-l-0 border-gray-950/20 px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 group-hover/focus:border-gray-400 rtl:text-end"
                             style="-webkit-border-radius: 0; border-radius: 0"
-                          >
-                            <option value="US" data-prefix="+1" data-flag="us">
-                              United States (+1)
-                            </option>
-                          </select>
+                          />
                         </div>
+
+                        <!-- Arama ve Öneri Modal/Dropdown -->
+                        <div
+                          class="phone-code-search-modal pointer-events-none absolute left-0 right-0 top-[calc(100%)] z-[30] hidden w-full border border-t-0 border-gray-950/20 bg-white shadow-lg"
+                        >
+                          <!-- Search Input -->
+                          <div
+                            class="relative scale-x-[100.5%] border border-gray-950/20 ring-1 ring-primary-200 group-focus-within:!border-primary-400"
+                          >
+                            <input
+                              type="text"
+                              class="phone-code-search-input h-12 w-full rounded-t px-3 py-2 outline-none"
+                              placeholder="Ülke Ara"
+                            />
+                            <button
+                              type="button"
+                              class="phone-code-clear-button group/delete absolute right-2 top-1/2 hidden -translate-y-1/2 p-1"
+                            >
+                              <i
+                                data-lucide="x"
+                                class="size-4 text-gray-400 group-hover/delete:text-gray-800"
+                              ></i>
+                            </button>
+                          </div>
+
+                          <!-- Suggestions List -->
+                          <div
+                            class="phone-code-suggestions max-h-60 overflow-y-auto bg-gray-50"
+                            style="scrollbar-width: none"
+                          >
+                            <!-- Template elements -->
+                            <button
+                              type="button"
+                              class="suggestion-item group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start hover:bg-gray-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
+                              data-value="US"
+                              data-selected="false"
+                            >
+                              <img
+                                src="https://flagcdn.com/us.svg"
+                                alt="flag"
+                                class="h-4 w-5 object-cover"
+                              />
+                              <span class="flex-1">United States</span>
+                              <span
+                                class="text-xs text-gray-500 group-data-[selected=true]:text-white"
+                                >+1</span
+                              >
+                            </button>
+
+                            <!-- No Results Template -->
+                            <div class="no-results px-3 py-2.5 text-gray-500">
+                              Sonuç bulunamadı
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bütçe -->
+                  <div class="group/phone flex w-full flex-col gap-1.5">
+                    <label
+                      for="ai-form-budget"
+                      class="text-xs font-medium text-gray-700"
+                    >
+                      Bütçeniz</label
+                    >
+                    <div class="flex">
+                      <div class="relative w-full">
                         <input
-                          type="tel"
-                          name="ai-form-phone"
-                          id="ai-form-phone"
-                          autocomplete="tel"
-                          inputmode="tel"
-                          data-max-length="10"
-                          placeholder="Telefon numarası giriniz."
-                          class="phone-code-input h-12 w-full border border-l-0 border-gray-950/20 px-3 py-2 outline-none transition-colors duration-200 focus:!border-primary-400 focus:ring-1 focus:ring-primary-200 group-hover/focus:border-gray-400 rtl:text-end"
-                          style="-webkit-border-radius: 0; border-radius: 0"
+                          type="number"
+                          name="ai-form-budget"
+                          id="ai-form-budget"
+                          class="z-20 block h-12 w-full appearance-none border border-gray-200 px-2.5 text-gray-900 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-200"
+                          placeholder="400"
                         />
                       </div>
-
-                      <!-- Arama ve Öneri Modal/Dropdown -->
-                      <div
-                        class="phone-code-search-modal pointer-events-none absolute left-0 right-0 top-[calc(100%)] z-[30] hidden w-full border border-t-0 border-gray-950/20 bg-white shadow-lg"
+                      <select
+                        class="z-10 inline-flex shrink-0 appearance-none items-center border border-l-0 border-gray-200 bg-gray-50 px-4 py-2.5 text-center font-medium text-gray-900 hover:bg-gray-100 focus:border-l focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-200"
+                        id="currency-select"
                       >
-                        <!-- Search Input -->
-                        <div
-                          class="relative scale-x-[100.5%] border border-gray-950/20 ring-1 ring-primary-200 group-focus-within:!border-primary-400"
-                        >
-                          <input
-                            type="text"
-                            class="phone-code-search-input h-12 w-full rounded-t px-3 py-2 outline-none"
-                            placeholder="Ülke Ara"
-                          />
-                          <button
-                            type="button"
-                            class="phone-code-clear-button group/delete absolute right-2 top-1/2 hidden -translate-y-1/2 p-1"
-                          >
-                            <i
-                              data-lucide="x"
-                              class="size-4 text-gray-400 group-hover/delete:text-gray-800"
-                            ></i>
-                          </button>
-                        </div>
-
-                        <!-- Suggestions List -->
-                        <div
-                          class="phone-code-suggestions max-h-60 overflow-y-auto bg-gray-50"
-                          style="scrollbar-width: none"
-                        >
-                          <!-- Template elements -->
-                          <button
-                            type="button"
-                            class="suggestion-item group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start hover:bg-gray-100 data-[selected=true]:bg-primary-500 data-[selected=true]:text-white data-[selected=true]:hover:bg-primary-600"
-                            data-value="US"
-                            data-selected="false"
-                          >
-                            <img
-                              src="https://flagcdn.com/us.svg"
-                              alt="flag"
-                              class="h-4 w-5 object-cover"
-                            />
-                            <span class="flex-1">United States</span>
-                            <span
-                              class="text-xs text-gray-500 group-data-[selected=true]:text-white"
-                              >+1</span
-                            >
-                          </button>
-
-                          <!-- No Results Template -->
-                          <div class="no-results px-3 py-2.5 text-gray-500">
-                            Sonuç bulunamadı
-                          </div>
-                        </div>
-                      </div>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="AED">AED</option>
+                      </select>
                     </div>
                   </div>
-                </div>
 
-                <!-- Bütçe -->
-                <div class="group/phone flex w-full flex-col gap-1.5">
-                  <label
-                    for="ai-form-budget"
-                    class="text-xs font-medium text-gray-700"
-                  >
-                    Bütçeniz</label
-                  >
-                  <div class="flex">
-                    <div class="relative w-full">
+                  <!-- Start Tarihi -->
+                  <div class="flex flex-col gap-2">
+                    <label
+                      id="ai-form-date-input-start-label"
+                      for="ai-form-date-input-start"
+                      class="text-xs font-medium text-gray-700"
+                      >Başlangıç Tarihi</label
+                    >
+                    <div class="relative">
                       <input
-                        type="number"
-                        name="ai-form-budget"
-                        id="ai-form-budget"
-                        class="z-20 block h-12 w-full appearance-none border border-gray-200 px-2.5 text-gray-900 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-200"
-                        placeholder="400"
+                        readonly=""
+                        type="text"
+                        id="ai-form-date-input-start"
+                        name="ai-form-date-input-start"
+                        data-auto-close="true"
+                        data-timepicker="false"
+                        data-min-date="today"
+                        data-default-date="today"
+                        class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
+                        placeholder="Başlangıç Tarihini Seçin"
                       />
+                      <i
+                        data-lucide="calendar-arrow-down"
+                        class="absolute left-3.5 top-3.5 size-5 text-gray-400"
+                      ></i>
                     </div>
-                    <select
-                      class="z-10 inline-flex shrink-0 appearance-none items-center border border-l-0 border-gray-200 bg-gray-50 px-4 py-2.5 text-center font-medium text-gray-900 hover:bg-gray-100 focus:border-l focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-200"
-                      id="currency-select"
+                  </div>
+
+                  <!-- Dönüş Tarihi -->
+                  <div class="flex flex-col gap-2">
+                    <label
+                      id="ai-form-date-input-end-label"
+                      for="ai-form-date-input-end"
+                      class="text-xs font-medium text-gray-700"
+                      >Dönüş Tarihi</label
                     >
-                      <option value="USD">USD</option>
-                      <option value="EUR">EUR</option>
-                      <option value="GBP">GBP</option>
-                      <option value="AED">AED</option>
-                    </select>
+                    <div class="relative">
+                      <input
+                        readonly=""
+                        type="text"
+                        id="ai-form-date-input-end"
+                        name="ai-form-date-input-end"
+                        data-auto-close="true"
+                        data-timepicker="false"
+                        data-min-date="today"
+                        class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
+                        placeholder="Dönüş Tarihini Seçin"
+                      />
+                      <i
+                        data-lucide="calendar-arrow-down"
+                        class="absolute left-3.5 top-3.5 size-5 text-gray-400"
+                      ></i>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Start Tarihi -->
-                <div class="flex flex-col gap-2">
-                  <label
-                    id="ai-form-date-input-start-label"
-                    for="ai-form-date-input-start"
-                    class="text-xs font-medium text-gray-700"
-                    >Başlangıç Tarihi</label
-                  >
-                  <div class="relative">
-                    <input
-                      readonly=""
-                      type="text"
-                      id="ai-form-date-input-start"
-                      name="ai-form-date-input-start"
-                      data-auto-close="true"
-                      data-timepicker="false"
-                      data-min-date="today"
-                      data-default-date="today"
-                      class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
-                      placeholder="Başlangıç Tarihini Seçin"
-                    />
-                    <i
-                      data-lucide="calendar-arrow-down"
-                      class="absolute left-3.5 top-3.5 size-5 text-gray-400"
-                    ></i>
-                  </div>
-                </div>
-
-                <!-- Dönüş Tarihi -->
-                <div class="flex flex-col gap-2">
-                  <label
-                    id="ai-form-date-input-end-label"
-                    for="ai-form-date-input-end"
-                    class="text-xs font-medium text-gray-700"
-                    >Dönüş Tarihi</label
-                  >
-                  <div class="relative">
-                    <input
-                      readonly=""
-                      type="text"
-                      id="ai-form-date-input-end"
-                      name="ai-form-date-input-end"
-                      data-auto-close="true"
-                      data-timepicker="false"
-                      data-min-date="today"
-                      class="h-12 w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
-                      placeholder="Dönüş Tarihini Seçin"
-                    />
-                    <i
-                      data-lucide="calendar-arrow-down"
-                      class="absolute left-3.5 top-3.5 size-5 text-gray-400"
-                    ></i>
-                  </div>
-                </div>
-
-                <!-- Ilk Mesaj -->
-                <div class="flex flex-col gap-2">
-                  <!-- Label -->
-                  <label
-                    for="ai-form-first-message"
-                    class="text-xs font-medium text-gray-700"
-                    >İlk Mesajınız</label
-                  >
-                  <!-- TextArea -->
-                  <div class="relative">
-                    <textarea
-                      id="ai-form-first-message"
-                      rows="4"
-                      class="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
-                      placeholder="Nasıl yardımcı olabiliriz?"
-                    ></textarea>
-                    <i
-                      data-lucide="message-square"
-                      class="absolute left-3.5 top-3.5 size-5 text-gray-400"
-                    ></i>
-                  </div>
-                  <!-- Suggestion Buttons -->
-                  <div>
-                    <h4 class="mb-2 text-xs font-medium text-gray-700">
-                      Veya hızlı bir konu seçin:
-                    </h4>
-                    <div class="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
-                        onclick="document.getElementById('ai-form-first-message').value = 'Rezervasyon nasıl yapabilirim?';"
-                      >
-                        <span class="flex items-center gap-1.5">
-                          <span>Rezervasyon nasıl yapabilirim?</span>
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
-                        onclick="document.getElementById('ai-form-first-message').value = 'Fiyat bilgisi almak istiyorum';"
-                      >
-                        <span class="flex items-center gap-1.5">
-                          <span>Fiyat bilgisi almak istiyorum</span>
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
-                        onclick="document.getElementById('ai-form-first-message').value = 'İptal koşulları nelerdir?';"
-                      >
-                        <span class="flex items-center gap-1.5">
-                          <span>İptal koşulları nelerdir?</span>
-                        </span>
-                      </button>
+                  <!-- Ilk Mesaj -->
+                  <div class="flex flex-col gap-2">
+                    <!-- Label -->
+                    <label
+                      for="ai-form-first-message"
+                      class="text-xs font-medium text-gray-700"
+                      >İlk Mesajınız</label
+                    >
+                    <!-- TextArea -->
+                    <div class="relative">
+                      <textarea
+                        id="ai-form-first-message"
+                        rows="4"
+                        class="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pl-11 outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-primary-400 focus:bg-white focus:shadow-md focus:ring-2 focus:ring-primary-100"
+                        placeholder="Nasıl yardımcı olabiliriz?"
+                      ></textarea>
+                      <i
+                        data-lucide="message-square"
+                        class="absolute left-3.5 top-3.5 size-5 text-gray-400"
+                      ></i>
+                    </div>
+                    <!-- Suggestion Buttons -->
+                    <div>
+                      <h4 class="mb-2 text-xs font-medium text-gray-700">
+                        Veya hızlı bir konu seçin:
+                      </h4>
+                      <div class="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
+                          onclick="document.getElementById('ai-form-first-message').value = 'Rezervasyon nasıl yapabilirim?';"
+                        >
+                          <span class="flex items-center gap-1.5">
+                            <span>Rezervasyon nasıl yapabilirim?</span>
+                          </span>
+                        </button>
+                        <button
+                          type="button"
+                          class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
+                          onclick="document.getElementById('ai-form-first-message').value = 'Fiyat bilgisi almak istiyorum';"
+                        >
+                          <span class="flex items-center gap-1.5">
+                            <span>Fiyat bilgisi almak istiyorum</span>
+                          </span>
+                        </button>
+                        <button
+                          type="button"
+                          class="quick-question group rounded-full border border-gray-200 bg-white px-3.5 py-2 text-xs font-medium shadow-sm transition-all duration-300 hover:border-primary-300 hover:bg-primary-50 hover:shadow-md active:scale-95"
+                          onclick="document.getElementById('ai-form-first-message').value = 'İptal koşulları nelerdir?';"
+                        >
+                          <span class="flex items-center gap-1.5">
+                            <span>İptal koşulları nelerdir?</span>
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Sohbet Başlatma Butonu -->
-              <div
-                class="sticky bottom-0 flex w-full flex-col gap-4 border-t border-gray-200 bg-white px-4 py-5 shadow-md lg:px-5"
-              >
+                <!-- Sohbet Başlatma Butonu -->
                 <div
-                  id="error-message"
-                  class="flex items-start rounded-lg border-l-4 border-red-400 bg-red-50 p-3 text-red-800"
+                  class="sticky bottom-0 flex w-full flex-col gap-4 border-t border-gray-200 bg-white px-4 py-5 shadow-md lg:px-5"
                 >
-                  <i
-                    data-lucide="alert-circle"
-                    class="size-3.5 flex-shrink-0"
-                  ></i>
-                  <div class="ms-2 text-xs font-medium">
-                    İşlem sırasında bir hata oluştu. Lütfen tekrar deneyiniz.
-                  </div>
-                </div>
-                <button
-                  id="start-chat-button"
-                  type="button"
-                  class="group w-full overflow-hidden rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 px-4 py-3.5 font-medium text-white shadow-lg shadow-primary-500/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/30 active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
-                >
-                  <span
-                    class="relative z-10 flex items-center justify-center gap-2"
-                  >
-                    <span>Sohbeti Başlat</span>
-                    <i data-lucide="send" class="size-5"></i>
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Loading -->
-            <div
-              id="ai-step-loading"
-              class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=loading]:flex"
-            >
-              <div class="flex h-full flex-col items-center justify-center">
-                <div class="relative mb-8">
-                  <!-- AI İkonu - Nabız Efekti -->
-                  <div class="relative size-32 animate-pulse">
-                    <div
-                      class="absolute inset-0 flex items-center justify-center"
-                    >
-                      <img
-                        src="/assets/images/brand-images/chat-bot/goai.svg"
-                        alt="AI Loading"
-                        class="size-20 opacity-70"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Yükleme Mesajları -->
-                <div class="text-center">
-                  <h3 class="text-xl font-medium text-gray-800">
-                    AI Hazırlanıyor
-                  </h3>
                   <div
-                    id="loading-message"
-                    class="mt-3 px-4 text-sm text-gray-600"
+                    id="error-message"
+                    class="flex items-start rounded-lg border-l-4 border-red-400 bg-red-50 p-3 text-red-800"
                   >
-                    <p class="animate-pulse">
-                      Yapay zeka asistanınız bağlanıyor...
-                    </p>
+                    <i
+                      data-lucide="alert-circle"
+                      class="size-3.5 flex-shrink-0"
+                    ></i>
+                    <div class="ms-2 text-xs font-medium">
+                      İşlem sırasında bir hata oluştu. Lütfen tekrar deneyiniz.
+                    </div>
+                  </div>
+                  <button
+                    id="start-chat-button"
+                    type="button"
+                    class="group w-full overflow-hidden rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 px-4 py-3.5 font-medium text-white shadow-lg shadow-primary-500/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/30 active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    <span
+                      class="relative z-10 flex items-center justify-center gap-2"
+                    >
+                      <span>Sohbeti Başlat</span>
+                      <i data-lucide="send" class="size-5"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Loading -->
+              <div
+                id="ai-step-loading"
+                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=loading]:flex"
+              >
+                <div class="flex h-full flex-col items-center justify-center">
+                  <div class="relative mb-8">
+                    <!-- AI İkonu - Nabız Efekti -->
+                    <div class="relative size-32 animate-pulse">
+                      <div
+                        class="absolute inset-0 flex items-center justify-center"
+                      >
+                        <img
+                          src="/assets/images/brand-images/chat-bot/goai.svg"
+                          alt="AI Loading"
+                          class="size-20 opacity-70"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Yükleme Mesajları -->
+                  <div class="text-center">
+                    <h3 class="text-xl font-medium text-gray-800">
+                      AI Hazırlanıyor
+                    </h3>
+                    <div
+                      id="loading-message"
+                      class="mt-3 px-4 text-sm text-gray-600"
+                    >
+                      <p class="animate-pulse">
+                        Yapay zeka asistanınız bağlanıyor...
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Chat -->
-            <div
-              id="ai-step-chat"
-              class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=chat]:flex"
-            >
-              <!-- Mesaj Listeleme Alanı -->
-              <div class="flex flex-1 flex-col overflow-hidden bg-gray-50/80">
-                <!-- Mesaj Listesi Scroll Alanı -->
-                <ul
-                  id="chat-messages"
-                  class="flex flex-1 flex-col gap-4 overflow-y-auto px-4 py-5 lg:px-5"
-                >
-                  <!-- Bot Mesajı -->
-                  <li
-                    data-state="bot"
-                    class="flex animate-[fadeIn_0.3s_forwards] items-end gap-2 opacity-0"
+              <!-- Chat -->
+              <div
+                id="ai-step-chat"
+                class="sidebar hidden h-full w-full flex-col overflow-y-auto group-data-[step=chat]:flex"
+              >
+                <!-- Mesaj Listeleme Alanı -->
+                <div class="flex flex-1 flex-col overflow-hidden bg-gray-50/80">
+                  <!-- Mesaj Listesi Scroll Alanı -->
+                  <ul
+                    id="chat-messages"
+                    class="flex flex-1 flex-col gap-4 overflow-y-auto px-4 py-5 lg:px-5"
                   >
-                    <div
-                      class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 bg-gradient-to-r from-primary-100 to-primary-50 p-1 shadow-sm"
-                    >
-                      <img
-                        src="/assets/images/brand-images/chat-bot/goai.svg"
-                        alt="Bot Avatar"
-                        class="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div class="max-w-[85%]">
-                      <div
-                        class="rounded-2xl rounded-bl-none bg-white px-4 py-3 text-sm shadow-sm"
-                      >
-                        <p>Merhaba! Size nasıl yardımcı olabilirim?</p>
-                      </div>
-                      <span class="mt-1 block pl-1 text-[10px] text-gray-400"
-                        >14:20</span
-                      >
-                    </div>
-                  </li>
-
-                  <!-- Kullanıcı Mesajı -->
-                  <li
-                    data-state="user"
-                    class="flex animate-[fadeIn_0.3s_forwards] items-end justify-end gap-2 opacity-0"
-                  >
-                    <div class="max-w-[80%]">
-                      <div
-                        class="rounded-2xl rounded-br-none bg-gradient-to-r from-primary-500 to-primary-400 px-4 py-3 text-sm text-white shadow-sm"
-                      >
-                        <p>
-                          Dubai'de gezilecek yerler hakkında bilgi almak
-                          istiyorum.
-                        </p>
-                      </div>
-                      <span
-                        class="mt-1 block pr-1 text-right text-[10px] text-gray-500"
-                        >14:22</span
-                      >
-                    </div>
-                    <div
-                      class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 shadow-sm"
+                    <!-- Bot Mesajı -->
+                    <li
+                      data-state="bot"
+                      class="flex animate-[fadeIn_0.3s_forwards] items-end gap-2 opacity-0"
                     >
                       <div
-                        class="flex h-full w-full items-center justify-center bg-gradient-to-l from-primary-100 to-primary-50"
+                        class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 bg-gradient-to-r from-primary-100 to-primary-50 p-1 shadow-sm"
                       >
-                        <i data-lucide="user" class="size-5 text-gray-600"></i>
+                        <img
+                          src="/assets/images/brand-images/chat-bot/goai.svg"
+                          alt="Bot Avatar"
+                          class="h-full w-full object-cover"
+                        />
                       </div>
-                    </div>
-                  </li>
+                      <div class="max-w-[85%]">
+                        <div
+                          class="rounded-2xl rounded-bl-none bg-white px-4 py-3 text-sm shadow-sm"
+                        >
+                          <p>Merhaba! Size nasıl yardımcı olabilirim?</p>
+                        </div>
+                        <span class="mt-1 block pl-1 text-[10px] text-gray-400"
+                          >14:20</span
+                        >
+                      </div>
+                    </li>
 
-                  <!-- Bekleyen Mesaj  -->
-                  <li
-                    data-state="waiting"
-                    class="flex animate-[fadeIn_0.3s_forwards] items-end gap-2 opacity-0"
-                  >
-                    <div
-                      class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 bg-gradient-to-r from-primary-100 to-primary-50 p-1 shadow-sm"
+                    <!-- Kullanıcı Mesajı -->
+                    <li
+                      data-state="user"
+                      class="flex animate-[fadeIn_0.3s_forwards] items-end justify-end gap-2 opacity-0"
                     >
-                      <img
-                        src="/assets/images/brand-images/chat-bot/goai.svg"
-                        alt="Bot Avatar"
-                        class="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div class="max-w-[85%]">
+                      <div class="max-w-[80%]">
+                        <div
+                          class="rounded-2xl rounded-br-none bg-gradient-to-r from-primary-500 to-primary-400 px-4 py-3 text-sm text-white shadow-sm"
+                        >
+                          <p>
+                            Dubai'de gezilecek yerler hakkında bilgi almak
+                            istiyorum.
+                          </p>
+                        </div>
+                        <span
+                          class="mt-1 block pr-1 text-right text-[10px] text-gray-500"
+                          >14:22</span
+                        >
+                      </div>
                       <div
-                        class="rounded-2xl rounded-bl-none bg-white px-4 py-3 text-sm shadow-sm"
+                        class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 shadow-sm"
                       >
-                        <div class="flex items-center gap-1.5">
-                          <div class="flex gap-1">
-                            <span
-                              class="size-2 animate-bounce rounded-full bg-primary-300 [animation-delay:-0.3s]"
-                            ></span>
-                            <span
-                              class="size-2 animate-bounce rounded-full bg-primary-400 [animation-delay:-0.15s]"
-                            ></span>
-                            <span
-                              class="size-2 animate-bounce rounded-full bg-primary-500"
-                            ></span>
+                        <div
+                          class="flex h-full w-full items-center justify-center bg-gradient-to-l from-primary-100 to-primary-50"
+                        >
+                          <i
+                            data-lucide="user"
+                            class="size-5 text-gray-600"
+                          ></i>
+                        </div>
+                      </div>
+                    </li>
+
+                    <!-- Bekleyen Mesaj  -->
+                    <li
+                      data-state="waiting"
+                      class="flex animate-[fadeIn_0.3s_forwards] items-end gap-2 opacity-0"
+                    >
+                      <div
+                        class="size-9 flex-shrink-0 overflow-hidden rounded-full border border-gray-200 bg-gradient-to-r from-primary-100 to-primary-50 p-1 shadow-sm"
+                      >
+                        <img
+                          src="/assets/images/brand-images/chat-bot/goai.svg"
+                          alt="Bot Avatar"
+                          class="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div class="max-w-[85%]">
+                        <div
+                          class="rounded-2xl rounded-bl-none bg-white px-4 py-3 text-sm shadow-sm"
+                        >
+                          <div class="flex items-center gap-1.5">
+                            <div class="flex gap-1">
+                              <span
+                                class="size-2 animate-bounce rounded-full bg-primary-300 [animation-delay:-0.3s]"
+                              ></span>
+                              <span
+                                class="size-2 animate-bounce rounded-full bg-primary-400 [animation-delay:-0.15s]"
+                              ></span>
+                              <span
+                                class="size-2 animate-bounce rounded-full bg-primary-500"
+                              ></span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+                    </li>
+                  </ul>
+                </div>
 
-              <!-- Mesaj Gönderme Alanı - Sticky Bottom -->
-              <div class="sticky bottom-0 w-full bg-white shadow-md">
-                <form
-                  id="chat-form"
-                  class="relative flex items-end border-t border-gray-100 bg-white py-2 pl-6 pr-2 lg:pl-2 lg:pr-2"
-                >
-                  <!-- Mesaj alanı -->
-                  <div class="relative flex-1">
-                    <textarea
-                      id="user-message"
-                      rows="1"
-                      class="max-h-[120px] min-h-[44px] w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-primary-300 focus:bg-white focus:shadow-sm"
-                      placeholder="Mesajınızı yazın..."
-                    ></textarea>
-                    <!-- Özellikler ve Gönder Butonu -->
-                    <div
-                      class="absolute right-2 top-[50%] flex translate-y-[-60%] items-center gap-1"
-                    >
-                      <button
-                        type="submit"
-                        id="send-message"
-                        class="flex size-8 items-center justify-center rounded-full bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-sm transition-all hover:opacity-90 active:scale-95 disabled:opacity-70"
+                <!-- Mesaj Gönderme Alanı - Sticky Bottom -->
+                <div class="sticky bottom-0 w-full bg-white shadow-md">
+                  <form
+                    id="chat-form"
+                    class="relative flex items-end border-t border-gray-100 bg-white py-2 pl-6 pr-2 lg:pl-2 lg:pr-2"
+                  >
+                    <!-- Mesaj alanı -->
+                    <div class="relative flex-1">
+                      <textarea
+                        id="user-message"
+                        rows="1"
+                        class="max-h-[120px] min-h-[44px] w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-primary-300 focus:bg-white focus:shadow-sm"
+                        placeholder="Mesajınızı yazın..."
+                      ></textarea>
+                      <!-- Özellikler ve Gönder Butonu -->
+                      <div
+                        class="absolute right-2 top-[50%] flex translate-y-[-60%] items-center gap-1"
                       >
-                        <i
-                          data-lucide="send"
-                          class="size-4 translate-x-[-0.5px]"
-                        ></i>
-                      </button>
+                        <button
+                          type="submit"
+                          id="send-message"
+                          class="flex size-8 items-center justify-center rounded-full bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-sm transition-all hover:opacity-90 active:scale-95 disabled:opacity-70"
+                        >
+                          <i
+                            data-lucide="send"
+                            class="size-4 translate-x-[-0.5px]"
+                          ></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
