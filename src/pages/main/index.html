@@ -2508,66 +2508,70 @@
         >
           <div
             id="chat-container"
-            class="sidebar pointer-events-auto flex h-[100vh] max-h-[100vh] w-screen flex-col justify-start overflow-y-auto bg-white shadow shadow-gray-950/20 lg:w-[440px]"
+            class="sidebar pointer-events-auto flex h-[90vh] max-h-[90vh] w-screen flex-col justify-start overflow-y-auto bg-white shadow shadow-gray-950/20 lg:w-[440px]"
           >
-            <div
-              class="z-10 flex w-full items-center justify-between border-b border-gray-100/80 bg-gradient-to-r from-primary-600 to-primary-500 px-4 py-3 text-white backdrop-blur-md lg:px-5"
-            >
-              <div class="flex items-center gap-3">
-                <!-- Bot Avatar -->
-                <div
-                  class="group/avatar relative size-11 overflow-hidden rounded-full border-2 border-white bg-gradient-to-tr from-primary-100 to-primary-50 p-1 shadow-md transition-all duration-300 hover:scale-105"
-                >
-                  <img
-                    src="/assets/images/brand-images/chat-bot/goai.svg"
-                    alt="Bot Avatar"
-                    class="size-full"
-                  />
-                </div>
-                <!-- Bot ismi ve durum -->
-                <div>
-                  <h3 class="font-medium tracking-wide">AI Yardım Asistanı</h3>
-                  <div class="flex items-center gap-1.5 text-xs">
-                    <span class="relative flex h-2.5 w-2.5">
-                      <span
-                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
-                      ></span>
-                      <span
-                        class="relative inline-flex size-2.5 rounded-full bg-emerald-500"
-                      ></span>
-                    </span>
-                    <span id="bot-status" class="text-xs font-light"
-                      >Yapay Zeka Aktif</span
-                    >
+            <div class="flex flex-col justify-end">
+              <!-- Header -->
+              <div
+                class="z-10 flex w-full items-center justify-between border-b border-gray-100/80 bg-gradient-to-r from-primary-600 to-primary-500 px-4 py-3 text-white backdrop-blur-md lg:px-5"
+              >
+                <div class="flex items-center gap-3">
+                  <!-- Bot Avatar -->
+                  <div
+                    class="group/avatar relative size-11 overflow-hidden rounded-full border-2 border-white bg-gradient-to-tr from-primary-100 to-primary-50 p-1 shadow-md transition-all duration-300 hover:scale-105"
+                  >
+                    <img
+                      src="/assets/images/brand-images/chat-bot/goai.svg"
+                      alt="Bot Avatar"
+                      class="size-full"
+                    />
+                  </div>
+                  <!-- Bot ismi ve durum -->
+                  <div>
+                    <h3 class="font-medium tracking-wide">
+                      AI Yardım Asistanı
+                    </h3>
+                    <div class="flex items-center gap-1.5 text-xs">
+                      <span class="relative flex h-2.5 w-2.5">
+                        <span
+                          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+                        ></span>
+                        <span
+                          class="relative inline-flex size-2.5 rounded-full bg-emerald-500"
+                        ></span>
+                      </span>
+                      <span id="bot-status" class="text-xs font-light"
+                        >Yapay Zeka Aktif</span
+                      >
+                    </div>
                   </div>
                 </div>
+                <!-- Kontrol butonları - 3 buton versiyonu -->
+                <div class="flex gap-2">
+                  <button
+                    id="minimize-chat"
+                    class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:rotate-180"
+                    title="Sohbeti Küçült"
+                  >
+                    <i data-lucide="chevron-down" class="size-5"></i>
+                  </button>
+                  <button
+                    id="new-chat"
+                    class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:pointer-events-none group-data-[state=minimized]:opacity-50"
+                    title="Yeni Sohbet"
+                  >
+                    <i data-lucide="plus" class="size-5"></i>
+                  </button>
+                  <button
+                    id="close-chat"
+                    class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:pointer-events-none group-data-[state=minimized]:opacity-50"
+                    title="Sohbeti Kapat"
+                  >
+                    <i data-lucide="x" class="size-5"></i>
+                  </button>
+                </div>
               </div>
-              <!-- Kontrol butonları - 3 buton versiyonu -->
-              <div class="flex gap-2">
-                <button
-                  id="minimize-chat"
-                  class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:rotate-180"
-                  title="Sohbeti Küçült"
-                >
-                  <i data-lucide="chevron-down" class="size-5"></i>
-                </button>
-                <button
-                  id="new-chat"
-                  class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:pointer-events-none group-data-[state=minimized]:opacity-50"
-                  title="Yeni Sohbet"
-                >
-                  <i data-lucide="plus" class="size-5"></i>
-                </button>
-                <button
-                  id="close-chat"
-                  class="rounded-full p-2 text-white/90 transition-all hover:bg-white/20 hover:text-white hover:shadow-md group-data-[state=minimized]:pointer-events-none group-data-[state=minimized]:opacity-50"
-                  title="Sohbeti Kapat"
-                >
-                  <i data-lucide="x" class="size-5"></i>
-                </button>
-              </div>
-            </div>
-            <div class="flex flex-col justify-end">
+
               <!-- Sohbeti Kapatma Onay Modali -->
               <div
                 id="close-chat-modal"
