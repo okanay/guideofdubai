@@ -57,6 +57,9 @@
   }
 
   textarea,
+  select,
+  input[type='numeric'],
+  input[type='number'],
   input[type='text'],
   input[type='button'],
   input[type='submit'] {
