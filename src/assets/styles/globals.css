@@ -40,9 +40,22 @@
   --lime-950: 5 46 22;
 
   interpolate-size: allow-keywords;
+
+  --tw-border-radius-none: 0px;
+  --tw-border-radius-sm: 0px;
+  --tw-border-radius: 0px;
+  --tw-border-radius-md: 0px;
+  --tw-border-radius-lg: 0px;
+  --tw-border-radius-xl: 0px;
+  --tw-border-radius-2xl: 0px;
+  --tw-border-radius-3xl: 0px;
 }
 
 @layer base {
+  [class*='rounded']:not([class*='rounded-full']) {
+    border-radius: 2px !important;
+  }
+
   html {
     scroll-behavior: smooth;
   }

@@ -1,5 +1,4 @@
 import { Slider } from './packages/slider.js'
-import { AccordionController } from './packages/accordion.js'
 import { TouchDirectionDetector } from './packages/touch-event.js'
 import { WheelScroll } from './packages/wheel-scroll.js'
 
