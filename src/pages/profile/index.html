@@ -1247,6 +1247,25 @@
                     >
                   </button>
                 </li>
+                <!-- Referans -->
+                <li class="group">
+                  <button
+                    id="profile-view-control-11"
+                    data-state="closed"
+                    class="group flex items-center rounded-lg p-2 font-medium transition-all duration-300 hover:opacity-75 data-[state=open]:hover:!opacity-100"
+                  >
+                    <span
+                      class="size-[22px] flex-shrink-0 transition-all duration-300 group-hover:text-primary-600 group-data-[state=open]:text-primary-500"
+                    >
+                      <i data-lucide="ticket-percent" class="size-full"></i>
+                    </span>
+                    <span
+                      class="ms-3 text-nowrap group-data-[state=open]:font-semibold group-data-[state=open]:text-gray-800 group-data-[state=closed]/nav:opacity-0 md:!opacity-100"
+                    >
+                      Referanslarim</span
+                    >
+                  </button>
+                </li>
                 <!-- Visa -->
                 <li class="group">
                   <button
@@ -2296,6 +2315,495 @@
                     Transfer Rezervasyonlarım
                   </h2>
                 </div>
+              </div>
+              <!-- Referans Sistemi -->
+              <div
+                data-state="closed"
+                id="referans"
+                class="flex h-full data-[state=closed]:hidden group-data-[query=referans]/query:!block"
+              >
+                <div class="flex h-full w-full flex-col justify-start">
+                  <h2 class="mb-6 pl-px text-2xl font-semibold text-gray-800">
+                    Referans Sistemi
+                  </h2>
+
+                  <!-- Referans Linki Alanı -->
+                  <div class="mb-8">
+                    <div
+                      class="overflow-hidden rounded-lg border border-gray-100 bg-white"
+                    >
+                      <div class="border-b border-gray-100 bg-gray-50 p-5">
+                        <h3 class="text-base font-medium text-gray-700">
+                          Referans Linkiniz
+                        </h3>
+                      </div>
+                      <div class="p-5">
+                        <p class="mb-4 text-sm text-gray-500">
+                          Bu linki arkadaşlarınızla paylaşarak onlara indirim
+                          kazandırabilirsiniz
+                        </p>
+                        <div class="flex flex-col gap-3 sm:flex-row">
+                          <div class="flex-grow">
+                            <input
+                              type="text"
+                              value="https://example.com/ref/abc123xyz"
+                              id="referans-link"
+                              class="h-11 w-full rounded border border-gray-200 bg-white px-3 py-2 outline-none transition focus:border-primary-400 focus:ring-1 focus:ring-primary-200"
+                              readonly
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            id="copy-button"
+                            class="flex h-11 items-center justify-center gap-2 rounded bg-primary-500 px-5 font-medium text-primary-500 text-white transition-opacity duration-300 hover:opacity-75"
+                            onclick="copyReferralLink()"
+                          >
+                            <i data-lucide="copy" class="size-4"></i>
+                            <span>Kopyala</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Referansla Kayıt Olan Kullanıcılar -->
+                  <div class="mb-8">
+                    <div
+                      class="mb-4 flex flex-wrap items-center justify-between gap-3"
+                    >
+                      <h3 class="text-lg font-medium text-gray-700">
+                        Referansınızla Kayıt Olanlar
+                      </h3>
+                    </div>
+
+                    <div
+                      class="overflow-hidden rounded-lg border border-gray-100 bg-white"
+                    >
+                      <!-- Tablo -->
+                      <div class="overflow-x-auto">
+                        <table
+                          class="w-full min-w-full divide-y divide-gray-100"
+                        >
+                          <thead>
+                            <tr class="bg-gray-50">
+                              <th
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500"
+                              >
+                                <div class="flex items-center gap-1">
+                                  <span>İsim</span>
+                                  <span class="text-gray-400">
+                                    <i
+                                      data-lucide="arrow-down-narrow-wide"
+                                      class="size-3.5"
+                                    ></i>
+                                  </span>
+                                </div>
+                              </th>
+                              <th
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500"
+                              >
+                                <div class="flex items-center gap-1">
+                                  <span>Kayıt Tarihi</span>
+                                  <span class="text-gray-400">
+                                    <i
+                                      data-lucide="arrow-down-narrow-wide"
+                                      class="size-3.5"
+                                    ></i>
+                                  </span>
+                                </div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-gray-50">
+                            <!-- Kullanıcı 1 -->
+                            <tr class="transition hover:bg-gray-50">
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm font-medium text-gray-700">
+                                  Ahmet Yılmaz
+                                </div>
+                              </td>
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm text-gray-500">
+                                  10.04.2025
+                                </div>
+                              </td>
+                            </tr>
+                            <!-- Kullanıcı 2 -->
+                            <tr class="transition hover:bg-gray-50">
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm font-medium text-gray-700">
+                                  Ayşe Kaya
+                                </div>
+                              </td>
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm text-gray-500">
+                                  03.04.2025
+                                </div>
+                              </td>
+                            </tr>
+                            <!-- Kullanıcı 3 -->
+                            <tr class="transition hover:bg-gray-50">
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm font-medium text-gray-700">
+                                  Mehmet Demir
+                                </div>
+                              </td>
+                              <td class="whitespace-nowrap px-6 py-4">
+                                <div class="text-sm text-gray-500">
+                                  25.03.2025
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <!-- Hiç Kullanıcı Yok Durumu -->
+                      <div class="p-8">
+                        <div
+                          class="flex flex-col items-center justify-center gap-3"
+                        >
+                          <div
+                            class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-50"
+                          >
+                            <i
+                              data-lucide="users"
+                              class="size-8 text-gray-400"
+                            ></i>
+                          </div>
+                          <p class="text-center font-medium text-gray-600">
+                            Henüz referansınızla kayıt olan kullanıcı bulunmuyor
+                          </p>
+                          <p class="text-center text-sm text-gray-500">
+                            Referans linkinizi paylaşarak arkadaşlarınızı davet
+                            edebilirsiniz
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Kuponlar Alanı -->
+                  <div class="group/container mb-8" data-filter="all">
+                    <div
+                      class="mb-4 flex flex-wrap items-center justify-between gap-3"
+                    >
+                      <h3 class="text-lg font-medium text-gray-700">
+                        Kuponlarınız
+                      </h3>
+
+                      <!-- Kupon Filtreleri -->
+                      <div class="flex gap-2">
+                        <button
+                          type="button"
+                          onclick="setCouponFilter('all')"
+                          class="flex h-8 items-center rounded border px-3 text-sm font-medium transition group-data-[filter=all]/container:border-primary-300 group-data-[filter=useable]/container:border-gray-200 group-data-[filter=used]/container:border-gray-200 group-data-[filter=all]/container:bg-primary-50 group-data-[filter=all]/container:text-primary-500 group-data-[filter=useable]/container:text-gray-600 group-data-[filter=used]/container:text-gray-600 group-data-[filter=useable]/container:hover:border-gray-300 group-data-[filter=used]/container:hover:border-gray-300"
+                        >
+                          Tümü
+                        </button>
+                        <button
+                          type="button"
+                          onclick="setCouponFilter('useable')"
+                          class="flex h-8 items-center rounded border px-3 text-sm font-medium transition group-data-[filter=all]/container:border-gray-200 group-data-[filter=useable]/container:border-primary-300 group-data-[filter=used]/container:border-gray-200 group-data-[filter=useable]/container:bg-primary-50 group-data-[filter=all]/container:text-gray-600 group-data-[filter=useable]/container:text-primary-500 group-data-[filter=used]/container:text-gray-600 group-data-[filter=all]/container:hover:border-gray-300 group-data-[filter=used]/container:hover:border-gray-300"
+                        >
+                          Kullanılabilir
+                        </button>
+                        <button
+                          type="button"
+                          onclick="setCouponFilter('used')"
+                          class="flex h-8 items-center rounded border px-3 text-sm font-medium transition group-data-[filter=all]/container:border-gray-200 group-data-[filter=useable]/container:border-gray-200 group-data-[filter=used]/container:border-primary-300 group-data-[filter=used]/container:bg-primary-50 group-data-[filter=all]/container:text-gray-600 group-data-[filter=useable]/container:text-gray-600 group-data-[filter=used]/container:text-primary-500 group-data-[filter=all]/container:hover:border-gray-300 group-data-[filter=useable]/container:hover:border-gray-300"
+                        >
+                          Kullanılmış
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                    >
+                      <!-- Kullanılmış Kupon -->
+                      <div
+                        data-state="used"
+                        class="group/coupon coupon-card flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition hover:border-gray-200 hover:shadow-sm group-data-[filter=all]/container:flex group-data-[filter=used]/container:flex group-data-[filter=useable]/container:hidden"
+                      >
+                        <div
+                          class="border-b border-gray-100 bg-gray-50 px-4 py-3"
+                        >
+                          <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-700"
+                              >İndirim Kuponu</span
+                            >
+                            <div
+                              class="rounded-full px-2.5 py-1 text-xs font-medium group-data-[state=useable]/coupon:bg-green-50 group-data-[state=used]/coupon:bg-gray-100 group-data-[state=useable]/coupon:text-green-600 group-data-[state=used]/coupon:text-gray-500"
+                            >
+                              Kullanıldı
+                            </div>
+                          </div>
+                        </div>
+                        <div class="p-4">
+                          <div
+                            class="mb-1 text-lg font-medium group-data-[state=useable]/coupon:text-primary-500 group-data-[state=used]/coupon:text-gray-500"
+                          >
+                            %10
+                          </div>
+                          <div class="mb-2 font-mono text-sm text-gray-600">
+                            ABC987XYZ
+                          </div>
+                          <div class="text-xs text-gray-500">
+                            15.03.2025 tarihinde kullanıldı
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Kullanılabilir Kupon -->
+                      <div
+                        data-state="useable"
+                        class="group/coupon coupon-card flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition hover:border-gray-200 hover:shadow-sm group-data-[filter=all]/container:flex group-data-[filter=useable]/container:flex group-data-[filter=used]/container:hidden"
+                      >
+                        <div
+                          class="border-b border-gray-100 bg-gray-50 px-4 py-3"
+                        >
+                          <div class="flex items-center justify-between">
+                            <span class="font-medium text-gray-700"
+                              >İndirim Kuponu</span
+                            >
+                            <div
+                              class="rounded-full px-2.5 py-1 text-xs font-medium group-data-[state=useable]/coupon:bg-green-50 group-data-[state=used]/coupon:bg-gray-100 group-data-[state=useable]/coupon:text-green-600 group-data-[state=used]/coupon:text-gray-500"
+                            >
+                              Kullanılabilir
+                            </div>
+                          </div>
+                        </div>
+                        <div class="p-4">
+                          <div
+                            class="mb-1 text-lg font-medium group-data-[state=useable]/coupon:text-primary-500 group-data-[state=used]/coupon:text-gray-500"
+                          >
+                            %20
+                          </div>
+                          <div class="mb-2 font-mono text-sm text-gray-600">
+                            DEF456GHI
+                          </div>
+                          <div class="text-xs text-gray-500">
+                            Son Kullanım: 15.06.2025
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Sayfalama ve Gösterim Kontrolü -->
+                    <div class="mt-5 flex items-center justify-between">
+                      <div class="text-sm text-gray-500">
+                        <span id="coupon-count">2</span> kupon gösteriliyor
+                      </div>
+                    </div>
+
+                    <!-- Hiç Kupon Yok Durumu -->
+                    <div
+                      class="mt-3 rounded-lg border border-gray-100 bg-white p-8"
+                      id="empty-coupons"
+                    >
+                      <div
+                        class="flex flex-col items-center justify-center gap-3"
+                      >
+                        <div
+                          class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-50"
+                        >
+                          <i
+                            data-lucide="ticket"
+                            class="size-8 text-gray-400"
+                          ></i>
+                        </div>
+                        <p class="text-center font-medium text-gray-600">
+                          Henüz hiç kuponunuz bulunmuyor
+                        </p>
+                        <p class="text-center text-sm text-gray-500">
+                          Referans linkinizi paylaşarak kupon kazanmaya
+                          başlayabilirsiniz
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Loading State -->
+                  <div id="referans-loading" class="mt-8">
+                    <div class="flex flex-col gap-4">
+                      <!-- Loading Header -->
+                      <div class="flex items-center">
+                        <div
+                          class="h-6 w-32 animate-pulse rounded bg-gray-200"
+                        ></div>
+                      </div>
+
+                      <!-- Loading Table -->
+                      <div
+                        class="overflow-hidden rounded-lg border border-gray-100 bg-white"
+                      >
+                        <div class="border-b border-gray-100 bg-gray-50 p-3">
+                          <div
+                            class="h-5 w-40 animate-pulse rounded bg-gray-200"
+                          ></div>
+                        </div>
+                        <div class="p-4">
+                          <div
+                            class="mb-3 h-8 w-full animate-pulse rounded bg-gray-200"
+                          ></div>
+                          <div
+                            class="mb-3 h-8 w-full animate-pulse rounded bg-gray-200"
+                          ></div>
+                          <div
+                            class="h-8 w-full animate-pulse rounded bg-gray-200"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <!-- Loading Cards -->
+                      <div
+                        class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+                      >
+                        <!-- Loading Card 1 -->
+                        <div
+                          class="overflow-hidden rounded-lg border border-gray-100 bg-white"
+                        >
+                          <div class="border-b border-gray-100 bg-gray-50 p-3">
+                            <div class="flex items-center justify-between">
+                              <div
+                                class="h-5 w-28 animate-pulse rounded bg-gray-200"
+                              ></div>
+                              <div
+                                class="h-5 w-20 animate-pulse rounded-full bg-gray-200"
+                              ></div>
+                            </div>
+                          </div>
+                          <div class="p-4">
+                            <div
+                              class="mb-2 h-7 w-12 animate-pulse rounded bg-gray-200"
+                            ></div>
+                            <div
+                              class="mb-2 h-5 w-24 animate-pulse rounded bg-gray-200"
+                            ></div>
+                            <div
+                              class="h-4 w-32 animate-pulse rounded bg-gray-200"
+                            ></div>
+                          </div>
+                        </div>
+
+                        <!-- Loading Card 2 -->
+                        <div
+                          class="overflow-hidden rounded-lg border border-gray-100 bg-white"
+                        >
+                          <div class="border-b border-gray-100 bg-gray-50 p-3">
+                            <div class="flex items-center justify-between">
+                              <div
+                                class="h-5 w-28 animate-pulse rounded bg-gray-200"
+                              ></div>
+                              <div
+                                class="h-5 w-20 animate-pulse rounded-full bg-gray-200"
+                              ></div>
+                            </div>
+                          </div>
+                          <div class="p-4">
+                            <div
+                              class="mb-2 h-7 w-12 animate-pulse rounded bg-gray-200"
+                            ></div>
+                            <div
+                              class="mb-2 h-5 w-24 animate-pulse rounded bg-gray-200"
+                            ></div>
+                            <div
+                              class="h-4 w-32 animate-pulse rounded bg-gray-200"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Kupon Filtreleme Fonksiyonu -->
+                <script>
+                  function setCouponFilter(filter) {
+                    // Filtreleme
+                    const container =
+                      document.querySelector('.group\\/container')
+                    container.setAttribute('data-filter', filter)
+
+                    // Sayacı güncelle
+                    const kuponCount = document.getElementById('coupon-count')
+                    let count = 0
+
+                    if (filter === 'all') {
+                      count = document.querySelectorAll('.coupon-card').length
+                    } else if (filter === 'useable') {
+                      count = document.querySelectorAll(
+                        '.coupon-card[data-state="useable"]',
+                      ).length
+                    } else if (filter === 'used') {
+                      count = document.querySelectorAll(
+                        '.coupon-card[data-state="used"]',
+                      ).length
+                    }
+
+                    kuponCount.textContent = count
+
+                    // İkonlar
+                    if (typeof window.callIcons === 'function') {
+                      window.callIcons()
+                    }
+                  }
+
+                  // Sayfa yüklendiğinde boş durum kontrolü
+                  document.addEventListener('DOMContentLoaded', function () {
+                    const coupons = document.querySelectorAll('.coupon-card')
+                    const emptyMessage =
+                      document.getElementById('empty-coupons')
+
+                    if (coupons.length === 0) {
+                      emptyMessage.classList.remove('hidden')
+                    }
+
+                    // İlk sayaç değerini ayarla
+                    document.getElementById('coupon-count').textContent =
+                      coupons.length
+                  })
+                </script>
+
+                <!-- Kopyalama Fonksiyonu -->
+                <script>
+                  function copyReferralLink() {
+                    // Referans linkini al
+                    const referansLink =
+                      document.getElementById('referans-link')
+
+                    // Linki kopyala
+                    referansLink.select()
+                    referansLink.setSelectionRange(0, 99999) // Mobil cihazlar için
+
+                    // Panoya kopyala
+                    navigator.clipboard
+                      .writeText(referansLink.value)
+                      .then(() => {
+                        // Başarılı bildirim
+                        const copyButton =
+                          document.getElementById('copy-button')
+                        const originalText = copyButton.innerHTML
+
+                        // Buton yazısını değiştir
+                        copyButton.innerHTML =
+                          '<i data-lucide="check" class="size-4"></i><span>Kopyala</span>'
+                        window.callIcons()
+
+                        // 2 saniye sonra orijinal yazıyı geri getir
+                        setTimeout(function () {
+                          copyButton.innerHTML = originalText
+                          window.callIcons()
+                        }, 2000)
+                      })
+                      .catch(err => {
+                        console.error('Kopyalama başarısız: ', err)
+                      })
+                  }
+                </script>
               </div>
             </div>
           </div>
