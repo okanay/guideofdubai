@@ -3181,8 +3181,16 @@
           const minimizeButton = document.getElementById('minimize-chat')
           const closeButton = document.getElementById('close-chat')
           const newChatButton = document.getElementById('new-chat')
-          const openChatButton = document.getElementById('open-chat-button')
+          const openChatButton = document.getElementById('ai-toggle-button')
           const startChatButton = document.getElementById('start-chat-button')
+          // Sabit buton grubunu tanımla
+          const fixedButtonGroups = document.getElementById(
+            'fixed-button-groups',
+          )
+          // Mobil fiyat containerı
+          const mobilePriceContainer = document.getElementById(
+            'mobile-price-container',
+          )
 
           const closeChatModal = document.getElementById('close-chat-modal')
           const newChatModal = document.getElementById('new-chat-modal')
@@ -3212,6 +3220,31 @@
             return scrollbarWidth
           }
 
+          // Sabit buton gruplarının durumunu güncelleme fonksiyonu - global erişim için
+          window.updateFixedButtonsState = function () {
+            // Chat modal açık ve küçültülmüş ise
+            if (chatModal.dataset.state === 'minimized') {
+              fixedButtonGroups.dataset.state = 'minimized'
+              // Mobil fiyat containerını gizle
+              if (mobilePriceContainer) {
+                mobilePriceContainer.classList.add('hidden')
+              }
+            } else {
+              fixedButtonGroups.dataset.state = 'normal'
+              // Eğer purchase-submit-btn varsa ve görünür durumdaysa mobil fiyat containerını göster
+              const purchaseSubmitBtn = document.getElementById(
+                'purchase-submit-btn',
+              )
+              if (
+                mobilePriceContainer &&
+                purchaseSubmitBtn &&
+                purchaseSubmitBtn.offsetParent !== null
+              ) {
+                mobilePriceContainer.classList.remove('hidden')
+              }
+            }
+          }
+
           startChatButton.addEventListener('click', () => {
             chatModal.dataset.step = 'loading'
             lockBodyScroll()
@@ -3223,6 +3256,9 @@
           minimizeButton.addEventListener('click', () => {
             const isMinimized = chatModal.dataset.state === 'minimized'
             chatModal.dataset.state = isMinimized ? 'open' : 'minimized'
+
+            // Modal durumu değiştiğinde buton gruplarının durumunu güncelle
+            window.updateFixedButtonsState()
 
             if (isMinimized) {
               lockBodyScroll()
@@ -3264,6 +3300,8 @@
               chatModal.dataset.state = 'closed'
               chatModal.dataset.step = 'form'
               openChatButton.dataset.state = 'show'
+              // Chat modal kapandığında buton gruplarının durumunu normal yap
+              window.updateFixedButtonsState()
               unlockBodyScroll()
             })
 
@@ -3292,6 +3330,8 @@
           openChatButton.addEventListener('click', () => {
             chatModal.dataset.state = 'open'
             openChatButton.dataset.state = 'hidden'
+            // Chat modal açıldığında buton gruplarının durumunu güncelle
+            window.updateFixedButtonsState()
             lockBodyScroll()
           })
 
@@ -3342,28 +3382,11 @@
               }
             }
           })
+
+          // Sayfa yüklendiğinde ilk durumu ayarla
+          window.updateFixedButtonsState()
         })
       </script>
-
-      <!-- AI MODAL  -->
-      <button
-        data-state="show"
-        id="open-chat-button"
-        class="pointer-events-auto fixed bottom-6 right-6 z-[9998] flex size-16 items-center justify-center rounded-full bg-white shadow-lg transition-all duration-500 hover:!opacity-75 hover:shadow-xl active:scale-95 data-[state=hidden]:scale-0 data-[state=show]:scale-100 data-[state=hidden]:opacity-0 data-[state=show]:opacity-100"
-      >
-        <span class="relative size-full rounded-full">
-          <span
-            class="absolute -inset-1 animate-ping rounded-full bg-gray-100 opacity-30"
-          ></span>
-          <span class="relative flex h-full w-full items-center justify-center">
-            <img
-              src="/assets/images/brand-images/chat-bot/goai.svg"
-              alt="Bot Avatar"
-              class="size-10"
-            />
-          </span>
-        </span>
-      </button>
 
       <!-- Date Picker Modal -->
       <div
@@ -5843,6 +5866,67 @@
         </div>
       </section>
     </main>
+
+    <div
+      id="fixed-button-groups"
+      data-state="normal"
+      data-purchase="hidden"
+      class="fixed right-4 z-[1000] flex flex-col gap-6 transition-all duration-300 ease-in-out data-[state='minimized'][data-purchase='hidden']:bottom-24 data-[state='minimized'][data-purchase='visible']:bottom-24 data-[state='normal'][data-purchase='hidden']:bottom-4 data-[state='normal'][data-purchase='visible']:bottom-24 sm:data-[state='minimized']:!bottom-24 sm:data-[state='normal']:!bottom-6 rtl:!left-4 rtl:!right-auto"
+    >
+      <!-- AI Toggle Button -->
+      <button
+        id="ai-toggle-button"
+        data-state="show"
+        class="group relative flex items-center justify-end gap-2 transition-all duration-200 ease-in data-[state=hidden]:scale-50 data-[state=hidden]:opacity-0"
+      >
+        <!-- Araç ipucu (tooltip) -->
+        <span
+          class="pointer-events-none absolute right-full mr-2 text-nowrap rounded-lg border border-gray-950/20 bg-white px-4 py-2 text-sm text-gray-700 opacity-0 shadow-lg transition-all duration-300 ease-out before:absolute before:-right-2 before:top-1/2 before:-translate-y-1/2 before:border-8 before:border-transparent before:border-l-white before:content-[''] group-hover:-translate-x-1 group-hover:scale-100 group-hover:opacity-100"
+        >
+          Yapay Zeka
+        </span>
+
+        <!-- Ping Effect -->
+        <div
+          class="pointer-events-none absolute inset-0 animate-ping rounded-full bg-lime-50 opacity-30"
+        ></div>
+
+        <div
+          class="relative flex size-14 items-center justify-center rounded-full border border-gray-200 bg-white p-2 sm:size-16"
+        >
+          <img
+            src="/assets/images/brand-images/chat-bot/goai.svg"
+            alt="Bot Avatar"
+            class="size-full transition-[transform] duration-300 group-hover:scale-110"
+          />
+        </div>
+      </button>
+
+      <!-- WhatsApp Button -->
+      <a
+        href="https://wa.me/97152521419"
+        aria-label="WhatsApp ile mesaj gönder"
+        class="group relative flex items-center justify-end gap-2"
+      >
+        <!-- Araç ipucu (tooltip) -->
+        <span
+          class="pointer-events-none absolute right-full mr-2 text-nowrap rounded-lg border border-gray-950/20 bg-white px-4 py-2 text-sm text-gray-700 opacity-0 shadow-lg transition-all duration-300 ease-out before:absolute before:-right-2 before:top-1/2 before:-translate-y-1/2 before:border-8 before:border-transparent before:border-l-white before:content-[''] group-hover:-translate-x-1 group-hover:scale-100 group-hover:opacity-100"
+        >
+          Bize WhatsApp'tan ulaşın
+        </span>
+
+        <!-- WhatsApp ikonu -->
+        <div
+          class="relative flex size-14 items-center justify-center rounded-full border border-gray-200 bg-white p-2 sm:size-16"
+        >
+          <img
+            src="/assets/images/icons/whatsapp.svg"
+            alt="WhatsApp ile İletişime Geç"
+            class="size-full transition-[transform] duration-300 group-hover:rotate-[15deg]"
+          />
+        </div>
+      </a>
+    </div>
 
     <footer class="relative w-full overflow-hidden text-gray-900">
       <!-- Main Content with z-index to appear above background -->
